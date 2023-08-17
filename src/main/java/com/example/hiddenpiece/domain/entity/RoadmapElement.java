@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "roadmap_element")
+@Table(name = "roadmap_elements")
 public class RoadmapElement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

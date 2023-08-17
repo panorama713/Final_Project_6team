@@ -2,6 +2,7 @@ package com.example.hiddenpiece.service.roadmap;
 
 import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapElementDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapElementDto;
+import com.example.hiddenpiece.domain.dto.roadmap.RoadmapElementReadResponseDto;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.roadmap.RoadmapCategory;
 import com.example.hiddenpiece.domain.entity.roadmap.RoadmapElement;
@@ -10,7 +11,12 @@ import com.example.hiddenpiece.domain.repository.roadmap.RoadmapElementRepositor
 import com.example.hiddenpiece.domain.repository.roadmap.RoadmapRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -45,5 +51,23 @@ public class RoadmapElementService {
         log.info("roadmapElement: {}", entity);
 
         return ResponseRoadmapElementDto.fromEntity(roadmapElementRepository.save(entity));
+    }
+
+    // 로드맵 요소 목록 조회
+    public List<RoadmapElementReadResponseDto> readAllRoadmapElementList(Long roadmapId, Long roadmapCategoryId) {
+        // Roadmap 존재 확인
+        Roadmap roadmap = roadmapRepository.findById(roadmapId)
+                .orElseThrow(() -> new RuntimeException("로드맵이 존재하지 않습니다."));
+
+        // Roadmap_category 확인
+        RoadmapCategory targetRoadmapCategory = roadmapCategoryRepository.findById(roadmapCategoryId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 요소가 없습니다."));
+
+        List<RoadmapElementReadResponseDto> dtoList = new ArrayList<>();
+        for (RoadmapElement entity : targetRoadmapCategory.getRoadmapElementList()) {
+            dtoList.add(RoadmapElementReadResponseDto.fromEntity(entity));
+        }
+
+        return dtoList;
     }
 }

@@ -1,7 +1,7 @@
 package com.example.hiddenpiece.security;
 
-import com.example.hiddenpiece.domain.entity.User;
-import com.example.hiddenpiece.domain.repository.UserRepository;
+import com.example.hiddenpiece.domain.entity.user.User;
+import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
 import lombok.RequiredArgsConstructor;

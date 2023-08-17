@@ -1,6 +1,6 @@
-package com.example.hiddenpiece.domain.entity;
+package com.example.hiddenpiece.domain.entity.user;
 
-import com.example.hiddenpiece.common.BaseTimeEntity;
+import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

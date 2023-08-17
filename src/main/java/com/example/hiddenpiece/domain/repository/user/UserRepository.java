@@ -1,6 +1,6 @@
-package com.example.hiddenpiece.domain.repository;
+package com.example.hiddenpiece.domain.repository.user;
 
-import com.example.hiddenpiece.domain.entity.User;
+import com.example.hiddenpiece.domain.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

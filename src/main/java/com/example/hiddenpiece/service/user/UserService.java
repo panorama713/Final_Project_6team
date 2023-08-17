@@ -1,9 +1,9 @@
-package com.example.hiddenpiece.service;
+package com.example.hiddenpiece.service.user;
 
 import com.example.hiddenpiece.domain.dto.user.SignupRequestDto;
 import com.example.hiddenpiece.domain.dto.user.SignupResponseDto;
-import com.example.hiddenpiece.domain.entity.User;
-import com.example.hiddenpiece.domain.repository.UserRepository;
+import com.example.hiddenpiece.domain.entity.user.User;
+import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
 import lombok.RequiredArgsConstructor;

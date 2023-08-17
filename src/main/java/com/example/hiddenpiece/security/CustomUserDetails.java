@@ -1,6 +1,6 @@
 package com.example.hiddenpiece.security;
 
-import com.example.hiddenpiece.domain.entity.User;
+import com.example.hiddenpiece.domain.entity.user.User;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,7 +1,7 @@
 package com.example.hiddenpiece.domain.dto.user;
 
-import com.example.hiddenpiece.domain.entity.Role;
-import com.example.hiddenpiece.domain.entity.User;
+import com.example.hiddenpiece.domain.entity.user.Role;
+import com.example.hiddenpiece.domain.entity.user.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

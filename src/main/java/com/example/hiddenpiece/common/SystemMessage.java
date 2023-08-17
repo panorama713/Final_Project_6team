@@ -1,4 +1,4 @@
-package com.example.hiddenpiece.global.message;
+package com.example.hiddenpiece.common;
 
 /**
  * packageName : com.example.hiddenpiece.global.message

@@ -1,6 +1,6 @@
 package com.example.hiddenpiece.domain.dto.user;
 
-import com.example.hiddenpiece.domain.entity.User;
+import com.example.hiddenpiece.domain.entity.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

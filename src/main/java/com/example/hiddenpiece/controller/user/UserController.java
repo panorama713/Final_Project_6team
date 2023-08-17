@@ -1,8 +1,8 @@
-package com.example.hiddenpiece.controller;
+package com.example.hiddenpiece.controller.user;
 
 import com.example.hiddenpiece.domain.dto.user.SignupRequestDto;
 import com.example.hiddenpiece.domain.dto.user.SignupResponseDto;
-import com.example.hiddenpiece.service.UserService;
+import com.example.hiddenpiece.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -18,6 +18,9 @@ public class SignupRequestDto {
     @NotBlank(message = "비밀번호 확인은 필수입니다.")
     private String passwordCheck;
 
+    @NotBlank(message = "실명은 필수입니다.")
+    private String realName;
+
     @NotBlank(message = "이메일은 필수입니다.")
     @Email(message = "올바른 이메일 형식으로 입력해 주세요. (예: example@example.com)")
     private String email;
@@ -32,6 +35,7 @@ public class SignupRequestDto {
         return User.builder()
                 .username(this.username)
                 .password(passwordEncoder.encode(this.password))
+                .realName(this.realName)
                 .email(this.email)
                 .phone(this.phone)
                 .role(Role.ROLE_USER)

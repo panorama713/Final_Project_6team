@@ -26,6 +26,9 @@ public class User extends BaseTimeEntity {
     private String username;
 
     private String password;
+
+    private String realName;
+
     private String email;
     private String phone;
 
@@ -41,9 +44,10 @@ public class User extends BaseTimeEntity {
     private LocalDateTime deletedAt;
 
     @Builder
-    public User(String username, String password, String email, String phone, Role role) {
+    public User(String username, String password, String realName, String email, String phone, Role role) {
         this.username = username;
         this.password = password;
+        this.realName = realName;
         this.email = email;
         this.phone = phone;
         this.role = role;

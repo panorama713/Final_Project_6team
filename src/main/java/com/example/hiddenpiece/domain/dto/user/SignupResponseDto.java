@@ -1,12 +1,20 @@
 package com.example.hiddenpiece.domain.dto.user;
 
-import lombok.Data;
+import com.example.hiddenpiece.domain.entity.User;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SignupResponseDto {
-    private String message;
+    private String realName;
+    private String username;
 
-    public SignupResponseDto(String message) {
-        this.message = message;
+    @Builder
+    public SignupResponseDto(User user) {
+        this.realName = user.getRealName();
+        this.username = user.getUsername();
     }
 }

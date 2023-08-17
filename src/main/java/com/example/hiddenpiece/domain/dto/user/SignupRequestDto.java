@@ -15,8 +15,9 @@ public class SignupRequestDto {
     @NotBlank(message = "비밀번호는 필수입니다.")
     private String password;
 
-    @NotBlank(message = "비밀번호 확인은 필수입니다.")
-    private String passwordCheck;
+//    @NotBlank(message = "비밀번호 확인은 필수입니다.")
+//    private String passwordCheck;
+    // 이 부분은 프론트에서 처리
 
     @NotBlank(message = "실명은 필수입니다.")
     private String realName;
@@ -33,12 +34,12 @@ public class SignupRequestDto {
 
     public User toEntity(PasswordEncoder passwordEncoder) {
         return User.builder()
-                .username(this.username)
-                .password(passwordEncoder.encode(this.password))
-                .realName(this.realName)
-                .email(this.email)
-                .phone(this.phone)
-                .role(Role.ROLE_USER)
+                .username(username)
+                .password(passwordEncoder.encode(password))
+                .realName(realName)
+                .email(email)
+                .phone(phone)
+                .role(Role.USER)
                 .build();
     }
 }

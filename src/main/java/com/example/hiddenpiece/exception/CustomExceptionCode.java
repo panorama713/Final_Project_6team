@@ -10,13 +10,16 @@ public enum CustomExceptionCode {
     /*
      * 400
      */
-    PASSWORD_CHECK_ERROR(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
+
+
+
     /*
      * 401
      */
-    EMPTY_JWT(HttpStatus.UNAUTHORIZED, "JWT는 필수입니다."),
-    INVALID_JWT(HttpStatus.UNAUTHORIZED, "유효하지 않은 JWT입니다."),
-    EXPIRED_JWT(HttpStatus.UNAUTHORIZED, "만료된 JWT입니다."),
+    EXPIRED_JWT(HttpStatus.UNAUTHORIZED, "만료된 토큰입니다. 다시 로그인 해주시기 바랍니다."),
+    UNSUPPORTED_JWT(HttpStatus.UNAUTHORIZED, "지원되지 않는 토큰입니다. 다시 로그인 해주시기 바랍니다."),
+    INVALID_JWT(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다. 다시 로그인 해주시기 바랍니다."),
+    ILLEGAL_ARGUMENT_JWT(HttpStatus.UNAUTHORIZED, "잘못된 토큰입니다. 다시 로그인 해주시기 바랍니다."),
     /*
      * 403
      */
@@ -30,6 +33,7 @@ public enum CustomExceptionCode {
      */
     ALREADY_EXIST_USER(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다."),
     ALREADY_EXIST_EMAIL(HttpStatus.CONFLICT, "이미 존재하는 이메일입니다."),
+    USER_NOT_MATCH(HttpStatus.CONFLICT, "해당 사용자가 존재하지 않거나, 아이디 혹은 비밀번호가 일치하지 않습니다."),
     /*
      * 415
      */

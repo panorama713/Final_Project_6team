@@ -17,7 +17,7 @@ public class WebSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/signup")
+                        .requestMatchers("/api/v1/users/signup")
                         .permitAll()
                         .anyRequest().authenticated()
                 );

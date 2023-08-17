@@ -3,7 +3,11 @@ package com.example.hiddenpiece.domain.repository;
 import com.example.hiddenpiece.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SignupRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
+
+    Optional<User> findByUsername(String username);
 }

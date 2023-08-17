@@ -1,6 +1,5 @@
 package com.example.hiddenpiece.domain.dto.user;
 
-import com.example.hiddenpiece.domain.entity.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,13 +7,13 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SignupResponseDto {
-    private String realName;
+public class LoginDto {
     private String username;
+    private String password;
 
     @Builder
-    public SignupResponseDto(User user) {
-        this.realName = user.getRealName();
-        this.username = user.getUsername();
+    public LoginDto(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 }

@@ -1,15 +1,15 @@
 package com.example.hiddenpiece.exception;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.time.LocalDateTime;
 
+@Getter
+@AllArgsConstructor
 @Builder
-@Data
 public class ErrorResponse {
     private final LocalDateTime timestamp = LocalDateTime.now();
     private final String error;

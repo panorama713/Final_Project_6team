@@ -3,6 +3,8 @@ package com.example.hiddenpiece.controller.roadmap;
 import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapElementDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapElementDto;
 import com.example.hiddenpiece.domain.dto.roadmap.RoadmapElementReadResponseDto;
+import com.example.hiddenpiece.global.message.ResponseDto;
+import com.example.hiddenpiece.global.message.SystemMessage;
 import com.example.hiddenpiece.service.roadmap.RoadmapElementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,15 +25,15 @@ public class RoadmapElementController {
     // post
     // 로드맵 요소 생성
     @PostMapping("/elements/{roadmapCategoryId}")
-    public ResponseRoadmapElementDto createRoadmapElement(
+    public ResponseEntity<ResponseDto> createRoadmapElement(
             @Validated @RequestBody RequestRoadmapElementDto dto,
             @PathVariable("roadmapId") Long roadmapId,
             @PathVariable("roadmapCategoryId") Long roadmapCategoryId
     ) {
-        ResponseRoadmapElementDto response = roadmapElementService.createRoadmapElement(
-                dto, roadmapId, roadmapCategoryId
-        );
-        return response;
+        roadmapElementService.createRoadmapElement(dto, roadmapId, roadmapCategoryId);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ResponseDto.getInstance(SystemMessage.CREATED_ELEMENT));
     }
 
     // get

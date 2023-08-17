@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class RoadmapElementService {
     private final RoadmapRepository roadmapRepository;
     private final RoadmapCategoryRepository roadmapCategoryRepository;
@@ -29,6 +31,7 @@ public class RoadmapElementService {
 
     // 로드맵 요소 추가 기능
     // create
+    @Transactional
     public ResponseRoadmapElementDto createRoadmapElement(RequestRoadmapElementDto dto, Long roadmapId, Long roadmapCategoryId) {
         // Roadmap 존재 확인
         Roadmap roadmap = roadmapRepository.findById(roadmapId)
@@ -70,4 +73,12 @@ public class RoadmapElementService {
 
         return dtoList;
     }
+
+//    // Todo: 로드맵 요소 수정 기능
+//    // update
+//    @Transactional
+//    public ResponseRoadmapElementDto updateRoadmapElement(
+//            RequestRoadmapElementDto dto, Long roadmapId, Long roadmapCategoryId) {
+//
+//    }
 }

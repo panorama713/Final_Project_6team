@@ -1,11 +1,13 @@
-package com.example.hiddenpiece.service;
+package com.example.hiddenpiece.service.roadmap;
 
-import com.example.hiddenpiece.domain.dto.RequestRoadmapElementDto;
-import com.example.hiddenpiece.domain.dto.ResponseRoadmapElementDto;
-import com.example.hiddenpiece.domain.entity.*;
-import com.example.hiddenpiece.domain.repository.RoadmapCategoryRepository;
-import com.example.hiddenpiece.domain.repository.RoadmapElementRepository;
-import com.example.hiddenpiece.domain.repository.RoadmapRepository;
+import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapElementDto;
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapElementDto;
+import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
+import com.example.hiddenpiece.domain.entity.roadmap.RoadmapCategory;
+import com.example.hiddenpiece.domain.entity.roadmap.RoadmapElement;
+import com.example.hiddenpiece.domain.repository.roadmap.RoadmapCategoryRepository;
+import com.example.hiddenpiece.domain.repository.roadmap.RoadmapElementRepository;
+import com.example.hiddenpiece.domain.repository.roadmap.RoadmapRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

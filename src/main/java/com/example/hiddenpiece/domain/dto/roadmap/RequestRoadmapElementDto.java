@@ -1,4 +1,4 @@
-package com.example.hiddenpiece.domain.dto;
+package com.example.hiddenpiece.domain.dto.roadmap;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

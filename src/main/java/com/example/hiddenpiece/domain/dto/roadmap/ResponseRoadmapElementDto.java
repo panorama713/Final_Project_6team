@@ -1,6 +1,6 @@
-package com.example.hiddenpiece.domain.dto;
+package com.example.hiddenpiece.domain.dto.roadmap;
 
-import com.example.hiddenpiece.domain.entity.RoadmapElement;
+import com.example.hiddenpiece.domain.entity.roadmap.RoadmapElement;
 import lombok.*;
 
 import java.time.LocalDateTime;

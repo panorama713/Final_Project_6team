@@ -1,4 +1,4 @@
-package com.example.hiddenpiece.domain.entity;
+package com.example.hiddenpiece.domain.entity.roadmap;
 
 import jakarta.persistence.*;
 import lombok.Builder;

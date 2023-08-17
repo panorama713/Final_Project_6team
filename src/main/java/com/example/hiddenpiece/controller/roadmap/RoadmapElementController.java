@@ -1,8 +1,8 @@
-package com.example.hiddenpiece.controller;
+package com.example.hiddenpiece.controller.roadmap;
 
-import com.example.hiddenpiece.domain.dto.RequestRoadmapElementDto;
-import com.example.hiddenpiece.domain.dto.ResponseRoadmapElementDto;
-import com.example.hiddenpiece.service.RoadmapElementService;
+import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapElementDto;
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapElementDto;
+import com.example.hiddenpiece.service.roadmap.RoadmapElementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;

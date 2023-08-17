@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/roadmaps/{roadmapId}")
+@RequestMapping("/api/v1/roadmaps/{roadmapId}")
 public class RoadmapElementController {
     private final RoadmapElementService roadmapElementService;
 

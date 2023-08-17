@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "roadmap")
+@Table(name = "roadmaps")
 public class Roadmap {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

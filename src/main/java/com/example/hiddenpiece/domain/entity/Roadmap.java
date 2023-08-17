@@ -1,5 +1,6 @@
 package com.example.hiddenpiece.domain.entity;
 
+import com.example.hiddenpiece.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @Table(name = "roadmaps")
-public class Roadmap {
+public class Roadmap extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,8 +24,9 @@ public class Roadmap {
     private String title;
     private String description;
 
-    private LocalDateTime updated_at;
-    private LocalDateTime deleted_at;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
 
     @Builder
     public Roadmap(Long id, User user, String type, String title, String description, LocalDateTime createdAt) {
@@ -33,5 +35,6 @@ public class Roadmap {
         this.type = type;
         this.title = title;
         this.description = description;
+        this.createdAt = createdAt;
     }
 }

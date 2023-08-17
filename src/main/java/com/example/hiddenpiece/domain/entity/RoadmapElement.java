@@ -1,5 +1,6 @@
 package com.example.hiddenpiece.domain.entity;
 
+import com.example.hiddenpiece.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "roadmap_elements")
-public class RoadmapElement {
+public class RoadmapElement extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

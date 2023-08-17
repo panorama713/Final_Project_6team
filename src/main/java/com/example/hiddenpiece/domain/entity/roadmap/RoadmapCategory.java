@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @Entity
 @NoArgsConstructor
@@ -15,9 +17,14 @@ public class RoadmapCategory {
     private Long id;
     private String title;
 
+    @OneToMany(mappedBy = "roadmapCategory")
+    private List<RoadmapElement> roadmapElementList;
+
     @Builder
     public RoadmapCategory(Long id, String title) {
         this.id = id;
         this.title = title;
     }
+
+
 }

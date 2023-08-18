@@ -12,10 +12,8 @@ import com.example.hiddenpiece.domain.repository.roadmap.RoadmapRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,11 +61,11 @@ public class RoadmapElementService {
     public List<RoadmapElementReadResponseDto> readAllRoadmapElementList(Long roadmapId, Long roadmapCategoryId) {
         // Roadmap 존재 확인
         Roadmap roadmap = roadmapRepository.findById(roadmapId)
-                .orElseThrow(() -> new RuntimeException("로드맵이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(NOT_FOUND_ROADMAP));
 
         // Roadmap_category 확인
         RoadmapCategory targetRoadmapCategory = roadmapCategoryRepository.findById(roadmapCategoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 요소가 없습니다."));
+                .orElseThrow(() -> new CustomException(NOT_FOUND_ROADMAP_CATEGORY));
 
         List<RoadmapElementReadResponseDto> dtoList = new ArrayList<>();
         for (RoadmapElement entity : targetRoadmapCategory.getRoadmapElementList()) {

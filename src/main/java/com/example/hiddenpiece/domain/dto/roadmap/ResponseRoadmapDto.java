@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Getter
 @NoArgsConstructor
@@ -16,6 +18,9 @@ public class ResponseRoadmapDto {
     private User user;
     private String type;
     private String description;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
 
     public static ResponseRoadmapDto fromEntity(Roadmap entity) {
         return ResponseRoadmapDto.builder()
@@ -23,6 +28,9 @@ public class ResponseRoadmapDto {
                 .user(entity.getUser())
                 .type(entity.getType())
                 .description(entity.getDescription())
+                .createdAt(entity.getCreatedAt())
+                .updatedAt(entity.getUpdatedAt())
+                .deletedAt(entity.getDeletedAt())
                 .build();
     }
 }

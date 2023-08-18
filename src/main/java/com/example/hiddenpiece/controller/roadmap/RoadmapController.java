@@ -38,5 +38,17 @@ public class RoadmapController {
     }
 
     // delete
+    // 로드맵 삭제
+    @DeleteMapping("/{roadmapId}")
+    public ResponseEntity<ResponseRoadmapDto> deleteRoadmap(
+            Authentication authentication,
+            @PathVariable("roadmapId") Long roadmapId
+    ) {
+        String username = authentication.getName();
+        ResponseRoadmapDto responseDto = roadmapService.delete(roadmapId, username);
 
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responseDto);
+    }
 }

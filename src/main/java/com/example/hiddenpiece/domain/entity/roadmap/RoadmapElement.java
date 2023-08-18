@@ -3,6 +3,8 @@ package com.example.hiddenpiece.domain.entity.roadmap;
 import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +12,8 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "roadmap_elements")
+@SQLDelete(sql = "UPDATE roadmap_elements SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class RoadmapElement extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +38,7 @@ public class RoadmapElement extends BaseTimeEntity {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    private LocalDateTime deleted_at;
+    private boolean deleted = Boolean.FALSE;
 
     @Builder
     public RoadmapElement(Roadmap roadmap, RoadmapCategory roadmapCategory, String title, String content, LocalDateTime startDate, LocalDateTime endDate) {
@@ -44,6 +48,13 @@ public class RoadmapElement extends BaseTimeEntity {
         this.content = content;
         // 기본으로 체크가 되어있지 않음
         this.done = false;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public void update(String title, String content, LocalDateTime startDate, LocalDateTime endDate) {
+        this.title = title;
+        this.content = content;
         this.startDate = startDate;
         this.endDate = endDate;
     }

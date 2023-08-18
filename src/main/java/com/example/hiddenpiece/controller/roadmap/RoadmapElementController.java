@@ -45,4 +45,31 @@ public class RoadmapElementController {
         List<RoadmapElementReadResponseDto> dtoList = roadmapElementService.readAllRoadmapElementList(roadmapId, roadmapCategoryId);
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
+
+    // update
+    // 로드맵 요소 수정
+    @PutMapping("/elements/{elementsId}")
+    public ResponseEntity<ResponseDto> updateRoadmapElement(
+            @Validated @RequestBody RequestRoadmapElementDto dto,
+            @PathVariable("roadmapId") Long roadmapId,
+            @PathVariable("elementsId") Long elementId
+    ) {
+        roadmapElementService.updateRoadmapElement(dto, roadmapId, elementId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseDto.getInstance(SystemMessage.UPDATE_ELEMENT));
+    }
+
+    // delete
+    // 로드맵 요소 삭제
+    @DeleteMapping("/elements/{elementsId}")
+    public ResponseEntity<ResponseDto> deleteRoadmapElement(
+            @PathVariable("roadmapId") Long roadmapId,
+            @PathVariable("elementsId") Long roadmapElementId
+    ) {
+        roadmapElementService.deleteRoadmapElement(roadmapId, roadmapElementId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseDto.getInstance(SystemMessage.DELETED_ELEMENT));
+    }
 }

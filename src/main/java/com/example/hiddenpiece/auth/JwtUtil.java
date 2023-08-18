@@ -88,7 +88,7 @@ public class JwtUtil {
         return new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
     }
 
-    private Date getTokenExpiration(long expirationMillisecond) {
+    public Date getTokenExpiration(long expirationMillisecond) {
         Date date = new Date();
 
         return new Date(date.getTime() + expirationMillisecond);

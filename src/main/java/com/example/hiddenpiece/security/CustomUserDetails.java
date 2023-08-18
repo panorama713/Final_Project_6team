@@ -2,9 +2,7 @@ package com.example.hiddenpiece.security;
 
 import com.example.hiddenpiece.domain.entity.user.Role;
 import com.example.hiddenpiece.domain.entity.user.User;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,11 +10,30 @@ import java.util.Collection;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CustomUserDetails extends User implements UserDetails {
+public class CustomUserDetails implements UserDetails {
     private Long id;
     private String username;
     private String password;
+    private String realName;
+    private String email;
     private Role role;
+    private String profileImg;
+    private String provider;
+    private String providerId;
+
+    @Builder
+    public CustomUserDetails(String username, String password, String realName,
+                             String email, Role role, String profileImg,
+                             String provider, String providerId) {
+        this.username = username;
+        this.password = password;
+        this.realName = realName;
+        this.email = email;
+        this.role = role;
+        this.profileImg = profileImg;
+        this.provider = provider;
+        this.providerId = providerId;
+    }
 
     public CustomUserDetails(User user) {
         this.id = user.getId();
@@ -30,22 +47,20 @@ public class CustomUserDetails extends User implements UserDetails {
         this.role = role;
     }
 
-    public CustomUserDetails(String username, String password, Role role) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
-
     public static CustomUserDetails of(User user) {
         return new CustomUserDetails(user);
     }
 
-    public static CustomUserDetails of(String username, Role role) {
-        return new CustomUserDetails(username, role);
+    public User newEntity() {
+        return new User(
+                username, password, realName,
+                email, null, role,
+                profileImg, provider, providerId
+        );
     }
 
-    public static CustomUserDetails of(String username, String password, Role role) {
-        return new CustomUserDetails(username, password, role);
+    public static CustomUserDetails of(String username, Role role) {
+        return new CustomUserDetails(username, role);
     }
 
     @Override

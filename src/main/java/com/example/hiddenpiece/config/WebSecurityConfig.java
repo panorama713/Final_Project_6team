@@ -3,6 +3,8 @@ package com.example.hiddenpiece.config;
 import com.example.hiddenpiece.auth.ExceptionHandlerFilter;
 import com.example.hiddenpiece.auth.JwtFilter;
 import com.example.hiddenpiece.auth.JwtUtil;
+import com.example.hiddenpiece.domain.entity.user.Role;
+import com.example.hiddenpiece.oauth.OAuth2UserSuccessHandler;
 import com.example.hiddenpiece.redis.RedisService;
 import com.example.hiddenpiece.security.CustomAccessDeniedHandler;
 import com.example.hiddenpiece.security.CustomAuthenticationEntryPoint;
@@ -15,6 +17,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -32,6 +37,8 @@ public class WebSecurityConfig {
     private final JwtUtil jwtUtil;
     private final UserService userService;
     private final RedisService redisService;
+    private final OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService;
+    private final OAuth2UserSuccessHandler oAuth2UserSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -45,10 +52,16 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 "/api/v1/users/signup",
                                 "/api/v1/users/login",
-                                "/api/v1/**"
+                                "/api/v1/**",
+                                "/views/**"
                         )
                         .permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().hasAnyAuthority("ROLE_" + Role.USER.name()))
+                .oauth2Login(oauth -> oauth
+                        .loginPage("/views/login")
+                        .successHandler(oAuth2UserSuccessHandler)
+                        .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
+                )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                         .accessDeniedHandler(new CustomAccessDeniedHandler()))
                 .apply(new CustomFilterConfigurer());

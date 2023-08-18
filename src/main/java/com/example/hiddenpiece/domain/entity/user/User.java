@@ -37,6 +37,9 @@ public class User extends BaseTimeEntity {
 
     private String profileImg;
 
+    private String provider;
+    private String providerId;
+
     // 인증 방식 미정
     private String question;
     private String answer;
@@ -44,12 +47,19 @@ public class User extends BaseTimeEntity {
     private LocalDateTime deletedAt;
 
     @Builder
-    public User(String username, String password, String realName, String email, String phone, Role role) {
+    public User(
+            String username, String password, String realName,
+            String email, String phone, Role role,
+            String profileImg, String provider, String providerId
+    ) {
         this.username = username;
         this.password = password;
         this.realName = realName;
         this.email = email;
         this.phone = phone;
         this.role = role;
+        this.profileImg = profileImg;
+        this.provider = provider;
+        this.providerId = providerId;
     }
 }

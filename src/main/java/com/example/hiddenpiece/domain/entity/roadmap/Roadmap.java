@@ -8,9 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Entity
@@ -48,5 +46,9 @@ public class Roadmap extends BaseTimeEntity{
         this.title = dto.getTitle();
         this.description = dto.getTitle();
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void delete() {
+        this.deletedAt = LocalDateTime.now();
     }
 }

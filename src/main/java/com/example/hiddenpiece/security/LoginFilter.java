@@ -1,43 +1,47 @@
 package com.example.hiddenpiece.security;
 
 import com.example.hiddenpiece.auth.JwtUtil;
+import com.example.hiddenpiece.auth.TokenDto;
 import com.example.hiddenpiece.domain.dto.user.LoginDto;
+import com.example.hiddenpiece.domain.entity.user.User;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
+import com.example.hiddenpiece.redis.RedisService;
+import com.example.hiddenpiece.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.hiddenpiece.auth.JwtUtil.*;
-
 @Slf4j
+@RequiredArgsConstructor
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final JwtUtil jwtUtil;
     private final ObjectMapper objectMapper = new ObjectMapper();
-
-    public LoginFilter(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-        setFilterProcessesUrl("/api/v1/users/login");
-    }
+    private final UserService userService;
+    private final RedisService redisService;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
-            return getAuthenticationManager().authenticate(
-                    new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword(), null)
-            );
+            return authenticationManager.authenticate(authenticationToken);
         } catch (IOException e) {
             log.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
@@ -45,13 +49,18 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         log.info("로그인 성공");
-        String username = ((CustomUserDetails) authResult.getPrincipal()).getUsername();
-
-        String accessToken = jwtUtil.generateToken(username, ACCESS_EXPIRE_TIME);
-//        String refreshToken = jwtUtil.generateToken(username, JwtUtil.REFRESH_EXPIRE_TIME);
-        response.addHeader(AUTHORIZATION_HEADER, BEARER_PREFIX + accessToken);
+        CustomUserDetails customUserDetails = (CustomUserDetails) authResult.getPrincipal();
+        TokenDto tokenDto = jwtUtil.generateTokenDto(customUserDetails);
+        String accessToken = tokenDto.getAccessToken();
+        String refreshToken = tokenDto.getRefreshToken();
+        jwtUtil.accessTokenSetHeader(accessToken, response);
+        jwtUtil.refreshTokenSetHeader(refreshToken, response);
+        // User 찾기
+        User user = userService.findUserAndCheckUserExists(customUserDetails.getId());
+        long refreshTokenExpirationMillis = jwtUtil.getRefreshTokenExpirationMillis();
+        redisService.setValues(user.getUsername(), refreshToken, Duration.ofMillis(refreshTokenExpirationMillis));
     }
 
     @Override

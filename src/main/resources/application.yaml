@@ -24,6 +24,12 @@ spring:
     resources:
       # 정적 파일 탐색 장소
       static-locations: file:profile/, classpath:/static
+  data:
+    redis:
+      host: 13.125.230.133
+      port: 6379
 
 jwt:
   secret: aaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaesasdfqve
+  access-token-expiration-millis: 3600000
+  refresh-token-expiration-millis: 21600000

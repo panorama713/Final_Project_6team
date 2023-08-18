@@ -1,59 +1,68 @@
 package com.example.hiddenpiece.auth;
 
 import com.example.hiddenpiece.exception.CustomException;
-import io.jsonwebtoken.Claims;
+import com.example.hiddenpiece.exception.ErrorResponse;
+import com.example.hiddenpiece.redis.RedisService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
+    private static final List<String> EXCLUDE_URL =
+            List.of("/api/*/users/login",
+                    "/api/*/users/signup",
+                    "/api/*/users/reissue");
+
     private final JwtUtil jwtUtil;
-    private final UserDetailsService service;
+    private final RedisService redisService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String tokenValue = jwtUtil.getJwtFromHeader(request);
-
         try {
-            if (StringUtils.hasText(tokenValue) && jwtUtil.validate(tokenValue)) {
-
-                Claims claims = jwtUtil.parseClaims(tokenValue);
-
-                setAuthentication(claims.getSubject());
+            String accessToken = jwtUtil.resolveAccessToken(request);
+            if (StringUtils.hasText(accessToken) && doNotLogout(accessToken) && jwtUtil.validate(accessToken)) {
+                setAuthentication(accessToken);
             }
-        } catch (CustomException e) {
-            request.setAttribute("exception", e.getExceptionCode());
-        }
+        } catch (RuntimeException e) {
+            if (e instanceof CustomException) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                ErrorResponse errorResponse = new ErrorResponse(((CustomException) e).getExceptionCode().name(), e.getMessage());
 
+                response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
+                response.setStatus(((CustomException) e).getExceptionCode().getHttpStatus().value());
+            }
+        }
         filterChain.doFilter(request, response);
     }
 
-    public void setAuthentication(String username) {
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        Authentication authentication = createAuthentication(username);
-        context.setAuthentication(authentication);
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        boolean isExcluded = EXCLUDE_URL.stream()
+                .anyMatch(exclude -> exclude.equalsIgnoreCase(request.getServletPath()));
 
-        SecurityContextHolder.setContext(context);
+        return isExcluded;
     }
 
-    private Authentication createAuthentication(String username) {
-        UserDetails userDetails = service.loadUserByUsername(username);
-        // TODO ROLE, AUTHORITY 설정 해주기
-        return new UsernamePasswordAuthenticationToken(userDetails, null, null);
+    private boolean doNotLogout(String accessToken) {
+        String isLogout = redisService.getValues(accessToken);
+        return isLogout.equals("false");
+    }
+
+    public void setAuthentication(String accessToken) {
+        Authentication authentication = jwtUtil.getAuthentication(accessToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

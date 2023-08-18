@@ -50,6 +50,9 @@ dependencies {
     // sqlite
     runtimeOnly 'org.xerial:sqlite-jdbc:3.41.2.2'
     runtimeOnly 'org.hibernate.orm:hibernate-community-dialects:6.2.4.Final'
+
+    // redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 tasks.named('test') {

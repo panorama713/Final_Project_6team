@@ -1,12 +1,16 @@
 package com.example.hiddenpiece.domain.entity.roadmap;
 
+import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapDto;
 import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
 import com.example.hiddenpiece.domain.entity.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Entity
@@ -37,5 +41,12 @@ public class Roadmap extends BaseTimeEntity{
         this.title = title;
         this.description = description;
         this.createdAt = createdAt;
+    }
+
+    public void update(RequestRoadmapDto dto) {
+        this.type = dto.getType();
+        this.title = dto.getTitle();
+        this.description = dto.getTitle();
+        this.updatedAt = LocalDateTime.now();
     }
 }

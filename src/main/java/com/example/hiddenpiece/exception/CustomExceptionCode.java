@@ -10,7 +10,7 @@ public enum CustomExceptionCode {
     /*
      * 400
      */
-
+    NOT_MATCH_WRITER(HttpStatus.BAD_REQUEST, "작성자가 아닙니다."),
 
 
     /*

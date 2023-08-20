@@ -45,13 +45,15 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         String providerId = oAuth2User.getAttribute("id").toString();
         String profileImg = oAuth2User.getAttribute("profile_img");
 
-        userDetailsManager.createUser(
-                new CustomUserDetails(
-                        username, providerId, realName,
-                        email, Role.USER, profileImg,
-                        provider, providerId
-                )
-        );
+        if (!userDetailsManager.userExists(username)) {
+            userDetailsManager.createUser(
+                    new CustomUserDetails(
+                            username, providerId, realName,
+                            email, Role.USER, profileImg,
+                            provider, providerId
+                    )
+            );
+        }
 
         UserDetails userDetails = userDetailsManager.loadUserByUsername(username);
         long refreshTokenExpirationMillis = jwtUtil.getRefreshTokenExpirationMillis();

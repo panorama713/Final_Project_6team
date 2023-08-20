@@ -57,7 +57,7 @@ spring:
             scope:
               - name
               - email
-              - profile_img
+              - profile_image
           kakao:
             client-id: 9b5d206b8dc434b63c8314c83ef1ca2b
             client-secret: GZoEK4KDIy3ugqypcOAYyfH6H8WvSXcM

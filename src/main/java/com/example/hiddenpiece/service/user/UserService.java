@@ -48,10 +48,6 @@ public class UserService {
         return new SignupResponseDto(userRepository.save(user));
     }
 
-    public User findUserAndCheckUserExists(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
-    }
-
     @Transactional
     public void logout(String refreshToken, String accessToken) {
         verifiedRefreshToken(refreshToken);
@@ -71,6 +67,10 @@ public class UserService {
         verifiedRefreshToken(refreshToken);
         Claims claims = jwtUtil.parseClaims(refreshToken);
         String username = claims.getSubject();
+        if (username.contains("_")) {
+            username = username.substring(2);
+        }
+
         String redisRefreshToken = redisService.getValues(username);
 
         if (redisService.checkExistsValue(redisRefreshToken) && refreshToken.equals(redisRefreshToken)) {
@@ -86,13 +86,19 @@ public class UserService {
         } else throw new CustomException(CustomExceptionCode.TOKEN_NOT_MATCH);
     }
 
+    // TODO 마이페이지 로직 구현
+
     private void verifiedRefreshToken(String refreshToken) {
         if (refreshToken == null) {
             throw new CustomException(CustomExceptionCode.HEADER_REFRESH_TOKEN_NOT_EXISTS);
         }
     }
 
-    private User findUserByUsername(String username) {
+    public User findUserAndCheckUserExists(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+    }
+
+    public User findUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
     }

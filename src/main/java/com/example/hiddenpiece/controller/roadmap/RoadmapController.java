@@ -1,5 +1,7 @@
 package com.example.hiddenpiece.controller.roadmap;
 
+import com.example.hiddenpiece.common.ResponseDto;
+import com.example.hiddenpiece.common.SystemMessage;
 import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
 import com.example.hiddenpiece.service.roadmap.RoadmapService;
@@ -23,15 +25,13 @@ public class RoadmapController {
 
     // update
     // 로드맵 수정
-    // TODO: Authentication 사용하기
     @PutMapping("/{roadmapId}")
     public ResponseEntity<ResponseRoadmapDto> updateRoadmap(
-//            Authentication authentication,
-            @RequestParam("username") String username,
+            Authentication authentication,
             @PathVariable("roadmapId") Long roadmapId,
             @RequestBody RequestRoadmapDto dto
     ) {
-//        String username = authentication.getName();
+        String username = authentication.getName();
         ResponseRoadmapDto responseDto = roadmapService.update(roadmapId, username, dto);
 
         return ResponseEntity
@@ -41,18 +41,16 @@ public class RoadmapController {
 
     // delete
     // 로드맵 삭제
-    // TODO: Authentication 사용하기
     @DeleteMapping("/{roadmapId}")
-    public ResponseEntity<ResponseRoadmapDto> deleteRoadmap(
-//            Authentication authentication,
-            @RequestParam("username") String username,
+    public ResponseEntity<ResponseDto> deleteRoadmap(
+            Authentication authentication,
             @PathVariable("roadmapId") Long roadmapId
     ) {
-//        String username = authentication.getName();
-        ResponseRoadmapDto responseDto = roadmapService.delete(roadmapId, username);
+        String username = authentication.getName();
+        roadmapService.delete(roadmapId, username);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(responseDto);
+                .body(ResponseDto.getInstance(SystemMessage.DELETED_ROADMAP));
     }
 }

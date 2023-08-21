@@ -31,13 +31,11 @@ public class RoadmapService {
         // 로드맵 존재 확인
         Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
-        // TODO: 로그인 확인
-//        User loginUser = userRepository.findByUsername(username)
-//                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
-        User targetUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+        // 로그인 확인
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
         // 작성자 확인
-        if (!targetRoadmap.getUser().equals(targetUser))
+        if (!targetRoadmap.getUser().equals(loginUser))
             throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
         // 수정
         targetRoadmap.update(dto);
@@ -52,13 +50,11 @@ public class RoadmapService {
         // 로드맵 존재 확인
         Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
-        // TODO: 로그인 확인
-//        User loginUser = userRepository.findByUsername(username)
-//                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
-        User targetUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+        // 로그인 확인
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
         // 작성자 확인
-        if (!targetRoadmap.getUser().equals(targetUser))
+        if (!targetRoadmap.getUser().equals(loginUser))
             throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
         // 삭제
         roadmapRepository.delete(targetRoadmap);

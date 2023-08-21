@@ -18,9 +18,6 @@ public class ResponseRoadmapDto {
     private String username;
     private String type;
     private String description;
-    private LocalDateTime createdAt;
-    private LocalDateTime lastModifiedAt;
-    private LocalDateTime deletedAt;
 
     public static ResponseRoadmapDto fromEntity(Roadmap entity) {
         return ResponseRoadmapDto.builder()
@@ -28,9 +25,6 @@ public class ResponseRoadmapDto {
                 .username(entity.getUser().getUsername())
                 .type(entity.getType())
                 .description(entity.getDescription())
-                .createdAt(entity.getCreatedAt())
-                .lastModifiedAt(entity.getLastModifiedAt())
-                .deletedAt(entity.getDeletedAt())
                 .build();
     }
 }

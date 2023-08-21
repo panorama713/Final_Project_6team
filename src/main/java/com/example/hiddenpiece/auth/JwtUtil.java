@@ -7,7 +7,6 @@ import com.example.hiddenpiece.security.CustomUserDetails;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,6 +56,7 @@ public class JwtUtil {
                 .compact();
 
         String refreshToken = Jwts.builder()
+                .setClaims(claims)
                 .setSubject(customUserDetails.getUsername())
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(refreshTokenExpiresIn)
@@ -102,27 +102,10 @@ public class JwtUtil {
                 .getBody();
     }
 
-    public void accessTokenSetHeader(String accessToken, HttpServletResponse response) {
-        String headerValue = BEARER_PREFIX + accessToken;
-        response.setHeader(AUTHORIZATION_HEADER, headerValue);
-    }
-
-    public void refreshTokenSetHeader(String refreshToken, HttpServletResponse response) {
-        response.setHeader("Refresh", refreshToken);
-    }
-
     public String resolveAccessToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
             return bearerToken.substring(7);
-        }
-        return null;
-    }
-
-    public String resolveRefreshToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Refresh");
-        if (StringUtils.hasText(bearerToken)) {
-            return bearerToken;
         }
         return null;
     }
@@ -136,7 +119,7 @@ public class JwtUtil {
             throw new CustomException(CustomExceptionCode.EXPIRED_JWT);
         } catch (UnsupportedJwtException e) {
             throw new CustomException(CustomExceptionCode.UNSUPPORTED_JWT);
-        } catch (SignatureException | MalformedJwtException e) {
+        } catch (MalformedJwtException e) {
             throw new CustomException(CustomExceptionCode.INVALID_JWT);
         } catch (IllegalArgumentException e) {
             throw new CustomException(CustomExceptionCode.ILLEGAL_ARGUMENT_JWT);

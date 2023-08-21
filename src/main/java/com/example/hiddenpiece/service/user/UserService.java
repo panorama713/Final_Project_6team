@@ -9,8 +9,11 @@ import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
 import com.example.hiddenpiece.redis.RedisService;
+import com.example.hiddenpiece.security.CookieManager;
 import com.example.hiddenpiece.security.CustomUserDetails;
 import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 
 import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
+import static com.example.hiddenpiece.security.CookieManager.*;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -29,6 +33,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final RedisService redisService;
     private final JwtUtil jwtUtil;
+    private final CookieManager cookieManager;
 
     /**
      * 회원가입
@@ -49,13 +54,26 @@ public class UserService {
     }
 
     @Transactional
-    public void logout(String refreshToken, String accessToken) {
-        verifiedRefreshToken(refreshToken);
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        // 쿠키에서 access token 불러오기
+        String accessToken = cookieManager.getCookie(request, ACCESS_TOKEN);
+
+        // redis 에서 토큰 찾기 위해 유저 정보 탐색
         Claims claims = jwtUtil.parseClaims(accessToken);
+        if (claims == null) {
+            throw new CustomException(EXPIRED_JWT);
+        }
+
         String username = claims.getSubject();
         String redisRefreshToken = redisService.getValues(username);
+
+        // 토큰 관련 쿠키 제거
+        cookieManager.deleteCookie(response, ACCESS_TOKEN);
+        cookieManager.deleteCookie(response, REFRESH_TOKEN);
+
+        // redis 에 있는 refresh token 지우고 access token 블랙리스트 등록
         if (redisService.checkExistsValue(redisRefreshToken)) {
-            redisService.deleteValues(username);
+            redisService.deleteValuesByKey(username);
 
             long accessTokenExpirationMillis = jwtUtil.getAccessTokenExpirationMillis();
             redisService.setValues(accessToken, "logout", Duration.ofMillis(accessTokenExpirationMillis));
@@ -63,34 +81,37 @@ public class UserService {
     }
 
     @Transactional
-    public String reissueAccessToken(String refreshToken) {
+    public void reissueAccessToken(HttpServletRequest request, HttpServletResponse response) {
+        String refreshToken = cookieManager.getCookie(request, REFRESH_TOKEN);
+
         verifiedRefreshToken(refreshToken);
-        Claims claims = jwtUtil.parseClaims(refreshToken);
-        String username = claims.getSubject();
-        if (username.contains("_")) {
-            username = username.substring(2);
+
+        try {
+            Claims claims = jwtUtil.parseClaims(refreshToken);
+            String username = claims.getSubject();
+            String redisRefreshToken = redisService.getValues(username);
+
+            if (redisService.checkExistsValue(redisRefreshToken) && refreshToken.equals(redisRefreshToken)) {
+                User user = findUserByUsername(username);
+                CustomUserDetails userDetails = CustomUserDetails.of(user);
+
+                TokenDto tokenDto = jwtUtil.generateTokenDto(userDetails);
+                String newAccessToken = tokenDto.getAccessToken();
+
+                long accessTokenExpirationMillis = jwtUtil.getAccessTokenExpirationMillis();
+
+                cookieManager.setCookie(response, newAccessToken, ACCESS_TOKEN, accessTokenExpirationMillis);
+            }
+        } catch (Exception e) {
+            throw new CustomException(REISSUE_FAILED);
         }
-
-        String redisRefreshToken = redisService.getValues(username);
-
-        if (redisService.checkExistsValue(redisRefreshToken) && refreshToken.equals(redisRefreshToken)) {
-            User user = findUserByUsername(username);
-            CustomUserDetails userDetails = CustomUserDetails.of(user);
-            TokenDto tokenDto = jwtUtil.generateTokenDto(userDetails);
-            String newAccessToken = tokenDto.getAccessToken();
-            String newRefreshToken = tokenDto.getRefreshToken();
-            long refreshTokenExpirationMillis = jwtUtil.getRefreshTokenExpirationMillis();
-            redisService.setValues(username, newRefreshToken, Duration.ofMillis(refreshTokenExpirationMillis));
-
-            return newAccessToken;
-        } else throw new CustomException(CustomExceptionCode.TOKEN_NOT_MATCH);
     }
 
     // TODO 마이페이지 로직 구현
 
     private void verifiedRefreshToken(String refreshToken) {
         if (refreshToken == null) {
-            throw new CustomException(CustomExceptionCode.HEADER_REFRESH_TOKEN_NOT_EXISTS);
+            throw new CustomException(CustomExceptionCode.REFRESH_TOKEN_NOT_EXISTS);
         }
     }
 

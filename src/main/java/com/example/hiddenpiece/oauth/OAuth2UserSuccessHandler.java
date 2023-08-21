@@ -4,6 +4,7 @@ import com.example.hiddenpiece.auth.JwtUtil;
 import com.example.hiddenpiece.auth.TokenDto;
 import com.example.hiddenpiece.domain.entity.user.Role;
 import com.example.hiddenpiece.redis.RedisService;
+import com.example.hiddenpiece.security.CookieManager;
 import com.example.hiddenpiece.security.CustomUserDetails;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
     private final JwtUtil jwtUtil;
     private final UserDetailsManager userDetailsManager;
     private final RedisService redisService;
+    private final CookieManager cookieManager;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -61,8 +63,8 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         TokenDto tokenDto = jwtUtil.generateTokenDto((CustomUserDetails) userDetails);
         String accessToken = tokenDto.getAccessToken();
         String refreshToken = tokenDto.getRefreshToken();
-        jwtUtil.accessTokenSetHeader(accessToken, response);
-        jwtUtil.refreshTokenSetHeader(refreshToken, response);
+        cookieManager.setCookie(response, accessToken, "accessToken", jwtUtil.getAccessTokenExpirationMillis());
+        cookieManager.setCookie(response, refreshToken, "refreshToken", jwtUtil.getRefreshTokenExpirationMillis());
 
         redisService.setValues(username, refreshToken, Duration.ofMillis(refreshTokenExpirationMillis));
 

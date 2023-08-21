@@ -39,7 +39,7 @@ public class UserController {
         String accessToken = jwtUtil.resolveAccessToken(req);
         userService.logout(refreshToken, accessToken);
         log.info("로그아웃 성공");
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     // 토큰 재발급

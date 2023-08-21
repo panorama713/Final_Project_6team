@@ -53,7 +53,10 @@ public class WebSecurityConfig {
                                 "/api/v1/users/signup",
                                 "/api/v1/users/login",
                                 "/api/v1/**",
-                                "/views/**"
+                                "/views/**",
+                                "/api/v1/article/write",
+                                "/api/v1/article/articles",
+                                "/api/v1/article/articles/{id}"
                         )
                         .permitAll()
                         .anyRequest().hasAuthority("ROLE_" + Role.USER.name()))

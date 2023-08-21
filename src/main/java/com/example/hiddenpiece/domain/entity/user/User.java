@@ -1,17 +1,18 @@
 package com.example.hiddenpiece.domain.entity.user;
 
 import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
+import com.example.hiddenpiece.domain.entity.community.Article;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Getter
+@Getter @Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLDelete(sql = "UPDATE user SET deletedAt = CURRENT_TIMESTAMP WHERE id = ?")
@@ -26,7 +27,6 @@ public class User extends BaseTimeEntity {
     private String username;
 
     private String password;
-
     private String realName;
 
     private String email;
@@ -43,8 +43,11 @@ public class User extends BaseTimeEntity {
     // 인증 방식 미정
     private String question;
     private String answer;
-
     private LocalDateTime deletedAt;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    List<Article> article = new ArrayList<>();
 
     @Builder
     public User(

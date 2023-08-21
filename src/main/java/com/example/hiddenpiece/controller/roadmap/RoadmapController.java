@@ -1,5 +1,7 @@
 package com.example.hiddenpiece.controller.roadmap;
 
+import com.example.hiddenpiece.common.ResponseDto;
+import com.example.hiddenpiece.common.SystemMessage;
 import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
 import com.example.hiddenpiece.service.roadmap.RoadmapService;
@@ -38,5 +40,17 @@ public class RoadmapController {
     }
 
     // delete
+    // 로드맵 삭제
+    @DeleteMapping("/{roadmapId}")
+    public ResponseEntity<ResponseDto> deleteRoadmap(
+            Authentication authentication,
+            @PathVariable("roadmapId") Long roadmapId
+    ) {
+        String username = authentication.getName();
+        roadmapService.delete(roadmapId, username);
 
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseDto.getInstance(SystemMessage.DELETED_ROADMAP));
+    }
 }

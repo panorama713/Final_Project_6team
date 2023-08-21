@@ -28,13 +28,13 @@ public class RoadmapService {
     // update
     @Transactional
     public ResponseRoadmapDto update(Long roadmapId, String username, RequestRoadmapDto dto) {
-        // 로드맵 유무 확인
+        // 로드맵 존재 확인
         Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
         // 로그인 확인
         User loginUser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
-        // 수정자 확인
+        // 작성자 확인
         if (!targetRoadmap.getUser().equals(loginUser))
             throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
         // 수정
@@ -45,4 +45,20 @@ public class RoadmapService {
     }
 
     // delete
+    @Transactional
+    public ResponseRoadmapDto delete(Long roadmapId, String username) {
+        // 로드맵 존재 확인
+        Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
+        // 로그인 확인
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
+        // 작성자 확인
+        if (!targetRoadmap.getUser().equals(loginUser))
+            throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
+        // 삭제
+        roadmapRepository.delete(targetRoadmap);
+        log.info("로드맵 삭제 완료");
+        return ResponseRoadmapDto.fromEntity(targetRoadmap);
+    }
 }

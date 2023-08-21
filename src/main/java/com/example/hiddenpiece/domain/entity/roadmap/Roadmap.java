@@ -7,12 +7,17 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
+
 @Getter
-@Entity
 @NoArgsConstructor
+@Entity
+@SQLDelete(sql = "UPDATE roadmaps SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted_at is null")
 @Table(name = "roadmaps")
 public class Roadmap extends BaseTimeEntity{
     @Id
@@ -27,28 +32,20 @@ public class Roadmap extends BaseTimeEntity{
     private String title;
     private String description;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 
     @Builder
-    public Roadmap(Long id, User user, String type, String title, String description, LocalDateTime createdAt) {
+    public Roadmap(Long id, User user, String type, String title, String description) {
         this.id = id;
         this.user = user;
         this.type = type;
         this.title = title;
         this.description = description;
-        this.createdAt = createdAt;
     }
 
     public void update(RequestRoadmapDto dto) {
         this.type = dto.getType();
         this.title = dto.getTitle();
         this.description = dto.getTitle();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    public void delete() {
-        this.deletedAt = LocalDateTime.now();
     }
 }

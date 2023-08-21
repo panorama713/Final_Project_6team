@@ -15,21 +15,21 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ResponseRoadmapDto {
     private String title;
-    private User user;
+    private String username;
     private String type;
     private String description;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDateTime lastModifiedAt;
     private LocalDateTime deletedAt;
 
     public static ResponseRoadmapDto fromEntity(Roadmap entity) {
         return ResponseRoadmapDto.builder()
                 .title(entity.getTitle())
-                .user(entity.getUser())
+                .username(entity.getUser().getUsername())
                 .type(entity.getType())
                 .description(entity.getDescription())
                 .createdAt(entity.getCreatedAt())
-                .updatedAt(entity.getUpdatedAt())
+                .lastModifiedAt(entity.getLastModifiedAt())
                 .deletedAt(entity.getDeletedAt())
                 .build();
     }

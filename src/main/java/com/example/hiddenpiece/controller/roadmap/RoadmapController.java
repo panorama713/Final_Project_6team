@@ -23,13 +23,15 @@ public class RoadmapController {
 
     // update
     // 로드맵 수정
+    // TODO: Authentication 사용하기
     @PutMapping("/{roadmapId}")
     public ResponseEntity<ResponseRoadmapDto> updateRoadmap(
-            Authentication authentication,
+//            Authentication authentication,
+            @RequestParam("username") String username,
             @PathVariable("roadmapId") Long roadmapId,
             @RequestBody RequestRoadmapDto dto
     ) {
-        String username = authentication.getName();
+//        String username = authentication.getName();
         ResponseRoadmapDto responseDto = roadmapService.update(roadmapId, username, dto);
 
         return ResponseEntity
@@ -39,12 +41,14 @@ public class RoadmapController {
 
     // delete
     // 로드맵 삭제
+    // TODO: Authentication 사용하기
     @DeleteMapping("/{roadmapId}")
     public ResponseEntity<ResponseRoadmapDto> deleteRoadmap(
-            Authentication authentication,
+//            Authentication authentication,
+            @RequestParam("username") String username,
             @PathVariable("roadmapId") Long roadmapId
     ) {
-        String username = authentication.getName();
+//        String username = authentication.getName();
         ResponseRoadmapDto responseDto = roadmapService.delete(roadmapId, username);
 
         return ResponseEntity

@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -35,6 +37,17 @@ public class RoadmapController {
     }
 
     // read
+    @GetMapping
+    public ResponseEntity<List<ResponseRoadmapDto>> readAllByUser(
+            Authentication authentication,
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) String type
+    ) {
+        String username = authentication.getName();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(roadmapService.readByUsernameAndYearOrType(username, year, type));
+    }
 
     // update
     // 로드맵 수정

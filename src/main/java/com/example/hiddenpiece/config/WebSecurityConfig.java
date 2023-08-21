@@ -56,7 +56,7 @@ public class WebSecurityConfig {
                                 "/views/**"
                         )
                         .permitAll()
-                        .anyRequest().hasAnyAuthority("ROLE_" + Role.USER.name()))
+                        .anyRequest().hasAuthority("ROLE_" + Role.USER.name()))
                 .oauth2Login(oauth -> oauth
                         .loginPage("/views/login")
                         .successHandler(oAuth2UserSuccessHandler)

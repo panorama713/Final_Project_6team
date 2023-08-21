@@ -81,11 +81,11 @@ public class JwtUtil {
 
         Object authority = claims.get("role");
 
-        CustomUserDetails customUserDetails = CustomUserDetails.of(claims.getSubject(), (Role) authority);
+        CustomUserDetails customUserDetails = CustomUserDetails.of(claims.getSubject(), Role.valueOf((String) authority));
 
         log.info("# AuthMember.getRoles 권한 체크 = {}", customUserDetails.getAuthorities().toString());
 
-        return new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(customUserDetails.getUsername(), null, customUserDetails.getAuthorities());
     }
 
     public Date getTokenExpiration(long expirationMillisecond) {
@@ -142,25 +142,4 @@ public class JwtUtil {
             throw new CustomException(CustomExceptionCode.ILLEGAL_ARGUMENT_JWT);
         }
     }
-
-//    public Claims parseClaims(String token) {
-//        return jwtParser.parseClaimsJws(token).getBody();
-//    }
-
-//    public String generateToken(String username, long time) {
-//        Claims jwtClaims = Jwts.claims()
-//                .setSubject(username)
-//                .setIssuedAt(new Date(System.currentTimeMillis()))
-//                .setExpiration(new Date(System.currentTimeMillis() + time));
-//
-//        return Jwts.builder().setClaims(jwtClaims).signWith(key).compact();
-//    }
-
-//    public String getJwtFromHeader(HttpServletRequest request) {
-//        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-//        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-//            return bearerToken.substring(7);
-//        }
-//        return null;
-//    }
 }

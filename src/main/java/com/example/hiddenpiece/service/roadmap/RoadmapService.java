@@ -22,6 +22,22 @@ public class RoadmapService {
     private final UserRepository userRepository;
 
     // create
+    @Transactional
+    public ResponseRoadmapDto create(String username, RequestRoadmapDto dto) {
+        // 로그인 확인
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
+
+        // 생성
+        Roadmap newRoadmap = Roadmap.builder()
+                .user(loginUser)
+                .type(dto.getType())
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .build();
+        roadmapRepository.save(newRoadmap);
+        return ResponseRoadmapDto.fromEntity(newRoadmap);
+    }
 
     // read
 

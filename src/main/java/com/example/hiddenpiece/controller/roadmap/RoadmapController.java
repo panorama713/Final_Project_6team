@@ -20,6 +20,19 @@ public class RoadmapController {
     private final RoadmapService roadmapService;
 
     // create
+    // 로드맵 생성
+    @PostMapping
+    public ResponseEntity<ResponseRoadmapDto> createRoadmap(
+            Authentication authentication,
+            @RequestBody RequestRoadmapDto dto
+    ) {
+        String username = authentication.getName();
+        ResponseRoadmapDto responseDto = roadmapService.create(username, dto);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responseDto);
+    }
 
     // read
 

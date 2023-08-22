@@ -33,6 +33,7 @@ public enum CustomExceptionCode {
     USER_ROLE_INVALID(HttpStatus.NOT_FOUND, "옳은 권한이 아닙니다."),
     REFRESH_TOKEN_NOT_EXISTS(HttpStatus.NOT_FOUND, "다시 로그인 해주시기 바랍니다."),
     NOT_FOUND_ROADMAP(HttpStatus.NOT_FOUND, "해당 로드맵을 찾을 수 없습니다."),
+    NOT_FOUND_CONDITION_ROADMAP(HttpStatus.NOT_FOUND, "해당 조건의 로드맵을 찾을 수 없습니다."),
     NOT_FOUND_ROADMAP_ELEMENT(HttpStatus.NOT_FOUND, "해당 로드맵 요소를 찾을 수 없습니다."),
     ALREADY_DELETED_ELEMENT(HttpStatus.NOT_FOUND, "이미 삭제된 로드맵 요소입니다."),
     NOT_FOUND_ROADMAP_CATEGORY(HttpStatus.NOT_FOUND, "해당 로드맵 카테고리를 찾을 수 없습니다."),

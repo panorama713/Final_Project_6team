@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "roadmap_elements")
-@SQLDelete(sql = "UPDATE roadmap_elements SET deleted = true WHERE id = ?")
-@Where(clause = "deleted = false")
+@SQLDelete(sql = "UPDATE roadmap_elements SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted_at is null")
 public class RoadmapElement extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class RoadmapElement extends BaseTimeEntity {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    private boolean deleted = Boolean.FALSE;
+    private LocalDateTime deleted_at;
 
     @Builder
     public RoadmapElement(Roadmap roadmap, RoadmapCategory roadmapCategory, String title, String content, LocalDateTime startDate, LocalDateTime endDate) {

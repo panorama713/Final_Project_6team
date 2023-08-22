@@ -1,5 +1,7 @@
 package com.example.hiddenpiece.controller.roadmap;
 
+import com.example.hiddenpiece.common.ResponseDto;
+import com.example.hiddenpiece.common.SystemMessage;
 import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
 import com.example.hiddenpiece.service.roadmap.RoadmapService;
@@ -10,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -18,8 +22,32 @@ public class RoadmapController {
     private final RoadmapService roadmapService;
 
     // create
+    // 로드맵 생성
+    @PostMapping
+    public ResponseEntity<ResponseRoadmapDto> createRoadmap(
+            Authentication authentication,
+            @RequestBody RequestRoadmapDto dto
+    ) {
+        String username = authentication.getName();
+        ResponseRoadmapDto responseDto = roadmapService.create(username, dto);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responseDto);
+    }
 
     // read
+    @GetMapping
+    public ResponseEntity<List<ResponseRoadmapDto>> readAllByUser(
+            Authentication authentication,
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) String type
+    ) {
+        String username = authentication.getName();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(roadmapService.readByUsernameAndYearOrType(username, year, type));
+    }
 
     // update
     // 로드맵 수정
@@ -38,5 +66,17 @@ public class RoadmapController {
     }
 
     // delete
+    // 로드맵 삭제
+    @DeleteMapping("/{roadmapId}")
+    public ResponseEntity<ResponseDto> deleteRoadmap(
+            Authentication authentication,
+            @PathVariable("roadmapId") Long roadmapId
+    ) {
+        String username = authentication.getName();
+        roadmapService.delete(roadmapId, username);
 
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseDto.getInstance(SystemMessage.DELETED_ROADMAP));
+    }
 }

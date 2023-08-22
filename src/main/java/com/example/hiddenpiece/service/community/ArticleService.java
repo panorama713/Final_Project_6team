@@ -24,7 +24,7 @@ public class ArticleService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Long save(String username, ArticleRequestDto params) {
+    public Long createArticle(String username, ArticleRequestDto params) {
         User loginUser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
 
@@ -46,13 +46,30 @@ public class ArticleService {
     }
 
     @Transactional
-    public Long update(final Long articleId, final ArticleRequestDto params) {
-        Article entity = articleRepository.findById(articleId).orElseThrow(() -> new IllegalArgumentException("article doesn't exist"));
-        entity.modify(params.getTitle(), params.getContent());
+    public Long updateArticle(String username, final Long articleId, final ArticleRequestDto params) {
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
+
+        Article target = articleRepository.findById(articleId)
+                .orElseThrow(() -> new IllegalArgumentException("article doesn't exist"));
+
+        if (!target.getUser().equals(loginUser)) {
+            throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
+        }
+        target.modify(params.getTitle(), params.getContent());
         return articleId;
     }
 
-    public Long delete(final Long articleId) {
+    public Long deleteArticle(String username, final Long articleId) {
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
+
+        Article target = articleRepository.findById(articleId)
+                .orElseThrow(() -> new IllegalArgumentException("article doesn't exist"));
+        if (!target.getUser().equals(loginUser)) {
+            throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
+        }
+
         articleRepository.deleteById(articleId);
         return articleId;
     }

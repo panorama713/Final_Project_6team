@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
+@Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLDelete(sql = "UPDATE user SET deletedAt = CURRENT_TIMESTAMP WHERE id = ?")

@@ -1,15 +1,20 @@
 package com.example.hiddenpiece.domain.entity.community;
+import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
 import com.example.hiddenpiece.domain.entity.user.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Where(clause = "deleted_at IS NULL")
+@SQLDelete(sql = "UPDATE article SET deleted_at = CURRENT_TIMESTAMP where id = ?")
 @Table(name = "article")
-public class Article {
+public class Article extends BaseTimeEntity {
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "boardId")
@@ -36,6 +41,9 @@ public class Article {
 
     private LocalDateTime createdDate = LocalDateTime.now();
     private LocalDateTime modifiedDate;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 
     @Builder
     public Article(User user, Category category, String title, String content, ArticleType type) {

@@ -54,7 +54,8 @@ public class WebSecurityConfig {
                                 "/api/v1/users/signup",
                                 "/api/v1/users/login",
                                 "/api/v1/users/reissue",
-                                "/views/**"
+                                "/views/**",
+                                "/static/**"
                         )
                         .permitAll()
                         .requestMatchers("/api/v1/roadmap/**").authenticated()

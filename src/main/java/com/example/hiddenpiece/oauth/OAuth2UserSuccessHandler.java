@@ -71,5 +71,6 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         String targetUrl = "http://localhost:8080/views/main";
 
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
+        clearAuthenticationAttributes(request);
     }
 }

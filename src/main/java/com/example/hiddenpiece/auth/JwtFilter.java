@@ -24,7 +24,9 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final List<String> EXCLUDE_URL =
             List.of("/api/v1/users/login",
                     "/api/v1/users/signup",
-                    "/api/v1/users/reissue");
+                    "/api/v1/users/reissue",
+                    "/views/main",
+                    "/views/login");
 
     private final JwtUtil jwtUtil;
     private final RedisService redisService;

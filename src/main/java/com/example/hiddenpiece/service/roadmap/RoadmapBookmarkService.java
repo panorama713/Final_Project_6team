@@ -12,8 +12,14 @@ import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -43,7 +49,19 @@ public class RoadmapBookmarkService {
                     .roadmap(targetRoadmap)
                     .build();
             roadmapBookmarkRepository.save(newRoadmapBookmark);
+
             return ResponseRoadmapBookmarkDto.fromEntity(newRoadmapBookmark);
         }
+    }
+
+    public Page<ResponseRoadmapBookmarkDto> readAll(String username, Integer page, Integer limit) {
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
+
+        Pageable pageable = PageRequest.of(page, limit);
+        Page<RoadmapBookmark> roadmapBookmarkPage = roadmapBookmarkRepository.findAllByUser(loginUser, pageable);
+        Page<ResponseRoadmapBookmarkDto> roadmapBookmarkDtoPage = roadmapBookmarkPage.map(ResponseRoadmapBookmarkDto::fromEntity);
+
+        return roadmapBookmarkDtoPage;
     }
 }

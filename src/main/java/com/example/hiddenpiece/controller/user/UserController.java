@@ -32,7 +32,7 @@ public class UserController {
     public ResponseEntity<Void> logout(HttpServletRequest req, HttpServletResponse res) {
         userService.logout(req, res);
         log.info("로그아웃 성공");
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     // 토큰 재발급

@@ -18,19 +18,15 @@ import java.util.List;
 @SQLDelete(sql = "UPDATE article SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at is null")
 public class Article extends BaseTimeEntity {
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "boardId")
-//    private Board board;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    //private Long imageId;
+    // 이미지 관련 기능 구현 필요
 
     private String title;
     private String content;
@@ -40,8 +36,6 @@ public class Article extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private ArticleType type;
-
-    private Long viewCount;
 
     private LocalDateTime deletedAt;
 

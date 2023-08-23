@@ -2,9 +2,10 @@ package com.example.hiddenpiece.domain.entity.user;
 
 import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
 import com.example.hiddenpiece.domain.entity.community.Article;
+import com.example.hiddenpiece.domain.entity.like.Like;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -46,8 +47,12 @@ public class User extends BaseTimeEntity {
     private LocalDateTime deletedAt;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
-    List<Article> article = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Article> article = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Like> likeArticles = new ArrayList<>();
 
     @Builder
     public User(
@@ -64,5 +69,13 @@ public class User extends BaseTimeEntity {
         this.profileImg = profileImg;
         this.provider = provider;
         this.providerId = providerId;
+    }
+
+    public void addLikeArticles(Like like) {
+        if (!likeArticles.contains(like)) likeArticles.add(like);
+    }
+
+    public void removeLikeArticles(Like like) {
+        likeArticles.remove(like);
     }
 }

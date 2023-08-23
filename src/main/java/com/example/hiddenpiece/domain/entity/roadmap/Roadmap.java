@@ -47,6 +47,6 @@ public class Roadmap extends BaseTimeEntity{
     public void update(RequestRoadmapDto dto) {
         this.type = dto.getType();
         this.title = dto.getTitle();
-        this.description = dto.getTitle();
+        this.description = dto.getDescription();
     }
 }

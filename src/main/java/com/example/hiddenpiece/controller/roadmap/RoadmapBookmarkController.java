@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/roadmaps")
 public class RoadmapBookmarkController {
     private final RoadmapBookmarkService roadmapBookmarkService;
-
+///bookmark/{bookmarkId}/roadmaps/{roadmapId}
     // create
     // 로드맵 북마크 생성
     @PostMapping("/{roadmapId}/bookmark")
@@ -39,7 +39,7 @@ public class RoadmapBookmarkController {
     @GetMapping("/bookmark")
     public ResponseEntity<Page<ResponseRoadmapBookmarkDto>> readAllRoadmapBookmark(
             Authentication authentication,
-            @RequestParam(value = "page", defaultValue = "0")Integer page,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "limit", defaultValue = "5") Integer limit
     ) {
         String username = authentication.getName();
@@ -52,8 +52,34 @@ public class RoadmapBookmarkController {
 
 
     // update
+    // 로드맵 북마크 수정(title)
+    @PutMapping("/bookmark/{bookmarkId}")
+    public ResponseEntity<ResponseRoadmapBookmarkDto> updateRoadmapBookmark(
+            Authentication authentication,
+            @PathVariable("bookmarkId") Long bookmarkId,
+            @RequestBody RequestRoadmapBookmarkDto dto
+    ) {
+        String username = authentication.getName();
+        ResponseRoadmapBookmarkDto responseDto = roadmapBookmarkService.update(username, bookmarkId, dto);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responseDto);
+    }
 
 
     // delete
+    // 로드맵 북마크 삭제
+    @DeleteMapping("/bookmark/{bookmarkId}")
+    public ResponseEntity<ResponseRoadmapBookmarkDto> deleteRoadmapBookmark(
+            Authentication authentication,
+            @PathVariable("bookmarkId") Long bookmarkId
+    ) {
+        String username = authentication.getName();
+        ResponseRoadmapBookmarkDto responseDto = roadmapBookmarkService.delete(username, bookmarkId);
 
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responseDto);
+    }
 }

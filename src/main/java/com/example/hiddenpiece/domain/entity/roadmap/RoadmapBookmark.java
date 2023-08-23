@@ -1,5 +1,6 @@
 package com.example.hiddenpiece.domain.entity.roadmap;
 
+import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapBookmarkDto;
 import com.example.hiddenpiece.domain.entity.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -31,5 +32,9 @@ public class RoadmapBookmark {
         this.title = title;
         this.user = user;
         this.roadmap = roadmap;
+    }
+
+    public void update(RequestRoadmapBookmarkDto dto) {
+        this.title = dto.getTitle();
     }
 }

@@ -17,14 +17,14 @@ public class ResponseRoadmapBookmarkDto {
     public static ResponseRoadmapBookmarkDto fromEntity(RoadmapBookmark entity) {
         return ResponseRoadmapBookmarkDto.builder()
                 .title(entity.getTitle())
-                .username(entity.getUser().getUsername())
+                .username(entity.getRoadmap().getUser().getUsername())
                 .build();
     }
 
     public static ResponseRoadmapBookmarkDto fromEntityDelete(RoadmapBookmark entity) {
         return ResponseRoadmapBookmarkDto.builder()
                 .title(entity.getTitle() + " - 북마크 취소")
-                .username(entity.getUser().getUsername())
+                .username(entity.getRoadmap().getUser().getUsername())
                 .build();
     }
 }

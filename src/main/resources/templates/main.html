@@ -6,5 +6,28 @@
 </head>
 <body>
   <h1>로그인 후 메인 이동 성공~!</h1>
+  <button id="logout-button" type="button">로그아웃</button>
+<script>
+    const logoutButton = document.getElementById("logout-button");
+    logoutButton.addEventListener("click", async () => {
+        try {
+            const response = await fetch("/api/v1/users/logout", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+
+            if (response.ok) {
+                window.location.href = "/views/login"
+                window.history.pushState({}, null, "/views/login")
+            } else {
+                console.error("로그아웃 실패")
+            }
+        } catch (error) {
+            console.error("로그아웃 오류", error)
+        }
+    })
+</script>
 </body>
 </html>

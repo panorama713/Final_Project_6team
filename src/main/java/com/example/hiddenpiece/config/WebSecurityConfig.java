@@ -1,11 +1,11 @@
 package com.example.hiddenpiece.config;
 
-import com.example.hiddenpiece.auth.ExceptionHandlerFilter;
 import com.example.hiddenpiece.auth.JwtFilter;
 import com.example.hiddenpiece.auth.JwtUtil;
 import com.example.hiddenpiece.domain.entity.user.Role;
 import com.example.hiddenpiece.oauth.OAuth2UserSuccessHandler;
 import com.example.hiddenpiece.redis.RedisService;
+import com.example.hiddenpiece.security.CookieManager;
 import com.example.hiddenpiece.security.CustomAccessDeniedHandler;
 import com.example.hiddenpiece.security.CustomAuthenticationEntryPoint;
 import com.example.hiddenpiece.security.LoginFilter;
@@ -39,6 +39,7 @@ public class WebSecurityConfig {
     private final RedisService redisService;
     private final OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService;
     private final OAuth2UserSuccessHandler oAuth2UserSuccessHandler;
+    private final CookieManager cookieManager;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -52,10 +53,13 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 "/api/v1/users/signup",
                                 "/api/v1/users/login",
+                                "/api/v1/users/reissue",
                                 "/api/v1/**",
-                                "/views/**"
+                                "/views/**",
+                                "/static/**"
                         )
                         .permitAll()
+                        .requestMatchers("/api/v1/roadmap/**").authenticated()
                         .anyRequest().hasAuthority("ROLE_" + Role.USER.name()))
                 .oauth2Login(oauth -> oauth
                         .loginPage("/views/login")
@@ -77,9 +81,6 @@ public class WebSecurityConfig {
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         // Access-Control-Allow-Credentials 헤더 설정
         configuration.setAllowCredentials(true);
-        // 클라이언트에게 노출할 헤더 값을 설정
-        configuration.addExposedHeader("Authorization");
-        configuration.addExposedHeader("Refresh");
         // 클라이언트가 전송할 수 있는 헤더 값을 설정
         configuration.addAllowedHeader("*");
         // 클라이언트가 다시 preflight 요청을 보내지 않아도 되는 시간을 설정
@@ -93,18 +94,17 @@ public class WebSecurityConfig {
 
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
-        public void configure(HttpSecurity http) throws Exception {
+        public void configure(HttpSecurity http) {
             log.info("SecurityConfiguration.CustomFilterConfigurer.configure execute");
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
             LoginFilter loginFilter = new LoginFilter(
-                    jwtUtil, userService, redisService, authenticationManager);
-            JwtFilter jwtFilter = new JwtFilter(jwtUtil, redisService);
+                    jwtUtil, userService, redisService, authenticationManager, cookieManager);
+            JwtFilter jwtFilter = new JwtFilter(jwtUtil, redisService, cookieManager);
 
             loginFilter.setFilterProcessesUrl("/api/*/users/login");
 
             http.addFilter(loginFilter)
-                .addFilterAfter(jwtFilter, LoginFilter.class)
-                .addFilterBefore(new ExceptionHandlerFilter(), JwtFilter.class);
+                .addFilterAfter(jwtFilter, LoginFilter.class);
         }
     }
 }

@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class ErrorResponse {
-//    private final LocalDateTime timestamp = LocalDateTime.now();
     private final String error;
     private final String message;
 
@@ -28,7 +27,7 @@ public class ErrorResponse {
         return ResponseEntity
                 .status(customExceptionCode.getHttpStatus())
                 .body(ErrorResponse.builder()
-                        .error(customExceptionCode.getHttpStatus().getReasonPhrase())
+                        .error(customExceptionCode.name())
                         .message(customExceptionCode.getMessage())
                         .build());
     }

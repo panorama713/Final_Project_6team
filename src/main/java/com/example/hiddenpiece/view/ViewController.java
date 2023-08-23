@@ -16,4 +16,9 @@ public class ViewController {
     public String mainView() {
         return "main";
     }
+
+    @GetMapping("/signup")
+    public String signup() {
+        return "sign-up";
+    }
 }

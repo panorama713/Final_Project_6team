@@ -2,6 +2,7 @@ package com.example.hiddenpiece.controller.user;
 
 import com.example.hiddenpiece.domain.dto.user.SignupRequestDto;
 import com.example.hiddenpiece.domain.dto.user.SignupResponseDto;
+import com.example.hiddenpiece.domain.dto.user.UserProfileResponseDto;
 import com.example.hiddenpiece.service.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,5 +42,11 @@ public class UserController {
         userService.reissueAccessToken(req, res);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    // 유저 프로필 조회
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserProfileResponseDto> findUserProfile(@PathVariable Long userId) {
+        return ResponseEntity.ok(userService.readUserProfile(userId));
     }
 }

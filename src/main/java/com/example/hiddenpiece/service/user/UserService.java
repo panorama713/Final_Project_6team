@@ -4,7 +4,9 @@ import com.example.hiddenpiece.auth.JwtUtil;
 import com.example.hiddenpiece.auth.TokenDto;
 import com.example.hiddenpiece.domain.dto.user.SignupRequestDto;
 import com.example.hiddenpiece.domain.dto.user.SignupResponseDto;
+import com.example.hiddenpiece.domain.dto.user.UserProfileResponseDto;
 import com.example.hiddenpiece.domain.entity.user.User;
+import com.example.hiddenpiece.domain.repository.follow.FollowRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
@@ -28,16 +30,16 @@ import static com.example.hiddenpiece.security.CookieManager.*;
 @RequiredArgsConstructor
 @Slf4j
 @Service
+@Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RedisService redisService;
     private final JwtUtil jwtUtil;
     private final CookieManager cookieManager;
+    private final FollowRepository followRepository;
 
-    /**
-     * 회원가입
-     */
+    // 회원가입
     @Transactional
     public SignupResponseDto signup(SignupRequestDto requestDto) {
         if (userRepository.existsByUsername(requestDto.getUsername())) {
@@ -53,6 +55,7 @@ public class UserService {
         return new SignupResponseDto(userRepository.save(user));
     }
 
+    // 로그아웃
     @Transactional
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         // 쿠키에서 access token 불러오기
@@ -80,6 +83,7 @@ public class UserService {
         }
     }
 
+    // 토큰 재발급
     @Transactional
     public void reissueAccessToken(HttpServletRequest request, HttpServletResponse response) {
         String refreshToken = cookieManager.getCookie(request, REFRESH_TOKEN);
@@ -107,7 +111,33 @@ public class UserService {
         }
     }
 
-    // TODO 마이페이지 로직 구현
+    // 유저 프로필 조회
+    public UserProfileResponseDto readUserProfile(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        return UserProfileResponseDto.builder()
+                .username(user.getUsername())
+                .realName(user.getRealName())
+                .email(user.getEmail())
+                .numberOfWrittenArticle(0)     // TODO 기능 구현시 구현 예정
+                .numberOfWrittenComment(0)     // TODO 기능 구현시 구현 예정
+                .followingCount(this.getCountOfFollowing(user))
+                .followerCount(this.getCountOfFollower(user))
+                .build();
+    }
+
+    // TODO 마이 프로필 구현
+
+    // 팔로잉 카운트 세는 로직
+    public int getCountOfFollowing(User fromUser) {
+        return followRepository.countByFromUser(fromUser);
+    }
+
+    // 팔로워 카운트 세는 로직
+    public int getCountOfFollower(User toUser) {
+        return followRepository.countByToUser(toUser);
+    }
 
     private void verifiedRefreshToken(String refreshToken) {
         if (refreshToken == null) {

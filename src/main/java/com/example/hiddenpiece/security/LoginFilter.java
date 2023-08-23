@@ -65,7 +65,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         // User 찾기
         User user = userService.findUserAndCheckUserExists(customUserDetails.getId());
         redisService.setValues(user.getUsername(), refreshToken, Duration.ofMillis(refreshTokenExpirationMillis));
-        response.sendRedirect("/views/main");
     }
 
     @Override

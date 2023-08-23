@@ -31,7 +31,7 @@ public class RedisService {
     }
 
     @Transactional
-    public void deleteValues(String key) {
+    public void deleteValuesByKey(String key) {
         redisTemplate.delete(key);
     }
 

@@ -2,6 +2,8 @@ package com.example.hiddenpiece.security;
 
 import com.example.hiddenpiece.exception.CustomExceptionCode;
 import com.example.hiddenpiece.exception.ErrorResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -35,7 +37,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         ErrorResponse errorResponse = new ErrorResponse(errorCode.getHttpStatus().name(), errorCode.getMessage());
-
-        response.getWriter().print(errorResponse);
+        ObjectMapper objectMapper = new ObjectMapper();
+        response.getWriter().print(objectMapper.writeValueAsString(errorResponse));
     }
 }

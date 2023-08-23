@@ -25,6 +25,8 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.hiddenpiece.security.CookieManager.*;
+
 @Slf4j
 @RequiredArgsConstructor
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
@@ -33,6 +35,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final UserService userService;
     private final RedisService redisService;
     private final AuthenticationManager authenticationManager;
+    private final CookieManager cookieManager;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -55,12 +58,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         TokenDto tokenDto = jwtUtil.generateTokenDto(customUserDetails);
         String accessToken = tokenDto.getAccessToken();
         String refreshToken = tokenDto.getRefreshToken();
-        jwtUtil.accessTokenSetHeader(accessToken, response);
-        jwtUtil.refreshTokenSetHeader(refreshToken, response);
+        long accessTokenExpirationMillis = jwtUtil.getAccessTokenExpirationMillis();
+        long refreshTokenExpirationMillis = jwtUtil.getRefreshTokenExpirationMillis();
+        cookieManager.setCookie(response, accessToken, ACCESS_TOKEN, accessTokenExpirationMillis);
+        cookieManager.setCookie(response, refreshToken, REFRESH_TOKEN, refreshTokenExpirationMillis);
         // User 찾기
         User user = userService.findUserAndCheckUserExists(customUserDetails.getId());
-        long refreshTokenExpirationMillis = jwtUtil.getRefreshTokenExpirationMillis();
         redisService.setValues(user.getUsername(), refreshToken, Duration.ofMillis(refreshTokenExpirationMillis));
+        response.sendRedirect("/views/main");
     }
 
     @Override

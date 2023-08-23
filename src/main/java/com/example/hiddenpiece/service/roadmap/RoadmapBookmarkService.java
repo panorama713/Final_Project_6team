@@ -12,6 +12,9 @@ import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,10 +27,13 @@ public class RoadmapBookmarkService {
     private final RoadmapRepository roadmapRepository;
     private final UserRepository userRepository;
 
+    // 로드맵 북마크 생성/취소
     @Transactional
     public ResponseRoadmapBookmarkDto create(String username, Long roadmapId, RequestRoadmapBookmarkDto dto) {
+        // 로그인 확인
         User loginUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+        // 로드맵 존재 확인
         Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
 
@@ -43,7 +49,22 @@ public class RoadmapBookmarkService {
                     .roadmap(targetRoadmap)
                     .build();
             roadmapBookmarkRepository.save(newRoadmapBookmark);
+
             return ResponseRoadmapBookmarkDto.fromEntity(newRoadmapBookmark);
         }
+    }
+
+    // 로드맵 북마크 목록 조회
+    public Page<ResponseRoadmapBookmarkDto> readAll(String username, Integer page, Integer limit) {
+        // 로그인 확인
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+
+        // 페이징 처리
+        Pageable pageable = PageRequest.of(page, limit);
+        Page<RoadmapBookmark> roadmapBookmarkPage = roadmapBookmarkRepository.findAllByUser(loginUser, pageable);
+        Page<ResponseRoadmapBookmarkDto> roadmapBookmarkDtoPage = roadmapBookmarkPage.map(ResponseRoadmapBookmarkDto::fromEntity);
+
+        return roadmapBookmarkDtoPage;
     }
 }

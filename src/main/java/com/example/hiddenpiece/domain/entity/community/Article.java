@@ -39,8 +39,8 @@ public class Article extends BaseTimeEntity {
 
     private Long viewCount;
 
-    private LocalDateTime createdDate = LocalDateTime.now();
-    private LocalDateTime modifiedDate;
+//    private LocalDateTime createdDate = LocalDateTime.now();
+//    private LocalDateTime modifiedDate;
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
@@ -57,6 +57,5 @@ public class Article extends BaseTimeEntity {
     public void modify(String title, String content) {
         this.title = title;
         this.content = content;
-        this.modifiedDate = LocalDateTime.now();
     }
 }

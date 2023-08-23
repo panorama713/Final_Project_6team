@@ -40,7 +40,7 @@ public class ArticleService {
     }
 
     public List<ArticleResponseDto> findAll() {
-        Sort sort = Sort.by(Sort.Direction.DESC, "articleId", "createdDate");
+        Sort sort = Sort.by(Sort.Direction.DESC, "articleId", "createdAt");
         List<Article> list = articleRepository.findAll(sort);
         return list.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
     }
@@ -48,10 +48,10 @@ public class ArticleService {
     @Transactional
     public Long updateArticle(String username, final Long articleId, final ArticleRequestDto params) {
         User loginUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
         Article target = articleRepository.findById(articleId)
-                .orElseThrow(() -> new IllegalArgumentException("article doesn't exist"));
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ARTICLE));
 
         if (!target.getUser().equals(loginUser)) {
             throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
@@ -62,10 +62,11 @@ public class ArticleService {
 
     public Long deleteArticle(String username, final Long articleId) {
         User loginUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
         Article target = articleRepository.findById(articleId)
-                .orElseThrow(() -> new IllegalArgumentException("article doesn't exist"));
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ARTICLE));
+
         if (!target.getUser().equals(loginUser)) {
             throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
         }

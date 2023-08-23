@@ -15,8 +15,8 @@ public class ArticleResponseDto {
     private String title;
     private String content;
     private ArticleType type;
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
+//    private LocalDateTime createdDate;
+//    private LocalDateTime modifiedDate;
 
     public ArticleResponseDto(Article entity) {
         this.articleId = entity.getArticleId();
@@ -25,7 +25,7 @@ public class ArticleResponseDto {
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.type = entity.getType();
-        this.createdDate = entity.getCreatedDate();
-        this.modifiedDate = entity.getModifiedDate();
+//        this.createdDate = entity.getCreatedDate();
+//        this.modifiedDate = entity.getModifiedDate();
     }
 }

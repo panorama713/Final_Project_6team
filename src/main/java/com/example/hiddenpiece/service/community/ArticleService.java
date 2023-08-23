@@ -26,7 +26,7 @@ public class ArticleService {
     @Transactional
     public Long createArticle(String username, ArticleRequestDto params) {
         User loginUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
         Article entity = Article.builder()
                 .user(loginUser)
@@ -36,7 +36,7 @@ public class ArticleService {
                 .type(params.getType())
                 .build();
         articleRepository.save(entity);
-        return entity.getArticleId();
+        return entity.getId();
     }
 
     public List<ArticleResponseDto> findAll() {

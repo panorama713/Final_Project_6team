@@ -11,38 +11,34 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Where(clause = "deleted_at IS NULL")
-@SQLDelete(sql = "UPDATE article SET deleted_at = CURRENT_TIMESTAMP where id = ?")
-@Table(name = "article")
+@SQLDelete(sql = "UPDATE article SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted_at is null")
 public class Article extends BaseTimeEntity {
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "boardId")
 //    private Board board;
 
-    private Category category;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long articleId;
+    private Long id;
     //private Long imageId;
 
     private String title;
     private String content;
 
     @Enumerated(EnumType.STRING)
+    private Category category;
+
+    @Enumerated(EnumType.STRING)
     private ArticleType type;
 
     private Long viewCount;
 
-//    private LocalDateTime createdDate = LocalDateTime.now();
-//    private LocalDateTime modifiedDate;
-
-    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
     @Builder

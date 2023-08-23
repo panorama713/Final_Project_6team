@@ -17,24 +17,24 @@ public class ArticleController {
 
     private final ArticleService articleService;
 
-    @PostMapping("/write")
+    @PostMapping("")
     public Long createArticle(Authentication authentication, @RequestBody final ArticleRequestDto params) {
         String username = authentication.getName();
         return articleService.createArticle(username, params);
     }
 
-    @GetMapping("/all")
+    @GetMapping("")
     public List<ArticleResponseDto> findAll() {
         return articleService.findAll();
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public Long updateArticle(Authentication authentication, @PathVariable final Long id, @RequestBody final ArticleRequestDto params) {
         String username = authentication.getName();
         return articleService.updateArticle(username, id, params);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public Long deleteArticle(Authentication authentication, @PathVariable final Long id) {
         String username = authentication.getName();
         return articleService.deleteArticle(username, id);

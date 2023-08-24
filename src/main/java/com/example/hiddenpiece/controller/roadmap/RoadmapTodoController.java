@@ -1,0 +1,43 @@
+package com.example.hiddenpiece.controller.roadmap;
+
+import com.example.hiddenpiece.domain.dto.roadmap.RequestCreateRoadmapTodoDto;
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseCreateRoadmapTodoDto;
+import com.example.hiddenpiece.service.roadmap.RoadmapTodoService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@Slf4j
+@RequiredArgsConstructor
+@RequestMapping("/api/v1/roadmaps/{roadmapId}/elements/{elementId}/todo")
+public class RoadmapTodoController {
+    private final RoadmapTodoService roadmapTodoService;
+
+    // create
+    // 로드맵 투두 생성
+    @PostMapping
+    public ResponseEntity<ResponseCreateRoadmapTodoDto> createRoadmapTodo(
+            @PathVariable("roadmapId") Long roadmapId,
+            @PathVariable("elementId") Long elementId,
+            @RequestBody RequestCreateRoadmapTodoDto dto
+    ) {
+        ResponseCreateRoadmapTodoDto responseDto = roadmapTodoService.create(roadmapId, elementId, dto);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(responseDto);
+    }
+
+    // readALl
+    // 로드맵 요소의 투두 목록 조회
+
+    // update
+    // 로드맵 투두 수정
+
+    // delete
+    // 로드맵 투두 삭제
+
+}

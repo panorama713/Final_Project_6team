@@ -44,7 +44,7 @@ public class CommentService {
                 .content(dto.getContent())
                 .build();
         Comment savedComment = commentRepository.save(comment);
-        log.info("#log# 게시글 아이디 [{}]의 댓글 아이디 [{}] 데이터베이스 저장", articleId, savedComment.getId());
+        log.info("#log# 데이터베이스 저장 - 게시글 [{}] -> 댓글 [{}]", articleId, savedComment.getId());
         return CommentResponseDto.fromEntity(savedComment);
     }
 
@@ -57,7 +57,7 @@ public class CommentService {
         if (comments.isEmpty()) {
             throw new CustomException(NOT_FOUND_COMMENT);
         }
-        log.info("#log# 게시글 아이디 [{}]의 모든 (대)댓글 데이터베이스 조회", articleId);
+        log.info("#log# 데이터베이스 조회 - 게시글 [{}] -> (대)댓글", articleId);
         return comments.stream()
                 .filter(comment -> comment.getParentComment() == null)
                 .map(mainComment -> {
@@ -90,7 +90,7 @@ public class CommentService {
             throw new CustomException(NOT_MATCH_WRITER);
         }
         comment.update(dto.getContent());
-        log.info("#log# 사용자 [{}]의 (대)댓글 아이디 [{}] 데이터베이스 수정", username, commentId);
+        log.info("#log# 데이터베이스 수정 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}]", username, articleId, commentId);
         return CommentResponseDto.fromEntity(comment);
     }
 
@@ -109,7 +109,7 @@ public class CommentService {
             throw new CustomException(NOT_MATCH_WRITER);
         }
         comment.softDelete();
-        log.info("#log# 사용자 [{}]의 (대)댓글 아이디 [{}] 데이터베이스 소프트 삭제", username, commentId);
+        log.info("#log# 데이터베이스 소프트 삭제 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}]", username, articleId, commentId);
     }
 
     /**
@@ -135,7 +135,7 @@ public class CommentService {
                 .parentComment(parentComment)
                 .build();
         Comment savedReply = commentRepository.save(reply);
-        log.info("#log# 게시글 아이디 [{}]의 댓글 아이디 [{}]의 대댓글 아이디 [{}] 데이터베이스 저장", articleId, parentCommentId, savedReply.getId());
+        log.info("#log# 데이터베이스 저장 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}] -> 대댓글 [{}]", username, articleId, parentCommentId, savedReply.getId());
         return CommentResponseDto.fromEntity(savedReply);
     }
 }

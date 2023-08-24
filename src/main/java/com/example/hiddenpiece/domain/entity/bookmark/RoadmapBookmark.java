@@ -1,6 +1,7 @@
-package com.example.hiddenpiece.domain.entity.roadmap;
+package com.example.hiddenpiece.domain.entity.bookmark;
 
-import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapBookmarkDto;
+import com.example.hiddenpiece.domain.dto.bookmark.RequestRoadmapBookmarkDto;
+import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;

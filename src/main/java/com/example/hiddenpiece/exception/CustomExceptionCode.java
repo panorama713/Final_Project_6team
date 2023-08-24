@@ -39,7 +39,7 @@ public enum CustomExceptionCode {
     NOT_FOUND_ROADMAP_CATEGORY(HttpStatus.NOT_FOUND, "해당 로드맵 카테고리를 찾을 수 없습니다."),
     NOT_FOUND_ROADMAP_BOOKMARK(HttpStatus.NOT_FOUND, "해당 로드맵 북마크를 찾을 수 없습니다."),
     NOT_FOUND_ARTICLE(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다."),
-    NOT_FOUND_LIKE(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다."),
+    NOT_FOUND_ARTICLE_BOOKMARK(HttpStatus.NOT_FOUND, "북마크한 해당 게시글을 찾을 수 없습니다."),
     /*
      * 409
      */
@@ -51,6 +51,7 @@ public enum CustomExceptionCode {
     UNFOLLOW_FAILED(HttpStatus.CONFLICT, "이미 언팔로우 한 유저입니다."),
     LIKE_FAILED(HttpStatus.CONFLICT, "이미 좋아요 한 게시글입니다."),
     UNLIKE_FAILED(HttpStatus.CONFLICT, "이미 좋아요를 취소한 게시글입니다."),
+    ALREADY_EXIST_ARTICLE_BOOKMARK(HttpStatus.CONFLICT, "이미 북마크에 저장된 게시글입니다."),
     /*
      * 415
      */

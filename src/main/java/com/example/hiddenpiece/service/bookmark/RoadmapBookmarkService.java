@@ -1,11 +1,11 @@
-package com.example.hiddenpiece.service.roadmap;
+package com.example.hiddenpiece.service.bookmark;
 
-import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapBookmarkDto;
-import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapBookmarkDto;
+import com.example.hiddenpiece.domain.dto.bookmark.RequestRoadmapBookmarkDto;
+import com.example.hiddenpiece.domain.dto.bookmark.ResponseRoadmapBookmarkDto;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
-import com.example.hiddenpiece.domain.entity.roadmap.RoadmapBookmark;
+import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
 import com.example.hiddenpiece.domain.entity.user.User;
-import com.example.hiddenpiece.domain.repository.roadmap.RoadmapBookmarkRepository;
+import com.example.hiddenpiece.domain.repository.bookmark.RoadmapBookmarkRepository;
 import com.example.hiddenpiece.domain.repository.roadmap.RoadmapRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;

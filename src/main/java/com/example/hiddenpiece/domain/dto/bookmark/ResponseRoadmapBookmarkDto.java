@@ -1,6 +1,6 @@
-package com.example.hiddenpiece.domain.dto.roadmap;
+package com.example.hiddenpiece.domain.dto.bookmark;
 
-import com.example.hiddenpiece.domain.entity.roadmap.RoadmapBookmark;
+import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

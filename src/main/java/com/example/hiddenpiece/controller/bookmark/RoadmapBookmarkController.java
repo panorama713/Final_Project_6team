@@ -1,8 +1,8 @@
-package com.example.hiddenpiece.controller.roadmap;
+package com.example.hiddenpiece.controller.bookmark;
 
-import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapBookmarkDto;
-import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapBookmarkDto;
-import com.example.hiddenpiece.service.roadmap.RoadmapBookmarkService;
+import com.example.hiddenpiece.domain.dto.bookmark.RequestRoadmapBookmarkDto;
+import com.example.hiddenpiece.domain.dto.bookmark.ResponseRoadmapBookmarkDto;
+import com.example.hiddenpiece.service.bookmark.RoadmapBookmarkService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

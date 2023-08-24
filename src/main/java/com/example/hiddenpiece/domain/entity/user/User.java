@@ -49,11 +49,11 @@ public class User extends BaseTimeEntity {
     private LocalDateTime deletedAt;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-    private List<Article> article = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Article> articles = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Like> likeArticles = new ArrayList<>();
 
     @JsonIgnore

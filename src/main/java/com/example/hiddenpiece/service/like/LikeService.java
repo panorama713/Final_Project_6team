@@ -61,8 +61,6 @@ public class LikeService {
                 .orElseThrow(() -> new CustomException(UNLIKE_FAILED));
 
         likeRepository.delete(like);
-        user.removeLikeArticles(like);
-        article.removeLikeArticles(like);
     }
 
     public int getLikeCount(Article article) {

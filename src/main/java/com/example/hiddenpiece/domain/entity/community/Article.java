@@ -41,7 +41,7 @@ public class Article extends BaseTimeEntity {
     private LocalDateTime deletedAt;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "article", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Like> likeArticles = new ArrayList<>();
 
     @JsonIgnore
@@ -64,10 +64,6 @@ public class Article extends BaseTimeEntity {
 
     public void addLikeArticles(Like like) {
         if (!likeArticles.contains(like)) likeArticles.add(like);
-    }
-
-    public void removeLikeArticles(Like like) {
-        likeArticles.remove(like);
     }
 
     public void addArticleBookmarks(ArticleBookmark articleBookmark) {

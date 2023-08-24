@@ -6,13 +6,13 @@ import com.example.hiddenpiece.domain.dto.user.SignupRequestDto;
 import com.example.hiddenpiece.domain.dto.user.SignupResponseDto;
 import com.example.hiddenpiece.domain.dto.user.UserProfileResponseDto;
 import com.example.hiddenpiece.domain.entity.user.User;
-import com.example.hiddenpiece.domain.repository.follow.FollowRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
 import com.example.hiddenpiece.redis.RedisService;
 import com.example.hiddenpiece.security.CookieManager;
 import com.example.hiddenpiece.security.CustomUserDetails;
+import com.example.hiddenpiece.service.follow.FollowService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,7 +37,7 @@ public class UserService {
     private final RedisService redisService;
     private final JwtUtil jwtUtil;
     private final CookieManager cookieManager;
-    private final FollowRepository followRepository;
+    private final FollowService followService;
 
     // 회원가입
     @Transactional
@@ -122,22 +122,12 @@ public class UserService {
                 .email(user.getEmail())
                 .numberOfWrittenArticle(0)     // TODO 기능 구현시 구현 예정
                 .numberOfWrittenComment(0)     // TODO 기능 구현시 구현 예정
-                .followingCount(this.getCountOfFollowing(user))
-                .followerCount(this.getCountOfFollower(user))
+                .followingCount(followService.getCountOfFollowing(user))
+                .followerCount(followService.getCountOfFollower(user))
                 .build();
     }
 
     // TODO 마이 프로필 구현
-
-    // 팔로잉 카운트 세는 로직
-    public int getCountOfFollowing(User fromUser) {
-        return followRepository.countByFromUser(fromUser);
-    }
-
-    // 팔로워 카운트 세는 로직
-    public int getCountOfFollower(User toUser) {
-        return followRepository.countByToUser(toUser);
-    }
 
     private void verifiedRefreshToken(String refreshToken) {
         if (refreshToken == null) {

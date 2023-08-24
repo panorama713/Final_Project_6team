@@ -50,4 +50,14 @@ public class FollowService {
 
         followRepository.deleteByToUserAndFromUser(toUser, fromUser);
     }
+
+    // 팔로잉 카운트 세는 로직
+    public int getCountOfFollowing(User fromUser) {
+        return followRepository.countByFromUser(fromUser);
+    }
+
+    // 팔로워 카운트 세는 로직
+    public int getCountOfFollower(User toUser) {
+        return followRepository.countByToUser(toUser);
+    }
 }

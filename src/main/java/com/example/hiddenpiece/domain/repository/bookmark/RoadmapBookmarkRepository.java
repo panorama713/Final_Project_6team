@@ -1,13 +1,11 @@
-package com.example.hiddenpiece.domain.repository.roadmap;
+package com.example.hiddenpiece.domain.repository.bookmark;
 
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
-import com.example.hiddenpiece.domain.entity.roadmap.RoadmapBookmark;
+import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
 import com.example.hiddenpiece.domain.entity.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface RoadmapBookmarkRepository extends JpaRepository<RoadmapBookmark, Long> {
     RoadmapBookmark findByUserAndRoadmap(User user, Roadmap roadmap);

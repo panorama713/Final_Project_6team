@@ -1,6 +1,8 @@
 package com.example.hiddenpiece.domain.entity.user;
 
 import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
+import com.example.hiddenpiece.domain.entity.bookmark.ArticleBookmark;
+import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.like.Like;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -47,12 +49,20 @@ public class User extends BaseTimeEntity {
     private LocalDateTime deletedAt;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-    private List<Article> article = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Article> articles = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Like> likeArticles = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<RoadmapBookmark> roadmapBookmarks = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<ArticleBookmark> articleBookmarks = new ArrayList<>();
 
     @Builder
     public User(
@@ -75,7 +85,13 @@ public class User extends BaseTimeEntity {
         if (!likeArticles.contains(like)) likeArticles.add(like);
     }
 
-    public void removeLikeArticles(Like like) {
-        likeArticles.remove(like);
+    public void addRoadmapBookmarks(RoadmapBookmark roadmapBookmark) {
+        roadmapBookmark.setUser(this);
+        this.roadmapBookmarks.add(roadmapBookmark);
+    }
+
+    public void addArticleBookmarks(ArticleBookmark articleBookmark) {
+        articleBookmark.setUser(this);
+        this.articleBookmarks.add(articleBookmark);
     }
 }

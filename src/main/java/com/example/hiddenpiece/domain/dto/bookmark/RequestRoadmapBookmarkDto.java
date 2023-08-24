@@ -1,4 +1,4 @@
-package com.example.hiddenpiece.domain.dto.roadmap;
+package com.example.hiddenpiece.domain.dto.bookmark;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

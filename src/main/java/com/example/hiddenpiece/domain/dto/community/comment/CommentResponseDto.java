@@ -8,11 +8,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class CommentResponseDto {
+    private Long id;
     private String username;
     private String content;
 
     public static CommentResponseDto fromEntity(Comment entity) {
         return CommentResponseDto.builder()
+                .id(entity.getId())
                 .username(entity.getUser().getUsername())
                 .content(entity.getContent())
                 .build();

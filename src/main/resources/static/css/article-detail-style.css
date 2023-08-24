@@ -1,0 +1,63 @@
+/* 글씨체 적용 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #4e4897;
+    --sub-color: #a7a5cd;
+    --white-color: #ffffff;
+}
+
+/* 폰트 설정 */
+* {
+    font-family: "yg-jalnan" !important;
+}
+
+
+
+.article {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid var(--main-color);
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+/* 게시글 제목 설정 */
+.article-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* 게시글 타입, 생성날짜 설정 */
+.article-meta {
+    color: #6c757d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* 게시글 내용 설정 */
+.article-content {
+    margin-top: 20px;
+    padding-top: 10px;
+    min-height: 10em;
+}
+
+
+/* 게시글 타입 모양 설정 */
+.type {
+    border: 2px solid var(--main-color);
+    background-color: var(--main-color);
+    border-radius: 0px;
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+}

@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
@@ -20,10 +21,12 @@ public class RoadmapBookmark {
     private String title;
 
     @ManyToOne
+    @Setter
     @JoinColumn(name = "user_id")
     User user;
 
     @ManyToOne
+    @Setter
     @JoinColumn(name = "roadmap_id")
     Roadmap roadmap;
 

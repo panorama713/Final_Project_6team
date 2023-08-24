@@ -52,6 +52,7 @@ public enum CustomExceptionCode {
     LIKE_FAILED(HttpStatus.CONFLICT, "이미 좋아요 한 게시글입니다."),
     UNLIKE_FAILED(HttpStatus.CONFLICT, "이미 좋아요를 취소한 게시글입니다."),
     ALREADY_EXIST_ARTICLE_BOOKMARK(HttpStatus.CONFLICT, "이미 북마크에 저장된 게시글입니다."),
+    ALREADY_EXIST_ROADMAP_BOOKMARK(HttpStatus.CONFLICT, "이미 북마크에 저장된 로드맵입니다."),
     /*
      * 415
      */

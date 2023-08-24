@@ -5,6 +5,7 @@ import com.example.hiddenpiece.domain.dto.bookmark.ResponseArticleBookmarkDto;
 import com.example.hiddenpiece.service.bookmark.ArticleBookmarkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +17,13 @@ public class ArticleBookmarkController {
     private final ArticleBookmarkService articleBookmarkService;
 
     @PostMapping("/articles/{articleId}")
-    public ResponseEntity<Void> createArticleBookmark(
+    public ResponseEntity<ResponseArticleBookmarkDto> createArticleBookmark(
             @PathVariable Long articleId,
             Authentication authentication,
             @RequestBody RequestArticleBookmarkDto dto
     ) {
         String username = authentication.getName();
-        articleBookmarkService.createArticleBookmark(username, articleId, dto);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(articleBookmarkService.createArticleBookmark(username, articleId, dto));
     }
 
     @GetMapping("/articles")

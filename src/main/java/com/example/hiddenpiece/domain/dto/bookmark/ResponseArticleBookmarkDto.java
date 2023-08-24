@@ -9,12 +9,14 @@ import lombok.*;
 @Builder
 public class ResponseArticleBookmarkDto {
     private String titleOfBookmark;
-    private String usernameOfArticle;
+    private String titleOfArticle;
+    private String username;
 
     public static ResponseArticleBookmarkDto fromEntity(ArticleBookmark articleBookmark) {
         return ResponseArticleBookmarkDto.builder()
                 .titleOfBookmark(articleBookmark.getTitle())
-                .usernameOfArticle(articleBookmark.getArticle().getUser().getUsername())
+                .titleOfArticle(articleBookmark.getArticle().getTitle())
+                .username(articleBookmark.getUser().getUsername())
                 .build();
     }
 }

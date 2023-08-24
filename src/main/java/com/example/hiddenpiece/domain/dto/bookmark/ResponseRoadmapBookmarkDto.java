@@ -11,20 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseRoadmapBookmarkDto {
-    private String title;
+    private String titleOfBookmark;
+    private String titleOfArticle;
     private String username;
 
-    public static ResponseRoadmapBookmarkDto fromEntity(RoadmapBookmark entity) {
+    public static ResponseRoadmapBookmarkDto fromEntity(RoadmapBookmark roadmapBookmark) {
         return ResponseRoadmapBookmarkDto.builder()
-                .title(entity.getTitle())
-                .username(entity.getRoadmap().getUser().getUsername())
-                .build();
-    }
-
-    public static ResponseRoadmapBookmarkDto fromEntityDelete(RoadmapBookmark entity) {
-        return ResponseRoadmapBookmarkDto.builder()
-                .title(entity.getTitle() + " - 북마크 취소")
-                .username(entity.getRoadmap().getUser().getUsername())
+                .titleOfBookmark(roadmapBookmark.getTitle())
+                .titleOfArticle(roadmapBookmark.getRoadmap().getTitle())
+                .username(roadmapBookmark.getUser().getUsername())
                 .build();
     }
 }

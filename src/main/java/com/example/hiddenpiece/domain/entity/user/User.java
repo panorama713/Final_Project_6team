@@ -2,6 +2,7 @@ package com.example.hiddenpiece.domain.entity.user;
 
 import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
 import com.example.hiddenpiece.domain.entity.bookmark.ArticleBookmark;
+import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.like.Like;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -57,6 +58,10 @@ public class User extends BaseTimeEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<RoadmapBookmark> roadmapBookmarks = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ArticleBookmark> articleBookmarks = new ArrayList<>();
 
     @Builder
@@ -80,8 +85,9 @@ public class User extends BaseTimeEntity {
         if (!likeArticles.contains(like)) likeArticles.add(like);
     }
 
-    public void removeLikeArticles(Like like) {
-        likeArticles.remove(like);
+    public void addRoadmapBookmarks(RoadmapBookmark roadmapBookmark) {
+        roadmapBookmark.setUser(this);
+        this.roadmapBookmarks.add(roadmapBookmark);
     }
 
     public void addArticleBookmarks(ArticleBookmark articleBookmark) {

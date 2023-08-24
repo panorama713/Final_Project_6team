@@ -28,7 +28,7 @@ public class ArticleBookmarkService {
 
     // 게시글 북마크 생성
     @Transactional
-    public void createArticleBookmark(String username, Long articleId, RequestArticleBookmarkDto dto) {
+    public ResponseArticleBookmarkDto createArticleBookmark(String username, Long articleId, RequestArticleBookmarkDto dto) {
         User loginUser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
@@ -48,6 +48,8 @@ public class ArticleBookmarkService {
         articleBookmarkRepository.save(articleBookmark);
         loginUser.addArticleBookmarks(articleBookmark);
         targetArticle.addArticleBookmarks(articleBookmark);
+
+        return ResponseArticleBookmarkDto.fromEntity(articleBookmark);
     }
 
     // 북마크한 게시글 목록 조회

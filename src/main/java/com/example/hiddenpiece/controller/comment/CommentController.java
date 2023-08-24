@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/v1/comments")
+@RequestMapping("/api/v1/articles/{articleId}/comments")
 @RestController
 public class CommentController {
     private final CommentService commentService;
@@ -25,10 +25,10 @@ public class CommentController {
     }
 
     /**
-     * POST /{articleId}
+     * POST
      * 댓글 등록
      */
-    @PostMapping("/{articleId}")
+    @PostMapping
     public ResponseEntity<CommentResponseDto> createComment(
             @PathVariable Long articleId,
             @Valid @RequestBody CommentRequestDto dto,
@@ -41,10 +41,10 @@ public class CommentController {
     }
 
     /**
-     * GET /{articleId}
+     * GET
      * 댓글 조회
      */
-    @GetMapping("/{articleId}")
+    @GetMapping
     public ResponseEntity<List<CommentResponseDto>> readAllCommentsForArticle(
             @PathVariable Long articleId
     ) {

@@ -76,7 +76,7 @@ public class CommentService {
     }
 
     /**
-     * 댓글 수정
+     * 댓글 및 대댓글 수정
      */
     @Transactional
     public CommentResponseDto updateComment(
@@ -88,12 +88,12 @@ public class CommentService {
             throw new CustomException(NOT_MATCH_WRITER);
         }
         comment.update(dto.getContent());
-        log.info("#log# 사용자 [{}]의 댓글 아이디 [{}] 데이터베이스 수정", username, commentId);
+        log.info("#log# 사용자 [{}]의 (대)댓글 아이디 [{}] 데이터베이스 수정", username, commentId);
         return CommentResponseDto.fromEntity(comment);
     }
 
     /**
-     * 댓글 삭제
+     * 댓글 및 대댓글 삭제
      */
     @Transactional
     public void deleteComment(
@@ -105,7 +105,7 @@ public class CommentService {
             throw new CustomException(NOT_MATCH_WRITER);
         }
         comment.softDelete();
-        log.info("#log# 사용자 [{}]의 댓글 아이디 [{}] 데이터베이스 소프트 삭제", username, commentId);
+        log.info("#log# 사용자 [{}]의 (대)댓글 아이디 [{}] 데이터베이스 소프트 삭제", username, commentId);
     }
 
     /**

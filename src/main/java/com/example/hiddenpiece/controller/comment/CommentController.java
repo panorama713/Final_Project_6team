@@ -34,7 +34,7 @@ public class CommentController {
             @Valid @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 사용자 [{}]에 의해 게시글 아이디 [{}]에 댓글 등록 성공", getUsername(auth), articleId);
+        log.info("#log# 사용자 [{}]에 의해 게시글 아이디 [{}]에 댓글 등록 시도", getUsername(auth), articleId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(commentService.createComment(getUsername(auth), articleId, dto));
@@ -56,7 +56,7 @@ public class CommentController {
 
     /**
      * PUT /{commentId}
-     * 댓글 수정
+     * 댓글 및 대댓글 수정
      */
     @PutMapping("/{commentId}")
     public ResponseEntity<CommentResponseDto> updateComment(
@@ -64,7 +64,7 @@ public class CommentController {
             @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 사용자 [{}]에 의해 댓글 아이디 [{}] 수정 성공", getUsername(auth), commentId);
+        log.info("#log# 사용자 [{}]에 의해 (대)댓글 아이디 [{}] 수정 시도", getUsername(auth), commentId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(commentService.updateComment(getUsername(auth), commentId, dto));
@@ -72,14 +72,14 @@ public class CommentController {
 
     /**
      * DELETE /{commentId}
-     * 댓글 삭제
+     * 댓글 및 대댓글 삭제
      */
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(
             @PathVariable Long commentId,
             Authentication auth
     ) {
-        log.info("#log# 사용자 [{}]에 의해 댓글 아이디 [{}] 삭제 성공", getUsername(auth), commentId);
+        log.info("#log# 사용자 [{}]에 의해 (대)댓글 아이디 [{}] 삭제 시도", getUsername(auth), commentId);
         commentService.deleteComment(getUsername(auth), commentId);
         return ResponseEntity.noContent().build();
     }

@@ -121,7 +121,7 @@ public class CommentService {
     ) {
         Comment parentComment = commentRepository.findById(parentCommentId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_COMMENT));
-        if(parentComment.getParentComment() != null) {
+        if (parentComment.getParentComment() != null) {
             throw new CustomException(NOT_ALLOW_MORE_REPLY);
         }
         Article article = articleRepository.findById(articleId)

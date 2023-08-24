@@ -34,7 +34,7 @@ public class CommentController {
             @Valid @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 등록 시도 - 사용자 [{}] -> 게시글 [{}]", getUsername(auth), articleId);
+        log.info("#log# 등록 시도 - 사용자 [{}] -> 게시글 [{}] -> 댓글", getUsername(auth), articleId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(commentService.createComment(getUsername(auth), articleId, dto));
@@ -65,7 +65,7 @@ public class CommentController {
             @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 수정 시도 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}]", getUsername(auth), articleId, commentId);
+        log.info("#log# 수정 시도 - 사용자 [{}] -> 게시글 [{}] -> (대)댓글 [{}]", getUsername(auth), articleId, commentId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(commentService.updateComment(getUsername(auth), articleId, commentId, dto));
@@ -81,7 +81,7 @@ public class CommentController {
             @PathVariable Long commentId,
             Authentication auth
     ) {
-        log.info("#log# 삭제 시도 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}]", getUsername(auth), articleId, commentId);
+        log.info("#log# 삭제 시도 - 사용자 [{}] -> 게시글 [{}] -> (대)댓글 [{}]", getUsername(auth), articleId, commentId);
         commentService.deleteComment(getUsername(auth), articleId, commentId);
         return ResponseEntity.noContent().build();
     }
@@ -97,7 +97,7 @@ public class CommentController {
             @Valid @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 등록 시도 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}]", getUsername(auth), articleId, parentCommentId);
+        log.info("#log# 등록 시도 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}] -> 대댓글", getUsername(auth), articleId, parentCommentId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(commentService.createReply(getUsername(auth), articleId, parentCommentId, dto));

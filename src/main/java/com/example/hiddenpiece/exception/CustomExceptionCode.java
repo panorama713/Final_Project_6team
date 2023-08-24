@@ -40,6 +40,7 @@ public enum CustomExceptionCode {
     NOT_FOUND_ROADMAP_BOOKMARK(HttpStatus.NOT_FOUND, "해당 로드맵 북마크를 찾을 수 없습니다."),
     NOT_FOUND_ARTICLE(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다."),
     NOT_FOUND_LIKE(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다."),
+    NOT_FOUND_COMMENT(HttpStatus.NOT_FOUND, "해당 댓글을 찾을 수 없습니다."),
     /*
      * 409
      */

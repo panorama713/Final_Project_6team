@@ -42,13 +42,13 @@ public class CommentController {
 
     /**
      * GET
-     * 댓글 조회
+     * 댓글 및 대댓글 조회
      */
     @GetMapping
     public ResponseEntity<List<CommentResponseDto>> readAllCommentsForArticle(
             @PathVariable Long articleId
     ) {
-        log.info("#log# 게시글 아이디 [{}]의 모든 댓글 조회 성공", articleId);
+        log.info("#log# 게시글 아이디 [{}]의 모든 (대)댓글 조회 시도", articleId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(commentService.readAllCommentsForArticle(articleId));

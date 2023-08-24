@@ -49,7 +49,7 @@ public class CommentService {
     }
 
     /**
-     * 댓글 조회
+     * 댓글 및 대댓글 조회
      */
     @Transactional(readOnly = true)
     public List<CommentResponseDto> readAllCommentsForArticle(Long articleId) {
@@ -57,9 +57,21 @@ public class CommentService {
         if (comments.isEmpty()) {
             throw new CustomException(NOT_FOUND_COMMENT);
         }
-        log.info("#log# 게시글 아이디 [{}]의 모든 댓글 데이터베이스 조회", articleId);
+        log.info("#log# 게시글 아이디 [{}]의 모든 (대)댓글 데이터베이스 조회", articleId);
         return comments.stream()
-                .map(CommentResponseDto::fromEntity)
+                .filter(comment -> comment.getParentComment() == null)
+                .map(mainComment -> {
+                    CommentResponseDto dto = CommentResponseDto.fromEntity(mainComment);
+                    List<CommentResponseDto> replies = mainComment.getChildComments().stream()
+                            .map(reply -> {
+                                CommentResponseDto replyDto = CommentResponseDto.fromEntity(reply);
+                                replyDto.setReplies(null); // 대댓글의 대댓글 목록을 null로 설정하여 JSON 변환 시 제외
+                                return replyDto;
+                            })
+                            .collect(Collectors.toList());
+                    dto.setReplies(replies);
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 

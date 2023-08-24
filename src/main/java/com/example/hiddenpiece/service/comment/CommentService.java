@@ -95,4 +95,29 @@ public class CommentService {
         comment.softDelete();
         log.info("#log# 사용자 [{}]의 댓글 아이디 [{}] 데이터베이스 소프트 삭제", username, commentId);
     }
+
+    /**
+     * 대댓글 등록
+     */
+    @Transactional
+    public CommentResponseDto createReply(
+            String username, Long parentCommentId, CommentRequestDto dto
+    ) {
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        Comment parentComment = commentRepository.findById(parentCommentId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_COMMENT));
+        if(parentComment.getParentComment() != null) {
+            throw new CustomException(NOT_ALLOW_MORE_REPLY);
+        }
+        Comment reply = Comment.builder()
+                .user(loginUser)
+                .article(parentComment.getArticle())
+                .content(dto.getContent())
+                .parentComment(parentComment)
+                .build();
+        Comment savedReply = commentRepository.save(reply);
+        log.info("#log# 댓글 아이디 [{}]의 대댓글 아이디 [{}] 데이터베이스 저장", parentCommentId, savedReply.getId());
+        return CommentResponseDto.fromEntity(savedReply);
+    }
 }

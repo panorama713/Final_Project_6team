@@ -83,4 +83,20 @@ public class CommentController {
         commentService.deleteComment(getUsername(auth), commentId);
         return ResponseEntity.noContent().build();
     }
+
+    /**
+     * POST /{parentCommentId}/replies
+     * 대댓글 등록
+     */
+    @PostMapping("/{parentCommentId}/replies")
+    public ResponseEntity<CommentResponseDto> createReply(
+            @PathVariable Long parentCommentId,
+            @Valid @RequestBody CommentRequestDto dto,
+            Authentication auth
+    ) {
+        log.info("#log# 사용자 [{}]에 의해 댓글 아이디 [{}]에 대댓글 등록 시도", getUsername(auth), parentCommentId);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(commentService.createReply(getUsername(auth), parentCommentId, dto));
+    }
 }

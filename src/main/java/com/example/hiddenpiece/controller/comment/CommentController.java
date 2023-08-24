@@ -60,14 +60,15 @@ public class CommentController {
      */
     @PutMapping("/{commentId}")
     public ResponseEntity<CommentResponseDto> updateComment(
+            @PathVariable Long articleId,
             @PathVariable Long commentId,
             @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 사용자 [{}]에 의해 (대)댓글 아이디 [{}] 수정 시도", getUsername(auth), commentId);
+        log.info("#log# 사용자 [{}]에 의해 게시글 아이디 [{}]의 (대)댓글 아이디 [{}] 수정 시도", getUsername(auth), articleId, commentId);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(commentService.updateComment(getUsername(auth), commentId, dto));
+                .body(commentService.updateComment(getUsername(auth), articleId, commentId, dto));
     }
 
     /**
@@ -76,11 +77,12 @@ public class CommentController {
      */
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(
+            @PathVariable Long articleId,
             @PathVariable Long commentId,
             Authentication auth
     ) {
-        log.info("#log# 사용자 [{}]에 의해 (대)댓글 아이디 [{}] 삭제 시도", getUsername(auth), commentId);
-        commentService.deleteComment(getUsername(auth), commentId);
+        log.info("#log# 사용자 [{}]에 의해 게시글 아이디 [{}]의 (대)댓글 아이디 [{}] 삭제 시도", getUsername(auth), articleId, commentId);
+        commentService.deleteComment(getUsername(auth), articleId, commentId);
         return ResponseEntity.noContent().build();
     }
 
@@ -90,13 +92,14 @@ public class CommentController {
      */
     @PostMapping("/{parentCommentId}/replies")
     public ResponseEntity<CommentResponseDto> createReply(
+            @PathVariable Long articleId,
             @PathVariable Long parentCommentId,
             @Valid @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 사용자 [{}]에 의해 댓글 아이디 [{}]에 대댓글 등록 시도", getUsername(auth), parentCommentId);
+        log.info("#log# 사용자 [{}]에 의해 게시글 아이디 [{}]의 댓글 아이디 [{}]에 대댓글 등록 시도", getUsername(auth), articleId, parentCommentId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(commentService.createReply(getUsername(auth), parentCommentId, dto));
+                .body(commentService.createReply(getUsername(auth), articleId, parentCommentId, dto));
     }
 }

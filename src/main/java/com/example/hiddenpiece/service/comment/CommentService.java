@@ -80,8 +80,10 @@ public class CommentService {
      */
     @Transactional
     public CommentResponseDto updateComment(
-            String username, Long commentId, CommentRequestDto dto
+            String username, Long articleId, Long commentId, CommentRequestDto dto
     ) {
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_ARTICLE));
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_COMMENT));
         if (!comment.getUser().getUsername().equals(username)) {
@@ -97,8 +99,10 @@ public class CommentService {
      */
     @Transactional
     public void deleteComment(
-            String username, Long commentId
+            String username, Long articleId, Long commentId
     ) {
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_ARTICLE));
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_COMMENT));
         if (!comment.getUser().getUsername().equals(username)) {
@@ -113,23 +117,25 @@ public class CommentService {
      */
     @Transactional
     public CommentResponseDto createReply(
-            String username, Long parentCommentId, CommentRequestDto dto
+            String username, Long articleId, Long parentCommentId, CommentRequestDto dto
     ) {
-        User loginUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
         Comment parentComment = commentRepository.findById(parentCommentId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_COMMENT));
         if(parentComment.getParentComment() != null) {
             throw new CustomException(NOT_ALLOW_MORE_REPLY);
         }
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_ARTICLE));
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
         Comment reply = Comment.builder()
                 .user(loginUser)
-                .article(parentComment.getArticle())
+                .article(article)
                 .content(dto.getContent())
                 .parentComment(parentComment)
                 .build();
         Comment savedReply = commentRepository.save(reply);
-        log.info("#log# 댓글 아이디 [{}]의 대댓글 아이디 [{}] 데이터베이스 저장", parentCommentId, savedReply.getId());
+        log.info("#log# 게시글 아이디 [{}]의 댓글 아이디 [{}]의 대댓글 아이디 [{}] 데이터베이스 저장", articleId, parentCommentId, savedReply.getId());
         return CommentResponseDto.fromEntity(savedReply);
     }
 }

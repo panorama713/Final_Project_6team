@@ -2,7 +2,6 @@ package com.example.hiddenpiece.domain.repository.roadmap;
 
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.user.User;
-import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,6 +24,4 @@ public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
             @Param("targetYear") LocalDateTime targetYear,
             @Param("type") String type
     );
-
-    boolean existsById(@NonNull Long roadmapId);
 }

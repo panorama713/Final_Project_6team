@@ -1,6 +1,7 @@
 package com.example.hiddenpiece.service.roadmap;
 
-import com.example.hiddenpiece.domain.dto.roadmap.RequestCreateRoadmapTodoDto;
+import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapTodoCreateDto;
+import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapTodoUpdateDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseCreateRoadmapTodoDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseReadRoadmapTodoDto;
 import com.example.hiddenpiece.domain.entity.roadmap.RoadmapElement;
@@ -28,7 +29,7 @@ public class RoadmapTodoService {
 
     // 로드맵 투두 생성
     @Transactional
-    public ResponseCreateRoadmapTodoDto create(Long roadmapId, Long elementId, RequestCreateRoadmapTodoDto dto) {
+    public ResponseCreateRoadmapTodoDto create(Long roadmapId, Long elementId, RequestRoadmapTodoCreateDto dto) {
         if (!roadmapRepository.existsById(roadmapId))
             throw new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP);
 
@@ -64,6 +65,50 @@ public class RoadmapTodoService {
 
 
     // 로드맵 투두 수정
+    @Transactional
+    public void update(Long roadmapId, Long elementId, Long todoId, RequestRoadmapTodoUpdateDto dto) {
+        if (!roadmapRepository.existsById(roadmapId))
+            throw new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP);
+        if (!roadmapElementRepository.existsById(elementId))
+            throw new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP_ELEMENT);
+        RoadmapTodo targetRoadmapTodo = roadmapTodoRepository.findById(todoId)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP_TODO));
+
+        targetRoadmapTodo.update(dto);
+        roadmapTodoRepository.save(targetRoadmapTodo);
+        log.info("로드맵 Todo 수정 성공");
+    }
+
+    @Transactional
+    public void checkDone(Long roadmapId, Long elementId, Long todoId) {
+        if (!roadmapRepository.existsById(roadmapId))
+            throw new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP);
+        if (!roadmapElementRepository.existsById(elementId))
+            throw new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP_ELEMENT);
+        RoadmapTodo targetRoadmapTodo = roadmapTodoRepository.findById(todoId)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP_TODO));
+
+        targetRoadmapTodo.checkDone();
+        roadmapTodoRepository.save(targetRoadmapTodo);
+
+        if (targetRoadmapTodo.getDone()) {
+            log.info("{} Done!!", targetRoadmapTodo.getTitle());
+        } else {
+            log.info("{} Undone!!", targetRoadmapTodo.getTitle());
+        }
+    }
 
     // 로드맵 투두 삭제
+    @Transactional
+    public void delete(Long roadmapId, Long elementId, Long todoId) {
+        if (!roadmapRepository.existsById(roadmapId))
+            throw new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP);
+        if (!roadmapElementRepository.existsById(elementId))
+            throw new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP_ELEMENT);
+        RoadmapTodo targetRoadmapTodo = roadmapTodoRepository.findById(todoId)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP_TODO));
+
+        roadmapTodoRepository.delete(targetRoadmapTodo);
+        log.info("로드맵 Todo 삭제 성공");
+    }
 }

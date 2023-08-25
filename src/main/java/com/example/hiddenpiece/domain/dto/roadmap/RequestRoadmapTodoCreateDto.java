@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestCreateRoadmapTodoDto {
+public class RequestRoadmapTodoCreateDto {
     private String title;
     private String content;
     private String url;

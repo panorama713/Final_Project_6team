@@ -3,7 +3,6 @@ package com.example.hiddenpiece.service.roadmap;
 import com.example.hiddenpiece.domain.dto.roadmap.RequestCreateRoadmapTodoDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseCreateRoadmapTodoDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseReadRoadmapTodoDto;
-import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.roadmap.RoadmapElement;
 import com.example.hiddenpiece.domain.entity.roadmap.RoadmapTodo;
 import com.example.hiddenpiece.domain.repository.roadmap.RoadmapElementRepository;
@@ -30,8 +29,8 @@ public class RoadmapTodoService {
     // 로드맵 투두 생성
     @Transactional
     public ResponseCreateRoadmapTodoDto create(Long roadmapId, Long elementId, RequestCreateRoadmapTodoDto dto) {
-        Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
-                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
+        if (!roadmapRepository.existsById(roadmapId))
+            throw new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP);
 
         RoadmapElement targetRoadmapElement = roadmapElementRepository.findById(elementId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP_ELEMENT));
@@ -51,8 +50,8 @@ public class RoadmapTodoService {
 
     // 로드맵 요소별 투두 목록 조회
     public List<ResponseReadRoadmapTodoDto> read(Long roadmapId, Long elementId) {
-        Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
-                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
+        if (!roadmapRepository.existsById(roadmapId))
+            throw new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP);
 
         RoadmapElement targetRoadmapElement = roadmapElementRepository.findById(elementId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP_ELEMENT));

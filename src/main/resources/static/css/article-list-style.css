@@ -1,0 +1,61 @@
+/* 글씨체 적용 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #4e4897;
+    --sub-color: #a7a5cd;
+    --white-color: #ffffff;
+}
+
+/* 폰트 설정 */
+* {
+    font-family: "yg-jalnan" !important;
+}
+
+
+/* styles.css */
+
+a, a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--main-color);
+    text-decoration: underline;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(241, 238, 255)
+}
+
+.col {
+    color: var(--main-color);
+}
+
+.line {
+    background: var(--main-color);
+    height:4px;
+    border:0;
+}
+
+.search-btn {
+    border: 2px solid var(--main-color);
+    background-color: var(--main-color);
+}
+
+.table th.title-col {
+    width: 40%;
+}
+
+.page-link:hover {
+    background-color: rgb(241, 238, 255);
+    color: var(--main-color);
+
+}

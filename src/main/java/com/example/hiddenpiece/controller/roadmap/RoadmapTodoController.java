@@ -1,6 +1,7 @@
 package com.example.hiddenpiece.controller.roadmap;
 
-import com.example.hiddenpiece.domain.dto.roadmap.RequestCreateRoadmapTodoDto;
+import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapTodoCreateDto;
+import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapTodoUpdateDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseCreateRoadmapTodoDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseReadRoadmapTodoDto;
 import com.example.hiddenpiece.service.roadmap.RoadmapTodoService;
@@ -25,7 +26,7 @@ public class RoadmapTodoController {
     public ResponseEntity<ResponseCreateRoadmapTodoDto> createRoadmapTodo(
             @PathVariable("roadmapId") Long roadmapId,
             @PathVariable("elementId") Long elementId,
-            @RequestBody RequestCreateRoadmapTodoDto dto
+            @RequestBody RequestRoadmapTodoCreateDto dto
     ) {
         ResponseCreateRoadmapTodoDto responseDto = roadmapTodoService.create(roadmapId, elementId, dto);
 
@@ -50,8 +51,37 @@ public class RoadmapTodoController {
 
     // update
     // 로드맵 투두 수정
+    @PutMapping("/{todoId}")
+    public ResponseEntity<Void> updateRoadmapTodo(
+            @PathVariable("roadmapId") Long roadmapId,
+            @PathVariable("elementId") Long elementId,
+            @PathVariable("todoId") Long todoId,
+            @RequestBody RequestRoadmapTodoUpdateDto dto
+    ) {
+        roadmapTodoService.update(roadmapId, elementId, todoId, dto);
+        return ResponseEntity.noContent().build();
+    }
+
+    // 로드맵 투두 done/undone
+    @PutMapping("/{todoId}/done")
+    public ResponseEntity<Void> checkDone(
+            @PathVariable("roadmapId") Long roadmapId,
+            @PathVariable("elementId") Long elementId,
+            @PathVariable("todoId") Long todoId
+    ) {
+        roadmapTodoService.checkDone(roadmapId, elementId, todoId);
+        return ResponseEntity.noContent().build();
+    }
 
     // delete
     // 로드맵 투두 삭제
-
+    @DeleteMapping("/{todoId}")
+    public ResponseEntity<Void> deleteRoadmapTodo(
+            @PathVariable("roadmapId") Long roadmapId,
+            @PathVariable("elementId") Long elementId,
+            @PathVariable("todoId") Long todoId
+    ) {
+        roadmapTodoService.delete(roadmapId, elementId, todoId);
+        return ResponseEntity.noContent().build();
+    }
 }

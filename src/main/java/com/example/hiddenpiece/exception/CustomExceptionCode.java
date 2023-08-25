@@ -38,6 +38,7 @@ public enum CustomExceptionCode {
     ALREADY_DELETED_ELEMENT(HttpStatus.NOT_FOUND, "이미 삭제된 로드맵 요소입니다."),
     NOT_FOUND_ROADMAP_CATEGORY(HttpStatus.NOT_FOUND, "해당 로드맵 카테고리를 찾을 수 없습니다."),
     NOT_FOUND_ROADMAP_BOOKMARK(HttpStatus.NOT_FOUND, "해당 로드맵 북마크를 찾을 수 없습니다."),
+    NOT_FOUND_ROADMAP_TODO(HttpStatus.NOT_FOUND, "해당 로드맵 Todo를 찾을 수 없습니다."),
     NOT_FOUND_ARTICLE(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다."),
     NOT_FOUND_ARTICLE_BOOKMARK(HttpStatus.NOT_FOUND, "북마크한 해당 게시글을 찾을 수 없습니다."),
     NOT_FOUND_LIKE(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다."),

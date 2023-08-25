@@ -36,7 +36,7 @@ public class ArticleBookmarkController {
         return ResponseEntity.ok(articleBookmarkService.readAllArticleByBookmark(username, page, limit));
     }
 
-    @PutMapping("/{bookmarkId}")
+    @PutMapping("/{bookmarkId}/articles")
     public ResponseEntity<Void> updateBookmark(
             Authentication authentication,
             @PathVariable Long bookmarkId,
@@ -47,7 +47,7 @@ public class ArticleBookmarkController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{bookmarkId}")
+    @DeleteMapping("/{bookmarkId}/articles")
     public ResponseEntity<Void> deleteBookmark(
             Authentication authentication, @PathVariable Long bookmarkId
     ) {

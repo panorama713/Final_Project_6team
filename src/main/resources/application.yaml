@@ -45,7 +45,7 @@ spring:
 
   data:
     redis:
-      host: 3.34.142.211
+      host: 52.78.156.214
       port: 6379
 
 ---
@@ -74,7 +74,7 @@ spring:
 
   data:
     redis:
-      host: 3.34.142.211
+      host: 52.78.156.214
       port: 6379
 
 server:

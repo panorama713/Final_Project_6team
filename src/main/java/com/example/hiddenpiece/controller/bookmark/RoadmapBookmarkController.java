@@ -44,7 +44,7 @@ public class RoadmapBookmarkController {
 
     // update
     // 로드맵 북마크 수정(title)
-    @PutMapping("/{bookmarkId}")
+    @PutMapping("/{bookmarkId}/roadmaps")
     public ResponseEntity<Void> updateRoadmapBookmark(
             Authentication authentication,
             @PathVariable("bookmarkId") Long bookmarkId,
@@ -58,7 +58,7 @@ public class RoadmapBookmarkController {
 
     // delete
     // 로드맵 북마크 삭제
-    @DeleteMapping("/{bookmarkId}")
+    @DeleteMapping("/{bookmarkId}/roadmaps")
     public ResponseEntity<Void> deleteRoadmapBookmark(
             Authentication authentication,
             @PathVariable("bookmarkId") Long bookmarkId

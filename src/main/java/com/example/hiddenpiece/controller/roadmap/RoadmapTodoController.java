@@ -2,12 +2,15 @@ package com.example.hiddenpiece.controller.roadmap;
 
 import com.example.hiddenpiece.domain.dto.roadmap.RequestCreateRoadmapTodoDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseCreateRoadmapTodoDto;
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseReadRoadmapTodoDto;
 import com.example.hiddenpiece.service.roadmap.RoadmapTodoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -33,6 +36,17 @@ public class RoadmapTodoController {
 
     // readALl
     // 로드맵 요소의 투두 목록 조회
+    @GetMapping
+    public ResponseEntity<List<ResponseReadRoadmapTodoDto>> readRoadmapTodo(
+            @PathVariable("roadmapId") Long roadmapId,
+            @PathVariable("elementId") Long elementId
+    ) {
+        List<ResponseReadRoadmapTodoDto> responseDto = roadmapTodoService.read(roadmapId, elementId);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responseDto);
+    }
 
     // update
     // 로드맵 투두 수정

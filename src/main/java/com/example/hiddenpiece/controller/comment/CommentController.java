@@ -34,7 +34,7 @@ public class CommentController {
             @Valid @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 사용자 [{}]에 의해 게시글 아이디 [{}]에 댓글 등록 성공", getUsername(auth), articleId);
+        log.info("#log# 등록 시도 - 사용자 [{}] -> 게시글 [{}] -> 댓글", getUsername(auth), articleId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(commentService.createComment(getUsername(auth), articleId, dto));
@@ -42,13 +42,13 @@ public class CommentController {
 
     /**
      * GET
-     * 댓글 조회
+     * 댓글 및 대댓글 조회
      */
     @GetMapping
     public ResponseEntity<List<CommentResponseDto>> readAllCommentsForArticle(
             @PathVariable Long articleId
     ) {
-        log.info("#log# 게시글 아이디 [{}]의 모든 댓글 조회 성공", articleId);
+        log.info("#log# 조회 시도 - 게시글 [{}] -> (대)댓글", articleId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(commentService.readAllCommentsForArticle(articleId));
@@ -56,31 +56,50 @@ public class CommentController {
 
     /**
      * PUT /{commentId}
-     * 댓글 수정
+     * 댓글 및 대댓글 수정
      */
     @PutMapping("/{commentId}")
     public ResponseEntity<CommentResponseDto> updateComment(
+            @PathVariable Long articleId,
             @PathVariable Long commentId,
             @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 사용자 [{}]에 의해 댓글 아이디 [{}] 수정 성공", getUsername(auth), commentId);
+        log.info("#log# 수정 시도 - 사용자 [{}] -> 게시글 [{}] -> (대)댓글 [{}]", getUsername(auth), articleId, commentId);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(commentService.updateComment(getUsername(auth), commentId, dto));
+                .body(commentService.updateComment(getUsername(auth), articleId, commentId, dto));
     }
 
     /**
      * DELETE /{commentId}
-     * 댓글 삭제
+     * 댓글 및 대댓글 삭제
      */
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(
+            @PathVariable Long articleId,
             @PathVariable Long commentId,
             Authentication auth
     ) {
-        log.info("#log# 사용자 [{}]에 의해 댓글 아이디 [{}] 삭제 성공", getUsername(auth), commentId);
-        commentService.deleteComment(getUsername(auth), commentId);
+        log.info("#log# 삭제 시도 - 사용자 [{}] -> 게시글 [{}] -> (대)댓글 [{}]", getUsername(auth), articleId, commentId);
+        commentService.deleteComment(getUsername(auth), articleId, commentId);
         return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * POST /{parentCommentId}/replies
+     * 대댓글 등록
+     */
+    @PostMapping("/{parentCommentId}/replies")
+    public ResponseEntity<CommentResponseDto> createReply(
+            @PathVariable Long articleId,
+            @PathVariable Long parentCommentId,
+            @Valid @RequestBody CommentRequestDto dto,
+            Authentication auth
+    ) {
+        log.info("#log# 등록 시도 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}] -> 대댓글", getUsername(auth), articleId, parentCommentId);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(commentService.createReply(getUsername(auth), articleId, parentCommentId, dto));
     }
 }

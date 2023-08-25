@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,10 +34,11 @@ public class Comment extends BaseTimeEntity {
     private LocalDateTime deletedAt;
 
     @Builder
-    public Comment(User user, Article article, String content) {
+    public Comment(User user, Article article, String content, Comment parentComment) {
         this.user = user;
         this.article = article;
         this.content = content;
+        this.parentComment = parentComment;
     }
 
     public void update(String content) {
@@ -45,4 +48,11 @@ public class Comment extends BaseTimeEntity {
     public void softDelete() {
         this.deletedAt = LocalDateTime.now();
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_comment_id")
+    private Comment parentComment; // 대댓글을 등록하고자 참조하는 원본 댓글
+
+    @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL)
+    private List<Comment> childComments = new ArrayList<>(); // 해당 댓글에 대한 대댓글 목록
 }

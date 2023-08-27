@@ -76,7 +76,8 @@ body {
 .search-container {
     position: relative;
     width: 282px;
-    right: 80%;
+    left: 0;
+    margin-right: 10px;
 }
 
 .search-box {
@@ -137,4 +138,42 @@ body {
 .search-box:hover > .search-txt {
     width: 240px;
     padding: 0 6px;
+}
+
+.profile-container {
+    margin: 0 auto;
+    width: 180px;
+    height: 50px;
+}
+
+.main-logo {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.search-bar-group {
+    margin: 30px 0;
+    width: 700px;
+    height: 30px;
+    position: relative;
+}
+
+.search-bar {
+    top: 50%;
+    width: 150px;
+    height: 100px;
+    position: absolute;
+}
+
+.search-bar-button {
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+}
+
+.search-button {
+    border: 1px solid #4e4897;
+    border-radius: 50%;
+    color: var(--main-color);
 }

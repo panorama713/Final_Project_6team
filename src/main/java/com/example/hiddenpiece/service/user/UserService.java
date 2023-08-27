@@ -127,7 +127,26 @@ public class UserService {
                 .build();
     }
 
-    // TODO 마이 프로필 구현
+    public UserProfileResponseDto readMyProfile(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        return UserProfileResponseDto.builder()
+                .username(user.getUsername())
+                .realName(user.getRealName())
+                .email(user.getEmail())
+                .profileImg(user.getProfileImg())
+                .numberOfWrittenArticle(0)
+                .numberOfWrittenComment(0)
+                .followingCount(followService.getCountOfFollowing(user))
+                .followerCount(followService.getCountOfFollower(user))
+                .build();
+    }
+
+    public Boolean checkLogin(HttpServletRequest req) {
+        String accessToken = cookieManager.getCookie(req, ACCESS_TOKEN);
+        return accessToken != null;
+    }
 
     private void verifiedRefreshToken(String refreshToken) {
         if (refreshToken == null) {

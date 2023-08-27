@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -48,5 +49,18 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<UserProfileResponseDto> findUserProfile(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.readUserProfile(userId));
+    }
+
+    // 마이 프로필 조회
+    @GetMapping("/profile")
+    public ResponseEntity<UserProfileResponseDto> readMyProfile(Authentication authentication) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(userService.readMyProfile(username));
+    }
+
+    // 로그인 여부 체크
+    @GetMapping("/check-login")
+    public ResponseEntity<Boolean> checkLogin(HttpServletRequest req) {
+        return ResponseEntity.ok(userService.checkLogin(req));
     }
 }

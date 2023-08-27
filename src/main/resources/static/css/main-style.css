@@ -1,0 +1,140 @@
+@font-face {
+    font-family: "CustomFont";
+    src: url("/static/fonts/JalnanOTF.otf") format("opentype"),
+    url("/static/fonts/Jalnan.ttf") format("truetype");
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #4e4897;
+    --sub-color: #a7a5cd;
+    --white-color: #ffffff;
+}
+
+/* 기본 스타일 */
+body {
+    background-color: #f6f6f6;
+    font-family: 'CustomFont', sans-serif;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+.b-example-divider {
+    width: 100%;
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+}
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.bd-mode-toggle {
+    z-index: 1500;
+}
+
+.search-container {
+    position: relative;
+    width: 282px;
+    right: 80%;
+}
+
+.search-box {
+    padding: 5px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid var(--main-color);
+    border-radius: 30px;
+    transition: 0.4s;
+    width: 29px;
+}
+
+.search-box:hover {
+    box-shadow: 0 0 .5px 1px var(--main-color);
+    width: 280px;
+}
+
+.search-btn {
+    text-decoration: none;
+    width: 25px;
+    height: 25px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--main-color);
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    transition: right 0.4s, opacity 0.4s;
+}
+
+.search-box:hover > .search-btn {
+    background-color: #fff;
+    right: 0;
+    opacity: 1;
+}
+
+.search-txt {
+    color: #848484;
+    display: flex;
+    padding: 0;
+    width: 0;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 14px;
+    line-height: 0;
+    transition: .4s;
+}
+
+.search-box:hover > .search-txt {
+    width: 240px;
+    padding: 0 6px;
+}

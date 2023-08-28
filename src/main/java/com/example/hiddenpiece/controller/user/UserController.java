@@ -51,16 +51,9 @@ public class UserController {
         return ResponseEntity.ok(userService.readUserProfile(userId));
     }
 
-    // 마이 프로필 조회
-    @GetMapping("/profile")
-    public ResponseEntity<UserProfileResponseDto> readMyProfile(Authentication authentication) {
-        String username = authentication.getName();
-        return ResponseEntity.ok(userService.readMyProfile(username));
-    }
-
     // 로그인 여부 체크
     @GetMapping("/check-login")
-    public ResponseEntity<Boolean> checkLogin(HttpServletRequest req) {
+    public ResponseEntity<UserProfileResponseDto> checkLogin(HttpServletRequest req) {
         return ResponseEntity.ok(userService.checkLogin(req));
     }
 }

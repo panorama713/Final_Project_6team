@@ -1,36 +1,56 @@
-async function updateProfileInfo() {
-    const profileButton = document.getElementById('profile-button');
-    const profileInfo = document.getElementById('profileInfo');
+// 로그인 체크
+async function checkLogin() {
+    try {
+        const response = await fetch('/api/v1/users/check-login');
 
-    // Check login status by calling the login check API
-    const isLoggedIn = await checkLogin();
-
-    if (isLoggedIn) {
-        try {
-            const userData = await getMyData();
-
-            // Hide the login button and show profile info
-            profileButton.style.display = 'none';
-            profileInfo.style.display = 'block';
-
-            // Update profile info
-            const profileImage = document.querySelector('.profile-image');
-            const profileName = document.querySelector('.profile-name');
-
-            // Set profile image
-            profileImage.style.backgroundImage = `url(${userData.profileimg})`;
-
-            // Set profile name
-            profileName.textContent = userData.realname;
-        } catch (error) {
-            console.error('Error fetching user profile data:', error);
+        if (response.ok) {
+            return await response.json()
+        } else {
+            console.error("로그인 상태 알 수 없음")
+            return null;
         }
-    } else {
-        // Show the login button and hide profile info
-        profileButton.style.display = 'block';
-        profileInfo.style.display = 'none';
+    } catch (error) {
+        console.error("로그인 에러", error)
+        return null
     }
 }
 
-// Call the function to update profile information
-updateProfileInfo();
+const profileImage = document.getElementById('profileImg')
+const username = document.getElementById('username')
+const userInfo = document.querySelector('.info-logout')
+const loginButton = document.querySelector('.info-login')
+const logoutButton = document.getElementById('logout-button')
+
+async function initAuthStatus() {
+    const isLoggedIn = await checkLogin()
+
+    if (isLoggedIn != null) {
+        profileImage.src = isLoggedIn.profileImg
+        username.textContent = isLoggedIn.username
+
+        userInfo.style.display = 'block'
+        loginButton.style.display = 'none'
+    } else {
+        userInfo.style.display = 'none'
+        loginButton.style.display = 'block'
+    }
+}
+
+window.addEventListener('DOMContentLoaded', initAuthStatus)
+
+logoutButton.addEventListener('click', async() => {
+    try {
+        const response = await fetch('/api/v1/users/logout', {
+            method: "POST"
+        })
+
+        if (response.ok) {
+            window.location.replace("/views/main")
+
+            userInfo.style.display = 'none'
+            loginButton.style.display = 'block'
+        }
+    } catch (error) {
+        console.error("로그아웃 실패", error)
+    }
+})

@@ -10,10 +10,11 @@ async function loginUser(data) {
         const response = await sendDataToServer(data);
 
         if (response.ok) {
-            window.location.href = "/views/main"
+            window.location.replace("/views/main")
         } else {
             const errorRes = await response.json()
             alert(errorRes.message || "에러")
+            window.location.replace("/views/login")
         }
     } catch (error) {
         console.error("로그인 에러", error)
@@ -33,9 +34,5 @@ function handleLogin(event) {
 
     const formData = getFormData(event.target)
 
-    loginUser(formData).then(() => {
-        window.history.pushState({}, null, '/views/main')
-    }).catch(error => {
-        console.error("로그인 에러", error)
-    })
+    loginUser(formData)
 }

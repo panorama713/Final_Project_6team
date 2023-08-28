@@ -63,7 +63,7 @@ public class ArticleImageService {
     public void updateArticleImage(
             List<MultipartFile> updatedImages, String username, Long articleId
     ) throws IOException {
-        if(updatedImages != null && !updatedImages.isEmpty()) {
+        if (updatedImages != null && !updatedImages.isEmpty()) {
             deleteArticleImage(username, articleId);
             Article article = articleRepository.findById(articleId)
                     .orElseThrow(() -> new CustomException(NOT_FOUND_ARTICLE));
@@ -79,7 +79,7 @@ public class ArticleImageService {
     @Transactional
     public void deleteArticleImage(String username, Long articleId) {
         List<ArticleImage> existingImages = articleImageRepository.findAllByArticleId(articleId);
-        for(ArticleImage image : existingImages) {
+        for (ArticleImage image : existingImages) {
             deletePhysicalImage(image.getImageUrl());
         }
         articleImageRepository.deleteAll(existingImages);
@@ -88,8 +88,8 @@ public class ArticleImageService {
 
     private void deletePhysicalImage(String imageUrl) {
         File file = new File(imageUrl);
-        if(file.exists()) {
-            if(!file.delete()) {
+        if (file.exists()) {
+            if (!file.delete()) {
                 log.error("#log# 이미지 삭제 실패 [{}]", imageUrl);
             }
         }
@@ -128,7 +128,9 @@ public class ArticleImageService {
      * 이미지 삭제 - 특정
      */
     @Transactional
-    public void deleteSpecificImage(List<Long> imageIds, String username, Long articleId) {
+    public void deleteSpecificImage(
+            List<Long> imageIds, String username, Long articleId
+    ) {
         for (Long imageId : imageIds) {
             ArticleImage existingImage = articleImageRepository.findById(imageId)
                     .orElseThrow(() -> new CustomException(NOT_FOUND_IMAGE));

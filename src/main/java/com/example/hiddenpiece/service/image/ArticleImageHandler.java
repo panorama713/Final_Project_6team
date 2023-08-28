@@ -21,7 +21,7 @@ import static com.example.hiddenpiece.exception.CustomExceptionCode.UNSUPPORTED_
 @Slf4j
 @Component
 public class ArticleImageHandler {
-//    // MEMO application.yaml 설정 시 아래 주석 해제 (불필요 시 삭제 예정)
+    //    // MEMO application.yaml 설정 시 아래 주석 해제 (불필요 시 삭제 예정)
 //    @Value("${image.upload.dir}")
 //    private String uploadDir;
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads";
@@ -88,7 +88,9 @@ public class ArticleImageHandler {
     /**
      * ArticleImage 객체 생성
      */
-    private ArticleImage buildArticleImage(MultipartFile multipartFile, String path, String newFileName, Article article) {
+    private ArticleImage buildArticleImage(
+            MultipartFile multipartFile, String path, String newFileName, Article article
+    ) {
         ArticleImageRequestDto imageDto = ArticleImageRequestDto.builder()
                 .imageName(multipartFile.getOriginalFilename())
                 .imageUrl(path + "/" + newFileName)
@@ -104,7 +106,9 @@ public class ArticleImageHandler {
     /**
      * 지정된 경로에 파일 저장
      */
-    private void saveFile(MultipartFile multipartFile, String path, String newFileName) throws IOException {
+    private void saveFile(
+            MultipartFile multipartFile, String path, String newFileName
+    ) throws IOException {
         File file = new File(path + "/" + newFileName);
         multipartFile.transferTo(file);
         file.setWritable(true);

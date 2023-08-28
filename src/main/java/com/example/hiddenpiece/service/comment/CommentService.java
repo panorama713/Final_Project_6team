@@ -109,7 +109,7 @@ public class CommentService {
         if (!comment.getUser().getUsername().equals(username)) {
             throw new CustomException(NOT_MATCH_WRITER);
         }
-        comment.softDelete();
+        commentRepository.deleteById(commentId);
         log.info("#log# 데이터베이스 소프트 삭제 - 사용자 [{}] -> 게시글 [{}] -> (대)댓글 [{}]", username, articleId, commentId);
     }
 

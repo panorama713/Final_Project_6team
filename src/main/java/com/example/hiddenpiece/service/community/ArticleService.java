@@ -101,6 +101,7 @@ public class ArticleService {
             throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
         }
 
+        articleImageService.deleteArticleImage(username, articleId);
         articleRepository.deleteById(articleId);
     }
 }

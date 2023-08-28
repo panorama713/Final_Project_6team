@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,5 +53,44 @@ public class ArticleImageService {
         return imageList.stream()
                 .map(ArticleImageResponseDto::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 이미지 수정
+     */
+    @Transactional
+    public void updateArticleImage(
+            List<MultipartFile> updatedImages, String username, Long articleId
+    ) throws IOException {
+        if(updatedImages != null && !updatedImages.isEmpty()) {
+            deleteArticleImage(username, articleId);
+            Article article = articleRepository.findById(articleId)
+                    .orElseThrow(() -> new CustomException(NOT_FOUND_ARTICLE));
+            List<ArticleImage> newImageList = articleImageHandler.parseFileInfo(updatedImages, username, article);
+            articleImageRepository.saveAll(newImageList);
+            log.info("#log# 데이터베이스 수정 - 사용자 [{}] -> 게시글 [{}] -> 이미지 {}개", username, articleId, newImageList.size());
+        }
+    }
+
+    /**
+     * 이미지 삭제
+     */
+    @Transactional
+    public void deleteArticleImage(String username, Long articleId) {
+        List<ArticleImage> existingImages = articleImageRepository.findAllByArticleId(articleId);
+        for(ArticleImage image : existingImages) {
+            deletePhysicalImage(image.getImageUrl());
+        }
+        articleImageRepository.deleteAll(existingImages);
+        log.info("#log# 데이터베이스 소프트 삭제 - 사용자 [{}] -> 게시글 [{}] -> 이미지 {}개", username, articleId, existingImages.size());
+    }
+
+    private void deletePhysicalImage(String imageUrl) {
+        File file = new File(imageUrl);
+        if(file.exists()) {
+            if(!file.delete()) {
+                log.error("#log# 이미지 삭제 실패 [{}]", imageUrl);
+            }
+        }
     }
 }

@@ -53,10 +53,14 @@ public class ArticleController {
     public ResponseEntity<Void> updateArticle(
             Authentication authentication,
             @PathVariable final Long articleId,
-            @RequestBody final ArticleRequestDto params
-    ) {
+            @RequestPart final ArticleRequestDto params,
+            @RequestPart(required = false) List<MultipartFile> images
+    ) throws IOException {
         String username = authentication.getName();
         articleService.updateArticle(username, articleId, params);
+        if(images != null && !images.isEmpty()) {
+            articleImageService.updateArticleImage(images, username, articleId);
+        }
         return ResponseEntity.noContent().build();
     }
 

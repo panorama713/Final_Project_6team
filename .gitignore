@@ -204,4 +204,7 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
+# Ignore uploads directory
+uploads/
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,intellij+all,gradle,java!/db.sqlite

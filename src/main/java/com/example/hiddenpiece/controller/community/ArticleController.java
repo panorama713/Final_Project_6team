@@ -1,15 +1,19 @@
 package com.example.hiddenpiece.controller.community;
-import com.example.hiddenpiece.domain.dto.community.article.ArticleRequestDto;
+
 import com.example.hiddenpiece.domain.dto.community.article.ArticleListResponseDto;
+import com.example.hiddenpiece.domain.dto.community.article.ArticleRequestDto;
 import com.example.hiddenpiece.domain.dto.community.article.ArticleResponseDto;
 import com.example.hiddenpiece.domain.dto.community.article.CreateArticleResponseDto;
 import com.example.hiddenpiece.service.community.ArticleService;
+import com.example.hiddenpiece.service.image.ArticleImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -18,13 +22,20 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
+    private final ArticleImageService articleImageService;
 
     @PostMapping
     public ResponseEntity<CreateArticleResponseDto> createArticle(
-            Authentication authentication, @RequestBody final ArticleRequestDto params
-    ) {
+            Authentication authentication,
+            @RequestPart ArticleRequestDto params,
+            @RequestPart(required = false) List<MultipartFile> images
+    ) throws IOException {
         String username = authentication.getName();
-        return ResponseEntity.status(HttpStatus.CREATED).body(articleService.createArticle(username, params));
+        CreateArticleResponseDto responseDto = articleService.createArticle(username, params);
+        if (images != null && !images.isEmpty()) {
+            articleImageService.createArticleImage(images, username, responseDto.getId());
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
     @GetMapping

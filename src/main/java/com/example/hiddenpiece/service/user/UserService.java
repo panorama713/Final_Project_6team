@@ -127,7 +127,21 @@ public class UserService {
                 .build();
     }
 
-    // TODO 마이 프로필 구현
+    public UserProfileResponseDto checkLogin(HttpServletRequest req) {
+        String accessToken = cookieManager.getCookie(req, ACCESS_TOKEN);
+        if (accessToken != null) {
+            String username = jwtUtil.getAuthentication(accessToken).getName();
+            User user = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+            return UserProfileResponseDto.builder()
+                    .username(user.getUsername())
+                    .profileImg(user.getProfileImg())
+                    .build();
+        }
+
+        return null;
+    }
 
     private void verifiedRefreshToken(String refreshToken) {
         if (refreshToken == null) {

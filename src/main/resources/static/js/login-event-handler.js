@@ -16,7 +16,7 @@ function clickToSignUpPage() {
     const signUpButton = document.querySelector(".sign-up-btn")
 
     signUpButton.addEventListener("click", () => {
-        window.location.href = "/views/sign-up"
+        window.location.href = "/views/signup"
     })
 }
 

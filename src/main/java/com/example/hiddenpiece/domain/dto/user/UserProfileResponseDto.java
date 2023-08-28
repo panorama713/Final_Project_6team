@@ -10,6 +10,7 @@ public class UserProfileResponseDto {
     private String username;
     private String realName;
     private String email;
+    private String profileImg;
     private int numberOfWrittenArticle;     // TODO 기능 구현시 구현 예정
     private int numberOfWrittenComment;     // TODO 기능 구현시 구현 예정
     private int followerCount;

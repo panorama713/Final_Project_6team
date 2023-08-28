@@ -1,33 +1,297 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
 <head>
-    <meta charset="UTF-8">
-    <title>main</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hidden Piece</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://getbootstrap.kr/docs/5.3/examples/carousel/carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/main-style.css">
 </head>
 <body>
-  <h1>로그인 후 메인 이동 성공~!</h1>
-  <button id="logout-button" type="button">로그아웃</button>
-<script>
-    const logoutButton = document.getElementById("logout-button");
-    logoutButton.addEventListener("click", async () => {
-        try {
-            const response = await fetch("/api/v1/users/logout", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="check2" viewBox="0 0 16 16">
+        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+    </symbol>
+    <symbol id="circle-half" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+    </symbol>
+    <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+    </symbol>
+    <symbol id="sun-fill" viewBox="0 0 16 16">
+        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+    </symbol>
+</svg>
 
-            if (response.ok) {
-                window.location.href = "/views/login"
-                window.history.pushState({}, null, "/views/login")
-            } else {
-                console.error("로그아웃 실패")
-            }
-        } catch (error) {
-            console.error("로그아웃 오류", error)
-        }
-    })
-</script>
+<header data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md navbar-white fixed-top"
+         style="background-color: #fafafa; box-shadow: 0 1px 0 0 rgba(0,0,0,.1)">
+        <div class="container-xxl">
+            <a href="/views/main">
+                <svg xmlns="http://www.w3.org/2000/svg" width="65pt" height="37pt" viewBox="0 0 163.000000 97.000000"
+                     preserveAspectRatio="xMidYMid meet">
+                    <g transform="translate(0.000000,99.000000) scale(0.100000,-0.100000)" fill="#4e4897" stroke="none">
+                        <path d="M608 905 c-167 -32 -318 -105 -402 -195 -62 -67 -89 -129 -90 -205 0-354 679 -548 1133 -323 100 49 191 133 223 205 33 71 31 171 -4 238 -64 122-209 218 -401 266 -109 27 -349 35 -459 14z m467 -34 c170 -45 322 -147 375-251 12 -24 25 -70 27 -102 5 -51 2 -66 -26 -123 -115 -234 -532 -353 -911 -259 -36 9 -106 36 -157 60 -368 176 -319 515 94 653 130 44 179 50 358 47 123 -3 178 -9 240 -25z"/>
+                        <path d="M552 728 c-23 -56 -36 -74 -53 -76 -15 -3 -20 0 -17 10 35 94 35 94 5 100 -15 2 -25 -13 -49 -69 -17 -40 -36 -73 -42 -73 -18 0 -52 -27 -44 -35 3 -4 16 -2 27 5 25 13 27 1 11 -68 -8 -31 -7 -47 2 -62 16 -25 28 -26 28 -2 0 9 10 50 21 90 19 61 25 72 44 72 l23 0 -24 -66 c-23 -61 -24 -114 -4 -114 5 0 16 26 25 57 16 53 105 244 127 270 14 17 1 33 -27 33 -19 0 -28 -12 -53 -72z"/>
+                        <path d="M1267 693 c-2 -5 -12 -33 -22 -63 -15 -44 -20 -51 -26 -35 -4 11 -8 30 -8 43 -1 15 -7 22 -21 22 -11 0 -20 5 -20 10 0 6 -14 10 -31 10 -45 0 -120 -21 -113 -32 7 -12 -15 -68 -27 -68 -5 0 -9 -8 -9 -17 -1 -10 -7 -35 -14 -55 -12 -33 -11 -37 3 -40 9 -2 21 2 26 8 6 6 31 19 58 27 45 15 47 15 47 -3 0 -39 21 -29 45 21 l24 52 16 -41 c27 -66 35 -59 84 77 26 68 28 80 15 85 -20 8 -22 8 -27 -1z m-107 -52 c0 -4 -10 -31 -21 -60 -19 -45 -25 -51 -51 -51 -16 0 -38 -5 -49 -10 -15 -8 -19 -7 -19 5 0 21 36 55 60 55 11 0 20 5 20 10 0 6 -11 10 -25 10 -22 0 -24 3 -15 19 5 11 20 22 32 24 41 8 68 7 68 -2z"/>
+                        <path d="M705 673 c-11 -13 -27 -23 -37 -23 -15 0 -16 -3 -7 -18 18 -29 -15 -109 -48 -115 -19 -4 -23 -1 -17 12 35 82 44 115 35 124 -5 5 -14 6 -19 3 -12 -7 -46 -96 -55 -143 -6 -31 -6 -32 18 -21 20 9 28 8 44 -6 15 -14 20 -14 29 -3 7 8 29 19 49 25 53 16 113 68 113 97 0 25 -33 55 -61 55 -10 0 -19 8 -21 18 -3 15 -6 14 -23 -5z m71 -55 c8 -13 -58 -78 -80 -78 -13 0 -13 6 2 45 14 38 20 45 44 45 15 0 30 -5 34 -12z"/>
+                        <path d="M880 673 c-8 -13 -23 -23 -34 -23 -15 0 -16 -3 -6 -15 18 -22 -16 -104 -49 -117 l-26 -9 25 -19 c16 -12 29 -15 36 -9 6 5 39 23 73 40 66 33 96 67 87 97 -6 19 -45 42 -71 42 -7 0 -15 8 -17 18 -3 15 -6 14 -18 -5z m70 -61 c0 -20 -21 -42 -58 -62 -33 -16 -35 -9 -16 39 14 35 21 41 45 41 22 0 29 -5 29 -18z"/>
+                        <path d="M520 388 c-39 -90 -66 -199 -40 -158 9 13 10 13 10 0 0 -8 9 4 20 28 17 38 22 42 55 42 65 0 117 86 74 122 -17 14 -25 15 -42 6 -16 -8 -22 -8 -25 1 -8 25 -31 8 -52 -41z m100 8 c0 -19 -46 -66 -65 -66 -13 0 -14 4 -4 23 12 23 48 56 62 57 4 0 7 -6 7 -14z"/>
+                        <path d="M787 427 c-22 -7 -36 -15 -32 -19 9 -9 -14 -68 -26 -68 -5 0 -9 -8 -9 -17 -1 -10 -7 -35 -14 -55 -12 -33 -11 -37 5 -41 10 -3 20 1 22 8 3 6 26 18 51 25 26 7 49 17 52 21 7 12 -43 11 -67 -1 -15 -8 -19 -7 -19 5 0 21 36 55 60 55 11 0 20 5 20 10 0 6 -11 10 -25 10 -22 0 -24 3 -15 20 7 13 25 21 60 26 33 4 50 11 50 20 0 17 -58 18 -113 1z"/>
+                        <path d="M1115 435 c-5 -2 -23 -6 -38 -10 -18 -4 -27 -11 -24 -19 3 -7 -3 -27 -13 -44 -14 -23 -50 -122 -50 -138 0 -7 37 3 45 12 6 6 31 19 58 28 26 10 47 20 47 23 0 7 -60 -2 -82 -11 -16 -7 -17 -5 -7 23 8 24 18 32 45 37 39 7 46 24 10 24 -19 0 -23 4 -19 19 4 15 17 21 59 27 34 4 53 11 51 18 -3 11 -61 19 -8 11z"/>
+                        <path d="M928 419 c-26 -15 -70 -95 -66 -121 2 -12 15 -29 30 -37 23 -13 30 -13 52 -1 14 7 33 24 41 37 14 21 14 24 -1 30 -10 4 -20 0 -26 -10 -11 -21 -45 -40 -58 -32 -6 4 -4 20 5 43 25 58 65 94 65 57 0 -8 7 -15 15 -15 26 0 17 40 -11 50 -30 12 -25 12 -46 -1z"/>
+                        <path d="M675 391 c-16 -31 -47 -142 -42 -148 17 -16 95 145 82 167 -11 17 -24 11 -40 -19z"/>
+                    </g>
+                </svg>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto ms-4 mb-2 mb-md-0">
+                    <li class="nav-item dropdown pe-2">
+                        <div class="" style="border: 1px solid #4e4897; border-radius: 6px">
+                            <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button"
+                               aria-expanded="false" href="#">로드맵</a>
+                            <ul class="dropdown-menu bg-light" style="border-color: #4e4897">
+                                <li><a class="dropdown-item text-dark" href="/views/my-roadmap">나의 로드맵</a></li>
+                                <li><a class="dropdown-item text-dark" href="/views/roadmaps">로드맵 찾기</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown ps-2">
+                        <div style="border: 1px solid #4e4897; border-radius: 6px">
+                            <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button"
+                               aria-expanded="false" href="#">커뮤니티</a>
+                            <ul class="dropdown-menu bg-light" style="border-color: #4e4897">
+                                <li><a class="dropdown-item text-dark" href="/views/community?type=backend">BACKEND</a>
+                                </li>
+                                <li><a class="dropdown-item text-dark"
+                                       href="/views/community?type=frontend">FRONTEND</a></li>
+                                <li><a class="dropdown-item text-dark" href="/views/community?type=frontend">MOBILE</a>
+                                </li>
+                                <li><a class="dropdown-item text-dark" href="/views/community?type=frontend">DEVOPS</a>
+                                </li>
+                                <li><a class="dropdown-item text-dark" href="/views/community?type=frontend">STUDY</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- 검색창 (검색 페이지 구현 시 연동 필요) -->
+            <form>
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" class="search-txt" placeholder="검색어를 입력하세요">
+                        <a href="#" class="search-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </form>
+            <!-- 비회원 접속: 로그인/회원가입 버튼 => 회원 접속: 프로필 사진 및 이름+인사말 보여준다. -->
+            <div class="profile-container">
+                <div class="ms-2 text-center" style="width: 160px; height: 50px">
+                    <div class="info-login">
+                        <a href="/views/login">
+                            <button id="login-button" class="btn text-dark" type="button"
+                                    style="border: 1px solid #4e4897; --bs-btn-padding-y: .75rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 1rem;">
+                                로그인 / 회원가입
+                            </button>
+                        </a>
+                    </div>
+                    <div class="info-logout">
+                        <div class="my-info">
+                            <img id="profileImg" src="https://picsum.photos/200/300" alt="프로필 이미지">
+                            <h5 id="username">이름</h5>
+                            <button id="logout-button" class="btn text-dark" type="button"
+                                    style="border: 1px solid #4e4897; --bs-btn-padding-y: .75rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 1rem;">
+                                로그아웃
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <div class="main-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="200pt" height="150pt" viewBox="0 0 163.000000 97.000000"
+             preserveAspectRatio="xMidYMid meet">
+            <a href="/views/main">
+                <g transform="translate(0.000000,99.000000) scale(0.100000,-0.100000)" fill="#4e4897" stroke="none">
+                    <path d="M608 905 c-167 -32 -318 -105 -402 -195 -62 -67 -89 -129 -90 -205 0-354 679 -548 1133 -323 100 49 191 133 223 205 33 71 31 171 -4 238 -64 122-209 218 -401 266 -109 27 -349 35 -459 14z m467 -34 c170 -45 322 -147 375-251 12 -24 25 -70 27 -102 5 -51 2 -66 -26 -123 -115 -234 -532 -353 -911 -259 -36 9 -106 36 -157 60 -368 176 -319 515 94 653 130 44 179 50 358 47 123 -3 178 -9 240 -25z"/>
+                    <path d="M552 728 c-23 -56 -36 -74 -53 -76 -15 -3 -20 0 -17 10 35 94 35 94 5 100 -15 2 -25 -13 -49 -69 -17 -40 -36 -73 -42 -73 -18 0 -52 -27 -44 -35 3 -4 16 -2 27 5 25 13 27 1 11 -68 -8 -31 -7 -47 2 -62 16 -25 28 -26 28 -2 0 9 10 50 21 90 19 61 25 72 44 72 l23 0 -24 -66 c-23 -61 -24 -114 -4 -114 5 0 16 26 25 57 16 53 105 244 127 270 14 17 1 33 -27 33 -19 0 -28 -12 -53 -72z"/>
+                    <path d="M1267 693 c-2 -5 -12 -33 -22 -63 -15 -44 -20 -51 -26 -35 -4 11 -8 30 -8 43 -1 15 -7 22 -21 22 -11 0 -20 5 -20 10 0 6 -14 10 -31 10 -45 0 -120 -21 -113 -32 7 -12 -15 -68 -27 -68 -5 0 -9 -8 -9 -17 -1 -10 -7 -35 -14 -55 -12 -33 -11 -37 3 -40 9 -2 21 2 26 8 6 6 31 19 58 27 45 15 47 15 47 -3 0 -39 21 -29 45 21 l24 52 16 -41 c27 -66 35 -59 84 77 26 68 28 80 15 85 -20 8 -22 8 -27 -1z m-107 -52 c0 -4 -10 -31 -21 -60 -19 -45 -25 -51 -51 -51 -16 0 -38 -5 -49 -10 -15 -8 -19 -7 -19 5 0 21 36 55 60 55 11 0 20 5 20 10 0 6 -11 10 -25 10 -22 0 -24 3 -15 19 5 11 20 22 32 24 41 8 68 7 68 -2z"/>
+                    <path d="M705 673 c-11 -13 -27 -23 -37 -23 -15 0 -16 -3 -7 -18 18 -29 -15 -109 -48 -115 -19 -4 -23 -1 -17 12 35 82 44 115 35 124 -5 5 -14 6 -19 3 -12 -7 -46 -96 -55 -143 -6 -31 -6 -32 18 -21 20 9 28 8 44 -6 15 -14 20 -14 29 -3 7 8 29 19 49 25 53 16 113 68 113 97 0 25 -33 55 -61 55 -10 0 -19 8 -21 18 -3 15 -6 14 -23 -5z m71 -55 c8 -13 -58 -78 -80 -78 -13 0 -13 6 2 45 14 38 20 45 44 45 15 0 30 -5 34 -12z"/>
+                    <path d="M880 673 c-8 -13 -23 -23 -34 -23 -15 0 -16 -3 -6 -15 18 -22 -16 -104 -49 -117 l-26 -9 25 -19 c16 -12 29 -15 36 -9 6 5 39 23 73 40 66 33 96 67 87 97 -6 19 -45 42 -71 42 -7 0 -15 8 -17 18 -3 15 -6 14 -18 -5z m70 -61 c0 -20 -21 -42 -58 -62 -33 -16 -35 -9 -16 39 14 35 21 41 45 41 22 0 29 -5 29 -18z"/>
+                    <path d="M520 388 c-39 -90 -66 -199 -40 -158 9 13 10 13 10 0 0 -8 9 4 20 28 17 38 22 42 55 42 65 0 117 86 74 122 -17 14 -25 15 -42 6 -16 -8 -22 -8 -25 1 -8 25 -31 8 -52 -41z m100 8 c0 -19 -46 -66 -65 -66 -13 0 -14 4 -4 23 12 23 48 56 62 57 4 0 7 -6 7 -14z"/>
+                    <path d="M787 427 c-22 -7 -36 -15 -32 -19 9 -9 -14 -68 -26 -68 -5 0 -9 -8 -9 -17 -1 -10 -7 -35 -14 -55 -12 -33 -11 -37 5 -41 10 -3 20 1 22 8 3 6 26 18 51 25 26 7 49 17 52 21 7 12 -43 11 -67 -1 -15 -8 -19 -7 -19 5 0 21 36 55 60 55 11 0 20 5 20 10 0 6 -11 10 -25 10 -22 0 -24 3 -15 20 7 13 25 21 60 26 33 4 50 11 50 20 0 17 -58 18 -113 1z"/>
+                    <path d="M1115 435 c-5 -2 -23 -6 -38 -10 -18 -4 -27 -11 -24 -19 3 -7 -3 -27 -13 -44 -14 -23 -50 -122 -50 -138 0 -7 37 3 45 12 6 6 31 19 58 28 26 10 47 20 47 23 0 7 -60 -2 -82 -11 -16 -7 -17 -5 -7 23 8 24 18 32 45 37 39 7 46 24 10 24 -19 0 -23 4 -19 19 4 15 17 21 59 27 34 4 53 11 51 18 -3 11 -61 19 -8 11z"/>
+                    <path d="M928 419 c-26 -15 -70 -95 -66 -121 2 -12 15 -29 30 -37 23 -13 30 -13 52 -1 14 7 33 24 41 37 14 21 14 24 -1 30 -10 4 -20 0 -26 -10 -11 -21 -45 -40 -58 -32 -6 4 -4 20 5 43 25 58 65 94 65 57 0 -8 7 -15 15 -15 26 0 17 40 -11 50 -30 12 -25 12 -46 -1z"/>
+                    <path d="M675 391 c-16 -31 -47 -142 -42 -148 17 -16 95 145 82 167 -11 17 -24 11 -40 -19z"/>
+                </g>
+            </a>
+        </svg>
+    </div>
+
+    <form>
+        <div class="search-bar-group">
+            <div class="search-bar">
+                <div class="search-bar-inline">
+                    <input type="text" class="search-bar-text" placeholder="Search">
+                </div>
+            </div>
+            <div class="search-bar-button">
+                <a href="#" class="search-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                         class="bi bi-search my-2" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </form>
+
+    <div class="container rounded-4" style="background-color: #6762A6">
+        <div class="container marketing" style="padding-top: 40px">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div style="border: 3px solid #ffffff; width: 256px; margin: 0 auto">
+                        <svg class="bd-placeholder-img square" width="250" height="100"
+                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
+                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="fw-normal text-white" style="margin: 10px 0">전체 로드맵</h3>
+                </div>
+                <div class="col-lg-4">
+                    <div style="border: 3px solid #ffffff; width: 256px; margin: 0 auto">
+                        <svg class="bd-placeholder-img square" width="250" height="100"
+                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
+                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="fw-normal text-white" style="margin: 10px 0">공개 로드맵</h3>
+                </div>
+                <div class="col-lg-4">
+                    <div style="border: 3px solid #ffffff; width: 256px; margin: 0 auto">
+                        <svg class="bd-placeholder-img square" width="250" height="100"
+                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
+                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="fw-normal text-white" style="margin: 10px 0">저장된 북마크</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="container marketing">
+            <div class="content">
+                <div class="row" style="margin-bottom: 2rem">
+                    <div class="col-lg-3 mx-auto">
+                        <div class="content-title">
+                            <h4 class="fw-normal" style="text-decoration-color: #4e4897; margin: 10px 0;">추천 로드맵</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 mx-auto">
+                        <div class="content-title">
+                            <h4 class="fw-normal" style="text-decoration-color: #4e4897; margin: 10px 0;">인기 로드맵</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 mx-auto">
+                        <div class="content-title">
+                            <h4 class="fw-normal" style="text-decoration-color: #4e4897; margin: 10px 0;">신규 로드맵</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 mx-auto">
+                        <div class="roadmap-list">
+                            <div class="roadmap-item">
+                                <div class="roadmap-main">
+                                    <!-- 동적으로 보여주게 하기 -->
+                                    <div class="roadmap-title">제목</div> <!-- a 태그로 링크 -> 해당 로드맵 바로가기 -->
+                                    <div class="roadmap-writer">작성자</div> <!-- a 태그로 링크 -> 사용자 프로필 보여주기 -->
+                                </div>
+                                밑에 추가
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mx-auto">
+                        <div class="roadmap-list">
+                            <div class="roadmap-item">
+                                <div class="roadmap-main">
+                                    <div class="roadmap-title">제목</div>
+                                    <div class="roadmap-writer">작성자</div>
+                                </div>
+                                밑에 추가
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mx-auto">
+                        <div class="roadmap-list">
+                            <div class="roadmap-item">
+                                <div class="roadmap-main">
+                                    <div class="roadmap-title">제목</div>
+                                    <div class="roadmap-writer">작성자</div>
+                                </div>
+                                밑에 추가
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="featurette-divider">
+    </div>
+
+    <footer class="container">
+        <div class="footer-wrapper">
+            <div class="footer-left">
+                <a href="/views/main" class="footer-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="65pt" height="37pt"
+                         viewBox="0 0 163.000000 97.000000" preserveAspectRatio="xMidYMid meet">
+                        <g transform="translate(0.000000,99.000000) scale(0.100000,-0.100000)" fill="#4e4897"
+                           stroke="none">
+                            <path d="M608 905 c-167 -32 -318 -105 -402 -195 -62 -67 -89 -129 -90 -205 0-354 679 -548 1133 -323 100 49 191 133 223 205 33 71 31 171 -4 238 -64 122-209 218 -401 266 -109 27 -349 35 -459 14z m467 -34 c170 -45 322 -147 375-251 12 -24 25 -70 27 -102 5 -51 2 -66 -26 -123 -115 -234 -532 -353 -911 -259 -36 9 -106 36 -157 60 -368 176 -319 515 94 653 130 44 179 50 358 47 123 -3 178 -9 240 -25z"/>
+                            <path d="M552 728 c-23 -56 -36 -74 -53 -76 -15 -3 -20 0 -17 10 35 94 35 94 5 100 -15 2 -25 -13 -49 -69 -17 -40 -36 -73 -42 -73 -18 0 -52 -27 -44 -35 3 -4 16 -2 27 5 25 13 27 1 11 -68 -8 -31 -7 -47 2 -62 16 -25 28 -26 28 -2 0 9 10 50 21 90 19 61 25 72 44 72 l23 0 -24 -66 c-23 -61 -24 -114 -4 -114 5 0 16 26 25 57 16 53 105 244 127 270 14 17 1 33 -27 33 -19 0 -28 -12 -53 -72z"/>
+                            <path d="M1267 693 c-2 -5 -12 -33 -22 -63 -15 -44 -20 -51 -26 -35 -4 11 -8 30 -8 43 -1 15 -7 22 -21 22 -11 0 -20 5 -20 10 0 6 -14 10 -31 10 -45 0 -120 -21 -113 -32 7 -12 -15 -68 -27 -68 -5 0 -9 -8 -9 -17 -1 -10 -7 -35 -14 -55 -12 -33 -11 -37 3 -40 9 -2 21 2 26 8 6 6 31 19 58 27 45 15 47 15 47 -3 0 -39 21 -29 45 21 l24 52 16 -41 c27 -66 35 -59 84 77 26 68 28 80 15 85 -20 8 -22 8 -27 -1z m-107 -52 c0 -4 -10 -31 -21 -60 -19 -45 -25 -51 -51 -51 -16 0 -38 -5 -49 -10 -15 -8 -19 -7 -19 5 0 21 36 55 60 55 11 0 20 5 20 10 0 6 -11 10 -25 10 -22 0 -24 3 -15 19 5 11 20 22 32 24 41 8 68 7 68 -2z"/>
+                            <path d="M705 673 c-11 -13 -27 -23 -37 -23 -15 0 -16 -3 -7 -18 18 -29 -15 -109 -48 -115 -19 -4 -23 -1 -17 12 35 82 44 115 35 124 -5 5 -14 6 -19 3 -12 -7 -46 -96 -55 -143 -6 -31 -6 -32 18 -21 20 9 28 8 44 -6 15 -14 20 -14 29 -3 7 8 29 19 49 25 53 16 113 68 113 97 0 25 -33 55 -61 55 -10 0 -19 8 -21 18 -3 15 -6 14 -23 -5z m71 -55 c8 -13 -58 -78 -80 -78 -13 0 -13 6 2 45 14 38 20 45 44 45 15 0 30 -5 34 -12z"/>
+                            <path d="M880 673 c-8 -13 -23 -23 -34 -23 -15 0 -16 -3 -6 -15 18 -22 -16 -104 -49 -117 l-26 -9 25 -19 c16 -12 29 -15 36 -9 6 5 39 23 73 40 66 33 96 67 87 97 -6 19 -45 42 -71 42 -7 0 -15 8 -17 18 -3 15 -6 14 -18 -5z m70 -61 c0 -20 -21 -42 -58 -62 -33 -16 -35 -9 -16 39 14 35 21 41 45 41 22 0 29 -5 29 -18z"/>
+                            <path d="M520 388 c-39 -90 -66 -199 -40 -158 9 13 10 13 10 0 0 -8 9 4 20 28 17 38 22 42 55 42 65 0 117 86 74 122 -17 14 -25 15 -42 6 -16 -8 -22 -8 -25 1 -8 25 -31 8 -52 -41z m100 8 c0 -19 -46 -66 -65 -66 -13 0 -14 4 -4 23 12 23 48 56 62 57 4 0 7 -6 7 -14z"/>
+                            <path d="M787 427 c-22 -7 -36 -15 -32 -19 9 -9 -14 -68 -26 -68 -5 0 -9 -8 -9 -17 -1 -10 -7 -35 -14 -55 -12 -33 -11 -37 5 -41 10 -3 20 1 22 8 3 6 26 18 51 25 26 7 49 17 52 21 7 12 -43 11 -67 -1 -15 -8 -19 -7 -19 5 0 21 36 55 60 55 11 0 20 5 20 10 0 6 -11 10 -25 10 -22 0 -24 3 -15 20 7 13 25 21 60 26 33 4 50 11 50 20 0 17 -58 18 -113 1z"/>
+                            <path d="M1115 435 c-5 -2 -23 -6 -38 -10 -18 -4 -27 -11 -24 -19 3 -7 -3 -27 -13 -44 -14 -23 -50 -122 -50 -138 0 -7 37 3 45 12 6 6 31 19 58 28 26 10 47 20 47 23 0 7 -60 -2 -82 -11 -16 -7 -17 -5 -7 23 8 24 18 32 45 37 39 7 46 24 10 24 -19 0 -23 4 -19 19 4 15 17 21 59 27 34 4 53 11 51 18 -3 11 -61 19 -8 11z"/>
+                            <path d="M928 419 c-26 -15 -70 -95 -66 -121 2 -12 15 -29 30 -37 23 -13 30 -13 52 -1 14 7 33 24 41 37 14 21 14 24 -1 30 -10 4 -20 0 -26 -10 -11 -21 -45 -40 -58 -32 -6 4 -4 20 5 43 25 58 65 94 65 57 0 -8 7 -15 15 -15 26 0 17 40 -11 50 -30 12 -25 12 -46 -1z"/>
+                            <path d="M675 391 c-16 -31 -47 -142 -42 -148 17 -16 95 145 82 167 -11 17 -24 11 -40 -19z"/>
+                        </g>
+                    </svg>
+                </a>
+                <aside class="footer-line">&copy; 2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a
+                        href="#">Terms</a></aside>
+            </div>
+            <div class="footer-right"><a href="#">Back to top</a></div>
+        </div>
+    </footer>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+<script type="module" src="/static/js/main-event-handler.js"></script>
 </body>
 </html>

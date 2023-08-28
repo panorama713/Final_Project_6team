@@ -57,7 +57,7 @@ public class ArticleImageService {
     }
 
     /**
-     * 이미지 수정
+     * 이미지 수정 - 전체
      */
     @Transactional
     public void updateArticleImage(
@@ -74,7 +74,7 @@ public class ArticleImageService {
     }
 
     /**
-     * 이미지 삭제
+     * 이미지 삭제 - 전체
      */
     @Transactional
     public void deleteArticleImage(String username, Long articleId) {

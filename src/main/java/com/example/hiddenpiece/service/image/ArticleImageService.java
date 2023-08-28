@@ -42,4 +42,15 @@ public class ArticleImageService {
                 .map(ArticleImageResponseDto::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    /**
+     * 이미지 조회
+     */
+    @Transactional(readOnly = true)
+    public List<ArticleImageResponseDto> readAllArticleImages(Long articleId) {
+        List<ArticleImage> imageList = articleImageRepository.findAllByArticleId(articleId);
+        return imageList.stream()
+                .map(ArticleImageResponseDto::fromEntity)
+                .collect(Collectors.toList());
+    }
 }

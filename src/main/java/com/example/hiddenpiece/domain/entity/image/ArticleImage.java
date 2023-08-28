@@ -34,4 +34,10 @@ public class ArticleImage {
     public void setArticle(Article article) {
         this.article = article;
     }
+
+    public void updateArticleImage(ArticleImage articleImage) {
+        this.imageName = articleImage.getImageName();
+        this.imageUrl = articleImage.getImageUrl();
+        this.imageSize = articleImage.getImageSize();
+    }
 }

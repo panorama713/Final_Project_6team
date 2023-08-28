@@ -14,10 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.hiddenpiece.exception.CustomExceptionCode.NOT_FOUND_ARTICLE;
+import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -91,6 +92,56 @@ public class ArticleImageService {
             if(!file.delete()) {
                 log.error("#log# 이미지 삭제 실패 [{}]", imageUrl);
             }
+        }
+    }
+
+    /**
+     * 이미지 수정 - 특정
+     */
+    @Transactional
+    public void updateSpecificImage(
+            List<Long> imageIds, List<MultipartFile> updatedImages, String username, Long articleId
+    ) throws IOException {
+        if (imageIds.size() != updatedImages.size()) {
+            throw new CustomException(IMAGE_COUNT_MISMATCH);
+        }
+        for (int i = 0; i < imageIds.size(); i++) {
+            ArticleImage existingImage = articleImageRepository.findById(imageIds.get(i))
+                    .orElseThrow(() -> new CustomException(NOT_FOUND_IMAGE));
+            Article connectedArticle = existingImage.getArticle();
+            if (connectedArticle == null || !connectedArticle.getId().equals(articleId)) {
+                throw new CustomException(NOT_FOUND_ARTICLE);
+            }
+            if (!connectedArticle.getUser().getUsername().equals(username)) {
+                throw new CustomException(NOT_MATCH_WRITER);
+            }
+            deletePhysicalImage(existingImage.getImageUrl());
+            List<MultipartFile> singleUpdatedImageList = Collections.singletonList(updatedImages.get(i));
+            ArticleImage updatedImage = articleImageHandler.parseFileInfo(singleUpdatedImageList, username, connectedArticle).get(0);
+            existingImage.updateArticleImage(updatedImage);
+            articleImageRepository.save(existingImage);
+            log.info("#log# 데이터베이스 수정 - 사용자 [{}] -> 게시글 [{}] -> 이미지 [{}]", username, articleId, imageIds.get(i));
+        }
+    }
+
+    /**
+     * 이미지 삭제 - 특정
+     */
+    @Transactional
+    public void deleteSpecificImage(List<Long> imageIds, String username, Long articleId) {
+        for (Long imageId : imageIds) {
+            ArticleImage existingImage = articleImageRepository.findById(imageId)
+                    .orElseThrow(() -> new CustomException(NOT_FOUND_IMAGE));
+            Article connectedArticle = existingImage.getArticle();
+            if (connectedArticle == null || !connectedArticle.getId().equals(articleId)) {
+                throw new CustomException(NOT_FOUND_ARTICLE);
+            }
+            if (!connectedArticle.getUser().getUsername().equals(username)) {
+                throw new CustomException(NOT_MATCH_WRITER);
+            }
+            deletePhysicalImage(existingImage.getImageUrl());
+            articleImageRepository.deleteById(imageId);
+            log.info("#log# 데이터베이스 소프트 삭제 - 사용자 [{}] -> 게시글 [{}] -> 이미지 [{}]", username, articleId, imageId);
         }
     }
 }

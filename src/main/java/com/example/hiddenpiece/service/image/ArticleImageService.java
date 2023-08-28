@@ -86,6 +86,18 @@ public class ArticleImageService {
         log.info("#log# 데이터베이스 소프트 삭제 - 사용자 [{}] -> 게시글 [{}] -> 이미지 {}개", username, articleId, existingImages.size());
     }
 
+    private void validateArticleAndAuthor(
+            ArticleImage existingImage, Long articleId, String username
+    ) {
+        Article connectedArticle = existingImage.getArticle();
+        if (connectedArticle == null || !connectedArticle.getId().equals(articleId)) {
+            throw new CustomException(NOT_FOUND_ARTICLE);
+        }
+        if (!connectedArticle.getUser().getUsername().equals(username)) {
+            throw new CustomException(NOT_MATCH_WRITER);
+        }
+    }
+
     private void deletePhysicalImage(String imageUrl) {
         File file = new File(imageUrl);
         if (file.exists()) {
@@ -108,16 +120,10 @@ public class ArticleImageService {
         for (int i = 0; i < imageIds.size(); i++) {
             ArticleImage existingImage = articleImageRepository.findById(imageIds.get(i))
                     .orElseThrow(() -> new CustomException(NOT_FOUND_IMAGE));
-            Article connectedArticle = existingImage.getArticle();
-            if (connectedArticle == null || !connectedArticle.getId().equals(articleId)) {
-                throw new CustomException(NOT_FOUND_ARTICLE);
-            }
-            if (!connectedArticle.getUser().getUsername().equals(username)) {
-                throw new CustomException(NOT_MATCH_WRITER);
-            }
+            validateArticleAndAuthor(existingImage, articleId, username);
             deletePhysicalImage(existingImage.getImageUrl());
             List<MultipartFile> singleUpdatedImageList = Collections.singletonList(updatedImages.get(i));
-            ArticleImage updatedImage = articleImageHandler.parseFileInfo(singleUpdatedImageList, username, connectedArticle).get(0);
+            ArticleImage updatedImage = articleImageHandler.parseFileInfo(singleUpdatedImageList, username, existingImage.getArticle()).get(0);
             existingImage.updateArticleImage(updatedImage);
             articleImageRepository.save(existingImage);
             log.info("#log# 데이터베이스 수정 - 사용자 [{}] -> 게시글 [{}] -> 이미지 [{}]", username, articleId, imageIds.get(i));
@@ -134,13 +140,7 @@ public class ArticleImageService {
         for (Long imageId : imageIds) {
             ArticleImage existingImage = articleImageRepository.findById(imageId)
                     .orElseThrow(() -> new CustomException(NOT_FOUND_IMAGE));
-            Article connectedArticle = existingImage.getArticle();
-            if (connectedArticle == null || !connectedArticle.getId().equals(articleId)) {
-                throw new CustomException(NOT_FOUND_ARTICLE);
-            }
-            if (!connectedArticle.getUser().getUsername().equals(username)) {
-                throw new CustomException(NOT_MATCH_WRITER);
-            }
+            validateArticleAndAuthor(existingImage, articleId, username);
             deletePhysicalImage(existingImage.getImageUrl());
             articleImageRepository.deleteById(imageId);
             log.info("#log# 데이터베이스 소프트 삭제 - 사용자 [{}] -> 게시글 [{}] -> 이미지 [{}]", username, articleId, imageId);

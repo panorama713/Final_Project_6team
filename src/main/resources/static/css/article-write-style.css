@@ -10,7 +10,7 @@
 /* 사용자 지정 속성 */
 :root {
     --main-color: #4e4897;
-    --sub-color: #a7a5cd;
+    --sub-color: #bab9e7;
     --white-color: #ffffff;
 }
 
@@ -49,7 +49,7 @@
 }
 
 
-/* type 선택 드롭다운 설정 */
+/* type 선택 설정 */
 .form-select {
     padding: 10px;
     font-size: 16px;

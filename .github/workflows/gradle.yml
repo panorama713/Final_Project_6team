@@ -1,7 +1,7 @@
 name: Project CI/CD
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "cicd_test" ]
 
 permissions:
   contents: read

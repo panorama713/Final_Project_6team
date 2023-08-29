@@ -1,6 +1,7 @@
 package com.example.hiddenpiece.domain.entity.community;
 import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
 import com.example.hiddenpiece.domain.entity.bookmark.ArticleBookmark;
+import com.example.hiddenpiece.domain.entity.image.ArticleImage;
 import com.example.hiddenpiece.domain.entity.like.Like;
 import com.example.hiddenpiece.domain.entity.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,7 +28,9 @@ public class Article extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // 이미지 관련 기능 구현 필요
+    @JsonIgnore
+    @OneToMany(mappedBy = "article", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<ArticleImage> articleImages = new ArrayList<>();
 
     private String title;
     private String content;

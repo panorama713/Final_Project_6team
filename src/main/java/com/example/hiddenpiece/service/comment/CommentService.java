@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,7 +56,7 @@ public class CommentService {
     public List<CommentResponseDto> readAllCommentsForArticle(Long articleId) {
         List<Comment> comments = commentRepository.findByArticleId(articleId);
         if (comments.isEmpty()) {
-            throw new CustomException(NOT_FOUND_COMMENT);
+            return new ArrayList<>();
         }
         log.info("#log# 데이터베이스 조회 - 게시글 [{}] -> (대)댓글", articleId);
         return comments.stream()
@@ -108,7 +109,7 @@ public class CommentService {
         if (!comment.getUser().getUsername().equals(username)) {
             throw new CustomException(NOT_MATCH_WRITER);
         }
-        comment.softDelete();
+        commentRepository.deleteById(commentId);
         log.info("#log# 데이터베이스 소프트 삭제 - 사용자 [{}] -> 게시글 [{}] -> (대)댓글 [{}]", username, articleId, commentId);
     }
 

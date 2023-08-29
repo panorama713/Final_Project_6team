@@ -9,6 +9,8 @@ import com.example.hiddenpiece.domain.repository.community.ArticleRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
+import com.example.hiddenpiece.service.comment.CommentService;
+import com.example.hiddenpiece.service.image.ArticleImageService;
 import com.example.hiddenpiece.service.like.LikeService;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
@@ -27,6 +29,8 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
     private final LikeService likeService;
+    private final ArticleImageService articleImageService;
+    private final CommentService commentService;
 
     @Transactional
     public CreateArticleResponseDto createArticle(String username, ArticleRequestDto dto) {
@@ -65,6 +69,8 @@ public class ArticleService {
                 .content(article.getContent())
                 .type(article.getType())
                 .likeCount(likeService.getLikeCount(article))
+                .images(articleImageService.readAllArticleImages(articleId))
+                .comments(commentService.readAllCommentsForArticle(articleId))
                 .build();
     }
 
@@ -95,6 +101,7 @@ public class ArticleService {
             throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
         }
 
+        articleImageService.deleteArticleImage(username, articleId);
         articleRepository.deleteById(articleId);
     }
 }

@@ -28,10 +28,6 @@ public class RoadmapElement extends BaseTimeEntity {
     @JoinColumn(name = "roadmap_id")
     private Roadmap roadmap;
 
-    @ManyToOne
-    @JoinColumn(name = "roadmapCategory_id")
-    private RoadmapCategory roadmapCategory;
-
     private String title;
     private String content;
     private boolean done;
@@ -41,9 +37,8 @@ public class RoadmapElement extends BaseTimeEntity {
     private LocalDateTime deleted_at;
 
     @Builder
-    public RoadmapElement(Roadmap roadmap, RoadmapCategory roadmapCategory, String title, String content, LocalDateTime startDate, LocalDateTime endDate) {
+    public RoadmapElement(Roadmap roadmap, String title, String content, LocalDateTime startDate, LocalDateTime endDate) {
         this.roadmap = roadmap;
-        this.roadmapCategory = roadmapCategory;
         this.title = title;
         this.content = content;
         // 기본으로 체크가 되어있지 않음

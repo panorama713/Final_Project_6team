@@ -23,13 +23,12 @@ public class RoadmapElementController {
 
     // post
     // 로드맵 요소 생성
-    @PostMapping("/elements/{roadmapCategoryId}")
+    @PostMapping("/elements")
     public ResponseEntity<ResponseDto> createRoadmapElement(
             @Validated @RequestBody RequestRoadmapElementDto dto,
-            @PathVariable("roadmapId") Long roadmapId,
-            @PathVariable("roadmapCategoryId") Long roadmapCategoryId
+            @PathVariable("roadmapId") Long roadmapId
     ) {
-        roadmapElementService.createRoadmapElement(dto, roadmapId, roadmapCategoryId);
+        roadmapElementService.createRoadmapElement(dto, roadmapId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ResponseDto.getInstance(SystemMessage.CREATED_ELEMENT));
@@ -37,12 +36,11 @@ public class RoadmapElementController {
 
     // get
     // 로드맵 요소 목록 조회
-    @GetMapping("/elements/{roadmapCategoryId}")
+    @GetMapping("/elements")
     public ResponseEntity<List<RoadmapElementReadResponseDto>> readAllElementList(
-            @PathVariable("roadmapId") Long roadmapId,
-            @PathVariable("roadmapCategoryId") Long roadmapCategoryId
+            @PathVariable("roadmapId") Long roadmapId
     ) {
-        List<RoadmapElementReadResponseDto> dtoList = roadmapElementService.readAllRoadmapElementList(roadmapId, roadmapCategoryId);
+        List<RoadmapElementReadResponseDto> dtoList = roadmapElementService.readAllRoadmapElementList(roadmapId);
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 

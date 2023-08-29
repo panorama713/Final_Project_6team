@@ -10,13 +10,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/articles")
 public class ArticleController {
@@ -36,21 +38,34 @@ public class ArticleController {
             articleImageService.createArticleImage(images, username, responseDto.getId());
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+        }
+
+    @GetMapping("")
+    public String createArticles() {
+        return "article-write";
     }
 
-    @GetMapping
-    public ResponseEntity<List<ArticleListResponseDto>> readAllArticles() {
-        return ResponseEntity.ok(articleService.readArticles());
+    @GetMapping("/list")
+    public String readAllArticles(Model model) {
+        model.addAttribute("articles", articleService.readArticles());
+        return "article-list";
     }
 
-    // 게시글 단독 조회 (좋아요 개수 포함)
     @GetMapping("/{articleId}")
-    public ResponseEntity<ArticleResponseDto> readArticle(@PathVariable final Long articleId) {
-        return ResponseEntity.ok(articleService.readArticle(articleId));
+    public String readArticle(Model model, @PathVariable final Long articleId) {
+        model.addAttribute("article",articleService.readArticle(articleId));
+        return "article-detail";
+    }
+
+
+    @GetMapping("/get/{articleId}")
+    public String updateArticle(Model model, @PathVariable final Long articleId) {
+        model.addAttribute("article",articleService.readArticle(articleId));
+        return "article-update";
     }
 
     @PutMapping("/{articleId}")
-    public ResponseEntity<Void> updateArticle(
+    public ResponseEntity<Object> updateArticle(
             Authentication authentication,
             @PathVariable final Long articleId,
             @RequestPart final ArticleRequestDto params,
@@ -58,17 +73,17 @@ public class ArticleController {
     ) throws IOException {
         String username = authentication.getName();
         articleService.updateArticle(username, articleId, params);
-        if(images != null && !images.isEmpty()) {
+        if (images != null && !images.isEmpty()) {
             articleImageService.updateArticleImage(images, username, articleId);
         }
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{articleId}")
-    public ResponseEntity<Void> deleteArticle(Authentication authentication, @PathVariable final Long articleId) {
+    public String deleteArticle(Authentication authentication, @PathVariable final Long articleId) {
         String username = authentication.getName();
         articleService.deleteArticle(username, articleId);
-        return ResponseEntity.noContent().build();
+        return "redirect:/api/v1/articles/list";
     }
 
     @PutMapping("/{articleId}/images")

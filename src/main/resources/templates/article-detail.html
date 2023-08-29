@@ -18,10 +18,10 @@
                         글 설정
                     </button>
                     <ul class="dropdown-menu">
-                        <form th:action="@{/views/article/get/{articleId}(articleId=${article.articleId})}" th:method="get">
+                        <form th:action="@{/api/v1/articles/get/{articleId}(articleId=${article.articleId})}" th:method="get">
                             <button class="dropdown-item">수정</button>
                         </form>
-                        <form th:action="@{/views/article/{articleId}(articleId=${article.articleId})}" th:method="delete">
+                        <form th:action="@{/api/v1/articles/{articleId}(articleId=${article.articleId})}" th:method="delete">
                             <button class="dropdown-item">삭제</button>
                         </form>
                     </ul>
@@ -88,7 +88,7 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">수정</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="ReplyDeleteConfirm()">삭제</a></li>
+                                <li><a class="dropdown-item" href="#">삭제</a></li>
                             </ul>
                         </div>
                     </div>

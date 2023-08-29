@@ -42,7 +42,7 @@
         <tbody>
         <tr th:each = "article:${articles}">
           <th scope="row" th:text="${article.type}">type</th>
-          <td> <a th:text="${article.title}" th:href="@{/views/article/{articleId}(articleId=${article.id})}"> title </a> </td>
+          <td> <a th:text="${article.title}" th:href="@{/api/v1/articles/{articleId}(articleId=${article.id})}"> title </a> </td>
           <td th:text="${article.username}">username</td>
           <td>2023-00-00</td>
           <td>000</td>
@@ -66,7 +66,7 @@
     </div>
   </div>
 
-  <a th:href="@{/views/article}" class="btn btn-primary write-btn">글쓰기</a>
+  <a th:href="@{/api/v1/articles}" class="btn btn-primary write-btn">글쓰기</a>
 
   <div class="row mt-3">
     <div class="col d-flex justify-content-center">

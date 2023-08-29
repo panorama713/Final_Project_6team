@@ -16,12 +16,12 @@ let index = {
         }
         $.ajax({
             type: "PUT",
-            url: "/views/article/"+id,
+            url: "/api/v1/articles/"+id,
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
         }).done(function (res) {
             alert("글 수정이 완료되었습니다.");
-            location.href = "/views/articlelist";
+            location.href = "/api/v1/articles/list";
         }).fail(function (request,status,error) {
             alert("code:"+request.status+"\n"+id);
         });

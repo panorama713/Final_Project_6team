@@ -26,6 +26,7 @@ public class ArticleController {
     private final ArticleService articleService;
     private final ArticleImageService articleImageService;
 
+
     @PostMapping
     public ResponseEntity<CreateArticleResponseDto> createArticle(
             Authentication authentication,
@@ -38,7 +39,7 @@ public class ArticleController {
             articleImageService.createArticleImage(images, username, responseDto.getId());
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
-        }
+    }
 
     @GetMapping("")
     public String createArticles() {
@@ -57,14 +58,6 @@ public class ArticleController {
         return "article-detail";
     }
 
-
-    @GetMapping("" +
-            "/get/{articleId}")
-    public String updateArticle(Model model, @PathVariable final Long articleId) {
-        model.addAttribute("article",articleService.readArticle(articleId));
-        return "article-update";
-    }
-
     @PutMapping("/{articleId}")
     public ResponseEntity<Object> updateArticle(
             Authentication authentication,
@@ -72,13 +65,13 @@ public class ArticleController {
             @RequestPart final ArticleRequestDto params,
             @RequestPart(required = false) List<MultipartFile> images
     ) throws IOException {
-        String username = authentication.getName();
-        articleService.updateArticle(username, articleId, params);
-        if (images != null && !images.isEmpty()) {
-            articleImageService.updateArticleImage(images, username, articleId);
+            String username = authentication.getName();
+            articleService.updateArticle(username, articleId, params);
+            if (images != null && !images.isEmpty()) {
+                articleImageService.updateArticleImage(images, username, articleId);
+            }
+            return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.noContent().build();
-    }
 
     @DeleteMapping("/{articleId}")
     public String deleteArticle(Authentication authentication, @PathVariable final Long articleId) {

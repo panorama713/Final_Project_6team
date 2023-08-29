@@ -83,7 +83,7 @@ public class ArticleImageService {
             deletePhysicalImage(image.getImageUrl());
         }
         articleImageRepository.deleteAll(existingImages);
-        log.info("#log# 데이터베이스 소프트 삭제 - 사용자 [{}] -> 게시글 [{}] -> 이미지 {}개", username, articleId, existingImages.size());
+        log.info("#log# 데이터베이스 삭제 - 사용자 [{}] -> 게시글 [{}] -> 이미지 {}개", username, articleId, existingImages.size());
     }
 
     private void validateArticleAndAuthor(
@@ -143,7 +143,7 @@ public class ArticleImageService {
             validateArticleAndAuthor(existingImage, articleId, username);
             deletePhysicalImage(existingImage.getImageUrl());
             articleImageRepository.deleteById(imageId);
-            log.info("#log# 데이터베이스 소프트 삭제 - 사용자 [{}] -> 게시글 [{}] -> 이미지 [{}]", username, articleId, imageId);
+            log.info("#log# 데이터베이스 삭제 - 사용자 [{}] -> 게시글 [{}] -> 이미지 [{}]", username, articleId, imageId);
         }
     }
 }

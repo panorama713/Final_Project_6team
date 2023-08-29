@@ -6,16 +6,24 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoadmapElementReadResponseDto {
     private String title;
+    private String content;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     public static RoadmapElementReadResponseDto fromEntity(RoadmapElement entity) {
         return RoadmapElementReadResponseDto.builder()
                 .title(entity.getTitle())
+                .content(entity.getContent())
+                .startDate(entity.getStartDate())
+                .endDate(entity.getEndDate())
                 .build();
     }
 }

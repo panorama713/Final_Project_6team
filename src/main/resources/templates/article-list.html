@@ -40,31 +40,33 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <th scope="row">잡담</th>
-          <td><a href="#">제목입니당</a></td>
-          <td>username</td>
+        <tr th:each = "article:${articles}">
+          <th scope="row" th:text="${article.type}">type</th>
+          <td> <a th:text="${article.title}" th:href="@{/views/article/{articleId}(articleId=${article.id})}"> title </a> </td>
+          <td th:text="${article.username}">username</td>
           <td>2023-00-00</td>
           <td>000</td>
         </tr>
-        <tr>
-          <th scope="row">공지</th>
-          <td><a href="#">제목입니다</a></td>
-          <td>username</td>
-          <td>2023-00-00</td>
-          <td>000</td>
-        </tr>
-        <tr>
-          <th scope="row">지식</th>
-          <td><a href="#">제목입니다</a></td>
-          <td>username</td>
-          <td>2023-00-00</td>
-          <td>000</td>
-        </tr>
+<!--        <tr>-->
+<!--          <th scope="row">공지</th>-->
+<!--          <td><a href="#">제목입니다</a></td>-->
+<!--          <td>username</td>-->
+<!--          <td>2023-00-00</td>-->
+<!--          <td>000</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <th scope="row">지식</th>-->
+<!--          <td><a href="#">제목입니다</a></td>-->
+<!--          <td>username</td>-->
+<!--          <td>2023-00-00</td>-->
+<!--          <td>000</td>-->
+<!--        </tr>-->
         </tbody>
       </table>
     </div>
   </div>
+
+  <a th:href="@{/views/article}" class="btn btn-primary write-btn">글쓰기</a>
 
   <div class="row mt-3">
     <div class="col d-flex justify-content-center">

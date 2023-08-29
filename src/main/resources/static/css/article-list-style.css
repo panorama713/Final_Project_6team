@@ -59,3 +59,16 @@ a:hover {
     color: var(--main-color);
 
 }
+
+.write-btn {
+    float: right;
+    border: 2px solid var(--main-color);
+    background-color: var(--main-color);
+    color: white !important;
+}
+
+.write-btn:hover {
+    text-decoration: none;
+    border: 2px solid var(--sub-color);
+    background-color: var(--sub-color);
+}

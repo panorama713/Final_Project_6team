@@ -1,6 +1,10 @@
 package com.example.hiddenpiece.domain.dto.community.article;
+import com.example.hiddenpiece.domain.dto.community.comment.CommentResponseDto;
+import com.example.hiddenpiece.domain.dto.community.image.ArticleImageResponseDto;
 import com.example.hiddenpiece.domain.entity.community.ArticleType;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -13,4 +17,6 @@ public class ArticleResponseDto {
     private String content;
     private ArticleType type;
     private int likeCount;
+    private List<ArticleImageResponseDto> images;
+    private List<CommentResponseDto> comments;
 }

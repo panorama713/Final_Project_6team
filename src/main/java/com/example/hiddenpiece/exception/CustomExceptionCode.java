@@ -13,6 +13,7 @@ public enum CustomExceptionCode {
     NOT_MATCH_WRITER(HttpStatus.BAD_REQUEST, "작성자가 아닙니다."),
     ALREADY_LOGOUT_USER(HttpStatus.BAD_REQUEST, "다시 로그인해 주시기 바랍니다."),
     NOT_ALLOW_MORE_REPLY(HttpStatus.BAD_REQUEST, "더 이상 대댓글을 등록할 수 없습니다."),
+    IMAGE_COUNT_MISMATCH(HttpStatus.BAD_REQUEST, "전달된 이미지의 수와 업로드된 이미지의 수가 일치하지 않습니다."),
 
     /*
      * 401
@@ -43,6 +44,7 @@ public enum CustomExceptionCode {
     NOT_FOUND_ARTICLE_BOOKMARK(HttpStatus.NOT_FOUND, "북마크한 해당 게시글을 찾을 수 없습니다."),
     NOT_FOUND_LIKE(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다."),
     NOT_FOUND_COMMENT(HttpStatus.NOT_FOUND, "해당 댓글을 찾을 수 없습니다."),
+    NOT_FOUND_IMAGE(HttpStatus.NOT_FOUND, "해당 이미지를 찾을 수 없습니다."),
     /*
      * 409
      */

@@ -58,7 +58,8 @@ public class ArticleController {
     }
 
 
-    @GetMapping("/get/{articleId}")
+    @GetMapping("" +
+            "/get/{articleId}")
     public String updateArticle(Model model, @PathVariable final Long articleId) {
         model.addAttribute("article",articleService.readArticle(articleId));
         return "article-update";

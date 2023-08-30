@@ -1,4 +1,4 @@
-# secret, database yml 은 Actions.secret 에 저장
+# secret, database yml 은 Actions.secret 에 저장함
 spring:
   config:
     activate:

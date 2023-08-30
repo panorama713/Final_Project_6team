@@ -78,7 +78,6 @@ jobs:
           host: ${{ secrets.WAS_HOST }}
           username: ${{ secrets.WAS_USERNAME }} # ubuntu
           key: ${{ secrets.WAS_KEY }} # pem key
-          envs: WAS_HOST=${{ secrets.WAS_HOST }}
           script: |
             sudo chmod 666 /var/run/docker.sock
             docker-compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose-redis.yml up -d

@@ -2,12 +2,14 @@ name: CI/CD
 on:
   push:
     branches: [ "main", "release" ]
+  pull_request:
+    branches: [ "main", "release" ]
 
 permissions:
   contents: read
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -52,7 +54,25 @@ jobs:
       - name: push docker hub
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/hidden-piece # zerobird
 
-      - name: run app
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: send to ec2
+        uses: appleboy/scp-action@master
+        with:
+          username: ${{ secrets.WAS_USERNAME }}
+          host: ${{ secrets.WAS_HOST }}
+          key: ${{ secrets.WAS_KEY }} # pem key
+          port: 22
+          source: "deploy.sh,docker-compose-app.yml,docker-compose-redis.yml"
+          target: "/home/${{ secrets.WAS_USERNAME }}/docker"
+
+      - name: deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.WAS_HOST }}
@@ -61,7 +81,7 @@ jobs:
           script: |
             sudo docker stop $(docker ps -qa)
             sudo docker rm -f $(docker ps -qa)
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/hidden-piece
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/hidden-piece-nginx
-            docker-compose up -d
+            docker-compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose-redis.yml up -d
+            chmod 777 /home/${{ secrets.WAS_USERNAME }}/docker/deploy.sh
+            /home/${{ secrets.WAS_USERNAME }}/docker/deploy.sh
             docker image prune -f

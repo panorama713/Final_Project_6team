@@ -1,8 +1,0 @@
-# secret, database yml 은 Actions.secret 에 저장
-spring:
-  config:
-    activate:
-      on-profile: prod
-
-server:
-  port: 8081

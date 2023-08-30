@@ -127,6 +127,7 @@ public class UserService {
                 .build();
     }
 
+    @Transactional
     public UserProfileResponseDto checkLogin(HttpServletRequest req) {
         String accessToken = cookieManager.getCookie(req, ACCESS_TOKEN);
         if (accessToken != null) {

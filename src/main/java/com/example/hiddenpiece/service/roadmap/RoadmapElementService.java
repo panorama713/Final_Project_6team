@@ -4,9 +4,7 @@ import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapElementDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapElementDto;
 import com.example.hiddenpiece.domain.dto.roadmap.RoadmapElementReadResponseDto;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
-import com.example.hiddenpiece.domain.entity.roadmap.RoadmapCategory;
 import com.example.hiddenpiece.domain.entity.roadmap.RoadmapElement;
-import com.example.hiddenpiece.domain.repository.roadmap.RoadmapCategoryRepository;
 import com.example.hiddenpiece.domain.repository.roadmap.RoadmapElementRepository;
 import com.example.hiddenpiece.domain.repository.roadmap.RoadmapRepository;
 import com.example.hiddenpiece.exception.CustomException;
@@ -26,26 +24,21 @@ import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
 @Transactional(readOnly = true)
 public class RoadmapElementService {
     private final RoadmapRepository roadmapRepository;
-    private final RoadmapCategoryRepository roadmapCategoryRepository;
     private final RoadmapElementRepository roadmapElementRepository;
     // todo: user repository
 
     // 로드맵 요소 추가 기능
     // create
     @Transactional
-    public ResponseRoadmapElementDto createRoadmapElement(RequestRoadmapElementDto dto, Long roadmapId, Long roadmapCategoryId) {
+    public ResponseRoadmapElementDto createRoadmapElement(RequestRoadmapElementDto dto, Long roadmapId) {
         // Roadmap 존재 확인
         Roadmap roadmap = roadmapRepository.findById(roadmapId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_ROADMAP));
 
-        // Roadmap_category 확인
-        RoadmapCategory roadmapCategory = roadmapCategoryRepository.findById(roadmapCategoryId)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_ROADMAP_CATEGORY));
 
         // Roadmap 이 존재한다면
         RoadmapElement entity = RoadmapElement.builder()
                 .roadmap(roadmap)
-                .roadmapCategory(roadmapCategory)
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .startDate(dto.getStartDate())
@@ -58,17 +51,15 @@ public class RoadmapElementService {
     }
 
     // 로드맵 요소 목록 조회
-    public List<RoadmapElementReadResponseDto> readAllRoadmapElementList(Long roadmapId, Long roadmapCategoryId) {
+    public List<RoadmapElementReadResponseDto> readAllRoadmapElementList(Long roadmapId) {
         // Roadmap 존재 확인
         Roadmap roadmap = roadmapRepository.findById(roadmapId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_ROADMAP));
 
-        // Roadmap_category 확인
-        RoadmapCategory targetRoadmapCategory = roadmapCategoryRepository.findById(roadmapCategoryId)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_ROADMAP_CATEGORY));
+        // Roadmap element
 
         List<RoadmapElementReadResponseDto> dtoList = new ArrayList<>();
-        for (RoadmapElement entity : targetRoadmapCategory.getRoadmapElementList()) {
+        for (RoadmapElement entity : roadmapElementRepository.readByRoadmapId(roadmap.getId())) {
             dtoList.add(RoadmapElementReadResponseDto.fromEntity(entity));
         }
 

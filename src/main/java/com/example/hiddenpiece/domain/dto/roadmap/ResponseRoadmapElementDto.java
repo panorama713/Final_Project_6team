@@ -27,7 +27,6 @@ public class ResponseRoadmapElementDto {
         dto.setId(roadmapElement.getId());
 //        dto.setUserId(roadmapElement.getUser().getId());
         dto.setRoadmapId(roadmapElement.getRoadmap().getId());
-        dto.setRoadmapCategory(roadmapElement.getRoadmapCategory().getId());
         dto.setTitle(roadmapElement.getTitle());
         dto.setContent(roadmapElement.getContent());
         dto.setDone(roadmapElement.isDone());

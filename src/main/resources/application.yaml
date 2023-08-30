@@ -17,69 +17,8 @@ spring:
     # /static/ 으로 시작하는 요청에 대해 정적 파일 서빙
     static-path-pattern: /static/**
 
-    hiddenmethod:
-      filter:
-        enabled: true
 
   web:
     resources:
       # 정적 파일 탐색 장소
       static-locations: file:profile/, classpath:/static
-
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-
-  datasource:
-    url: jdbc:sqlite:db.sqlite
-    driver-class-name: org.sqlite.JDBC
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    database-platform: org.hibernate.community.dialect.SQLiteDialect
-    defer-datasource-initialization: true
-
-  sql:
-    init:
-      mode: always
-
-  data:
-    redis:
-      host: 52.78.156.214
-      port: 6379
-
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/hidden-piece # 수정 필요
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root # 수정 필요
-    password: 1234 # 수정 필요
-
-  jpa:
-    hibernate:
-#      ddl-auto: update
-      ddl-auto: create
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    defer-datasource-initialization: true
-
-#  sql:
-#    init:
-#      mode: always
-
-  data:
-    redis:
-      host: 52.78.156.214
-      port: 6379
-
-server:
-  port: 9090

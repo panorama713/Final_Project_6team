@@ -60,9 +60,10 @@ public class Article extends BaseTimeEntity {
         this.type = type;
     }
 
-    public void modify(String title, String content) {
+    public void modify(String title, String content, ArticleType type) {
         this.title = title;
         this.content = content;
+        this.type = type;
     }
 
     public void addLikeArticles(Like like) {

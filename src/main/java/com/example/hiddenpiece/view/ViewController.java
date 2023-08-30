@@ -29,5 +29,25 @@ public class ViewController {
         return "sign-up";
     }
 
+    @GetMapping("articles")
+    public String createArticles() {
+        return "article-write";
+    }
+
+    @GetMapping("articles/list")
+    public String articleList() {
+        return "article-list";
+    }
+
+    @GetMapping("/articles/{articleId}")
+    public String articleDetail() {
+        return "article-detail";
+    }
+
+    @GetMapping("/articles/edit/{articleId}")
+    public String articleUpdate() {
+        return "article-update";
+    }
+
 }
 

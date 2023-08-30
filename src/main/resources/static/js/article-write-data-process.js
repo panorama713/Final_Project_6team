@@ -1,32 +1,38 @@
+    document.addEventListener("DOMContentLoaded", function() {
+        var submitButton = document.getElementById("article-write");
+        submitButton.addEventListener("click", createArticle);
+    });
 
-    let index = {
-        init: function () {
-            $("#article-write").on("click", () => {
-                this.save();
-            });
+    function createArticle() {
+        var title = document.getElementById("title").value;
+        var content = document.getElementById("content").value;
+        var type = document.getElementById("type").value;
+        var image = document.getElementById("image").files[0];
 
-        },
+        var formData = new FormData();
 
-        save: function () {
-            let data = {
-                title: $("#title").val(),
-                content: $("#content").val(),
-                type: $("#type").val()
-            }
+        var jsonParams = {
+            title: title,
+            content: content,
+            type: type
+        };
 
-            $.ajax({
-                type: "POST",
-                url: "/api/v1/articles",
-                data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
-            }).done(function (res) {
-                alert("글 작성이 완료되었습니다.");
-                location.href = "/api/v1/articles/list";
-            }).fail(function (request,status,error) {
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            });
+        formData.append("params", new Blob([JSON.stringify(jsonParams)], { type: "application/json" }));
+        formData.append("image", image);
 
-        },
+        fetch("/api/v1/articles", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert("게시글이 작성되었습니다.");
+                window.location.href = "articles/list";
+            })
+            .catch(error => console.error("게시글 작성 오류:", error));
     }
 
-    index.init();
+
+
+
+

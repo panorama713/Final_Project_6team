@@ -70,7 +70,7 @@ jobs:
           key: ${{ secrets.WAS_KEY }} # pem key
           port: 22
           source: "docker/deploy.sh,docker/docker-compose-app.yml,docker/docker-compose-redis.yml"
-          target: "/home/${{ secrets.WAS_USERNAME }}/docker"
+          target: "/home/${{ secrets.WAS_USERNAME }}"
 
       - name: deploy
         uses: appleboy/ssh-action@master
@@ -79,8 +79,7 @@ jobs:
           username: ${{ secrets.WAS_USERNAME }} # ubuntu
           key: ${{ secrets.WAS_KEY }} # pem key
           script: |
-            sudo docker stop $(docker ps -qa)
-            sudo docker rm -f $(docker ps -qa)
+            sudo chmod 666 /var/run/docker.sock
             docker-compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose-redis.yml up -d
             chmod 777 /home/${{ secrets.WAS_USERNAME }}/docker/deploy.sh
             /home/${{ secrets.WAS_USERNAME }}/docker/deploy.sh

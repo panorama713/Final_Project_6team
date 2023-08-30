@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CookieManager {
+    // TODO https 사용시 secure 옵션 활성화
     public static final String ACCESS_TOKEN = "accessToken";
     public static final String REFRESH_TOKEN = "refreshToken";
 
@@ -15,8 +16,7 @@ public class CookieManager {
         ResponseCookie cookie = ResponseCookie.from(name, value)
                 .maxAge(expiration)
                 .path("/")
-                .secure(true)
-                .sameSite("None")
+//                .secure(true)
                 .httpOnly(true)
                 .build();
         res.addHeader("Set-Cookie", cookie.toString());
@@ -38,8 +38,7 @@ public class CookieManager {
         ResponseCookie cookie = ResponseCookie.from(name, "")
                 .maxAge(0)
                 .path("/")
-                .secure(true)
-                .sameSite("None")
+//                .secure(true)
                 .httpOnly(true)
                 .build();
         res.addHeader("Set-Cookie", cookie.toString());

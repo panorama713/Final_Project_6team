@@ -25,6 +25,7 @@ public class UserDetailsManagerImpl implements UserDetailsManager {
     }
 
     @Override
+    @Transactional
     public void createUser(UserDetails user) {
         // 사용자가 (이미) 있으면 생성할수 없다.
         if (this.userExists(user.getUsername()))

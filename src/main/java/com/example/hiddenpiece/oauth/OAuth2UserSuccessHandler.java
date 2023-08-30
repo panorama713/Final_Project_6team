@@ -68,7 +68,7 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
 
         redisService.setValues(username, refreshToken, Duration.ofMillis(refreshTokenExpirationMillis));
 
-        String targetUrl = "http://localhost:8080/views/main";
+        String targetUrl = "/views/main";
 
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
         clearAuthenticationAttributes(request);

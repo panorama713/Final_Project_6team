@@ -41,7 +41,7 @@
     </div>
     <div class="comments">
         <div class="comment-num">
-            <h5>댓글 [<span>숫자넣을자리</span>]</h5>
+            <h5>댓글 [<span id="comment-count">0</span>]</h5>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -51,43 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="comment">
-            <div class="comment-align">
-                <div class="comment-meta">
-                    <h7 class="comment-user">username</h7>
-                    <small class="comment-date">2023-00-00</small>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-secondary btn-sm dropdown-toggle comment-dropdown" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">답글</a></li>
-                        <li><a class="dropdown-item" href="#">수정</a></li>
-                        <li><a class="dropdown-item" href="#">삭제</a></li>
-                    </ul>
-                </div>
-            </div>
-            <p>댓글</p>
-            <div class="comment-reply">
-                <div class="comment-align">
-                    <div class="comment-meta">
-                        <h7 class="comment-user">username</h7>
-                        <small class="comment-date">2023-00-00</small>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary btn-sm dropdown-toggle comment-dropdown" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">수정</a></li>
-                            <li><a class="dropdown-item" href="#">삭제</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <p>답글</p>
-            </div>
-        </div>
+        <div class="comment-container"></div>
     </div>
 </div>
 
@@ -97,5 +61,8 @@
 <script src="/static/js/article-detail-data-process.js"></script>
 <script src="/static/js/article-detail-ui.js"></script>
 <script src="/static/js/article-detail-event-handler.js"></script>
+<script src="/static/js/article-comment-ui.js"></script>
+<script src="/static/js/article-comment-event-handler.js"></script>
+<script src="/static/js/article-comment-data-process.js"></script>
 </body>
 </html>

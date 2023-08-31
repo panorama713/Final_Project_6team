@@ -23,8 +23,8 @@ if [ -z "$IS_GREEN" ]; then # blue라면
   done
 
   echo "4. reload nginx"
-  sudo cp /etc/nginx/conf.d/app/service-url-green.inc /etc/nginx/conf.d/app/service-url.inc
-  sudo nginx -s reload
+  sudo cp -p /etc/nginx/app/nginx-green.conf /etc/nginx/nginx.conf || exit 1
+  sudo systemctl restart nginx || exit 1
 
   echo "5. blue container down"
   docker-compose -f /home/ubuntu/docker/docker-compose-app.yml stop web_blue
@@ -48,8 +48,8 @@ else
   done
 
   echo "4. reload nginx"
-  sudo cp /etc/nginx/conf.d/app/service-url-blue.inc /etc/nginx/conf.d/app/service-url.inc
-  sudo nginx -s reload
+  sudo cp -p /etc/nginx/app/nginx-blue.conf /etc/nginx/nginx.conf || exit 1
+  sudo systemctl restart nginx || exit 1
 
   echo "5. green container down"
   docker-compose -f /home/ubuntu/docker/docker-compose-app.yml stop web_green

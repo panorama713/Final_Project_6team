@@ -20,7 +20,8 @@ spring:
     resources:
       # 정적 파일 탐색 장소
       static-locations: file:profile/, classpath:/static
-
+server:
+  address: 0.0.0.0
 ---
 spring:
   config:

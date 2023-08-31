@@ -80,7 +80,7 @@ jobs:
           key: ${{ secrets.WAS_KEY }} # pem key
           script: |
             sudo chmod 666 /var/run/docker.sock
-            docker-compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose-redis.yml up -d
             chmod 777 /home/${{ secrets.WAS_USERNAME }}/docker/deploy.sh
+            sudo docker-compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose-redis.yml up -d
             /home/${{ secrets.WAS_USERNAME }}/docker/deploy.sh
             docker image prune -f

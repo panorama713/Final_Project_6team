@@ -1,5 +1,4 @@
 package com.example.hiddenpiece.controller.community;
-
 import com.example.hiddenpiece.domain.dto.community.article.ArticleListResponseDto;
 import com.example.hiddenpiece.domain.dto.community.article.ArticleRequestDto;
 import com.example.hiddenpiece.domain.dto.community.article.ArticleResponseDto;
@@ -10,9 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.List;
 

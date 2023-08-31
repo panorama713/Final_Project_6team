@@ -46,6 +46,10 @@
     border-color: var(--main-color);
 }
 
+.delete-article-btn {
+    all: unset;
+}
+
 .article-meta {
     color: #737a81;
     display: flex;

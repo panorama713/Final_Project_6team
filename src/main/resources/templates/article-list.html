@@ -12,6 +12,7 @@
 <body>
 
 <div class="container mt-5">
+
   <div class="row">
     <div class="col">
       <h1>SPRING 게시판</h1>
@@ -23,7 +24,6 @@
       </div>
     </div>
   </div>
-
   <hr class="line">
 
   <div class="row mt-3">
@@ -39,32 +39,12 @@
 
         </tr>
         </thead>
-        <tbody>
-        <tr>
-          <th scope="row">잡담</th>
-          <td><a href="#">제목입니당</a></td>
-          <td>username</td>
-          <td>2023-00-00</td>
-          <td>000</td>
-        </tr>
-        <tr>
-          <th scope="row">공지</th>
-          <td><a href="#">제목입니다</a></td>
-          <td>username</td>
-          <td>2023-00-00</td>
-          <td>000</td>
-        </tr>
-        <tr>
-          <th scope="row">지식</th>
-          <td><a href="#">제목입니다</a></td>
-          <td>username</td>
-          <td>2023-00-00</td>
-          <td>000</td>
-        </tr>
-        </tbody>
+        <tbody id="post-list"></tbody>
       </table>
     </div>
   </div>
+
+  <a th:href="@{/views/articles}" class="btn btn-primary write-btn">글쓰기</a>
 
   <div class="row mt-3">
     <div class="col d-flex justify-content-center">
@@ -86,6 +66,8 @@
     </div>
   </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="/static/js/article-list-data-process.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

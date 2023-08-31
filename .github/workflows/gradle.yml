@@ -87,6 +87,7 @@ jobs:
   notification:
     needs: deploy
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - name: Slack Notification
         uses: 8398a7/action-slack@v3

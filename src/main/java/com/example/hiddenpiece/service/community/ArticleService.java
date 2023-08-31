@@ -68,6 +68,9 @@ public class ArticleService {
                 .title(article.getTitle())
                 .content(article.getContent())
                 .type(article.getType())
+                .createdAt(article.getCreatedAt())
+                .createdAt(article.getLastModifiedAt())
+                .viewCount(article.getViewCount())
                 .likeCount(likeService.getLikeCount(article))
                 .images(articleImageService.readAllArticleImages(articleId))
                 .comments(commentService.readAllCommentsForArticle(articleId))
@@ -104,4 +107,5 @@ public class ArticleService {
         articleImageService.deleteArticleImage(username, articleId);
         articleRepository.deleteById(articleId);
     }
+
 }

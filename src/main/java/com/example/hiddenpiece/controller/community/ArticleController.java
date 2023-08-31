@@ -3,8 +3,16 @@ import com.example.hiddenpiece.domain.dto.community.article.ArticleListResponseD
 import com.example.hiddenpiece.domain.dto.community.article.ArticleRequestDto;
 import com.example.hiddenpiece.domain.dto.community.article.ArticleResponseDto;
 import com.example.hiddenpiece.domain.dto.community.article.CreateArticleResponseDto;
+import com.example.hiddenpiece.domain.entity.community.Article;
+import com.example.hiddenpiece.domain.repository.community.ArticleRepository;
+import com.example.hiddenpiece.exception.CustomException;
+import com.example.hiddenpiece.exception.CustomExceptionCode;
 import com.example.hiddenpiece.service.community.ArticleService;
 import com.example.hiddenpiece.service.image.ArticleImageService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +30,10 @@ public class ArticleController {
 
     private final ArticleService articleService;
     private final ArticleImageService articleImageService;
+    private final ArticleRepository articleRepository;
 
+
+    // 게시글 작성
     @PostMapping
     public ResponseEntity<CreateArticleResponseDto> createArticle(
             Authentication authentication,
@@ -36,6 +48,8 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
+
+    // 게시글 리스트 조회
     @GetMapping
     public ResponseEntity<List<ArticleListResponseDto>> readAllArticles() {
         return ResponseEntity.ok(articleService.readArticles());
@@ -43,10 +57,23 @@ public class ArticleController {
 
     // 게시글 단독 조회 (좋아요 개수 포함)
     @GetMapping("/{articleId}")
-    public ResponseEntity<ArticleResponseDto> readArticle(@PathVariable final Long articleId) {
+    public ResponseEntity<ArticleResponseDto> readArticle(@PathVariable final Long articleId, HttpSession session) {
+
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ARTICLE));
+
+        String sessionKey = "article-" + articleId;
+        if (session.getAttribute(sessionKey) == null) {
+            // 조회수 증가 및 세션에 등록
+            article.increaseViewCount();
+            session.setAttribute(sessionKey, true);
+            articleRepository.save(article);
+        }
+
         return ResponseEntity.ok(articleService.readArticle(articleId));
     }
 
+    // 게시글 수정
     @PutMapping("/{articleId}")
     public ResponseEntity<Void> updateArticle(
             Authentication authentication,
@@ -62,10 +89,13 @@ public class ArticleController {
         return ResponseEntity.noContent().build();
     }
 
+
+    // 게시글 삭제
     @DeleteMapping("/{articleId}")
     public ResponseEntity<Void> deleteArticle(Authentication authentication, @PathVariable final Long articleId) {
         String username = authentication.getName();
         articleService.deleteArticle(username, articleId);
         return ResponseEntity.noContent().build();
     }
+
 }

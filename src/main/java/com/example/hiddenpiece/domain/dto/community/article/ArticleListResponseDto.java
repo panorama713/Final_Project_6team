@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ArticleListResponseDto {
@@ -13,6 +15,9 @@ public class ArticleListResponseDto {
     private String title;
     private ArticleType type;
     private int likeCount;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastModifiedAt;
+    private int viewCount;
 
     public ArticleListResponseDto(Article entity) {
         this.id = entity.getId();
@@ -20,5 +25,8 @@ public class ArticleListResponseDto {
         this.title = entity.getTitle();
         this.type = entity.getType();
         this.likeCount = entity.getLikeArticles().size();
+        this.createdAt = entity.getCreatedAt();
+        this.lastModifiedAt = entity.getLastModifiedAt();
+        this.viewCount = entity.getViewCount();
     }
 }

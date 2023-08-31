@@ -4,6 +4,7 @@ import com.example.hiddenpiece.domain.dto.community.image.ArticleImageResponseDt
 import com.example.hiddenpiece.domain.entity.community.ArticleType;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -19,4 +20,7 @@ public class ArticleResponseDto {
     private int likeCount;
     private List<ArticleImageResponseDto> images;
     private List<CommentResponseDto> comments;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastModifiedAt;
+    private int viewCount;
 }

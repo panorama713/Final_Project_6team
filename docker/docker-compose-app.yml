@@ -9,6 +9,8 @@ services:
       - SPRING_PROFILES_ACTIVE=blue
     ports:
       - '8081:8081'
+    networks:
+      - app_network
 
   web_green:
     container_name: web_green
@@ -18,6 +20,8 @@ services:
       - SPRING_PROFILES_ACTIVE=green
     ports:
       - '8082:8081'
+    networks:
+      - app_network
 
 networks:
   app_network:

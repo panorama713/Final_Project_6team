@@ -1,7 +1,7 @@
 # 개발환경과 서비스 환경 분리
 spring:
   profiles:
-    default: dev
+    active: dev
     group:
       "blue": "blue, secret, database"
       "green": "green, secret, database"

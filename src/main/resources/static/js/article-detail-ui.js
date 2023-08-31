@@ -19,4 +19,22 @@ function displayArticleDetails(data) {
     } else {
         document.querySelector('.type').style.display = 'none';
     }
+    if (data.images && data.images.length > 0) {
+        displayArticleImages(data.images, getArticleIdFromUrl());
+    }
+}
+
+// 웹 페이지에 게시글의 이미지 표시
+function displayArticleImages(images, articleId) {
+    const imageContainer = document.querySelector('#article-images');
+
+    images.forEach(img => {
+        const imgElement = document.createElement('img');
+        const imageUrl = convertPathToUrl(img.imageUrl, articleId);
+
+        imgElement.src = imageUrl;
+        imgElement.alt = img.imageName;
+        imageContainer.appendChild(imgElement);
+        console.log(imgElement.src);
+    });
 }

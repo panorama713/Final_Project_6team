@@ -38,3 +38,19 @@ function getArticleIdFromUrl() {
     console.log('articleId:', articleId);
     return articleId;
 }
+
+// 전체 URL 변환 (상대 경로, 절대 경로 모두 처리)
+function convertPathToUrl(path, articleId) {
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+        return path;
+    }
+    const basePath = "http://localhost:8080";
+    if (path.startsWith('/uploads/article_images/')) {
+        const imageName = path.split('/').pop();
+        return `${basePath}/api/v1/articles/${articleId}/images/${imageName}`;
+    }
+    if (path.startsWith('/')) {
+        return basePath + path;
+    }
+    return basePath + '/' + path;
+}

@@ -26,3 +26,4 @@ services:
 networks:
   app_network:
     external: true
+    internal: true

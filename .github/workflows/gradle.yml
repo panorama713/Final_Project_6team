@@ -83,3 +83,17 @@ jobs:
             sudo docker-compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose-redis.yml up -d
             /home/${{ secrets.WAS_USERNAME }}/docker/deploy.sh
             docker image prune -f
+
+  notification:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: Github Actions CI/CD
+          fields: repo, message, commit, author, ref, job, took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.

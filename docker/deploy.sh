@@ -11,10 +11,10 @@ if [ -z "$IS_GREEN" ]; then # blue라면
 
   echo "2. green container up"
   docker-compose -f /home/ubuntu/docker/docker-compose-app.yml up -d web_green # green 컨테이너 실행
-
   while [ 1 = 1 ]; do
     echo "3. green health check..."
     sleep 3
+
     REQUEST=$(curl http://127.0.0.1:8082) # green으로 request
     if [ -n "$REQUEST" ]; then            # 서비스 가능하면 health check 중지
       echo "health check success"
@@ -23,14 +23,11 @@ if [ -z "$IS_GREEN" ]; then # blue라면
   done
 
   echo "4. reload nginx"
-  sudo cp -p /etc/nginx/config/nginx-green.conf /etc/nginx/nginx.conf || exit 1
-  sudo systemctl restart nginx || exit 1
+  sudo cp /etc/nginx/conf.d/app/service-url-green.inc /etc/nginx/conf.d/app/service-url.inc
+  sudo nginx -s reload
 
-  if [ "$(docker ps -qf name=blue)" ]; then
-    echo "5. blue container down"
-    docker-compose -f /home/ubuntu/docker/docker-compose-app.yml stop web_blue
-  fi
-
+  echo "5. blue container down"
+  docker-compose -f /home/ubuntu/docker/docker-compose-app.yml stop web_blue
 else
   echo "### GREEN => BLUE ###"
 
@@ -44,6 +41,7 @@ else
     echo "3. blue health check..."
     sleep 3
     REQUEST=$(curl http://127.0.0.1:8081) # blue로 request
+
     if [ -n "$REQUEST" ]; then # 서비스 가능하면 health check 중지
       echo "health check success"
       break
@@ -51,11 +49,9 @@ else
   done
 
   echo "4. reload nginx"
-  sudo cp -p /etc/nginx/config/nginx-blue.conf /etc/nginx/nginx.conf || exit 1
-    sudo systemctl restart nginx || exit 1
+  sudo cp /etc/nginx/conf.d/app/service-url-blue.inc /etc/nginx/conf.d/app/service-url.inc
+  sudo nginx -s reload
 
-  if [ "$(docker ps -qf name=green)" ]; then
-      echo "5. green container down"
-      docker-compose -f /home/ubuntu/docker/docker-compose-app.yml stop web_green
-    fi
+  echo "5. green container down"
+  docker-compose -f /home/ubuntu/docker/docker-compose-app.yml stop web_green
 fi

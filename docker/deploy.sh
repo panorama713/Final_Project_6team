@@ -15,8 +15,8 @@ if [ -z "$IS_GREEN" ]; then # blue라면
     echo "3. green health check..."
     sleep 3
 
-    REQUEST=$(curl http://127.0.0.1:8082) # green으로 request
-    if [ -n "$REQUEST" ]; then            # 서비스 가능하면 health check 중지
+    REQUEST=$(curl -I http://ec2-43-201-68-117.ap-northeast-2.compute.amazonaws.com:8082) # green으로 request
+    if [ -n "$REQUEST" ]; then               # 서비스 가능하면 health check 중지
       echo "health check success"
       break
     fi
@@ -40,9 +40,8 @@ else
   while [ 1 = 1 ]; do
     echo "3. blue health check..."
     sleep 3
-    REQUEST=$(curl http://127.0.0.1:8081) # blue로 request
-
-    if [ -n "$REQUEST" ]; then # 서비스 가능하면 health check 중지
+    REQUEST=$(curl -I http://ec2-43-201-68-117.ap-northeast-2.compute.amazonaws.com:8081) # blue로 request
+    if [ -n "$REQUEST" ]; then               # 서비스 가능하면 health check 중지
       echo "health check success"
       break
     fi

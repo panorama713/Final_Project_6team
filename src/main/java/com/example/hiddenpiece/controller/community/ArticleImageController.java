@@ -3,6 +3,7 @@ package com.example.hiddenpiece.controller.community;
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.service.image.ArticleImageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -48,6 +49,11 @@ public class ArticleImageController {
             imageResource = new UrlResource(imagePath.toUri());
         } catch (MalformedURLException e) {
             throw new CustomException(INTERNAL_ERROR);
+        }
+
+        if (!imageResource.exists() || !imageResource.isReadable()) {
+            imageResource = new ClassPathResource("static/img/default.png");
+            imageName = "default.jpg";
         }
 
         String contentType;

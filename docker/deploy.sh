@@ -2,7 +2,7 @@
 
 IS_GREEN=$(docker ps | grep green)
 
-if [ -z "$IS_GREEN"  ];then # blue라면
+if [ -z "$IS_GREEN" ]; then # blue라면
 
   echo "### BLUE => GREEN ###"
 
@@ -12,15 +12,15 @@ if [ -z "$IS_GREEN"  ];then # blue라면
   echo "2. green container up"
   docker-compose -f /home/ubuntu/docker/docker-compose-app.yml up -d green # green 컨테이너 실행
   while [ 1 = 1 ]; do
-  echo "3. green health check..."
-  sleep 3
+    echo "3. green health check..."
+    sleep 3
 
-  REQUEST=$(curl http://127.0.0.1:8082) # green으로 request
-    if [ -n "$REQUEST" ]; then # 서비스 가능하면 health check 중지
-            echo "health check success"
-            break ;
-            fi
-  done;
+    REQUEST=$(curl http://web_green:8082) # green으로 request
+    if [ -n "$REQUEST" ]; then            # 서비스 가능하면 health check 중지
+      echo "health check success"
+      break
+    fi
+  done
 
   echo "4. reload nginx"
   sudo cp /etc/nginx/conf.d/app/service-url-green.inc /etc/nginx/conf.d/app/service-url.inc
@@ -40,13 +40,13 @@ else
   while [ 1 = 1 ]; do
     echo "3. blue health check..."
     sleep 3
-    REQUEST=$(curl http://127.0.0.1:8081) # blue로 request
+    REQUEST=$(curl http://web_blue:8081) # blue로 request
 
     if [ -n "$REQUEST" ]; then # 서비스 가능하면 health check 중지
       echo "health check success"
-      break ;
+      break
     fi
-  done;
+  done
 
   echo "4. reload nginx"
   sudo cp /etc/nginx/conf.d/app/service-url-blue.inc /etc/nginx/conf.d/app/service-url.inc

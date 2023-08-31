@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
@@ -67,29 +66,6 @@ public class ArticleController {
     public ResponseEntity<Void> deleteArticle(Authentication authentication, @PathVariable final Long articleId) {
         String username = authentication.getName();
         articleService.deleteArticle(username, articleId);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping("/{articleId}/images")
-    public ResponseEntity<Void> updateSpecificImage(
-            @RequestPart List<Long> imageIds,
-            @RequestPart List<MultipartFile> images,
-            @PathVariable final Long articleId,
-            Authentication authentication
-    ) throws IOException {
-        String username = authentication.getName();
-        articleImageService.updateSpecificImage(imageIds, images, username, articleId);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{articleId}/images")
-    public ResponseEntity<Void> deleteSpecificImages(
-            @RequestPart List<Long> imageIds,
-            @PathVariable final Long articleId,
-            Authentication authentication
-    ) {
-        String username = authentication.getName();
-        articleImageService.deleteSpecificImage(imageIds, username, articleId);
         return ResponseEntity.noContent().build();
     }
 }

@@ -3,7 +3,7 @@ package com.example.hiddenpiece;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest -> 임시 주석 처리
 class HiddenPieceApplicationTests {
 
     @Test

@@ -1,8 +1,11 @@
 # 개발환경과 서비스 환경 분리
 spring:
   profiles:
-    active: dev
-    include: secret
+    default: dev
+    group:
+      "blue": "blue, secret, database"
+      "green": "green, secret, database"
+  #    include: secret, database
 
   devtools:
     livereload:
@@ -21,3 +24,20 @@ spring:
     resources:
       # 정적 파일 탐색 장소
       static-locations: file:profile/, classpath:/static
+
+---
+spring:
+  config:
+    activate:
+      on-profile: blue
+
+server:
+  port: 8081
+---
+spring:
+  config:
+    activate:
+      on-profile: green
+
+server:
+  port: 8082

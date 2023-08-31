@@ -1,44 +1,20 @@
+// 페이지가 로드될 때 이벤트 리스너 연결
+window.addEventListener('DOMContentLoaded', function () {
+    // 현재 페이지의 게시글 ID 추출
+    const articleId = getArticleIdFromUrl();
 
-document.addEventListener("DOMContentLoaded", function() {
-    var deleteButton = document.getElementById("article-update");
-    deleteButton.addEventListener("click", function(event) {
+    // 게시글 상세 정보 가져오기
+    fetchArticleDetails(articleId);
+
+    // 수정 버튼 클릭 시 게시글 수정 페이지 이동
+    document.getElementById("article-update").addEventListener("click", function(event) {
         event.preventDefault();
+        window.location.href = "/views/articles/edit/" + articleId;
+    });
 
-        var currentUrl = window.location.href;
-        var articleId = currentUrl.split('/').pop();
-        var editUrl = "/views/articles/edit/" + articleId;
-        window.location.href = editUrl;
+    // 삭제 버튼 클릭 시 게시글 삭제 로직 실행
+    document.getElementById('article-delete').addEventListener('click', function(event) {
+        event.preventDefault();
+        handleDeleteArticle(articleId);
     });
 });
-
-document.addEventListener('DOMContentLoaded', function() {
-    const deleteButton = document.getElementById('article-delete');
-
-    deleteButton.addEventListener('click', function(event) {
-        event.preventDefault();
-        const confirmDelete = confirm('게시글을 삭제하시겠습니까?');
-
-        if (confirmDelete) {
-            const url = window.location.href;
-            const articleId = url.match(/\/(\d+)(?:\?|$)/)[1];
-
-            fetch('/api/v1/articles/' + articleId, {
-                method: 'DELETE'
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert('게시글이 삭제되었습니다.');
-                        window.location.href = '/views/articles/list';
-                    } else {
-                        console.error('Error Response:', response.status, response.statusText);
-                        throw new Error('게시글 삭제 중 오류가 발생했습니다.');
-                    }
-                })
-                .catch(error => {
-                    alert(error.message);
-                    console.error('게시글 삭제 오류:', error);
-                });
-        }
-    });
-});
-

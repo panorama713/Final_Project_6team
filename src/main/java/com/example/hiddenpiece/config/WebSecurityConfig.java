@@ -26,7 +26,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.*;
 
@@ -76,7 +75,7 @@ public class WebSecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // 모든 접근 가능
-        configuration.setAllowedOrigins(List.of("*"));
+        configuration.addAllowedOriginPattern("*");
         // HTTP method 지정
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         // Access-Control-Allow-Credentials 헤더 설정

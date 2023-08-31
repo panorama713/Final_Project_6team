@@ -44,7 +44,7 @@ public class ArticleImageHandler {
                 String originalFileExtension = checkImageFormat(multipartFile);
                 UUID uuid = UUID.randomUUID();
                 String newFileName = uuid + originalFileExtension;
-                ArticleImage articleImage = buildArticleImage(multipartFile, path, newFileName, article);
+                ArticleImage articleImage = buildArticleImage(multipartFile, newFileName, article);
                 imageList.add(articleImage);
                 saveFile(multipartFile, path, newFileName);
             }
@@ -89,11 +89,11 @@ public class ArticleImageHandler {
      * ArticleImage 객체 생성
      */
     private ArticleImage buildArticleImage(
-            MultipartFile multipartFile, String path, String newFileName, Article article
+            MultipartFile multipartFile, String newFileName, Article article
     ) {
         ArticleImageRequestDto imageDto = ArticleImageRequestDto.builder()
                 .imageName(multipartFile.getOriginalFilename())
-                .imageUrl(path + "/" + newFileName)
+                .imageUrl("/uploads/article_images/" + article.getId() + "/" + newFileName)
                 .imageSize(multipartFile.getSize())
                 .build();
         return new ArticleImage(

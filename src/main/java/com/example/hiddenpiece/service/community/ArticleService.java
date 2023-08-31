@@ -86,7 +86,7 @@ public class ArticleService {
             throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
         }
 
-        target.modify(dto.getTitle(), dto.getContent());
+        target.modify(dto.getTitle(), dto.getContent(), dto.getType());
     }
 
     @Transactional

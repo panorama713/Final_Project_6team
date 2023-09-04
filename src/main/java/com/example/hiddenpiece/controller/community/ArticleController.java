@@ -61,18 +61,31 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.searchArticles(keyword));
     }
 
+
     // 게시글 단독 조회 (좋아요 개수 포함)
     @GetMapping("/{articleId}")
-    public ResponseEntity<ArticleResponseDto> readArticle(@PathVariable final Long articleId, HttpSession session) {
-
+    public ResponseEntity<ArticleResponseDto> readArticle(@PathVariable final Long articleId, HttpServletRequest request, HttpServletResponse response) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ARTICLE));
 
         String sessionKey = "article-" + articleId;
-        if (session.getAttribute(sessionKey) == null) {
-            // 조회수 증가 및 세션에 등록
+
+        Cookie[] cookies = request.getCookies();
+        boolean alreadyViewed = false;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (sessionKey.equals(cookie.getName())) {
+                    alreadyViewed = true;
+                    break;
+                }
+            }
+        }
+        if (!alreadyViewed) {
             article.increaseViewCount();
-            session.setAttribute(sessionKey, true);
+            Cookie viewCookie = new Cookie(sessionKey, "viewed");
+            viewCookie.setMaxAge(60 * 60 * 24); // 유효 기간: 1일
+            response.addCookie(viewCookie);
+
             articleRepository.save(article);
         }
 

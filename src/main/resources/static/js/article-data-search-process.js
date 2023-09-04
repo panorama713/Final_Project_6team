@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var articleList = document.getElementById('post-list');
         articleList.innerHTML = '';
 
-        searchPosts(); // article-search 버튼 클릭 시 searchPosts 함수 호출
+        searchPosts();
     });
 });
 

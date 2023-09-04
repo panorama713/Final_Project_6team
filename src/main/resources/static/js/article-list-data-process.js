@@ -26,8 +26,7 @@ function displayArticles(articles) {
         var usernameElement = document.createElement('td');
         var typeElement = document.createElement('td');
         var createdAtElement = document.createElement('td');
-        var viewCountElement = document.createElement('td');
-
+        var viewCountElement = document.createElement('td')
 
         var titleLink = document.createElement('a');
         titleLink.href = article.id;

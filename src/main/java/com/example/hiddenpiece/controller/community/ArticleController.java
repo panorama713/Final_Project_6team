@@ -55,6 +55,12 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.readArticles());
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<ArticleListResponseDto>> searchArticles(@RequestParam("keyword") String keyword) {
+        System.out.println("keyword = "+keyword);
+        return ResponseEntity.ok(articleService.searchArticles(keyword));
+    }
+
     // 게시글 단독 조회 (좋아요 개수 포함)
     @GetMapping("/{articleId}")
     public ResponseEntity<ArticleResponseDto> readArticle(@PathVariable final Long articleId, HttpSession session) {

@@ -13,10 +13,15 @@ import com.example.hiddenpiece.service.comment.CommentService;
 import com.example.hiddenpiece.service.image.ArticleImageService;
 import com.example.hiddenpiece.service.like.LikeService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,12 +54,12 @@ public class ArticleService {
         return CreateArticleResponseDto.fromEntity(entity);
     }
 
-    // 페이징 구현 필요
-    // 카테고리별 게시글 목록 조회 구현 필요
-    public List<ArticleListResponseDto> readArticles() {
-        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdAt");
-        List<Article> list = articleRepository.findAll(sort);
-        return list.stream().map(ArticleListResponseDto::new).collect(Collectors.toList());
+    // 게시글 목록 조회
+    public Page<ArticleListResponseDto> getList(int page) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createdAt"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        return articleRepository.findAll(pageable).map(ArticleListResponseDto::new);
     }
 
     // 게시글 단독 조회
@@ -76,6 +81,8 @@ public class ArticleService {
                 .comments(commentService.readAllCommentsForArticle(articleId))
                 .build();
     }
+
+
 
     public List<ArticleListResponseDto> searchArticles(String keyword) {
         List<Article> articles = articleRepository.findByTitleContainingOrContentContaining(keyword, keyword);

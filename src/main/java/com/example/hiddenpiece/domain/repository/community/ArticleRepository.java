@@ -1,6 +1,8 @@
 package com.example.hiddenpiece.domain.repository.community;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import io.lettuce.core.dynamic.annotation.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,4 +13,5 @@ import java.util.List;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findByTitleContainingOrContentContaining(String keyword1, String keyword2);
+    Page<Article> findAll(Pageable pageable);
 }

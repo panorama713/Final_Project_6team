@@ -54,11 +54,25 @@ a:hover {
     width: 40%;
 }
 
-.page-link:hover {
-    background-color: rgb(241, 238, 255);
-    color: var(--main-color);
-
+/* pagenation 버튼 스타일 */
+.custom-button {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+    color: white;
+    margin-right: 5px;
 }
+
+.custom-button:last-child {
+    margin-right: 0;
+}
+
+/* 현재 page 스타일 */
+.custom-button.active {
+    background-color: var(--sub-color);
+    border-color: var(--sub-color);
+    color: var(--main-color);
+}
+
 
 .write-btn {
     float: right;

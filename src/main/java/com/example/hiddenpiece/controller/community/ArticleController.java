@@ -14,6 +14,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -51,8 +54,8 @@ public class ArticleController {
 
     // 게시글 리스트 조회
     @GetMapping
-    public ResponseEntity<List<ArticleListResponseDto>> readAllArticles() {
-        return ResponseEntity.ok(articleService.readArticles());
+    public ResponseEntity<Page<ArticleListResponseDto>> list(@RequestParam(value="page", defaultValue="0") int page) {
+        return ResponseEntity.ok(articleService.getList(page));
     }
 
     @GetMapping("/search")

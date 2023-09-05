@@ -28,12 +28,18 @@ function displayArticleDetails(data, articleId) {
 function displayArticleImages(images, articleId) {
     const imageContainer = document.querySelector('#article-images');
 
+    // 이미지 컨테이너의 모든 이미지 요소 삭제
+    while (imageContainer.firstChild) {
+        imageContainer.removeChild(imageContainer.firstChild);
+    }
+
     images.forEach(img => {
         const imgElement = document.createElement('img');
         const imageUrl = convertPathToUrl(img.imageUrl, articleId);
 
         imgElement.src = imageUrl;
         imgElement.alt = img.imageName;
+        imgElement.dataset.imageId = img.id;
         imageContainer.appendChild(imgElement);
         console.log(imgElement.src);
     });

@@ -1,8 +1,10 @@
-// 페이지가 로드될 때 이벤트 리스너 연결
-window.addEventListener('DOMContentLoaded', attachCommentEventListeners);
+let articleId; // 전역 변수로 선언
 
-// 현재 페이지의 articleId 추출
-const articleId = getArticleIdFromUrl();
+// 페이지가 로드될 때 이벤트 리스너 연결
+window.addEventListener('DOMContentLoaded', function() {
+    articleId = window.articleId;
+    attachCommentEventListeners();
+});
 
 // 댓글 관련 이벤트 리스너 연결
 function attachCommentEventListeners() {

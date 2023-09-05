@@ -2,6 +2,7 @@
 window.addEventListener('DOMContentLoaded', function () {
     // 현재 페이지의 게시글 ID 추출
     const articleId = getArticleIdFromUrl();
+    window.articleId = articleId; // 전역 변수로 선언
 
     // 게시글 상세 정보 가져오기
     fetchArticleDetails(articleId);

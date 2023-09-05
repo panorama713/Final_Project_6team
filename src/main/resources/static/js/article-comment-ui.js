@@ -67,7 +67,7 @@ function addReplyToPage(reply, parentCommentId) {
 
 // 페이지에 댓글 및 답글 표시
 function readAndDisplayComments() {
-    const articleId = getArticleIdFromUrl();
+    const articleId = window.articleId;
     readComments(articleId, function(comments) {
         comments.forEach(function(comment) {
             addCommentToPage(comment);

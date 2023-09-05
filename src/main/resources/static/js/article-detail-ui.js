@@ -1,5 +1,5 @@
 // 웹 페이지에 게시글의 상세 정보 표시
-function displayArticleDetails(data) {
+function displayArticleDetails(data, articleId) {
     document.querySelector('#article-title').textContent = data.title;
     document.querySelector('#article-content').textContent = data.content;
     document.querySelector('#article-username').textContent = "작성자: " + data.username;
@@ -20,7 +20,7 @@ function displayArticleDetails(data) {
         document.querySelector('.type').style.display = 'none';
     }
     if (data.images && data.images.length > 0) {
-        displayArticleImages(data.images, getArticleIdFromUrl());
+        displayArticleImages(data.images, articleId);
     }
 }
 

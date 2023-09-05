@@ -37,7 +37,7 @@ public class UserController {
        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    // 토큰 재발급
+    // 토큰 재발급 -> 토큰 만료 시 재발급하는 로직 프론트 or 백에서 구현
     @PostMapping("/reissue")
     public ResponseEntity<Void> reissue(HttpServletRequest req, HttpServletResponse res) {
         userService.reissueAccessToken(req, res);
@@ -49,6 +49,13 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<UserProfileResponseDto> findUserProfile(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.readUserProfile(userId));
+    }
+
+    // 나의 프로필 조회
+    @GetMapping("/my-profile")
+    public ResponseEntity<UserProfileResponseDto> findUserProfile(Authentication authentication) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(userService.readMyProfile(username));
     }
 
     // 로그인 여부 체크

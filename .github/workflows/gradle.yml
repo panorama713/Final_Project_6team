@@ -36,12 +36,24 @@ jobs:
           echo "${{ secrets.SECRET }}" >> ./application-secret.yml
         shell: bash
 
+      - name: Gradle Caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: grant execute permission for gradlew
         run: |
           chmod +x gradlew
+
       - name: project build
         run: |
           ./gradlew build
+
       - name: build docker image
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/hidden-piece . # zerobird
 

@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function() {
     fetchArticleInfo();
 
@@ -22,7 +21,7 @@ function updateArticle() {
     var title = document.getElementById("title").value;
     var content = document.getElementById("content").value;
     var type = document.getElementById("type").value;
-    var image = document.getElementById("image").files[0];
+    var images = document.getElementById("image").files;
 
     var formData = new FormData();
 
@@ -33,10 +32,12 @@ function updateArticle() {
     };
 
     formData.append("params", new Blob([JSON.stringify(jsonParams)], { type: "application/json" }));
-    formData.append("images", image);
+
+    for (var i = 0; i < images.length; i++) {
+        formData.append("images", images[i]);
+    }
 
     var articleId = window.location.pathname.split('/').pop();
-
 
     fetch("/api/v1/articles/" + articleId, {
         method: "PUT",

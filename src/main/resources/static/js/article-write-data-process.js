@@ -7,7 +7,7 @@
         var title = document.getElementById("title").value;
         var content = document.getElementById("content").value;
         var type = document.getElementById("type").value;
-        var image = document.getElementById("image").files[0];
+        var images = document.getElementById("image").files;
 
         var formData = new FormData();
 
@@ -18,7 +18,10 @@
         };
 
         formData.append("params", new Blob([JSON.stringify(jsonParams)], { type: "application/json" }));
-        formData.append("images", image);
+
+        for (var i = 0; i < images.length; i++) {
+            formData.append("images", images[i]);
+        }
 
         fetch("/api/v1/articles", {
             method: "POST",
@@ -31,8 +34,3 @@
             })
             .catch(error => console.error("게시글 작성 오류:", error));
     }
-
-
-
-
-

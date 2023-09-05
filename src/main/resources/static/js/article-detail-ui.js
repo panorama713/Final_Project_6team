@@ -19,9 +19,7 @@ function displayArticleDetails(data, articleId) {
     } else {
         document.querySelector('.type').style.display = 'none';
     }
-    if (data.images && data.images.length > 0) {
-        displayArticleImages(data.images, articleId);
-    }
+    displayArticleImages(data.images || [], articleId);
 }
 
 // 웹 페이지에 게시글의 이미지 표시

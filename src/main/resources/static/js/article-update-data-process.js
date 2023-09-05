@@ -33,7 +33,7 @@ function updateArticle() {
     };
 
     formData.append("params", new Blob([JSON.stringify(jsonParams)], { type: "application/json" }));
-    formData.append("image", image);
+    formData.append("images", image);
 
     var articleId = window.location.pathname.split('/').pop();
 

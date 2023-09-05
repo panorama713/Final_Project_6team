@@ -18,7 +18,7 @@
         };
 
         formData.append("params", new Blob([JSON.stringify(jsonParams)], { type: "application/json" }));
-        formData.append("image", image);
+        formData.append("images", image);
 
         fetch("/api/v1/articles", {
             method: "POST",

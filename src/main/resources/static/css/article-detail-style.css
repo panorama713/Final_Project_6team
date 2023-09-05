@@ -82,15 +82,11 @@
 }
 
 /* 이미지 선택 시 테두리 스타일 */
-.update-selecting img, .delete-selecting img {
+.image-action-mode img {
     border: 3px solid transparent;
 }
 
-.update-selecting img.selected-for-update {
-    border: 3px solid green;
-}
-
-.delete-selecting img.selected-for-delete {
+.article img.selected-for-action {
     border: 3px solid red;
 }
 

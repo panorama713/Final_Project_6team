@@ -115,4 +115,12 @@ public class RoadmapService {
         log.info("로드맵 삭제 완료");
         return ResponseRoadmapDto.fromEntity(targetRoadmap);
     }
+
+    public Integer countRoadmaps() {
+        return (int) roadmapRepository.count();
+    }
+
+    public Integer countRoadmapsByCreatedAt() {
+        return roadmapRepository.countTodayRoadmaps();
+    }
 }

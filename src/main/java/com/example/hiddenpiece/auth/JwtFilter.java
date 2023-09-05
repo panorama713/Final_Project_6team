@@ -25,7 +25,10 @@ public class JwtFilter extends OncePerRequestFilter {
             List.of("/api/v1/users/login",
                     "/api/v1/users/signup",
                     "/api/v1/users/reissue",
-                    "/views/**");
+                    "/api/v1/roadmaps/count",
+                    "/api/v1/users/count",
+                    "/views/**",
+                    "/static/**");
 
     private final JwtUtil jwtUtil;
     private final RedisService redisService;

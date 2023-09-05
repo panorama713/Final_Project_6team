@@ -177,4 +177,8 @@ public class UserService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
     }
+
+    public Integer countUsers() {
+        return (int) userRepository.count();
+    }
 }

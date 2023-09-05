@@ -24,4 +24,7 @@ public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
             @Param("targetYear") LocalDateTime targetYear,
             @Param("type") String type
     );
+
+    @Query("SELECT COUNT(r) FROM Roadmap r WHERE r.createdAt = CURRENT_DATE")
+    Integer countTodayRoadmaps();
 }

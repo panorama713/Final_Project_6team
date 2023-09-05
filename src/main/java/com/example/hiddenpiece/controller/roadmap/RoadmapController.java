@@ -79,4 +79,16 @@ public class RoadmapController {
                 .status(HttpStatus.OK)
                 .body(ResponseDto.getInstance(SystemMessage.DELETED_ROADMAP));
     }
+
+    // count
+    @GetMapping("/count")
+    public ResponseEntity<Integer> countRoadmaps(
+            @RequestParam(required = false) String date
+    ) {
+        if (date != null) {
+            return ResponseEntity.ok(roadmapService.countRoadmapsByCreatedAt());
+        }
+
+        return ResponseEntity.ok(roadmapService.countRoadmaps());
+    }
 }

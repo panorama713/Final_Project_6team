@@ -2,7 +2,6 @@ package com.example.hiddenpiece.controller.bookmark;
 
 import com.example.hiddenpiece.domain.dto.bookmark.RequestRoadmapBookmarkDto;
 import com.example.hiddenpiece.domain.dto.bookmark.ResponseRoadmapBookmarkDto;
-import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
 import com.example.hiddenpiece.service.bookmark.RoadmapBookmarkService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

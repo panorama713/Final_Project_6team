@@ -2,7 +2,6 @@ package com.example.hiddenpiece.service.bookmark;
 
 import com.example.hiddenpiece.domain.dto.bookmark.RequestRoadmapBookmarkDto;
 import com.example.hiddenpiece.domain.dto.bookmark.ResponseRoadmapBookmarkDto;
-import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
 import com.example.hiddenpiece.domain.entity.user.User;
@@ -18,9 +17,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j

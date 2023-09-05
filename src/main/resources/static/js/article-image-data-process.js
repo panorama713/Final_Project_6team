@@ -31,6 +31,7 @@ function handleImageUpdate() {
                         if (response.status === 204) {
                             fetchArticleDetails(articleId);
                             window.selectedImageIds = [];
+                            exitImageSelectionMode();
                         }
                     })
                     .catch(error => {
@@ -68,6 +69,7 @@ function handleImageDelete() {
                     if (response.status === 204) {
                         fetchArticleDetails(articleId);
                         window.selectedImageIds = [];
+                        exitImageSelectionMode();
                     }
                 })
                 .catch(error => {

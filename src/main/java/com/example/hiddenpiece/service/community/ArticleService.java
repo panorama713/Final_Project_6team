@@ -82,8 +82,6 @@ public class ArticleService {
                 .build();
     }
 
-
-
     public List<ArticleListResponseDto> searchArticles(String keyword) {
         List<Article> articles = articleRepository.findByTitleContainingOrContentContaining(keyword, keyword);
         return articles.stream().map(ArticleListResponseDto::new).collect(Collectors.toList());

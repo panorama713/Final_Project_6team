@@ -127,6 +127,23 @@ public class UserService {
                 .build();
     }
 
+    // 나의 프로필 조회
+    public UserProfileResponseDto readMyProfile(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        return UserProfileResponseDto.builder()
+                .username(user.getUsername())
+                .realName(user.getRealName())
+                .email(user.getEmail())
+                .profileImg(user.getProfileImg())
+                .numberOfWrittenArticle(0)     // TODO 기능 구현시 구현 예정
+                .numberOfWrittenComment(0)     // TODO 기능 구현시 구현 예정
+                .followingCount(followService.getCountOfFollowing(user))
+                .followerCount(followService.getCountOfFollower(user))
+                .build();
+    }
+
     @Transactional
     public UserProfileResponseDto checkLogin(HttpServletRequest req) {
         String accessToken = cookieManager.getCookie(req, ACCESS_TOKEN);
@@ -143,6 +160,8 @@ public class UserService {
 
         return null;
     }
+
+    // TODO 계정 탈퇴, 유저 정보 수정
 
     private void verifiedRefreshToken(String refreshToken) {
         if (refreshToken == null) {

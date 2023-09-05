@@ -27,6 +27,7 @@ public class JwtFilter extends OncePerRequestFilter {
                     "/api/v1/users/reissue",
                     "/api/v1/roadmaps/count",
                     "/api/v1/users/count",
+                    "/api/v1/roadmaps/top5",
                     "/views/**",
                     "/static/**");
 

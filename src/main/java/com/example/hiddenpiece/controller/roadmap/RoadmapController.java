@@ -4,6 +4,7 @@ import com.example.hiddenpiece.common.ResponseDto;
 import com.example.hiddenpiece.common.SystemMessage;
 import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto;
 import com.example.hiddenpiece.service.roadmap.RoadmapService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -90,5 +91,24 @@ public class RoadmapController {
         }
 
         return ResponseEntity.ok(roadmapService.countRoadmaps());
+    }
+
+    @GetMapping("/top5")
+    public ResponseEntity<List<ResponseTop5RoadmapDto>> readRoadmapsTop5WithPopularity(
+            @RequestParam(required = false) String keyword
+    ) {
+        if (keyword == null) {
+            return ResponseEntity.ok(roadmapService.readTop5RoadmapById());
+        }
+
+        if (keyword.equals("popularity")) {
+            return ResponseEntity.ok(roadmapService.readTop5RoadmapWithBookmarkCount());
+        }
+
+        if (keyword.equals("recommend")) {
+            return ResponseEntity.ok(roadmapService.readTop5RoadmapWithRandom());
+        }
+
+        return null;
     }
 }

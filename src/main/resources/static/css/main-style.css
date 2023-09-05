@@ -139,9 +139,10 @@ body {
 
 .roadmap-title {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: 50px;
+    margin-left: 25px;
 }
 
 .roadmap-writer {
@@ -149,6 +150,7 @@ body {
     justify-content: flex-end;
     align-items: center;
     height: 50px;
+    margin-right: 10px;
 }
 
 .footer-wrapper {

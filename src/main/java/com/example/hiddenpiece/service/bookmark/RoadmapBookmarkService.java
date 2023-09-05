@@ -2,6 +2,7 @@ package com.example.hiddenpiece.service.bookmark;
 
 import com.example.hiddenpiece.domain.dto.bookmark.RequestRoadmapBookmarkDto;
 import com.example.hiddenpiece.domain.dto.bookmark.ResponseRoadmapBookmarkDto;
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
 import com.example.hiddenpiece.domain.entity.user.User;
@@ -17,6 +18,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -36,6 +40,10 @@ public class RoadmapBookmarkService {
         // 로드맵 존재 확인
         Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
+
+        if (targetRoadmap.getUser().getUsername().equals(username)) {
+            throw new CustomException(CustomExceptionCode.CANNOT_BOOKMARK_YOUR_ROADMAP);
+        }
 
         if (roadmapBookmarkRepository.existsByUserAndRoadmap(loginUser, targetRoadmap)) {
             throw new CustomException(CustomExceptionCode.ALREADY_EXIST_ROADMAP_BOOKMARK);

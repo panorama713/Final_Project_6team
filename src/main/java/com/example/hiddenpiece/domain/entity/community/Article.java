@@ -41,6 +41,9 @@ public class Article extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private ArticleType type;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int viewCount;
+
     private LocalDateTime deletedAt;
 
     @JsonIgnore
@@ -52,18 +55,23 @@ public class Article extends BaseTimeEntity {
     private List<ArticleBookmark> articleBookmarks = new ArrayList<>();
 
     @Builder
-    public Article(User user, Category category, String title, String content, ArticleType type) {
+    public Article(User user, Category category, String title, String content, ArticleType type, Long viewCount) {
         this.user = user;
         this.category = category;
         this.title = title;
         this.content = content;
         this.type = type;
+        this.viewCount = 0;
     }
 
     public void modify(String title, String content, ArticleType type) {
         this.title = title;
         this.content = content;
         this.type = type;
+    }
+
+    public void increaseViewCount() {
+        this.viewCount++;
     }
 
     public void addLikeArticles(Like like) {

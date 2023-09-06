@@ -59,7 +59,7 @@ public class ViewController {
         return "my-page";
     }
 
-    @GetMapping("/roadmap-function")
+    @GetMapping("/roadmaps/{roadmapId}/elements")
     public String roadmap() {
         return "roadmap-function";
     }

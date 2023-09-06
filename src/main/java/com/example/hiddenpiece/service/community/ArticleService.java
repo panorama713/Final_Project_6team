@@ -74,7 +74,7 @@ public class ArticleService {
                 .content(article.getContent())
                 .type(article.getType())
                 .createdAt(article.getCreatedAt())
-                .createdAt(article.getLastModifiedAt())
+                .lastModifiedAt(article.getLastModifiedAt())
                 .viewCount(article.getViewCount())
                 .likeCount(likeService.getLikeCount(article))
                 .images(articleImageService.readAllArticleImages(articleId))

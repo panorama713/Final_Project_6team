@@ -70,7 +70,7 @@ public class UserController {
 
     // 아이디 찾기
     @PostMapping("/find/username")
-    public ResponseEntity<String> findUsername(@RequestBody RequestFindUsernameDto dto) {
+    public ResponseEntity<String> findUsername(@Valid @RequestBody RequestFindUsernameDto dto) {
         return ResponseEntity.ok(userService.findUsername(dto));
     }
 
@@ -78,5 +78,15 @@ public class UserController {
     @PostMapping("/find/password")
     public ResponseEntity<Long> findPassword(@RequestBody RequestFindPasswordDto dto) {
         return ResponseEntity.ok(userService.findAccount(dto));
+    }
+
+    // 비밀번호 변경
+    @PutMapping("/{userId}/change-password")
+    public ResponseEntity<Void> changePassword(
+            @RequestBody RequestChangePasswordDto dto,
+            @PathVariable Long userId
+    ) {
+        userService.updatePassword(dto, userId);
+        return ResponseEntity.noContent().build();
     }
 }

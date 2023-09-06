@@ -12,17 +12,29 @@ function formatContent(content) {
 }
 
 // 작성 일시 포맷팅
-function formatDateTime(dateTimeString) {
-    const createdAtDate = new Date(dateTimeString);
+window.formatDateTime = formatDateTime;
+
+function formatDateTime(createdAt, lastModifiedAt) {
+    const createdAtDate = new Date(createdAt);
+    const updatedAtDate = lastModifiedAt ? new Date(lastModifiedAt) : null;
+
     const formattedDate = createdAtDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
     const formattedTime = createdAtDate.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-    return `${formattedDate} ${formattedTime}`;
+
+    let displayString = `${formattedDate} ${formattedTime}`;
+
+    // 수정된 경우 "수정됨" 추가
+    if (updatedAtDate && (createdAtDate.getTime() !== updatedAtDate.getTime())) {
+        displayString += " (수정됨)";
+    }
+
+    return displayString;
 }
 
 // 댓글 템플릿 생성
 function commentTemplate(comment) {
     const formattedContent = formatContent(comment.content);
-    const formattedDateTime = formatDateTime(comment.createdAt);
+    const formattedDateTime = formatDateTime(comment.createdAt, comment.lastModifiedAt);
     return `
         <div class="comment" data-id="${comment.id}">
             <div class="comment-align">
@@ -43,7 +55,7 @@ function commentTemplate(comment) {
 
 // 답글 템플릿 생성
 function replyTemplate(reply) {
-    const formattedDateTime = formatDateTime(reply.createdAt);
+    const formattedDateTime = formatDateTime(reply.createdAt, reply.lastModifiedAt);
     return `
         <div class="comment-reply" data-id="${reply.id}">
             <div class="comment-align">

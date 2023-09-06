@@ -4,10 +4,8 @@ function displayArticleDetails(data, articleId) {
     document.querySelector('#article-content').innerHTML = data.content.replace(/\n/g, '<br>');
     document.querySelector('#article-username').textContent = "작성자: " + data.username;
 
-    const createdAtDate = new Date(data.createdAt);
-    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
-    const formattedTime = createdAtDate.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-    document.querySelector('#article-date').textContent = "작성 일시: " + formattedDate + " " + formattedTime;
+    const displayDate = formatDateTime(data.createdAt, data.lastModifiedAt);
+    document.querySelector('#article-date').textContent = "작성 일시: " + displayDate;
 
     let articleLikeCountElement = document.querySelector('#article-likeCount');
 

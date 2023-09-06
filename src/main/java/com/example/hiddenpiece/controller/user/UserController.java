@@ -1,8 +1,6 @@
 package com.example.hiddenpiece.controller.user;
 
-import com.example.hiddenpiece.domain.dto.user.SignupRequestDto;
-import com.example.hiddenpiece.domain.dto.user.SignupResponseDto;
-import com.example.hiddenpiece.domain.dto.user.UserProfileResponseDto;
+import com.example.hiddenpiece.domain.dto.user.*;
 import com.example.hiddenpiece.service.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -68,5 +66,27 @@ public class UserController {
     @GetMapping("/count")
     public ResponseEntity<Integer> countUsers() {
         return ResponseEntity.ok(userService.countUsers());
+    }
+
+    // 아이디 찾기
+    @PostMapping("/find/username")
+    public ResponseEntity<String> findUsername(@Valid @RequestBody RequestFindUsernameDto dto) {
+        return ResponseEntity.ok(userService.findUsername(dto));
+    }
+
+    // 비밀번호 찾기
+    @PostMapping("/find/password")
+    public ResponseEntity<Long> findPassword(@RequestBody RequestFindPasswordDto dto) {
+        return ResponseEntity.ok(userService.findAccount(dto));
+    }
+
+    // 비밀번호 변경
+    @PutMapping("/{userId}/change-password")
+    public ResponseEntity<Void> changePassword(
+            @RequestBody RequestChangePasswordDto dto,
+            @PathVariable Long userId
+    ) {
+        userService.updatePassword(dto, userId);
+        return ResponseEntity.noContent().build();
     }
 }

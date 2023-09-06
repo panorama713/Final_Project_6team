@@ -1,3 +1,4 @@
+/* 폰트 로드 */
 @font-face {
     font-family: "CustomFont";
     src: url("/static/fonts/JalnanOTF.otf") format("opentype"),
@@ -27,96 +28,37 @@ body {
 }
 
 .container {
-    margin-top: 100px;
+    margin: 100px auto;
     padding-top: 100px;
 }
 
 /* 로고 스타일 */
 .logo-container, #logo {
     text-align: center;
-    margin: 10px;
-    padding-bottom: 10px;
+    margin: 20px 0;
 }
 
 #logo {
     max-width: 100px;
 }
 
-/* 로그인 폼 컨테이너 스타일 */
-.login-container {
+/* 회원가입 폼 컨테이너 스타일 */
+.find-username-container {
     background-color: var(--white-color);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 50px 40px;
+    padding: 40px 40px;
 }
 
 /* 폼 스타일 */
-#login-form {
+#findUsernameForm {
     margin: 0 auto;
     max-width: 400px;
     padding-bottom: 60px;
     position: relative;
 }
 
-div.pw-eye {
-    position: relative;
-}
-
-div.pw-eye i {
-    position: absolute;
-    right: 3%;
-    top: 27px;
-}
-
-.c-headline::before {
-    content: "";
-    position: absolute;
-    top: 45%;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: #eee;
-}
-
-.c-headline {
-    position: relative;
-    text-align: center;
-    font-weight: bold;
-    color: #848484;
-    margin-top: 30px;
-    padding: 0 230px;
-}
-
-.c-headline-desc {
-    position: relative;
-    text-align: center;
-    font-weight: normal;
-    color: #848484;
-    margin-top: 20px;
-    padding: 0 10px;
-    background: #ffffff;
-}
-
-.img-container {
-    text-align: center;
-    margin-top: 10px;
-    height: 150px;
-}
-
-.social-container {
-    margin-bottom: 60px;
-}
-
-.social-image {
-    padding: 10px 0;
-}
-
-.image {
-    width: 280px;
-    height: 51px;
-}
-
-.form-label, .form-control, .form-check-input {
+.form-label, .form-control {
     border-color: var(--main-color);
     color: var(--main-color);
     font-size: 20px;
@@ -129,17 +71,14 @@ div.pw-eye i {
     margin-bottom: 10px;
 }
 
-.form-control, .form-check-input {
+.form-control{
     border: 2px solid var(--main-color);
     border-radius: 0;
     padding: 10px;
-}
-
-.form-control {
     margin-bottom: 20px;
 }
 
-.form-control:focus, .form-check-input:focus {
+.form-control:focus {
     border-color: var(--main-color);
     box-shadow: 0 0 0 0.3rem rgba(78, 72, 151, 0.25);
 }
@@ -148,34 +87,19 @@ div.pw-eye i {
     border-color: var(--sub-color);
 }
 
-.form-check-label {
-    vertical-align: middle;
-    margin-left: 10px;
-}
-
-.form-check-input {
-    vertical-align: middle;
-}
-
-.form-check-input:checked {
-    background-color: var(--main-color);
-    border-color: var(--main-color);
+.account-info-inputs {
+    margin-bottom: 50px;
 }
 
 /* 버튼 스타일 */
-.login-btn {
-    bottom: 0;
-    font-size: 25px;
-    position: absolute;
-    right: 0;
-    width: 45%;
+.btn-wrap {
+    display: flex;
+    justify-content: space-between;
 }
 
-.sign-up-btn {
+.find-username-btn, .back-btn {
     bottom: 0;
     font-size: 25px;
-    position: absolute;
-    left: 0;
     width: 45%;
 }
 
@@ -204,36 +128,4 @@ div.pw-eye i {
 
 .custom-control-input:checked ~ .custom-control-label::before {
     background-color: var(--main-color);
-}
-
-.form-check-label a span {
-    text-decoration: none;
-}
-
-.account-info-input {
-    height: 200px;
-}
-
-.account-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.find {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.idSearch, .pwSearch {
-    display: flex;
-}
-
-.idSearch {
-    margin-right: 5px;
-}
-
-.pwSearch {
-    margin-left: 5px;
 }

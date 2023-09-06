@@ -1,7 +1,7 @@
 // 웹 페이지에 게시글의 상세 정보 표시
 function displayArticleDetails(data, articleId) {
     document.querySelector('#article-title').textContent = data.title;
-    document.querySelector('#article-content').textContent = data.content;
+    document.querySelector('#article-content').innerHTML = data.content.replace(/\n/g, '<br>');
     document.querySelector('#article-username').textContent = "작성자: " + data.username;
 
     const currentDate = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });

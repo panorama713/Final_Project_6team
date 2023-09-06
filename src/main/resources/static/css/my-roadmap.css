@@ -1,0 +1,94 @@
+:root {
+    --main-color: #4e4897;
+    --sub-color: #a7a5cd;
+    --white-color: #ffffff;
+}
+
+.container {
+    border: 1px solid rgba(147, 143, 143, 0.66);
+    border-radius: 8px 8px 8px 8px;
+}
+
+.out-b {
+}
+.rb {
+}
+.tl{
+    text-align: left;
+    font-size: 5px;
+    font-family: Jalnan;
+}
+
+.form-select {
+    width: 80px;
+    font-size: 12px;
+    font-family: Jalnan;
+    padding: 5px 0px 5px 15px;
+}
+
+.days {
+    position: relative;
+}
+.today-line {
+    content: '▼';
+    position: absolute;
+    border-right: 1px dotted #ff0000;
+    padding: 0;
+    width: 0.1px;
+    height: 200px;
+}
+
+.category {
+    border: 1px solid rgba(147, 143, 143, 0.66);
+    border-radius: 8px;
+}
+
+.category-title{
+    text-align: left;
+    font-family: Jalnan,serif;
+    background-color: #f8f9fa;
+    border-bottom: solid 1px rgba(147, 143, 143, 0.66);
+    border-radius: 8px 8px 0px 0px;
+}
+
+.custom-fill-box {
+    width: 100%;
+    height: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.fill-progress-title {
+    /*position: absolute;*/
+    margin-top: 2px;
+    margin-left: 5px;
+    text-align: left;
+    /*transform: translate(-50%, -50%); !* 중앙 정렬 *!*/
+    z-index: 1; /* 다른 요소 위로 표시 */
+    color: white; /* 글씨를 흰색으로 설정 */
+    font-family: JalnanOTF,sans-serif;
+    font-size: 14px;
+    white-space: nowrap; /* 텍스트 오버플로우를 방지하고 텍스트를 한 줄로 유지 */
+    overflow: hidden; /* 텍스트 오버플로우가 발생하면 숨김 */
+    text-overflow: ellipsis; /* 텍스트 오버플로우가 발생할 때 ...으로 표시 */
+}
+
+.fill-progress {
+    height: 100%;
+    background-color: var(--main-color); /* Set your desired color */
+    border-radius: 5px;
+    position: absolute;
+}
+
+
+.fill-box-line {
+    position: absolute;
+}
+.line-left {
+    background-color: black;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: calc(100% / 12 - 1px);
+}

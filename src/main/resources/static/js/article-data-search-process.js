@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var submitButton = document.getElementById("search-button");
+    var submitButton = document.getElementById("article-search-button");
     submitButton.addEventListener("click", function() {
-        var articleList = document.getElementById('post-list');
+        var articleList = document.getElementById('article-list');
         articleList.innerHTML = '';
 
         searchPosts();

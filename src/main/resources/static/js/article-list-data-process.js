@@ -1,5 +1,3 @@
-
-
 // createdAt 출력 형식
 function formatCreatedAt(dateString) {
     const date = new Date(dateString);
@@ -12,7 +10,7 @@ function formatCreatedAt(dateString) {
 
 // articles 표시
 function displayArticles(articles) {
-    const articleList = document.getElementById('post-list');
+    const articleList = document.getElementById('article-list');
     articleList.innerHTML = ''; // 이전 데이터 초기화
 
     articles.forEach(function (article) {
@@ -51,6 +49,7 @@ function displayArticles(articles) {
         row.appendChild(viewCountElement);
 
         articleList.appendChild(row);
+
     });
 }
 
@@ -95,6 +94,7 @@ function fetchArticles(page) {
         .catch(error => console.error('Error:', error));
 }
 
+// window.localStorage.clear();
 const savedPage = localStorage.getItem('currentPage');
 if (savedPage !== null) {
     fetchArticles(savedPage);

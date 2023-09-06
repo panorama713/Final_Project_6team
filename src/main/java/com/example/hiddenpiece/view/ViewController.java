@@ -58,5 +58,10 @@ public class ViewController {
     public String myPage() {
         return "my-page";
     }
+
+    @GetMapping("/roadmaps/{roadmapId}/elements")
+    public String roadmap() {
+        return "roadmap-function";
+    }
 }
 

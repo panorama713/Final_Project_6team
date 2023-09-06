@@ -73,7 +73,14 @@ function handleUpdateComment(commentId) {
 
     if (newContent && newContent !== currentContent) {
         updateComment(articleId, commentId, newContent, function(updatedComment) {
-            document.querySelector(`.comment[data-id="${commentId}"] p`).innerText = updatedComment.content;
+            const commentElement = document.querySelector(`.comment[data-id="${commentId}"]`);
+
+            // lastModifiedAt 업데이트
+            updatedComment.lastModifiedAt = new Date().toISOString();
+
+            commentElement.querySelector('p').innerText = updatedComment.content;
+            const formattedDateTime = formatDateTime(updatedComment.createdAt, updatedComment.lastModifiedAt);
+            commentElement.querySelector('.comment-date').innerHTML = formattedDateTime;
         });
     }
 }
@@ -111,7 +118,14 @@ function handleUpdateReply(replyId) {
 
     if (newContent && newContent !== currentContent) {
         updateComment(articleId, replyId, newContent, function(updatedReply) {
-            document.querySelector(`.comment-reply[data-id="${replyId}"] p`).innerText = updatedReply.content;
+            const replyElement = document.querySelector(`.comment-reply[data-id="${replyId}"]`);
+
+            // lastModifiedAt 업데이트
+            updatedReply.lastModifiedAt = new Date().toISOString();
+
+            replyElement.querySelector('p').innerText = updatedReply.content;
+            const formattedDateTime = formatDateTime(updatedReply.createdAt, updatedReply.lastModifiedAt);
+            replyElement.querySelector('.comment-date').innerHTML = formattedDateTime;
             updateReplyCount(parentCommentId);
         });
     }

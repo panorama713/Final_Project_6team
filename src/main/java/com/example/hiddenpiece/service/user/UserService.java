@@ -2,9 +2,7 @@ package com.example.hiddenpiece.service.user;
 
 import com.example.hiddenpiece.auth.JwtUtil;
 import com.example.hiddenpiece.auth.TokenDto;
-import com.example.hiddenpiece.domain.dto.user.SignupRequestDto;
-import com.example.hiddenpiece.domain.dto.user.SignupResponseDto;
-import com.example.hiddenpiece.domain.dto.user.UserProfileResponseDto;
+import com.example.hiddenpiece.domain.dto.user.*;
 import com.example.hiddenpiece.domain.entity.user.User;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
@@ -159,6 +157,18 @@ public class UserService {
         }
 
         return null;
+    }
+
+    // 유저의 이름, 등록한 이메일 기반으로 아이디 찾기
+    @Transactional
+    public String findUsername(RequestFindUsernameDto dto) {
+        return userRepository.findUsernameByRealNameAndEmail(dto.getRealName(), dto.getEmail());
+    }
+
+    // 유저의 이름, 아이디로 계정 확인 후 true/false 반환
+    @Transactional
+    public Long findAccount(RequestFindPasswordDto dto) {
+        return userRepository.existUserByRealNameAndUsername(dto.getRealName(), dto.getUsername());
     }
 
     // TODO 계정 탈퇴, 유저 정보 수정

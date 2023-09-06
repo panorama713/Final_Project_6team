@@ -108,7 +108,7 @@ function deleteCookie(name) {
 function setupIdSearchLink() {
     const idSearchLink = document.getElementById('idSearch');
     idSearchLink.addEventListener('click', () => {
-        window.location.href = '아이디_찾기_페이지_URL';
+        window.location.href = '/views/find/username';
     });
 }
 
@@ -116,6 +116,6 @@ function setupIdSearchLink() {
 function setupPwSearchLink() {
     const pwSearchLink = document.getElementById('pwSearch');
     pwSearchLink.addEventListener('click', () => {
-        window.location.href = '비밀번호_찾기_페이지_URL';
+        window.location.href = '/views/find/password';
     });
 }

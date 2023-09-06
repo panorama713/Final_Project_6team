@@ -6,6 +6,7 @@
     function createArticle() {
         var title = document.getElementById("title").value;
         var content = document.getElementById("content").value;
+        var category = document.getElementById("category").value;
         var type = document.getElementById("type").value;
         var image = document.getElementById("image").files[0];
 
@@ -14,6 +15,7 @@
         var jsonParams = {
             title: title,
             content: content,
+            category: category,
             type: type
         };
 

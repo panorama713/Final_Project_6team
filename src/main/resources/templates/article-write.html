@@ -20,14 +20,24 @@
         <div class="card-body">
             <form id="article-form">
                 <div class="mb-3 d-flex align-items-start">
-                    <div class="me-3">
+                    <div class="me-2">
+                        <select name="category" id="category" class="form-select">
+                            <option value="">게시판 선택</option>
+                            <option value="FRONTEND">FRONT-END</option>
+                            <option value="BACKEND">BACK-END</option>
+                            <option value="MOBILE">MOBILE</option>
+                            <option value="GAME">GAME</option>
+                            <option value="DEVOPS">DEVOPS</option>
+                        </select>
+                    </div>
+                    <div class="me-2">
                         <select name="type" id="type" class="form-select">
                             <option value="">말머리 선택</option>
                             <option value="NOTI">공지</option>
                             <option value="QUESTION">질문</option>
                             <option value="STUDY">스터디</option>
-                            <option value=TIP>지식</option>
-                            <option value=CHAT>잡담</option>
+                            <option value="TIP">지식</option>
+                            <option value="CHAT">잡담</option>
                         </select>
                     </div>
                     <div class="col-md-9">

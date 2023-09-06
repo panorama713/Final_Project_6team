@@ -73,6 +73,7 @@ public class ArticleService {
                 .title(article.getTitle())
                 .content(article.getContent())
                 .type(article.getType())
+                .category(article.getCategory())
                 .createdAt(article.getCreatedAt())
                 .createdAt(article.getLastModifiedAt())
                 .viewCount(article.getViewCount())
@@ -99,7 +100,7 @@ public class ArticleService {
             throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
         }
 
-        target.modify(dto.getTitle(), dto.getContent(), dto.getType());
+        target.modify(dto.getTitle(), dto.getContent(), dto.getType(), dto.getCategory());
     }
 
     @Transactional

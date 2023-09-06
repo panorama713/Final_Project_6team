@@ -64,10 +64,11 @@ public class Article extends BaseTimeEntity {
         this.viewCount = 0;
     }
 
-    public void modify(String title, String content, ArticleType type) {
+    public void modify(String title, String content, ArticleType type, Category category) {
         this.title = title;
         this.content = content;
         this.type = type;
+        this.category = category;
     }
 
     public void increaseViewCount() {

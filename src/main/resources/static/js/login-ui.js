@@ -3,6 +3,9 @@ window.addEventListener('DOMContentLoaded', init);
 function init() {
     createInputFields();
     setupPasswordVisibility();
+    setupSaveUsername();
+    setupIdSearchLink();
+    setupPwSearchLink();
 }
 
 // 사용자 정보 입력 필드를 동적으로 생성
@@ -60,4 +63,59 @@ function setupPasswordVisibility() {
             }
         });
     }
+}
+
+function setupSaveUsername() {
+    const saveUsernameCheckbox = document.getElementById('save-username');
+    const usernameInput = document.getElementById('username');
+
+    // 페이지가 로드될 때 저장된 아이디를 불러와 입력 필드에 적용
+    const savedUsername = getCookie('savedUsername');
+    if (savedUsername) {
+        usernameInput.value = savedUsername;
+        saveUsernameCheckbox.checked = true;
+    }
+
+    // 체크박스 상태가 변경될 때 쿠키 설정/삭제
+    saveUsernameCheckbox.addEventListener('change', () => {
+        if (saveUsernameCheckbox.checked) {
+            setCookie('savedUsername', usernameInput.value, 365); // 쿠키를 1년 동안 저장
+        } else {
+            deleteCookie('savedUsername');
+        }
+    });
+}
+
+// 쿠키 설정 함수
+function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+}
+
+// 쿠키 가져오는 함수
+function getCookie(name) {
+    const cookieValue = document.cookie.match(`(^|;) ?${name}=([^;]*)(;|$)`);
+    return cookieValue ? cookieValue[2] : null;
+}
+
+// 쿠키 삭제 함수
+function deleteCookie(name) {
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/`;
+}
+
+// 아이디 찾기 페이지로 이동하는 함수
+function setupIdSearchLink() {
+    const idSearchLink = document.getElementById('idSearch');
+    idSearchLink.addEventListener('click', () => {
+        window.location.href = '아이디_찾기_페이지_URL';
+    });
+}
+
+// 비밀번호 찾기 페이지로 이동하는 함수
+function setupPwSearchLink() {
+    const pwSearchLink = document.getElementById('pwSearch');
+    pwSearchLink.addEventListener('click', () => {
+        window.location.href = '비밀번호_찾기_페이지_URL';
+    });
 }

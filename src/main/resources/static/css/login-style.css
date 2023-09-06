@@ -209,3 +209,31 @@ div.pw-eye i {
 .form-check-label a span {
     text-decoration: none;
 }
+
+.account-info-input {
+    height: 200px;
+}
+
+.account-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.find {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.idSearch, .pwSearch {
+    display: flex;
+}
+
+.idSearch {
+    margin-right: 5px;
+}
+
+.pwSearch {
+    margin-left: 5px;
+}

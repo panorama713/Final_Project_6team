@@ -1,8 +1,14 @@
 package com.example.hiddenpiece.view;
 
+import com.example.hiddenpiece.domain.dto.community.article.ArticleRequestDto;
+import com.example.hiddenpiece.service.community.ArticleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,6 +27,11 @@ public class ViewController {
     @GetMapping("/signup")
     public String signup() {
         return "sign-up";
+    }
+
+    @GetMapping("/my-roadmap")
+    public String myRoadmap() {
+        return "my-roadmap";
     }
 
     @GetMapping("articles")
@@ -46,6 +57,11 @@ public class ViewController {
     @GetMapping("/my-page")
     public String myPage() {
         return "my-page";
+    }
+
+    @GetMapping("/roadmaps/{roadmapId}/elements")
+    public String roadmap() {
+        return "roadmap-function";
     }
 }
 

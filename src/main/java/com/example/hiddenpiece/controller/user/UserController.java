@@ -63,4 +63,10 @@ public class UserController {
     public ResponseEntity<UserProfileResponseDto> checkLogin(HttpServletRequest req) {
         return ResponseEntity.ok(userService.checkLogin(req));
     }
+
+    // 유저 인원 수 카운트
+    @GetMapping("/count")
+    public ResponseEntity<Integer> countUsers() {
+        return ResponseEntity.ok(userService.countUsers());
+    }
 }

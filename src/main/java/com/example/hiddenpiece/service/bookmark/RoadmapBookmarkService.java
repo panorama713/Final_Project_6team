@@ -37,6 +37,10 @@ public class RoadmapBookmarkService {
         Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
 
+        if (targetRoadmap.getUser().getUsername().equals(username)) {
+            throw new CustomException(CustomExceptionCode.CANNOT_BOOKMARK_YOUR_ROADMAP);
+        }
+
         if (roadmapBookmarkRepository.existsByUserAndRoadmap(loginUser, targetRoadmap)) {
             throw new CustomException(CustomExceptionCode.ALREADY_EXIST_ROADMAP_BOOKMARK);
         }

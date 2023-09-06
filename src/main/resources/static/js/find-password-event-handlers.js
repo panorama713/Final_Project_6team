@@ -24,8 +24,3 @@ function clickBackButton() {
         })
     }
 }
-
-document.getElementById('confirmButton').addEventListener('click', function () {
-    // 비밀번호 변경 페이지로 이동
-    window.location.href = '/views/change-password';
-});

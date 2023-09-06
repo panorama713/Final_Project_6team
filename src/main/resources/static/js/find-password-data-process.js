@@ -21,11 +21,15 @@ async function findPassword(data) {
         if (response.ok) {
             localStorage.setItem('userId', await response.text())
             document.getElementById('passwordResult').textContent = '계정이 확인되었습니다. 비밀번호 변경 페이지로 이동합니다.'
-            const modal = new bootstrap.Modal(document.getElementById('findPasswordModal'));
-            modal.show();
+            document.getElementById('confirmButton').addEventListener('click', function () {
+                window.location.href = '/views/change-password';
+            });
         } else {
             const errorData = await response.json();
-            alert(errorData.message || "해당 계정이 존재하지 않습니다.");
+            document.getElementById('passwordResult').textContent = errorData.message
+            document.getElementById('confirmButton').addEventListener('click', function () {
+                window.location.reload();
+            });
         }
     } catch (error) {
         console.error("#console# 에러", error);

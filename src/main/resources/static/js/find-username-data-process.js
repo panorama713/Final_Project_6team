@@ -19,12 +19,18 @@ async function findUsername(data) {
         const response = await sendDataToServer(data);
 
         if (response.ok) {
-            document.getElementById('usernameResult').textContent = await response.text()
-            const modal = new bootstrap.Modal(document.getElementById('findUsernameModal'));
-            modal.show();
+            document.getElementById('usernameResult').textContent = '아이디: ' + await response.text()
+            document.getElementById('confirmButton').addEventListener('click', function () {
+                // 로그인 페이지로 이동
+                window.location.href = '/views/login';
+            });
         } else {
             const errorData = await response.json();
-            alert(errorData.message || "해당 계정이 존재하지 않습니다.");
+            document.getElementById('usernameResult').textContent = errorData.message
+            document.getElementById('confirmButton').addEventListener('click', function () {
+                // 로그인 페이지로 이동
+                window.location.reload();
+            });
         }
     } catch (error) {
         console.error("#console# 회원가입 에러", error);

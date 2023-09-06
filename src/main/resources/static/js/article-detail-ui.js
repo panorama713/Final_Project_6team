@@ -41,4 +41,12 @@ function displayArticleImages(images, articleId) {
         imageContainer.appendChild(imgElement);
         console.log(imgElement.src);
     });
+
+    // 이미지의 유무에 따른 이미지 액션 버튼 표시
+    const imageActionButton = document.getElementById('article-images-action');
+    if (images.length > 0) {
+        imageActionButton.style.display = 'block'; // 버튼 보이기
+    } else {
+        imageActionButton.style.display = 'none';  // 버튼 숨기기
+    }
 }

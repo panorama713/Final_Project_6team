@@ -2,8 +2,10 @@ package com.example.hiddenpiece.service.roadmap;
 
 import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.user.User;
+import com.example.hiddenpiece.domain.repository.bookmark.RoadmapBookmarkRepository;
 import com.example.hiddenpiece.domain.repository.roadmap.RoadmapRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
@@ -26,6 +28,7 @@ import java.util.List;
 public class RoadmapService {
     private final RoadmapRepository roadmapRepository;
     private final UserRepository userRepository;
+    private final RoadmapBookmarkRepository roadmapBookmarkRepository;
 
     // create
     @Transactional
@@ -114,5 +117,31 @@ public class RoadmapService {
         roadmapRepository.delete(targetRoadmap);
         log.info("로드맵 삭제 완료");
         return ResponseRoadmapDto.fromEntity(targetRoadmap);
+    }
+
+    // 로드맵 전체 개수 카운트
+    public Integer countRoadmaps() {
+        return (int) roadmapRepository.count();
+    }
+
+    // 오늘 날짜 기준 생성된 로드맵 개수 카운트
+    public Integer countRoadmapsByCreatedAt() {
+        return roadmapRepository.countTodayRoadmaps();
+    }
+
+    // 추천 로드맵 조회
+    // TODO 우선은 랜덤 -> 기준을 유저가 설정한 타입으로 하기로 했는데 회원가입 시 추가하는 부분이 없어서 추후 수정해야함
+    public List<ResponseTop5RoadmapDto> readTop5RoadmapWithRandom() {
+        return roadmapRepository.findTop5ByRoadmapsWithRandom();
+    }
+
+    // 인기 로드맵 조회 (북마크 저장 기준)
+    public List<ResponseTop5RoadmapDto> readTop5RoadmapWithBookmarkCount() {
+        return roadmapBookmarkRepository.findTop5ByRoadmapsWithBookmarkCount();
+    }
+
+    // 신규 로드맵 조회
+    public List<ResponseTop5RoadmapDto> readTop5RoadmapById() {
+        return roadmapRepository.findTop5ByRoadmapsWithId();
     }
 }

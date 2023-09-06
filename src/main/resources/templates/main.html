@@ -152,34 +152,22 @@
         <div class="container marketing" style="padding-top: 40px">
             <div class="row">
                 <div class="col-lg-4">
-                    <div style="border: 3px solid #ffffff; width: 256px; margin: 0 auto">
-                        <svg class="bd-placeholder-img square" width="250" height="100"
-                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
-                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="none"/>
-                        </svg>
+                    <div style="border: 3px solid #ffffff; width: 256px; height: 106px; margin: 0 auto">
+                        <div class="count-box"><span id="roadmapCount"></span></div>
                     </div>
                     <h3 class="fw-normal text-white" style="margin: 10px 0">전체 로드맵</h3>
                 </div>
                 <div class="col-lg-4">
                     <div style="border: 3px solid #ffffff; width: 256px; margin: 0 auto">
-                        <svg class="bd-placeholder-img square" width="250" height="100"
-                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
-                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="none"/>
-                        </svg>
+                        <div class="count-box"><span id="userCount"></span></div>
                     </div>
-                    <h3 class="fw-normal text-white" style="margin: 10px 0">공개 로드맵</h3>
+                    <h3 class="fw-normal text-white" style="margin: 10px 0">전체 이용자 수</h3>
                 </div>
                 <div class="col-lg-4">
                     <div style="border: 3px solid #ffffff; width: 256px; margin: 0 auto">
-                        <svg class="bd-placeholder-img square" width="250" height="100"
-                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
-                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="none"/>
-                        </svg>
+                        <div class="count-box"><span id="todayRoadmapCount"></span></div>
                     </div>
-                    <h3 class="fw-normal text-white" style="margin: 10px 0">저장된 북마크</h3>
+                    <h3 class="fw-normal text-white" style="margin: 10px 0">오늘 등록된 로드맵</h3>
                 </div>
             </div>
         </div>
@@ -208,36 +196,17 @@
                 <div class="row">
                     <div class="col-lg-4 mx-auto">
                         <div class="roadmap-list">
-                            <div class="roadmap-item">
-                                <div class="roadmap-main">
-                                    <!-- 동적으로 보여주게 하기 -->
-                                    <div class="roadmap-title">제목</div> <!-- a 태그로 링크 -> 해당 로드맵 바로가기 -->
-                                    <div class="roadmap-writer">작성자</div> <!-- a 태그로 링크 -> 사용자 프로필 보여주기 -->
-                                </div>
-                                밑에 추가
-                            </div>
+                            <div class="roadmap-item" id="recommend-roadmap-list"></div>
                         </div>
                     </div>
                     <div class="col-lg-4 mx-auto">
                         <div class="roadmap-list">
-                            <div class="roadmap-item">
-                                <div class="roadmap-main">
-                                    <div class="roadmap-title">제목</div>
-                                    <div class="roadmap-writer">작성자</div>
-                                </div>
-                                밑에 추가
-                            </div>
+                            <div class="roadmap-item" id="popular-roadmap-list"></div>
                         </div>
                     </div>
                     <div class="col-lg-4 mx-auto">
                         <div class="roadmap-list">
-                            <div class="roadmap-item">
-                                <div class="roadmap-main">
-                                    <div class="roadmap-title">제목</div>
-                                    <div class="roadmap-writer">작성자</div>
-                                </div>
-                                밑에 추가
-                            </div>
+                            <div class="roadmap-item" id="new-roadmap-list"></div>
                         </div>
                     </div>
                 </div>
@@ -278,5 +247,6 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
 <script type="module" src="/static/js/nav-event-handler.js"></script>
+<script src="/static/js/main-data-process.js"></script>
 </body>
 </html>

@@ -56,6 +56,7 @@ public enum CustomExceptionCode {
     UNFOLLOW_FAILED(HttpStatus.CONFLICT, "이미 언팔로우 한 유저입니다."),
     LIKE_FAILED(HttpStatus.CONFLICT, "이미 좋아요 한 게시글입니다."),
     UNLIKE_FAILED(HttpStatus.CONFLICT, "이미 좋아요를 취소한 게시글입니다."),
+    CANNOT_BOOKMARK_YOUR_ROADMAP(HttpStatus.CONFLICT, "자신의 로드맵은 북마크할 수 없습니다."),
     ALREADY_EXIST_ARTICLE_BOOKMARK(HttpStatus.CONFLICT, "이미 북마크에 저장된 게시글입니다."),
     ALREADY_EXIST_ROADMAP_BOOKMARK(HttpStatus.CONFLICT, "이미 북마크에 저장된 로드맵입니다."),
     /*

@@ -1,5 +1,6 @@
 package com.example.hiddenpiece.domain.repository.roadmap;
 
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,8 +13,6 @@ import java.util.List;
 
 @Repository
 public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
-    List<Roadmap> findByUser(User user);
-
     @Query("SELECT r FROM Roadmap r WHERE r.user = :user " +
             "AND (:targetDate IS NULL OR r.createdAt >= :targetDate) " +
             "AND (:targetYear IS NULL OR r.createdAt <= :targetYear) " +
@@ -24,4 +23,19 @@ public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
             @Param("targetYear") LocalDateTime targetYear,
             @Param("type") String type
     );
+
+    @Query("SELECT COUNT(r) FROM Roadmap r WHERE r.createdAt = CURRENT_DATE")
+    Integer countTodayRoadmaps();
+
+    @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto(r.title, r.user.username) " +
+            "FROM Roadmap r " +
+            "GROUP BY r.title, r.user.username " +
+            "ORDER BY r.id DESC LIMIT 5")
+    List<ResponseTop5RoadmapDto> findTop5ByRoadmapsWithId();
+
+    @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto(r.title, r.user.username) " +
+            "FROM Roadmap r " +
+            "GROUP BY r.title, r.user.username " +
+            "ORDER BY RANDOM() LIMIT 5")
+    List<ResponseTop5RoadmapDto> findTop5ByRoadmapsWithRandom();
 }

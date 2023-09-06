@@ -1,3 +1,45 @@
+
+// 게시판 카테고리 버튼
+document.addEventListener("DOMContentLoaded", function() {
+    var frontEndBtn = document.getElementById("category-front-end");
+    frontEndBtn.addEventListener("click", function() {
+        fetchArticles(savedPage, 'FRONTEND')
+        document.querySelector('#category-title').textContent = 'FRONT-END 게시판';
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    var backEndBtn = document.getElementById("category-back-end");
+    backEndBtn.addEventListener("click", function() {
+        fetchArticles(savedPage, 'BACKEND')
+        document.querySelector('#category-title').textContent = 'BACK-END 게시판';
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    var mobileBtn = document.getElementById("category-mobile");
+    mobileBtn.addEventListener("click", function() {
+        fetchArticles(savedPage, 'MOBILE')
+        document.querySelector('#category-title').textContent = 'MOBILE 게시판';
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    var gmaeBtn = document.getElementById("category-game");
+    gmaeBtn.addEventListener("click", function() {
+        fetchArticles(savedPage, 'GAME')
+        document.querySelector('#category-title').textContent = 'GAME 게시판';
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    var devOpsBtn = document.getElementById("category-devops");
+    devOpsBtn.addEventListener("click", function() {
+        fetchArticles(savedPage, 'DEVOPS')
+        document.querySelector('#category-title').textContent = 'DEVOPS 게시판';
+    });
+});
+
 // createdAt 출력 형식
 function formatCreatedAt(dateString) {
     const date = new Date(dateString);
@@ -76,16 +118,16 @@ function displayPageNumbers() {
     }
 }
 
+
 let currentPage = 0;
 let totalPages = 0;
 
-function fetchArticles(page) {
-    fetch(`/api/v1/articles?page=${page}`)
+function fetchArticles(page, category) {
+    fetch(`/api/v1/articles?page=${page}&category=${category}`)
         .then(response => response.json())
         .then(result => {
             totalPages = result.totalPages;
             currentPage = result.number;
-
             displayArticles(result.content);
             displayPageNumbers();
 
@@ -97,7 +139,7 @@ function fetchArticles(page) {
 // window.localStorage.clear();
 const savedPage = localStorage.getItem('currentPage');
 if (savedPage !== null) {
-    fetchArticles(savedPage);
+    fetchArticles(savedPage, 'GAME');
 } else {
-    fetchArticles(0);
+    fetchArticles(0, 'GAME');
 }

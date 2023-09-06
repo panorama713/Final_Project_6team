@@ -41,15 +41,15 @@
                             <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button"
                                aria-expanded="false" href="#">커뮤니티</a>
                             <ul class="dropdown-menu bg-light" style="border-color: #4e4897">
-                                <li><a class="dropdown-item text-dark" href="/views/community?type=backend">FRONT-END</a>
+                                <li><a class="dropdown-item text-dark" id="category-front-end">FRONT-END</a>
                                 </li>
                                 <li><a class="dropdown-item text-dark"
-                                       href="/views/community?type=frontend">BACK-END</a></li>
-                                <li><a class="dropdown-item text-dark" href="/views/community?type=frontend">MOBILE</a>
+                                       id="category-back-end">BACK-END</a></li>
+                                <li><a class="dropdown-item text-dark" id="category-mobile">MOBILE</a>
                                 </li>
-                                <li><a class="dropdown-item text-dark" href="/views/community?type=frontend">GAME</a>
+                                <li><a class="dropdown-item text-dark" id="category-game">GAME</a>
                                 </li>
-                                <li><a class="dropdown-item text-dark" href="/views/community?type=frontend">DEVOPS</a>
+                                <li><a class="dropdown-item text-dark" id="category-devops">DEVOPS</a>
                                 </li>
                             </ul>
                         </div>
@@ -96,4 +96,6 @@
         </div>
     </nav>
 </header>
+
+<script src="/static/js/article-list-data-process.js"></script>
 

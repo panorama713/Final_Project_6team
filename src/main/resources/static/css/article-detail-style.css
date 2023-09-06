@@ -41,6 +41,13 @@
     background-color: var(--main-color);
 }
 
+.list-btn {
+    float: right;
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+    margin-right: 5px;
+}
+
 .btn-secondary:hover {
     background-color: var(--main-color);
     border-color: var(--main-color);

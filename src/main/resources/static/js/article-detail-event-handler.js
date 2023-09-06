@@ -18,3 +18,12 @@ window.addEventListener('DOMContentLoaded', function () {
         handleDeleteArticle(articleId);
     });
 });
+
+
+// 목록으로 돌아가기 버튼
+const listButton = document.getElementById('list-btn');
+listButton.addEventListener('click', () => {
+    window.location.href = '/views/articles/list';
+});
+
+

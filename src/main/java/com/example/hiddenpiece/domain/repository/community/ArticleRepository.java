@@ -13,7 +13,12 @@ import java.util.List;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
+
+    // 전체 검색
     List<Article> findByTitleContainingOrContentContaining(String keyword1, String keyword2);
+
+    // 카테고리 별 검색
+    List<Article> findByCategoryAndTitleContainingOrCategoryAndContentContaining(Category category1, String keyword1, Category category2, String keyword2);
     Page<Article> findAll(Pageable pageable);
     Page<Article> findByCategory(Category category, Pageable pageable);
 }

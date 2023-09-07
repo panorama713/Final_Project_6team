@@ -8,9 +8,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
 function searchPosts() {
     var keyword = document.getElementById("keyword").value;
-    var url = '/api/v1/articles/search?keyword=' + encodeURIComponent(keyword);
+    var savedCategory = localStorage.getItem('currentCategory')
+    var url = '/api/v1/articles/search?keyword=' + encodeURIComponent(keyword)+'&category='+savedCategory;
     fetch(url)
         .then(response => response.json())
         .then(articles => {

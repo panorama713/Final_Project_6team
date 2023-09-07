@@ -41,12 +41,20 @@
     background-color: var(--main-color);
 }
 
-.list-btn {
+.list-btn, .like-btn {
     float: right;
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
     margin-right: 5px;
 }
+
+.clicked-like-btn {
+    float: right;
+    border: 1px solid var(--sub-color);
+    background-color: var(--sub-color);
+    margin-right: 5px;
+    color: black;
+ }
 
 .btn-secondary:hover {
     background-color: var(--main-color);

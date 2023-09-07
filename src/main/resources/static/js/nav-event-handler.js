@@ -54,3 +54,10 @@ logoutButton.addEventListener('click', async() => {
         console.error("로그아웃 실패", error)
     }
 })
+
+document.querySelector('.search-btn').addEventListener('click', function(event) {
+    event.preventDefault();
+    const searchInput = document.getElementById('input-keyword').value;
+
+    window.location.href = `/views/search?query=${encodeURIComponent(searchInput)}`
+})

@@ -2,6 +2,7 @@ package com.example.hiddenpiece.service.roadmap;
 
 import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseSearchRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.user.User;
@@ -14,6 +15,9 @@ import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -143,5 +147,11 @@ public class RoadmapService {
     // 신규 로드맵 조회
     public List<ResponseTop5RoadmapDto> readTop5RoadmapById() {
         return roadmapRepository.findTop5ByRoadmapsWithId();
+    }
+
+    // 검색어에 따른 페이징 조회 -> 기준은 우선 조회수
+    public Page<ResponseSearchRoadmapDto> readAllByContaining(String keyword, Integer page, Integer limit) {
+        Pageable pageable = PageRequest.of(page, limit);
+        return roadmapRepository.findByContaining(keyword, pageable);
     }
 }

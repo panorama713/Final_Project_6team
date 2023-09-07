@@ -20,6 +20,7 @@ public class ArticleListResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
     private int viewCount;
+    private boolean hasImage;
 
     public ArticleListResponseDto(Article entity) {
         this.id = entity.getId();
@@ -31,5 +32,6 @@ public class ArticleListResponseDto {
         this.createdAt = entity.getCreatedAt();
         this.lastModifiedAt = entity.getLastModifiedAt();
         this.viewCount = entity.getViewCount();
+        this.hasImage = !entity.getArticleImages().isEmpty();
     }
 }

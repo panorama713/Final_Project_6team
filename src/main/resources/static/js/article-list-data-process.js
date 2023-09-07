@@ -81,6 +81,12 @@ function displayArticles(articles) {
         let typeText = typeMappings[article.type] || '';
         typeElement.textContent = typeText;
 
+        // 이미지의 유무에 따른 아이콘 표시
+        if (article.hasImage) {
+            // titleLink.textContent += " 📷"; // 아이콘을 제목 뒤에 추가
+            titleLink.textContent = "📷 " + article.title; // 아이콘을 제목 앞에 추가
+        }
+
         usernameElement.textContent = article.username;
         createdAtElement.textContent = formatCreatedAt(article.createdAt);
         viewCountElement.textContent = article.viewCount;

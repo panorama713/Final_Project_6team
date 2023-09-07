@@ -13,6 +13,8 @@ import com.example.hiddenpiece.exception.CustomExceptionCode;
 import com.example.hiddenpiece.service.comment.CommentService;
 import com.example.hiddenpiece.service.image.ArticleImageService;
 import com.example.hiddenpiece.service.like.LikeService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -37,6 +40,7 @@ public class ArticleService {
     private final LikeService likeService;
     private final ArticleImageService articleImageService;
     private final CommentService commentService;
+    private final EntityManager entityManager;
 
     @Transactional
     public CreateArticleResponseDto createArticle(String username, ArticleRequestDto dto) {
@@ -84,7 +88,7 @@ public class ArticleService {
                 .type(article.getType())
                 .category(article.getCategory())
                 .createdAt(article.getCreatedAt())
-                .createdAt(article.getLastModifiedAt())
+                .lastModifiedAt(article.getLastModifiedAt())
                 .viewCount(article.getViewCount())
                 .likeCount(likeService.getLikeCount(article))
                 .images(articleImageService.readAllArticleImages(articleId))
@@ -128,4 +132,10 @@ public class ArticleService {
         articleRepository.deleteById(articleId);
     }
 
+    @Transactional
+    public void increaseViewCount(Long articleId) {
+        Query query = entityManager.createQuery("UPDATE Article a SET a.viewCount = a.viewCount + 1 WHERE a.id = :articleId");
+        query.setParameter("articleId", articleId);
+        query.executeUpdate();
+    }
 }

@@ -4,7 +4,7 @@ function fetchArticleDetails(id) {
         .then(response => response.json())
         .then(data => {
             console.log('게시글 상세 정보:', data);
-            displayArticleDetails(data);
+            displayArticleDetails(data, id);
         })
         .catch(error => console.error('Error:', error));
 }
@@ -31,11 +31,14 @@ function handleDeleteArticle(articleId) {
 
 // 현재 페이지의 게시글 ID 추출
 function getArticleIdFromUrl() {
+    console.trace("getArticleIdFromUrl 호출 추적");
+    console.log("getArticleIdFromUrl 호출 시작");
     const pathSegments = window.location.pathname.split('/');
     const articleId = pathSegments[pathSegments.length - 1];
     console.log('URL:', window.location.href);
     console.log('Pathname:', window.location.pathname);
     console.log('articleId:', articleId);
+    console.log("getArticleIdFromUrl 호출 종료");
     return articleId;
 }
 

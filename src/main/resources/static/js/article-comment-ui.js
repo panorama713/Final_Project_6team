@@ -11,15 +11,35 @@ function formatContent(content) {
     return content.replace(/\n/g, '<br>');
 }
 
+// 작성 일시 포맷팅
+window.formatDateTime = formatDateTime;
+
+function formatDateTime(createdAt, lastModifiedAt) {
+    const createdAtDate = new Date(createdAt);
+    const updatedAtDate = lastModifiedAt ? new Date(lastModifiedAt) : null;
+
+    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    const formattedTime = createdAtDate.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+
+    let displayString = `${formattedDate} ${formattedTime}`;
+
+    // 수정된 경우 "수정됨" 추가
+    if (updatedAtDate && (createdAtDate.getTime() !== updatedAtDate.getTime())) {
+        displayString += " (수정됨)";
+    }
+
+    return displayString;
+}
+
 // 댓글 템플릿 생성
 function commentTemplate(comment) {
     const formattedContent = formatContent(comment.content);
-    const currentDate = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    const formattedDateTime = formatDateTime(comment.createdAt, comment.lastModifiedAt);
     return `
         <div class="comment" data-id="${comment.id}">
             <div class="comment-align">
                 <h7 class="comment-user">${comment.username}</h7>
-                <small class="comment-date">${currentDate}</small>
+                <small class="comment-date">${formattedDateTime}</small>
                 <span class="reply-count"></span>
                 <button class="btn btn-secondary btn-sm dropdown-toggle comment-dropdown" type="button" data-bs-toggle="dropdown"></button>
                 <ul class="dropdown-menu">
@@ -35,12 +55,12 @@ function commentTemplate(comment) {
 
 // 답글 템플릿 생성
 function replyTemplate(reply) {
-    const currentDate = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    const formattedDateTime = formatDateTime(reply.createdAt, reply.lastModifiedAt);
     return `
         <div class="comment-reply" data-id="${reply.id}">
             <div class="comment-align">
                 <h7 class="comment-user">${reply.username}</h7>
-                <small class="comment-date">${currentDate}</small>
+                <small class="comment-date">${formattedDateTime}</small>
                 <button class="btn btn-secondary btn-sm dropdown-toggle comment-dropdown" type="button" data-bs-toggle="dropdown"></button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item edit-reply-btn" href="#">수정</a></li>
@@ -67,7 +87,7 @@ function addReplyToPage(reply, parentCommentId) {
 
 // 페이지에 댓글 및 답글 표시
 function readAndDisplayComments() {
-    const articleId = getArticleIdFromUrl();
+    const articleId = window.articleId;
     readComments(articleId, function(comments) {
         comments.forEach(function(comment) {
             addCommentToPage(comment);

@@ -1,8 +1,10 @@
-// 페이지가 로드될 때 이벤트 리스너 연결
-window.addEventListener('DOMContentLoaded', attachCommentEventListeners);
+let articleId; // 전역 변수로 선언
 
-// 현재 페이지의 articleId 추출
-const articleId = getArticleIdFromUrl();
+// 페이지가 로드될 때 이벤트 리스너 연결
+window.addEventListener('DOMContentLoaded', function() {
+    articleId = window.articleId;
+    attachCommentEventListeners();
+});
 
 // 댓글 관련 이벤트 리스너 연결
 function attachCommentEventListeners() {
@@ -71,7 +73,14 @@ function handleUpdateComment(commentId) {
 
     if (newContent && newContent !== currentContent) {
         updateComment(articleId, commentId, newContent, function(updatedComment) {
-            document.querySelector(`.comment[data-id="${commentId}"] p`).innerText = updatedComment.content;
+            const commentElement = document.querySelector(`.comment[data-id="${commentId}"]`);
+
+            // lastModifiedAt 업데이트
+            updatedComment.lastModifiedAt = new Date().toISOString();
+
+            commentElement.querySelector('p').innerText = updatedComment.content;
+            const formattedDateTime = formatDateTime(updatedComment.createdAt, updatedComment.lastModifiedAt);
+            commentElement.querySelector('.comment-date').innerHTML = formattedDateTime;
         });
     }
 }
@@ -109,7 +118,14 @@ function handleUpdateReply(replyId) {
 
     if (newContent && newContent !== currentContent) {
         updateComment(articleId, replyId, newContent, function(updatedReply) {
-            document.querySelector(`.comment-reply[data-id="${replyId}"] p`).innerText = updatedReply.content;
+            const replyElement = document.querySelector(`.comment-reply[data-id="${replyId}"]`);
+
+            // lastModifiedAt 업데이트
+            updatedReply.lastModifiedAt = new Date().toISOString();
+
+            replyElement.querySelector('p').innerText = updatedReply.content;
+            const formattedDateTime = formatDateTime(updatedReply.createdAt, updatedReply.lastModifiedAt);
+            replyElement.querySelector('.comment-date').innerHTML = formattedDateTime;
             updateReplyCount(parentCommentId);
         });
     }

@@ -87,12 +87,10 @@ public class ArticleController {
             }
         }
         if (!alreadyViewed) {
-            article.increaseViewCount();
+            articleService.increaseViewCount(articleId);
             Cookie viewCookie = new Cookie(sessionKey, "viewed");
             viewCookie.setMaxAge(60 * 60 * 24); // 유효 기간: 1일
             response.addCookie(viewCookie);
-
-            articleRepository.save(article);
         }
 
         return ResponseEntity.ok(articleService.readArticle(articleId));

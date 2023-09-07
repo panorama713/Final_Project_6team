@@ -4,6 +4,7 @@ import com.example.hiddenpiece.domain.entity.comment.Comment;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
@@ -14,12 +15,16 @@ public class CommentResponseDto {
     private Long id;
     private String username;
     private String content;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastModifiedAt;
 
     public static CommentResponseDto fromEntity(Comment entity) {
         return CommentResponseDto.builder()
                 .id(entity.getId())
                 .username(entity.getUser().getUsername())
                 .content(entity.getContent())
+                .createdAt(entity.getCreatedAt())
+                .lastModifiedAt(entity.getLastModifiedAt())
                 .build();
     }
 

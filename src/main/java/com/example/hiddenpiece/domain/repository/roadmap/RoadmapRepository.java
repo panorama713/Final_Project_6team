@@ -1,8 +1,11 @@
 package com.example.hiddenpiece.domain.repository.roadmap;
 
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseSearchRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -38,4 +41,10 @@ public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
             "GROUP BY r.title, r.user.username " +
             "ORDER BY RANDOM() LIMIT 5")
     List<ResponseTop5RoadmapDto> findTop5ByRoadmapsWithRandom();
+
+    @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseSearchRoadmapDto(r.id, r.title, r.description, r.user.username) " +
+           "FROM Roadmap r " +
+           "WHERE r.title LIKE %:keyword% OR r.description LIKE %:keyword% " +
+           "ORDER BY r.id")
+    Page<ResponseSearchRoadmapDto> findByContaining(@Param("keyword") String keyword, Pageable pageable);
 }

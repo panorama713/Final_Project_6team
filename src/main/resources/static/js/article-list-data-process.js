@@ -1,6 +1,45 @@
-// 페이지 정보 저장
-let currentPage = 0;
-let totalPages = 0;
+
+// 게시판 카테고리
+function handleButtonClick(buttonId) {
+    if (buttonId === 'category-front-end') {
+        localStorage.setItem('currentCategory', 'FRONTEND');
+    } else if (buttonId === 'category-back-end') {
+        localStorage.setItem('currentCategory', 'BACKEND');
+    } else if (buttonId === 'category-mobile') {
+        localStorage.setItem('currentCategory', 'MOBILE');
+    } else if (buttonId === 'category-game') {
+        localStorage.setItem('currentCategory', 'GAME');
+    } else if (buttonId === 'category-devops') {
+        localStorage.setItem('currentCategory', 'DEVOPS');
+    }
+    window.location.href = '/views/articles/list';
+}
+
+var frontEndBtn = document.getElementById("category-front-end");
+frontEndBtn.addEventListener("click", function() {
+    handleButtonClick('category-front-end');
+});
+
+var backEndBtn = document.getElementById("category-back-end");
+backEndBtn.addEventListener("click", function() {
+    handleButtonClick('category-back-end');
+});
+
+var mobileBtn = document.getElementById("category-mobile");
+mobileBtn.addEventListener("click", function() {
+    handleButtonClick('category-mobile');
+});
+
+var gameBtn = document.getElementById("category-game");
+gameBtn.addEventListener("click", function() {
+    handleButtonClick('category-game');
+});
+
+var devOpsBtn = document.getElementById("category-devops");
+devOpsBtn.addEventListener("click", function() {
+    handleButtonClick('category-devops');
+});
+
 
 // createdAt 출력 형식
 function formatCreatedAt(dateString) {
@@ -14,7 +53,7 @@ function formatCreatedAt(dateString) {
 
 // articles 표시
 function displayArticles(articles) {
-    const articleList = document.getElementById('post-list');
+    const articleList = document.getElementById('article-list');
     articleList.innerHTML = ''; // 이전 데이터 초기화
 
     articles.forEach(function (article) {
@@ -30,6 +69,18 @@ function displayArticles(articles) {
         titleLink.textContent = article.title;
         titleElement.appendChild(titleLink);
 
+        // type 값 한글로 바꾸기
+        const typeMappings = {
+            "NOTI": '공지',
+            "QUESTION": '질문',
+            "STUDY": '스터디',
+            "TIP": '지식',
+            "CHAT": '잡담'
+        };
+
+        let typeText = typeMappings[article.type] || '';
+        typeElement.textContent = typeText;
+
         // 이미지의 유무에 따른 아이콘 표시
         if (article.hasImage) {
             // titleLink.textContent += " 📷"; // 아이콘을 제목 뒤에 추가
@@ -37,7 +88,6 @@ function displayArticles(articles) {
         }
 
         usernameElement.textContent = article.username;
-        typeElement.textContent = article.type;
         createdAtElement.textContent = formatCreatedAt(article.createdAt);
         viewCountElement.textContent = article.viewCount;
 
@@ -48,31 +98,27 @@ function displayArticles(articles) {
         row.appendChild(viewCountElement);
 
         articleList.appendChild(row);
+
     });
 }
 
 // 페이지 번호 표시
 function displayPageNumbers() {
     const paginationContainer = document.getElementById('pagination-container');
-    paginationContainer.innerHTML = ''; // 기존 버튼 초기화
+    paginationContainer.innerHTML = '';
 
     for (let i = 0; i < totalPages; i++) {
         const pageNumberButton = document.createElement('button');
-        pageNumberButton.textContent = i + 1; // 페이지 번호를 1부터 시작하도록 표시
-
-        // 부트스트랩 버튼 클래스 추가
+        pageNumberButton.textContent = i + 1;
         pageNumberButton.classList.add('btn');
-
-        // 사용자 정의 클래스 추가 (custom-button)
         pageNumberButton.classList.add('custom-button');
 
-        // 현재 페이지인 경우 강조 스타일 적용
         if (i === currentPage) {
             pageNumberButton.classList.add('active');
         }
 
         pageNumberButton.addEventListener('click', () => {
-            fetchArticles(i); // 페이지 번호 버튼을 클릭하면 해당 페이지의 Articles를 불러옵니다.
+            fetchArticles(i);
         });
 
         paginationContainer.appendChild(pageNumberButton);
@@ -80,20 +126,29 @@ function displayPageNumbers() {
 }
 
 
+let currentPage = 0;
+let totalPages = 0;
 
-
-// articles 불러오기
-function fetchArticles(page) {
-    fetch(`/api/v1/articles?page=${page}`)
+function fetchArticles(page, category) {
+    console.log(category)
+    fetch(`/api/v1/articles?page=${page}&category=${category}`)
         .then(response => response.json())
         .then(result => {
             totalPages = result.totalPages;
             currentPage = result.number;
-
             displayArticles(result.content);
             displayPageNumbers();
+            localStorage.setItem('currentPage', currentPage);
         })
         .catch(error => console.error('Error:', error));
 }
 
-fetchArticles(currentPage);
+const savedPage = localStorage.getItem('currentPage');
+const savedCategory = localStorage.getItem('currentCategory')
+if (savedPage !== null && savedPage !== null) {
+    fetchArticles(savedPage, savedCategory);
+    document.querySelector('#category-title').textContent = savedCategory+ ' 게시판';
+} else {
+    fetchArticles(0, 'FRONTEND');
+    document.querySelector('#category-title').textContent = savedCategory+ '게시판';
+}

@@ -12,6 +12,7 @@ function fetchArticleInfo() {
         .then(data => {
             document.getElementById("title").value = data.title;
             document.getElementById("content").value = data.content;
+            document.getElementById("category").value = data.category;
             document.getElementById("type").value = data.type;
         })
         .catch(error => console.error("게시글 정보 가져오기 오류:", error));
@@ -21,6 +22,7 @@ function updateArticle() {
     var title = document.getElementById("title").value;
     var content = document.getElementById("content").value;
     var type = document.getElementById("type").value;
+    var category = document.getElementById("category").value;
     var images = document.getElementById("image").files;
 
     var formData = new FormData();
@@ -28,7 +30,8 @@ function updateArticle() {
     var jsonParams = {
         title: title,
         content: content,
-        type: type
+        type: type,
+        category: category
     };
 
     formData.append("params", new Blob([JSON.stringify(jsonParams)], {type: "application/json"}));

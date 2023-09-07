@@ -2,6 +2,7 @@ package com.example.hiddenpiece.domain.dto.community.article;
 import com.example.hiddenpiece.domain.dto.community.comment.CommentResponseDto;
 import com.example.hiddenpiece.domain.dto.community.image.ArticleImageResponseDto;
 import com.example.hiddenpiece.domain.entity.community.ArticleType;
+import com.example.hiddenpiece.domain.entity.community.Category;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ public class ArticleResponseDto {
     private String username;
     private String title;
     private String content;
+    private Category category;
     private ArticleType type;
     private int likeCount;
     private List<ArticleImageResponseDto> images;

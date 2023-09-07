@@ -4,6 +4,7 @@ import com.example.hiddenpiece.domain.dto.community.article.ArticleListResponseD
 import com.example.hiddenpiece.domain.dto.community.article.ArticleResponseDto;
 import com.example.hiddenpiece.domain.dto.community.article.CreateArticleResponseDto;
 import com.example.hiddenpiece.domain.entity.community.Article;
+import com.example.hiddenpiece.domain.entity.community.Category;
 import com.example.hiddenpiece.domain.entity.user.User;
 import com.example.hiddenpiece.domain.repository.community.ArticleRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
@@ -58,12 +59,20 @@ public class ArticleService {
         return CreateArticleResponseDto.fromEntity(entity);
     }
 
-    // 게시글 목록 조회
+    // 모든 게시글 목록 조회
     public Page<ArticleListResponseDto> getList(int page) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createdAt"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return articleRepository.findAll(pageable).map(ArticleListResponseDto::new);
+    }
+
+
+    // 카테고리 게시글 목록 조회
+    public Page<ArticleListResponseDto> getListByCategory(int page, Category category) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
+        return articleRepository.findByCategory(category, pageable)
+                .map(ArticleListResponseDto::new);
     }
 
     // 게시글 단독 조회
@@ -77,6 +86,7 @@ public class ArticleService {
                 .title(article.getTitle())
                 .content(article.getContent())
                 .type(article.getType())
+                .category(article.getCategory())
                 .createdAt(article.getCreatedAt())
                 .lastModifiedAt(article.getLastModifiedAt())
                 .viewCount(article.getViewCount())
@@ -103,7 +113,7 @@ public class ArticleService {
             throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
         }
 
-        target.modify(dto.getTitle(), dto.getContent(), dto.getType());
+        target.modify(dto.getTitle(), dto.getContent(), dto.getType(), dto.getCategory());
     }
 
     @Transactional

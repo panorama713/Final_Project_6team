@@ -15,7 +15,17 @@ function displayArticleDetails(data, articleId) {
         console.warn('DOM에서 #article-likeCount 요소를 찾을 수 없음');
     }
     if (data.type) {
-        document.querySelector('.type').textContent = data.type;
+        // type 값 한글로 바꾸기
+        const typeMappings = {
+            "NOTI": '공지',
+            "QUESTION": '질문',
+            "STUDY": '스터디',
+            "TIP": '지식',
+            "CHAT": '잡담'
+        };
+
+        let typeText = typeMappings[data.type] || '';
+        document.querySelector('.type').textContent = typeText;
     } else {
         document.querySelector('.type').style.display = 'none';
     }
@@ -42,6 +52,7 @@ function displayArticleImages(images, articleId) {
         console.log(imgElement.src);
     });
 
+
     // 이미지의 유무에 따른 이미지 액션 버튼 표시
     const imageActionButton = document.getElementById('article-images-action');
     if (images.length > 0) {
@@ -50,3 +61,4 @@ function displayArticleImages(images, articleId) {
         imageActionButton.style.display = 'none';  // 버튼 숨기기
     }
 }
+

@@ -57,3 +57,4 @@ function convertPathToUrl(path, articleId) {
     }
     return basePath + '/' + path;
 }
+

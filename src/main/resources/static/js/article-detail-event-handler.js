@@ -19,6 +19,15 @@ window.addEventListener('DOMContentLoaded', function () {
         handleDeleteArticle(articleId);
     });
 
+
+// 목록으로 돌아가기 버튼
+const listButton = document.getElementById('list-btn');
+listButton.addEventListener('click', () => {
+    window.location.href = '/views/articles/list';
+});
+
+
+
     // 이미지 선택 모드 활성화 여부
     let imageSelectingMode = false;
     window.selectedImageIds = window.selectedImageIds || [];
@@ -109,3 +118,4 @@ window.addEventListener('DOMContentLoaded', function () {
         images.forEach(img => img.removeEventListener('click', toggleImageSelectionMode));
     };
 });
+

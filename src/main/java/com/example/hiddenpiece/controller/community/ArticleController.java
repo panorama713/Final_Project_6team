@@ -4,6 +4,7 @@ import com.example.hiddenpiece.domain.dto.community.article.ArticleRequestDto;
 import com.example.hiddenpiece.domain.dto.community.article.ArticleResponseDto;
 import com.example.hiddenpiece.domain.dto.community.article.CreateArticleResponseDto;
 import com.example.hiddenpiece.domain.entity.community.Article;
+import com.example.hiddenpiece.domain.entity.community.Category;
 import com.example.hiddenpiece.domain.repository.community.ArticleRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
@@ -54,8 +55,11 @@ public class ArticleController {
 
     // 게시글 리스트 조회
     @GetMapping
-    public ResponseEntity<Page<ArticleListResponseDto>> list(@RequestParam(value="page", defaultValue="0") int page) {
-        return ResponseEntity.ok(articleService.getList(page));
+    public ResponseEntity<Page<ArticleListResponseDto>> listByCategory(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "category", required = false) Category category
+    ) {
+        return ResponseEntity.ok(articleService.getListByCategory(page, category));
     }
 
     @GetMapping("/search")

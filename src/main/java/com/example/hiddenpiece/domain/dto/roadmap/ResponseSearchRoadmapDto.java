@@ -1,6 +1,5 @@
 package com.example.hiddenpiece.domain.dto.roadmap;
 
-import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -63,10 +63,11 @@ public class ArticleController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<ArticleListResponseDto>> searchArticles(@RequestParam("keyword") String keyword) {
-        System.out.println("keyword = "+keyword);
-        return ResponseEntity.ok(articleService.searchArticles(keyword));
+    public ResponseEntity<List<ArticleListResponseDto>> searchArticles(@RequestParam("keyword") String keyword,
+                                                                       @RequestParam("category") Category category) {
+        return ResponseEntity.ok(articleService.searchArticles(keyword, category));
     }
+
 
     // 게시글 단독 조회 (좋아요 개수 포함)
     @GetMapping("/{articleId}")

@@ -1,4 +1,5 @@
     document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("category").value = localStorage.getItem('currentCategory');
         var submitButton = document.getElementById("article-write");
         submitButton.addEventListener("click", createArticle);
     });

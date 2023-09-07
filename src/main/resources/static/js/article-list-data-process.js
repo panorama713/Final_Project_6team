@@ -1,44 +1,45 @@
 
-// 게시판 카테고리 버튼
-document.addEventListener("DOMContentLoaded", function() {
-    var frontEndBtn = document.getElementById("category-front-end");
-    frontEndBtn.addEventListener("click", function() {
-        fetchArticles(savedPage, 'FRONTEND')
-        document.querySelector('#category-title').textContent = 'FRONT-END 게시판';
-    });
+// 게시판 카테고리
+function handleButtonClick(buttonId) {
+    if (buttonId === 'category-front-end') {
+        localStorage.setItem('currentCategory', 'FRONTEND');
+    } else if (buttonId === 'category-back-end') {
+        localStorage.setItem('currentCategory', 'BACKEND');
+    } else if (buttonId === 'category-mobile') {
+        localStorage.setItem('currentCategory', 'MOBILE');
+    } else if (buttonId === 'category-game') {
+        localStorage.setItem('currentCategory', 'GAME');
+    } else if (buttonId === 'category-devops') {
+        localStorage.setItem('currentCategory', 'DEVOPS');
+    }
+    window.location.href = '/views/articles/list';
+}
+
+var frontEndBtn = document.getElementById("category-front-end");
+frontEndBtn.addEventListener("click", function() {
+    handleButtonClick('category-front-end');
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    var backEndBtn = document.getElementById("category-back-end");
-    backEndBtn.addEventListener("click", function() {
-        fetchArticles(savedPage, 'BACKEND')
-        document.querySelector('#category-title').textContent = 'BACK-END 게시판';
-    });
+var backEndBtn = document.getElementById("category-back-end");
+backEndBtn.addEventListener("click", function() {
+    handleButtonClick('category-back-end');
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    var mobileBtn = document.getElementById("category-mobile");
-    mobileBtn.addEventListener("click", function() {
-        fetchArticles(savedPage, 'MOBILE')
-        document.querySelector('#category-title').textContent = 'MOBILE 게시판';
-    });
+var mobileBtn = document.getElementById("category-mobile");
+mobileBtn.addEventListener("click", function() {
+    handleButtonClick('category-mobile');
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    var gmaeBtn = document.getElementById("category-game");
-    gmaeBtn.addEventListener("click", function() {
-        fetchArticles(savedPage, 'GAME')
-        document.querySelector('#category-title').textContent = 'GAME 게시판';
-    });
+var gameBtn = document.getElementById("category-game");
+gameBtn.addEventListener("click", function() {
+    handleButtonClick('category-game');
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    var devOpsBtn = document.getElementById("category-devops");
-    devOpsBtn.addEventListener("click", function() {
-        fetchArticles(savedPage, 'DEVOPS')
-        document.querySelector('#category-title').textContent = 'DEVOPS 게시판';
-    });
+var devOpsBtn = document.getElementById("category-devops");
+devOpsBtn.addEventListener("click", function() {
+    handleButtonClick('category-devops');
 });
+
 
 // createdAt 출력 형식
 function formatCreatedAt(dateString) {
@@ -123,6 +124,7 @@ let currentPage = 0;
 let totalPages = 0;
 
 function fetchArticles(page, category) {
+    console.log(category)
     fetch(`/api/v1/articles?page=${page}&category=${category}`)
         .then(response => response.json())
         .then(result => {
@@ -130,16 +132,17 @@ function fetchArticles(page, category) {
             currentPage = result.number;
             displayArticles(result.content);
             displayPageNumbers();
-
             localStorage.setItem('currentPage', currentPage);
         })
         .catch(error => console.error('Error:', error));
 }
 
-// window.localStorage.clear();
 const savedPage = localStorage.getItem('currentPage');
-if (savedPage !== null) {
-    fetchArticles(savedPage, 'GAME');
+const savedCategory = localStorage.getItem('currentCategory')
+if (savedPage !== null && savedPage !== null) {
+    fetchArticles(savedPage, savedCategory);
+    document.querySelector('#category-title').textContent = savedCategory+ ' 게시판';
 } else {
-    fetchArticles(0, 'GAME');
+    fetchArticles(0, 'FRONTEND');
+    document.querySelector('#category-title').textContent = savedCategory+ '게시판';
 }

@@ -4,10 +4,12 @@ import com.example.hiddenpiece.common.ResponseDto;
 import com.example.hiddenpiece.common.SystemMessage;
 import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseSearchRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto;
 import com.example.hiddenpiece.service.roadmap.RoadmapService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -110,5 +112,14 @@ public class RoadmapController {
         }
 
         return null;
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<ResponseSearchRoadmapDto>> readAllRoadmapsWithKeyword(
+        @RequestParam(value = "keyword", required = false) String keyword,
+        @RequestParam(value = "page", defaultValue = "0") Integer page,
+        @RequestParam(value = "limit", defaultValue = "7") Integer limit
+    ) {
+        return ResponseEntity.ok(roadmapService.readAllByContaining(keyword, page, limit));
     }
 }

@@ -72,5 +72,10 @@ public class ViewController {
     public String roadmap() {
         return "roadmap-function";
     }
+
+    @GetMapping("/search")
+    public String searchRoadmaps() {
+        return "search-items";
+    }
 }
 

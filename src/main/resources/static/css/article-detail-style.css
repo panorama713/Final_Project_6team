@@ -81,6 +81,41 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* 이미지 선택 시 테두리 스타일 */
+.image-action-mode img {
+    border: 3px solid transparent;
+}
+
+.article img.selected-for-action {
+    border: 3px solid red;
+}
+
+/* 버튼 공통 스타일 */
+.update-image-btn, .delete-image-btn {
+    margin-right: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* 수정 버튼 */
+.update-image-btn {
+    border: 1px solid green;
+}
+
+.update-image-btn:hover {
+    background-color: rgba(0, 128, 0, 0.2);
+}
+
+/* 삭제 버튼 */
+.delete-image-btn {
+    border: 1px solid red;
+}
+
+.delete-image-btn:hover {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
 /* 댓글 설정 */
 
 .comments {
@@ -133,7 +168,6 @@
     align-items: center;
     margin-bottom: 10px;
 }
-
 
 .comment-meta {
     display: flex;

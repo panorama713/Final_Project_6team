@@ -30,6 +30,12 @@ function displayArticles(articles) {
         titleLink.textContent = article.title;
         titleElement.appendChild(titleLink);
 
+        // 이미지의 유무에 따른 아이콘 표시
+        if (article.hasImage) {
+            // titleLink.textContent += " 📷"; // 아이콘을 제목 뒤에 추가
+            titleLink.textContent = "📷 " + article.title; // 아이콘을 제목 앞에 추가
+        }
+
         usernameElement.textContent = article.username;
         typeElement.textContent = article.type;
         createdAtElement.textContent = formatCreatedAt(article.createdAt);

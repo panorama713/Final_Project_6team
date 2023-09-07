@@ -70,10 +70,6 @@ public class Article extends BaseTimeEntity {
         this.type = type;
     }
 
-    public void increaseViewCount() {
-        this.viewCount++;
-    }
-
     public void addLikeArticles(Like like) {
         if (!likeArticles.contains(like)) likeArticles.add(like);
     }

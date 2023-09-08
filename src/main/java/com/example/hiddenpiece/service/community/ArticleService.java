@@ -15,6 +15,7 @@ import com.example.hiddenpiece.service.image.ArticleImageService;
 import com.example.hiddenpiece.service.like.LikeService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -22,10 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,8 +69,26 @@ public class ArticleService {
     // 카테고리 게시글 목록 조회
     public Page<ArticleListResponseDto> getListByCategory(int page, Category category) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
-        return articleRepository.findByCategory(category, pageable)
-                .map(ArticleListResponseDto::new);
+
+        // JPQL 쿼리 작성: 각 게시글과 해당하는 (답글이 아닌) 댓글 수 조회
+        String jpql = "SELECT a, (SELECT COUNT(c) FROM Comment c WHERE c.article = a AND c.parentComment IS NULL) " +
+                "FROM Article a " +
+                "WHERE a.category = :category " +
+                "ORDER BY a.createdAt DESC";
+
+        TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
+        query.setParameter("category", category);
+        query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        query.setMaxResults(pageable.getPageSize());
+
+        List<ArticleListResponseDto> result = query.getResultList().stream()
+                .map(row -> {
+                    Article article = (Article) row[0];
+                    int commentCount = ((Number) row[1]).intValue();
+                    return new ArticleListResponseDto(article, commentCount);
+                }).collect(Collectors.toList());
+
+        return new PageImpl<>(result, pageable, result.size());
     }
 
     // 게시글 단독 조회

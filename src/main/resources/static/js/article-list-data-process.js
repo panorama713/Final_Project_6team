@@ -38,10 +38,37 @@ function displayArticles(articles) {
         let typeText = typeMappings[article.type] || '';
         typeElement.textContent = typeText;
 
+        // // MEMO 📷 게시글 제목 [댓글 수]
+        // if (article.hasImage) {
+        //     titleLink.innerHTML = `<span class='inline-block'>📷&nbsp;</span>${article.title}`;
+        // } else {
+        //     titleLink.textContent = article.title;
+        // }
+        // if (article.commentCount > 0) {
+        //     titleLink.innerHTML += `<span class='inline-block'>&nbsp;[${article.commentCount}]</span>`;
+        // }
+
+        // // MEMO 게시글 제목 📷 [댓글 수]
+        // if (article.hasImage) {
+        //     titleLink.innerHTML = `${article.title}<span class='inline-block'>&nbsp;📷</span>`;
+        // } else {
+        //     titleLink.textContent = article.title;
+        // }
+        // if (article.commentCount > 0) {
+        //     titleLink.innerHTML += `<span class='inline-block'>&nbsp;[${article.commentCount}]</span>`;
+        // }
+
+        // MEMO 게시글 제목 [댓글 수] 📷
+        // 0을 제외한 (답글이 아닌) 댓글 수 표시
+        if (article.commentCount > 0) {
+            titleLink.innerHTML = `${article.title}<span class='inline-block'>&nbsp;[${article.commentCount}]</span>`;
+        } else {
+            titleLink.textContent = article.title;
+        }
+
         // 이미지의 유무에 따른 아이콘 표시
         if (article.hasImage) {
-            // titleLink.textContent += " 📷"; // 아이콘을 제목 뒤에 추가
-            titleLink.textContent = "📷 " + article.title; // 아이콘을 제목 앞에 추가
+            titleLink.innerHTML += `<span class='inline-block'>&nbsp;📷</span>`;
         }
 
         usernameElement.textContent = article.username;

@@ -6,7 +6,6 @@ import com.example.hiddenpiece.domain.dto.user.*;
 import com.example.hiddenpiece.domain.entity.user.User;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
-import com.example.hiddenpiece.exception.CustomExceptionCode;
 import com.example.hiddenpiece.redis.RedisService;
 import com.example.hiddenpiece.security.CookieManager;
 import com.example.hiddenpiece.security.CustomUserDetails;

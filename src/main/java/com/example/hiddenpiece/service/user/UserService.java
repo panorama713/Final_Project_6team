@@ -36,6 +36,8 @@ public class UserService {
     private final CookieManager cookieManager;
     private final FollowService followService;
 
+    public static final String DEFAULT_PROFILE_IMG_PATH = "/static/img/profile_default.jpg";
+
     // 회원가입
     @Transactional
     public SignupResponseDto signup(SignupRequestDto requestDto) {

@@ -35,20 +35,23 @@
     margin-bottom: 10px;
 }
 
-.article-dropdown{
-    float: right;
-    border: 1px solid var(--main-color);
-    background-color: var(--main-color);
-}
-
-.list-btn {
+.article-dropdown {
     float: right;
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
     margin-right: 5px;
 }
 
-.btn-secondary:hover {
+.list-btn {
+    float: right;
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
+}
+
+.list-btn:hover,
+.list-btn.btn-primary:not(:disabled):not(.disabled):active,
+.list-btn.btn-primary:not(:disabled):not(.disabled).active {
     background-color: var(--main-color);
     border-color: var(--main-color);
 }
@@ -142,8 +145,16 @@
 }
 
 .comment-btn {
-    border: 2px solid var(--main-color);
+    border-color: var(--main-color);
     background-color: var(--main-color);
+}
+
+.comment-btn:hover,
+.comment-btn.btn-primary:not(:disabled):not(.disabled):active,
+.comment-btn.btn-primary:not(:disabled):not(.disabled).active {
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
 }
 
 .comment-dropdown {

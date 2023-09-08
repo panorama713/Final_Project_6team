@@ -38,27 +38,6 @@ function displayArticles(articles) {
         let typeText = typeMappings[article.type] || '';
         typeElement.textContent = typeText;
 
-        // // MEMO 📷 게시글 제목 [댓글 수]
-        // if (article.hasImage) {
-        //     titleLink.innerHTML = `<span class='inline-block'>📷&nbsp;</span>${article.title}`;
-        // } else {
-        //     titleLink.textContent = article.title;
-        // }
-        // if (article.commentCount > 0) {
-        //     titleLink.innerHTML += `<span class='inline-block'>&nbsp;[${article.commentCount}]</span>`;
-        // }
-
-        // // MEMO 게시글 제목 📷 [댓글 수]
-        // if (article.hasImage) {
-        //     titleLink.innerHTML = `${article.title}<span class='inline-block'>&nbsp;📷</span>`;
-        // } else {
-        //     titleLink.textContent = article.title;
-        // }
-        // if (article.commentCount > 0) {
-        //     titleLink.innerHTML += `<span class='inline-block'>&nbsp;[${article.commentCount}]</span>`;
-        // }
-
-        // MEMO 게시글 제목 [댓글 수] 📷
         // 0을 제외한 (답글이 아닌) 댓글 수 표시
         if (article.commentCount > 0) {
             titleLink.innerHTML = `${article.title}<span class='inline-block'>&nbsp;[${article.commentCount}]</span>`;

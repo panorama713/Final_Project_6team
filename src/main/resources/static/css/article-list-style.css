@@ -87,3 +87,8 @@ a:hover {
     background-color: var(--sub-color);
     color: var(--main-color);
 }
+
+.inline-block {
+    color: var(--sub-color);
+    display: inline-block;
+}

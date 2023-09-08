@@ -18,8 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
+import java.util.UUID;
 
 import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
 import static com.example.hiddenpiece.security.CookieManager.*;
@@ -122,6 +127,7 @@ public class UserService {
                 .username(user.getUsername())
                 .realName(user.getRealName())
                 .email(user.getEmail())
+                .profileImg(user.getProfileImg())
                 .numberOfWrittenArticle(0)     // TODO 기능 구현시 구현 예정
                 .numberOfWrittenComment(0)     // TODO 기능 구현시 구현 예정
                 .followingCount(followService.getCountOfFollowing(user))
@@ -196,6 +202,39 @@ public class UserService {
 
     // 유저 정보 수정
 
+
+    // 유저 프로필 수정
+    @Transactional
+    public void updateProfileImg(MultipartFile image, Long userId, String username) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        if (!user.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
+
+        String profileImgDir = String.format("uploads/profile_images/%d/", userId);
+        try {
+            Files.createDirectories(Path.of(profileImgDir));
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            throw new CustomException(INTERNAL_ERROR);
+        }
+
+        String originalFilename = image.getOriginalFilename();
+        String[] fileNameSplit = originalFilename.split("\\.");
+        String extension = fileNameSplit[fileNameSplit.length - 1];
+        String profileFilename = UUID.randomUUID() + "." + extension;
+        String profileImagePath = profileImgDir + profileFilename;
+
+        try {
+            image.transferTo(Path.of(profileImagePath));
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            throw new CustomException(INTERNAL_ERROR);
+        }
+
+        user.setProfileImg(String.format("/static/profile_images/%d/%s", userId, profileFilename));
+        userRepository.save(user);
+        log.info("이미지 등록 성공");
+    }
 
     // 계정 탈퇴
 

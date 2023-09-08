@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,6 +91,9 @@ public class ArticleService {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ARTICLE));
 
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        boolean isCurrentWriter = article.getUser().getUsername().equals(currentUsername);
+
         return ArticleResponseDto.builder()
                 .articleId(articleId)
                 .username(article.getUser().getUsername())
@@ -103,6 +107,7 @@ public class ArticleService {
                 .likeCount(likeService.getLikeCount(article))
                 .images(articleImageService.readAllArticleImages(articleId))
                 .comments(commentService.readAllCommentsForArticle(articleId))
+                .isWriter(isCurrentWriter)
                 .build();
     }
 

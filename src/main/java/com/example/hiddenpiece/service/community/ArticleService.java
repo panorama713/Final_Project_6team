@@ -113,8 +113,25 @@ public class ArticleService {
     }
 
     public List<ArticleListResponseDto> searchArticles(String keyword, Category category) {
-        List<Article> articles = articleRepository.findByCategoryAndTitleContainingOrCategoryAndContentContaining(category, keyword, category, keyword);
-        return articles.stream().map(ArticleListResponseDto::new).collect(Collectors.toList());
+
+        // JPQL 쿼리 작성: 각 게시글과 해당하는 (답글이 아닌) 댓글 수 조회
+        String jpql = "SELECT a, (SELECT COUNT(c) FROM Comment c WHERE c.article = a AND c.parentComment IS NULL) " +
+                "FROM Article a " +
+                "WHERE (a.title LIKE :keyword OR a.content LIKE :keyword) AND a.category = :category " +
+                "ORDER BY a.createdAt DESC";
+
+        TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
+        query.setParameter("keyword", "%" + keyword + "%");
+        query.setParameter("category", category);
+
+        List<ArticleListResponseDto> result = query.getResultList().stream()
+                .map(row -> {
+                    Article article = (Article) row[0];
+                    int commentCount = ((Number) row[1]).intValue();
+                    return new ArticleListResponseDto(article, commentCount);
+                }).collect(Collectors.toList());
+
+        return result;
     }
 
     @Transactional

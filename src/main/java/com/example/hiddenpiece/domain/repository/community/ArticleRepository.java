@@ -21,4 +21,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findByCategoryAndTitleContainingOrCategoryAndContentContaining(Category category1, String keyword1, Category category2, String keyword2);
     Page<Article> findAll(Pageable pageable);
     Page<Article> findByCategory(Category category, Pageable pageable);
+
 }

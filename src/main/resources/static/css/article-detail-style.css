@@ -41,14 +41,14 @@
     background-color: var(--main-color);
 }
 
-.list-btn, .like-btn {
+.list-btn, .like-btn, .bookmark-btn {
     float: right;
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
     margin-right: 5px;
 }
 
-.clicked-like-btn {
+.list-btn:hover, .like-btn:hover, .bookmark-btn:hover, comment-btn:hover {
     float: right;
     border: 1px solid var(--sub-color);
     background-color: var(--sub-color);

@@ -63,6 +63,7 @@ function displayArticles(articles) {
         var typeElement = document.createElement('td');
         var createdAtElement = document.createElement('td');
         var viewCountElement = document.createElement('td')
+        var likeCountElement = document.createElement('td')
 
         var titleLink = document.createElement('a');
         titleLink.href = article.id;
@@ -90,12 +91,14 @@ function displayArticles(articles) {
         usernameElement.textContent = article.username;
         createdAtElement.textContent = formatCreatedAt(article.createdAt);
         viewCountElement.textContent = article.viewCount;
+        likeCountElement.textContent = article.likeCount;
 
         row.appendChild(typeElement);
         row.appendChild(titleElement);
         row.appendChild(usernameElement);
         row.appendChild(createdAtElement);
         row.appendChild(viewCountElement);
+        row.appendChild(likeCountElement);
 
         articleList.appendChild(row);
 

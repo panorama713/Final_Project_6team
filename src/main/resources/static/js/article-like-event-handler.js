@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
                 else {
-                    alert("좋아요를 누르셨습니다.")
+                    alert("좋아요 누르셨습니다.")
                 }
             })
     })

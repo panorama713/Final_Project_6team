@@ -44,6 +44,9 @@ public class Article extends BaseTimeEntity {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int viewCount;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int likeCount;
+
     private LocalDateTime deletedAt;
 
     @JsonIgnore
@@ -79,4 +82,5 @@ public class Article extends BaseTimeEntity {
         articleBookmark.setArticle(this);
         this.articleBookmarks.add(articleBookmark);
     }
+
 }

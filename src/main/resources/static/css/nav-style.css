@@ -95,12 +95,11 @@
 
 .profile-container {
     margin: 0 auto;
-    width: 180px;
+    min-width: 310px;
     height: 50px;
 }
 
 .info-logout {
-    display: none;
     position: relative;
 }
 

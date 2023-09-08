@@ -84,9 +84,8 @@ public class UserService {
     // 토큰 재발급
     @Transactional
     public void reissueAccessToken(HttpServletRequest request, HttpServletResponse response) {
+        log.info("토큰 재발급 시작");
         String refreshToken = cookieManager.getCookie(request, REFRESH_TOKEN);
-
-        verifiedRefreshToken(refreshToken);
 
         try {
             Claims claims = jwtUtil.parseClaims(refreshToken);
@@ -103,8 +102,12 @@ public class UserService {
                 long accessTokenExpirationMillis = jwtUtil.getAccessTokenExpirationMillis();
 
                 cookieManager.setCookie(response, newAccessToken, ACCESS_TOKEN, accessTokenExpirationMillis);
+                log.info("재발급 성공");
             }
         } catch (Exception e) {
+            log.error("재발급 실패: 리프레쉬 토큰 만료");
+            cookieManager.deleteCookie(response, ACCESS_TOKEN);
+            cookieManager.deleteCookie(response, REFRESH_TOKEN);
             throw new CustomException(REISSUE_FAILED);
         }
     }
@@ -142,8 +145,7 @@ public class UserService {
                 .build();
     }
 
-    @Transactional
-    public UserProfileResponseDto checkLogin(HttpServletRequest req) {
+    public UserProfileResponseDto readMiniProfile(HttpServletRequest req) {
         String accessToken = cookieManager.getCookie(req, ACCESS_TOKEN);
         if (accessToken != null) {
             String username = jwtUtil.getAuthentication(accessToken).getName();
@@ -196,12 +198,6 @@ public class UserService {
 
     // 계정 탈퇴
 
-
-    private void verifiedRefreshToken(String refreshToken) {
-        if (refreshToken == null) {
-            throw new CustomException(CustomExceptionCode.REFRESH_TOKEN_NOT_EXISTS);
-        }
-    }
 
     public User findUserAndCheckUserExists(Long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));

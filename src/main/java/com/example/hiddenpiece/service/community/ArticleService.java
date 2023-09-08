@@ -19,7 +19,9 @@ import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
@@ -70,23 +72,15 @@ public class ArticleService {
     public Page<ArticleListResponseDto> getListByCategory(int page, Category category) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
 
-        // JPQL 쿼리 작성: 각 게시글과 해당하는 (답글이 아닌) 댓글 수 조회
         String jpql = "SELECT a, (SELECT COUNT(c) FROM Comment c WHERE c.article = a AND c.parentComment IS NULL) " +
                 "FROM Article a " +
                 "WHERE a.category = :category " +
                 "ORDER BY a.createdAt DESC";
 
-        TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
-        query.setParameter("category", category);
-        query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        query.setMaxResults(pageable.getPageSize());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("category", category);
 
-        List<ArticleListResponseDto> result = query.getResultList().stream()
-                .map(row -> {
-                    Article article = (Article) row[0];
-                    int commentCount = ((Number) row[1]).intValue();
-                    return new ArticleListResponseDto(article, commentCount);
-                }).collect(Collectors.toList());
+        List<ArticleListResponseDto> result = getArticlesWithCommentCount(jpql, parameters);
 
         return new PageImpl<>(result, pageable, result.size());
     }
@@ -114,24 +108,16 @@ public class ArticleService {
 
     public List<ArticleListResponseDto> searchArticles(String keyword, Category category) {
 
-        // JPQL 쿼리 작성: 각 게시글과 해당하는 (답글이 아닌) 댓글 수 조회
         String jpql = "SELECT a, (SELECT COUNT(c) FROM Comment c WHERE c.article = a AND c.parentComment IS NULL) " +
                 "FROM Article a " +
                 "WHERE (a.title LIKE :keyword OR a.content LIKE :keyword) AND a.category = :category " +
                 "ORDER BY a.createdAt DESC";
 
-        TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
-        query.setParameter("keyword", "%" + keyword + "%");
-        query.setParameter("category", category);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("keyword", "%" + keyword + "%");
+        parameters.put("category", category);
 
-        List<ArticleListResponseDto> result = query.getResultList().stream()
-                .map(row -> {
-                    Article article = (Article) row[0];
-                    int commentCount = ((Number) row[1]).intValue();
-                    return new ArticleListResponseDto(article, commentCount);
-                }).collect(Collectors.toList());
-
-        return result;
+        return getArticlesWithCommentCount(jpql, parameters);
     }
 
     @Transactional
@@ -170,5 +156,28 @@ public class ArticleService {
         Query query = entityManager.createQuery("UPDATE Article a SET a.viewCount = a.viewCount + 1 WHERE a.id = :articleId");
         query.setParameter("articleId", articleId);
         query.executeUpdate();
+    }
+
+    /**
+     * 게시글과 해당하는 댓글 수를 함께 조회하는 메서드
+     * @param jpql           실행할 JPQL 쿼리 문자열
+     * @param parameters     JPQL 쿼리의 파라미터와 해당하는 값을 매핑한 Map
+     * @return               게시글 정보와 해당하는 댓글 수를 포함한 DTO 리스트
+     */
+    private List<ArticleListResponseDto> getArticlesWithCommentCount(String jpql, Map<String, Object> parameters) {
+        TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
+
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+
+        List<ArticleListResponseDto> result = query.getResultList().stream()
+                .map(row -> {
+                    Article article = (Article) row[0];
+                    int commentCount = ((Number) row[1]).intValue();
+                    return new ArticleListResponseDto(article, commentCount);
+                }).collect(Collectors.toList());
+
+        return result;
     }
 }

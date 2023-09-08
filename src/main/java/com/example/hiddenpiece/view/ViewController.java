@@ -67,8 +67,13 @@ public class ViewController {
     }
 
     @GetMapping("/roadmaps/{roadmapId}/elements")
-    public String roadmap() {
-        return "roadmap-function";
+    public String roadmapElement() {
+        return "roadmap-element";
+    }
+
+    @GetMapping("/bookmarks/roadmaps")
+    public String roadmapBookmark() {
+        return "roadmap-bookmark";
     }
 
     @GetMapping("/search")

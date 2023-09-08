@@ -1,0 +1,40 @@
+/* 글씨체 적용 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #4e4897;
+    --sub-color: #a7a5cd;
+    --white-color: #ffffff;
+}
+
+/* 폰트 설정 */
+* {
+    font-family: "yg-jalnan" !important;
+}
+
+/*로드맵 북마크 목록 버튼 설정*/
+.roadmap-bookmark-btn {
+    border: 2px solid var(--main-color);
+    background-color: var(--main-color);
+}
+.roadmap-bookmark-btn:hover {
+    text-decoration: none;
+    border: 2px solid var(--sub-color);
+    background-color: var(--sub-color);
+    color: var(--main-color);
+}
+
+/*로드맵 북마크 목록의 타입 뱃지 설정*/
+.type {
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+    border-radius: 0;
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+}

@@ -1,13 +1,10 @@
 package com.example.hiddenpiece.domain.dto.bookmark;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Builder
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class RequestRoadmapBookmarkDto {
     private String title;

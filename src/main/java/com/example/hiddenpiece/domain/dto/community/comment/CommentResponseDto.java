@@ -2,7 +2,9 @@ package com.example.hiddenpiece.domain.dto.community.comment;
 
 import com.example.hiddenpiece.domain.entity.comment.Comment;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,13 +20,20 @@ public class CommentResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
 
+    @JsonProperty("isWriter")
+    private Boolean isWriter;
+
     public static CommentResponseDto fromEntity(Comment entity) {
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        boolean isCurrentWriter = entity.getUser().getUsername().equals(currentUsername);
+
         return CommentResponseDto.builder()
                 .id(entity.getId())
                 .username(entity.getUser().getUsername())
                 .content(entity.getContent())
                 .createdAt(entity.getCreatedAt())
                 .lastModifiedAt(entity.getLastModifiedAt())
+                .isWriter(isCurrentWriter)
                 .build();
     }
 
@@ -32,6 +41,18 @@ public class CommentResponseDto {
     private List<CommentResponseDto> replies;
 
     public void setReplies(List<CommentResponseDto> replies) {
+        if (replies != null && !replies.isEmpty()) {
+            String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
+            for (CommentResponseDto reply : replies) {
+                reply.setIsWriter(reply.getUsername().equals(currentUsername));
+            }
+        }
+
         this.replies = replies;
+    }
+
+    public void setIsWriter(boolean isWriter) {
+        this.isWriter = isWriter;
     }
 }

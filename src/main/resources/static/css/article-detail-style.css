@@ -21,8 +21,8 @@
 
 /* 게시글 설정 */
 .article {
-    max-width: 1000px;
-    margin: 0 auto;
+    max-width: 1200px;
+    margin: 100px auto auto;
     padding: 20px;
     border: 2px solid var(--main-color);
     border-radius: 5px;

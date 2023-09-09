@@ -26,6 +26,9 @@ public enum CustomExceptionCode {
      * 403
      */
     UNAUTHORIZED_ACCESS(HttpStatus.FORBIDDEN, "잘못된 접근입니다."),
+    CANNOT_LIKE_YOUR_ARTICLE(HttpStatus.FORBIDDEN, "자신의 글은 좋아요를 누를 수 없습니다."),
+    CANNOT_BOOKMARK_YOUR_ARTICLE(HttpStatus.FORBIDDEN, "자신의 글은 북마크할 수 없습니다."),
+    CANNOT_FOLLOW_YOURSELF(HttpStatus.FORBIDDEN,"자기 자신은 팔로우 할 수 없습니다." ),
     /*
      * 404
      */

@@ -1,6 +1,7 @@
 package com.example.hiddenpiece.domain.repository.community;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.community.Category;
+import com.example.hiddenpiece.domain.entity.user.User;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

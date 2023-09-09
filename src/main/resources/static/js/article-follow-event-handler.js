@@ -22,6 +22,9 @@ document.addEventListener("DOMContentLoaded", function() {
                                 });
                         }
                     }
+                    if (response.status === 403) {
+                        alert("자기 자신은 팔로우 할 수 없습니다.")
+                    }
                 }
                 else {
                     alert("팔로우가 완료되었습니다.")

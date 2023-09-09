@@ -31,6 +31,10 @@ public class FollowService {
             throw new CustomException(FOLLOW_FAILED);
         }
 
+        if (toUser == fromUser) {
+            throw new CustomException(CANNOT_FOLLOW_YOURSELF);
+        }
+
         followRepository.save(Follow.builder()
                         .fromUser(fromUser)
                         .toUser(toUser).build());

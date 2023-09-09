@@ -42,6 +42,9 @@ sendBookmark.addEventListener("click", function() {
                             });
                     }
                 }
+                if (response.status === 403) {
+                    alert("자신의 글은 북마크할 수 없습니다.")
+                }
             }
             else {
                 alert("북마크 되었습니다.")

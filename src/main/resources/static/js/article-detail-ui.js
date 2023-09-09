@@ -30,6 +30,12 @@ function displayArticleDetails(data, articleId) {
         document.querySelector('.type').style.display = 'none';
     }
     displayArticleImages(data.images || [], articleId);
+
+    // 작성자의 일치 여부에 따른 글 설정 액션 버튼 표시
+    const articleActionButton = document.querySelector('.btn.btn-secondary.dropdown-toggle.article-dropdown');
+    if (articleActionButton) {
+        articleActionButton.style.display = data.isWriter ? 'block' : 'none';
+    }
 }
 
 // 웹 페이지에 게시글의 이미지 표시
@@ -52,13 +58,7 @@ function displayArticleImages(images, articleId) {
         console.log(imgElement.src);
     });
 
-
     // 이미지의 유무에 따른 이미지 액션 버튼 표시
     const imageActionButton = document.getElementById('article-images-action');
-    if (images.length > 0) {
-        imageActionButton.style.display = 'block'; // 버튼 보이기
-    } else {
-        imageActionButton.style.display = 'none';  // 버튼 숨기기
-    }
+    imageActionButton.style.display = images.length > 0 ? 'block' : 'none';
 }
-

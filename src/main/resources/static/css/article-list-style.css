@@ -81,9 +81,23 @@ a:hover {
     color: white;
 }
 
-#write-btn:hover {
+#write-btn:hover, #article-search-button:hover {
     text-decoration: none;
     border: 2px solid var(--sub-color);
     background-color: var(--sub-color);
     color: var(--main-color);
+}
+
+.inline-block {
+    color: var(--sub-color);
+    display: inline-block;
+}
+
+.form-control:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 0.3rem rgba(78, 72, 151, 0.25);
+}
+
+.form-control:hover {
+    border-color: var(--sub-color);
 }

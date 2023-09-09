@@ -3,6 +3,7 @@ import com.example.hiddenpiece.domain.dto.community.comment.CommentResponseDto;
 import com.example.hiddenpiece.domain.dto.community.image.ArticleImageResponseDto;
 import com.example.hiddenpiece.domain.entity.community.ArticleType;
 import com.example.hiddenpiece.domain.entity.community.Category;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -25,4 +26,7 @@ public class ArticleResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
     private int viewCount;
+
+    @JsonProperty("isWriter")
+    private boolean isWriter;
 }

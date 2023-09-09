@@ -15,17 +15,18 @@ import com.example.hiddenpiece.service.image.ArticleImageService;
 import com.example.hiddenpiece.service.like.LikeService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,14 +72,27 @@ public class ArticleService {
     // 카테고리 게시글 목록 조회
     public Page<ArticleListResponseDto> getListByCategory(int page, Category category) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
-        return articleRepository.findByCategory(category, pageable)
-                .map(ArticleListResponseDto::new);
+
+        String jpql = "SELECT a, (SELECT COUNT(c) FROM Comment c WHERE c.article = a AND c.parentComment IS NULL) " +
+                "FROM Article a " +
+                "WHERE a.category = :category " +
+                "ORDER BY a.createdAt DESC";
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("category", category);
+
+        List<ArticleListResponseDto> result = getArticlesWithCommentCount(jpql, parameters);
+
+        return new PageImpl<>(result, pageable, result.size());
     }
 
     // 게시글 단독 조회
     public ArticleResponseDto readArticle(Long articleId) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ARTICLE));
+
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        boolean isCurrentWriter = article.getUser().getUsername().equals(currentUsername);
 
         return ArticleResponseDto.builder()
                 .articleId(articleId)
@@ -93,12 +107,22 @@ public class ArticleService {
                 .likeCount(likeService.getLikeCount(article))
                 .images(articleImageService.readAllArticleImages(articleId))
                 .comments(commentService.readAllCommentsForArticle(articleId))
+                .isWriter(isCurrentWriter)
                 .build();
     }
 
     public List<ArticleListResponseDto> searchArticles(String keyword, Category category) {
-        List<Article> articles = articleRepository.findByCategoryAndTitleContainingOrCategoryAndContentContaining(category, keyword, category, keyword);
-        return articles.stream().map(ArticleListResponseDto::new).collect(Collectors.toList());
+
+        String jpql = "SELECT a, (SELECT COUNT(c) FROM Comment c WHERE c.article = a AND c.parentComment IS NULL) " +
+                "FROM Article a " +
+                "WHERE (a.title LIKE :keyword OR a.content LIKE :keyword) AND a.category = :category " +
+                "ORDER BY a.createdAt DESC";
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("keyword", "%" + keyword + "%");
+        parameters.put("category", category);
+
+        return getArticlesWithCommentCount(jpql, parameters);
     }
 
     @Transactional
@@ -137,5 +161,28 @@ public class ArticleService {
         Query query = entityManager.createQuery("UPDATE Article a SET a.viewCount = a.viewCount + 1 WHERE a.id = :articleId");
         query.setParameter("articleId", articleId);
         query.executeUpdate();
+    }
+
+    /**
+     * 게시글과 해당하는 댓글 수를 함께 조회하는 메서드
+     * @param jpql           실행할 JPQL 쿼리 문자열
+     * @param parameters     JPQL 쿼리의 파라미터와 해당하는 값을 매핑한 Map
+     * @return               게시글 정보와 해당하는 댓글 수를 포함한 DTO 리스트
+     */
+    private List<ArticleListResponseDto> getArticlesWithCommentCount(String jpql, Map<String, Object> parameters) {
+        TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
+
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+
+        List<ArticleListResponseDto> result = query.getResultList().stream()
+                .map(row -> {
+                    Article article = (Article) row[0];
+                    int commentCount = ((Number) row[1]).intValue();
+                    return new ArticleListResponseDto(article, commentCount);
+                }).collect(Collectors.toList());
+
+        return result;
     }
 }

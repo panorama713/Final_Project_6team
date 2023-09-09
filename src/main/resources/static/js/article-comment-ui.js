@@ -35,6 +35,14 @@ function formatDateTime(createdAt, lastModifiedAt) {
 function commentTemplate(comment) {
     const formattedContent = formatContent(comment.content);
     const formattedDateTime = formatDateTime(comment.createdAt, comment.lastModifiedAt);
+
+    // 작성자의 일치 여부에 따른 수정 및 삭제 옵션 표시
+    const commentActions = comment.isWriter ?
+        `
+    <li><a class="dropdown-item edit-comment-btn" href="#">수정</a></li>
+    <li><a class="dropdown-item delete-comment-btn" href="#">삭제</a></li>
+    ` : '';
+
     return `
         <div class="comment" data-id="${comment.id}">
             <div class="comment-align">
@@ -44,8 +52,7 @@ function commentTemplate(comment) {
                 <button class="btn btn-secondary btn-sm dropdown-toggle comment-dropdown" type="button" data-bs-toggle="dropdown"></button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item reply-comment-btn" href="#">답글</a></li>
-                    <li><a class="dropdown-item edit-comment-btn" href="#">수정</a></li>
-                    <li><a class="dropdown-item delete-comment-btn" href="#">삭제</a></li>
+                    ${commentActions}
                 </ul>
             </div>
             <p>${formattedContent}</p>
@@ -56,16 +63,23 @@ function commentTemplate(comment) {
 // 답글 템플릿 생성
 function replyTemplate(reply) {
     const formattedDateTime = formatDateTime(reply.createdAt, reply.lastModifiedAt);
+
+    // 작성자의 일치 여부에 따른 수정 및 삭제 옵션 표시
+    const replyActions = reply.isWriter ?
+        `
+        <button class="btn btn-secondary btn-sm dropdown-toggle comment-dropdown" type="button" data-bs-toggle="dropdown"></button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item edit-reply-btn" href="#">수정</a></li>
+            <li><a class="dropdown-item delete-reply-btn" href="#">삭제</a></li>
+        </ul>
+        ` : '';
+
     return `
         <div class="comment-reply" data-id="${reply.id}">
             <div class="comment-align">
                 <h7 class="comment-user">${reply.username}</h7>
                 <small class="comment-date">${formattedDateTime}</small>
-                <button class="btn btn-secondary btn-sm dropdown-toggle comment-dropdown" type="button" data-bs-toggle="dropdown"></button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item edit-reply-btn" href="#">수정</a></li>
-                    <li><a class="dropdown-item delete-reply-btn" href="#">삭제</a></li>
-                </ul>
+                ${replyActions}
             </div>
             <p>${reply.content}</p>
         </div>

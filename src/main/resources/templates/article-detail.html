@@ -8,12 +8,14 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
           crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/article-detail-style.css">
+    <link rel="stylesheet" href="/static/css/nav-style.css">
 </head>
 <body>
-
+<header th:replace="~{navbar.html :: header}"></header>
 <div class="container mt-5">
     <div class="article">
         <div class="article-top">
+            <button class="btn btn-primary list-btn" id="list-btn" type="button">목록으로</button>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle article-dropdown" type="button"
                         data-bs-toggle="dropdown" aria-expanded="false">글 설정</button>
@@ -29,18 +31,6 @@
                     </form>
                 </ul>
             </div>
-            <button class="btn btn-primary list-btn" id="list-btn" type="button">목록으로</button>
-            <button class="btn btn-primary like-btn" id="like-btn" type="button">좋아요</button>
-            <button class="btn btn-primary bookmark-btn" id="bookmark-btn" type="button">북마크</button>
-            <div id="bookmarkModal" class="modal">
-                <div class="modal-content">
-                    <span>북마크 이름:</span>
-                    <input class="bookmark-name" type="text" id="bookmark-name" value="">
-                    <button class="btn btn-primary sendBookmarkBtn" id="sendBookmarkBtn">보내기</button>
-                    <button class="btn btn-primary closeModalBtn" id="closeModalBtn">닫기</button>
-                </div>
-            </div>
-
             <div class="article-title">
                 <span class="badge rounded-pill type" id="type"></span>
                 <span id="article-title"></span>
@@ -56,6 +46,16 @@
         <div id="article-images" class="article-images"></div>
         <div class="article-like">
             <span id="article-like-count"></span>
+        </div>
+        <button class="btn btn-primary like-btn" id="like-btn" type="button">좋아요</button>
+        <button class="btn btn-primary bookmark-btn" id="bookmark-btn" type="button">북마크</button>
+        <div id="bookmarkModal" class="modal">
+            <div class="modal-content">
+                <span>북마크 이름:</span>
+                <input class="bookmark-name" type="text" id="bookmark-name" value="">
+                <button class="btn btn-primary sendBookmarkBtn" id="sendBookmarkBtn">보내기</button>
+                <button class="btn btn-primary closeModalBtn" id="closeModalBtn">닫기</button>
+            </div>
         </div>
     </div>
     <div class="comments">
@@ -79,7 +79,6 @@
         crossorigin="anonymous"></script>
 <script src="/static/js/article-detail-data-process.js"></script>
 <script src="/static/js/article-detail-ui.js"></script>
-<script src="/static/js/article-list-data-process.js"></script>
 <script src="/static/js/article-image-data-process.js"></script>
 <script src="/static/js/article-detail-event-handler.js"></script>
 <script src="/static/js/article-comment-ui.js"></script>
@@ -87,5 +86,6 @@
 <script src="/static/js/article-subscribe-event-handler.js"></script>
 <script src="/static/js/article-comment-event-handler.js"></script>
 <script src="/static/js/article-comment-data-process.js"></script>
+<script type="module" src="/static/js/nav-event-handler.js"></script>
 </body>
 </html>

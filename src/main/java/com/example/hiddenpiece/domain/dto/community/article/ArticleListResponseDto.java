@@ -21,8 +21,9 @@ public class ArticleListResponseDto {
     private LocalDateTime lastModifiedAt;
     private int viewCount;
     private boolean hasImage;
+    private int commentCount;
 
-    public ArticleListResponseDto(Article entity) {
+    public ArticleListResponseDto(Article entity, int commentCount) {
         this.id = entity.getId();
         this.username = entity.getUser().getUsername();
         this.title = entity.getTitle();
@@ -33,5 +34,10 @@ public class ArticleListResponseDto {
         this.lastModifiedAt = entity.getLastModifiedAt();
         this.viewCount = entity.getViewCount();
         this.hasImage = !entity.getArticleImages().isEmpty();
+        this.commentCount = commentCount;
+    }
+
+    public ArticleListResponseDto(Article entity) {
+        this(entity, 0);
     }
 }

@@ -21,8 +21,8 @@
 
 /* 게시글 설정 */
 .article {
-    max-width: 1000px;
-    margin: 0 auto;
+    max-width: 1200px;
+    margin: 100px auto auto;
     padding: 20px;
     border: 2px solid var(--main-color);
     border-radius: 5px;
@@ -39,13 +39,14 @@
     float: right;
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
+    margin-right: 5px;
 }
 
 .list-btn, .like-btn, .bookmark-btn {
     float: right;
-    border: 1px solid var(--main-color);
-    background-color: var(--main-color);
-    margin-right: 5px;
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
 }
 
 .list-btn:hover, .like-btn:hover, .bookmark-btn:hover, comment-btn:hover {
@@ -56,7 +57,9 @@
     color: black;
  }
 
-.btn-secondary:hover {
+
+.list-btn.btn-primary:not(:disabled):not(.disabled):active,
+.list-btn.btn-primary:not(:disabled):not(.disabled).active {
     background-color: var(--main-color);
     border-color: var(--main-color);
 }
@@ -192,8 +195,16 @@
 }
 
 .comment-btn {
-    border: 2px solid var(--main-color);
+    border-color: var(--main-color);
     background-color: var(--main-color);
+}
+
+.comment-btn:hover,
+.comment-btn.btn-primary:not(:disabled):not(.disabled):active,
+.comment-btn.btn-primary:not(:disabled):not(.disabled).active {
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
 }
 
 .comment-dropdown {
@@ -252,4 +263,13 @@
     color: var(--sub-color);
     margin-left: auto;
     margin-right: 20px;
+}
+
+.form-control:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 0.3rem rgba(78, 72, 151, 0.25);
+}
+
+.form-control:hover {
+    border-color: var(--sub-color);
 }

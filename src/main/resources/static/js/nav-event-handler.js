@@ -1,18 +1,6 @@
 // 로그인 체크
-async function checkLogin() {
-    try {
-        const response = await fetch('/api/v1/users/check-login');
-
-        if (response.ok) {
-            return await response.json()
-        } else {
-            console.error("로그인 상태 알 수 없음")
-            return null;
-        }
-    } catch (error) {
-        console.error("로그인 에러", error)
-        return null
-    }
+function checkLogin() {
+    return localStorage.getItem('isLoggedIn');
 }
 
 const profileImage = document.getElementById('profileImg')
@@ -22,11 +10,17 @@ const loginButton = document.querySelector('.info-login')
 const logoutButton = document.getElementById('logout-button')
 
 async function initAuthStatus() {
-    const isLoggedIn = await checkLogin()
+    const isLoggedIn = checkLogin()
 
     if (isLoggedIn != null) {
-        profileImage.src = isLoggedIn.profileImg
-        username.textContent = isLoggedIn.username
+        fetch('/api/v1/users/mini-profile').then((response) => {
+            return response.json();
+        }).then((data) => {
+            profileImage.src = data.profileImg
+            username.textContent = data.username
+        }).catch((error) => {
+            console.error(error.message);
+        })
 
         userInfo.style.display = 'block'
         loginButton.style.display = 'none'
@@ -47,6 +41,7 @@ logoutButton.addEventListener('click', async() => {
         if (response.ok) {
             window.location.replace("/views/main")
 
+            localStorage.removeItem('isLoggedIn')
             userInfo.style.display = 'none'
             loginButton.style.display = 'block'
         }
@@ -61,3 +56,44 @@ document.querySelector('.search-btn').addEventListener('click', function(event) 
 
     window.location.href = `/views/search?query=${encodeURIComponent(searchInput)}`
 })
+
+// 게시판 카테고리
+function handleButtonClick(buttonId) {
+    if (buttonId === 'category-front-end') {
+        localStorage.setItem('currentCategory', 'FRONTEND');
+    } else if (buttonId === 'category-back-end') {
+        localStorage.setItem('currentCategory', 'BACKEND');
+    } else if (buttonId === 'category-mobile') {
+        localStorage.setItem('currentCategory', 'MOBILE');
+    } else if (buttonId === 'category-game') {
+        localStorage.setItem('currentCategory', 'GAME');
+    } else if (buttonId === 'category-devops') {
+        localStorage.setItem('currentCategory', 'DEVOPS');
+    }
+    window.location.href = '/views/articles/list';
+}
+
+var frontEndBtn = document.getElementById("category-front-end");
+frontEndBtn.addEventListener("click", function() {
+    handleButtonClick('category-front-end');
+});
+
+var backEndBtn = document.getElementById("category-back-end");
+backEndBtn.addEventListener("click", function() {
+    handleButtonClick('category-back-end');
+});
+
+var mobileBtn = document.getElementById("category-mobile");
+mobileBtn.addEventListener("click", function() {
+    handleButtonClick('category-mobile');
+});
+
+var gameBtn = document.getElementById("category-game");
+gameBtn.addEventListener("click", function() {
+    handleButtonClick('category-game');
+});
+
+var devOpsBtn = document.getElementById("category-devops");
+devOpsBtn.addEventListener("click", function() {
+    handleButtonClick('category-devops');
+});

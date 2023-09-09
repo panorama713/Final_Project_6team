@@ -56,10 +56,10 @@ public class UserController {
         return ResponseEntity.ok(userService.readMyProfile(username));
     }
 
-    // 로그인 여부 체크
-    @GetMapping("/check-login")
+    // 미니 프로필 조회
+    @GetMapping("/mini-profile")
     public ResponseEntity<UserProfileResponseDto> checkLogin(HttpServletRequest req) {
-        return ResponseEntity.ok(userService.checkLogin(req));
+        return ResponseEntity.ok(userService.readMiniProfile(req));
     }
 
     // 유저 인원 수 카운트

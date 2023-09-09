@@ -10,6 +10,7 @@ async function loginUser(data) {
         const response = await sendDataToServer(data);
 
         if (response.ok) {
+            localStorage.setItem('isLoggedIn', 'O')
             window.location.replace("/views/main")
         } else {
             const errorRes = await response.json()

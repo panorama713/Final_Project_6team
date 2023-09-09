@@ -73,15 +73,15 @@ public class ArticleBookmarkService {
 
     // 게시글 북마크 삭제
     @Transactional
-    public void deleteArticleBookmark(String username, Long bookmarkId) {
-        articleBookmarkRepository.delete(process(username, bookmarkId));
+    public void deleteArticleBookmark(String username, Long articleId) {
+        articleBookmarkRepository.delete(process(username, articleId));
     }
 
-    private ArticleBookmark process(String username, Long bookmarkId) {
+    private ArticleBookmark process(String username, Long articleId) {
         User loginUser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
-        ArticleBookmark articleBookmark = articleBookmarkRepository.findById(bookmarkId)
+        ArticleBookmark articleBookmark = articleBookmarkRepository.findByArticleId(articleId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ARTICLE_BOOKMARK));
 
         if (!articleBookmark.getUser().equals(loginUser)) {
@@ -90,4 +90,5 @@ public class ArticleBookmarkService {
 
         return articleBookmark;
     }
+
 }

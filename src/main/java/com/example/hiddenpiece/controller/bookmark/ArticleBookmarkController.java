@@ -47,12 +47,12 @@ public class ArticleBookmarkController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{bookmarkId}/articles")
+    @DeleteMapping("/articles/{articleId}")
     public ResponseEntity<Void> deleteBookmark(
-            Authentication authentication, @PathVariable Long bookmarkId
+            Authentication authentication, @PathVariable Long articleId
     ) {
         String username = authentication.getName();
-        articleBookmarkService.deleteArticleBookmark(username, bookmarkId);
+        articleBookmarkService.deleteArticleBookmark(username, articleId);
         return ResponseEntity.noContent().build();
     }
 }

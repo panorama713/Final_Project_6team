@@ -3,6 +3,9 @@ function displayArticleDetails(data, articleId) {
     document.querySelector('#article-title').textContent = data.title;
     document.querySelector('#article-content').innerHTML = data.content.replace(/\n/g, '<br>');
     document.querySelector('#article-username').textContent = "작성자: " + data.username;
+    document.querySelector('#article-like-count').textContent = "좋아요: " + data.likeCount + "개";
+    document.getElementById('bookmark-name').value = data.title;
+    console.log(document.getElementById('bookmark-name').value )
 
     const displayDate = formatDateTime(data.createdAt, data.lastModifiedAt);
     document.querySelector('#article-date').textContent = "작성 일시: " + displayDate;

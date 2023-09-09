@@ -42,19 +42,22 @@
     margin-right: 5px;
 }
 
-.list-btn, .like-btn, .bookmark-btn {
+.list-btn{
     float: right;
     color: var(--main-color);
     border-color: var(--sub-color);
     background-color: var(--sub-color);
 }
 
-.list-btn:hover, .like-btn:hover, .bookmark-btn:hover, comment-btn:hover {
-    float: right;
-    border: 1px solid var(--sub-color);
+.like-btn, .bookmark-btn {
+    color: var(--main-color);
+    border-color: var(--sub-color);
     background-color: var(--sub-color);
-    margin-right: 5px;
-    color: black;
+}
+
+.list-btn:hover, .like-btn:hover, .bookmark-btn:hover, comment-btn:hover {
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
  }
 
 

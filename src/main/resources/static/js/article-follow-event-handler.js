@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     userFollowBtn.addEventListener("click", function() {
         event.preventDefault();
-        var usernameToFollow = document.querySelector('#article-username').textContent;
+        var usernameToFollow = localStorage.getItem('currentWriter');
         fetch("/api/v1/users/follow?usernameToFollow="+encodeURIComponent(usernameToFollow), {
             method: "POST"
         })
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             })
                                 .then(data => {
                                     alert("팔로우가 취소되었습니다.");
+                                    window.location.reload();
                                 })
                                 .catch(error => {
                                     console.error("팔로우 취소 오류:", error);
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 else {
                     alert("팔로우가 완료되었습니다.")
+                    window.location.reload();
                 }
             })
     })

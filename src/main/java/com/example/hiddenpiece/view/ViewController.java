@@ -38,6 +38,9 @@ public class ViewController {
         return "article-list";
     }
 
+    @GetMapping("/user-profile")
+    public String viewUserProfile() { return "user-profile"; }
+
     @GetMapping("/articles/{articleId}")
     public String articleDetail() {
         return "article-detail";

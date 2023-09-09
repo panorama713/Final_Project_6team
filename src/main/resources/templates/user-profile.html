@@ -1,10 +1,123 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>프로필 보기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/nav-style.css">
+    <link rel="stylesheet" href="/static/css/user-profile-style.css">
 </head>
+
 <body>
 
+<header th:replace="navbar.html :: header"></header>
+
+<div class="container mt-5">
+    <!-- 유저 프로필 정보 -->
+    <div class="row user-profile">
+        <div class="col-md-13">
+            <div class="border p-4">
+                <div class="row align-items-center user-details">
+                    <div class="col-md-2">
+                        <img src="/static/img/profile_default.jpg" id="profile-pic" alt="유저 프로필 사진">
+                    </div>
+                    <div class="col-md-10">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h2 class="profile-name" id="profile-name">유저이름</h2>
+                            </div>
+                            <div>
+                                <button class="btn btn-follow" id="user-follow">Follow</button>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <div>
+                                    <div>작성글</div>
+                                    <div>00</div> <!-- Posts 숫자 -->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div>
+                                    <div>로드맵</div>
+                                    <div>00</div> <!-- Roadmaps 숫자 -->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div>
+                                    <div>팔로워</div>
+                                    <div>00</div> <!-- Followers 숫자 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 글 및 로드맵 목록 탭 -->
+    <div class="user-content mt-5">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts-tab-pane" type="button" role="tab" aria-controls="posts-tab-pane" aria-selected="true">작성글 목록</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="roadmaps-tab" data-bs-toggle="tab" data-bs-target="#roadmaps-tab-pane" type="button" role="tab" aria-controls="roadmaps-tab-pane" aria-selected="false">로드맵 목록</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="TabContent">
+            <div class="tab-pane fade show active" id="posts-tab-pane" role="tabpanel" aria-labelledby="posts-tab" tabindex="0">
+                <!-- 작성글 목록 -->
+                <table class="table article-list">
+                    <thead>
+                    <tr>
+                        <th scope="col">게시판</th>
+                        <th scope="col">카테고리</th>
+                        <th scope="col" class="title-col">제목</th>
+                        <th scope="col">작성일</th>
+                        <th scope="col">조회수</th>
+                        <th scope="col">좋아요</th>
+                    </tr>
+                    </thead>
+                    <tbody id="article-list" class="article-item"> </tbody>
+                </table>
+                <div class="row mt-3">
+                    <div class="col d-flex justify-content-center">
+                        <div id="pagination-container" class="pagination justify-content-center">
+                            <ul class="pagination" id="pagination"> </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="roadmaps-tab-pane" role="tabpanel" aria-labelledby="roadmaps-tab" tabindex="0">
+                <!-- 로드맵 목록 -->
+                <table class="table roadmap-list">
+                    <thead>
+                    <tr>
+                        <th scope="col">th</th>
+                        <th scope="col" class="title-col">제목</th>
+                        <th scope="col">th</th>
+                        <th scope="col">th</th>
+                        <th scope="col">th</th>
+                    </tr>
+                    </thead>
+                    <tbody id="roadmap-list" class="roadmap-item"> </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/user-profile-data-process.js"></script>
+<script src="/static/js/article-follow-event-handler.js"></script>
+<script type="module" src="/static/js/nav-event-handler.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
 </body>
 </html>

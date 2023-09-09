@@ -5,6 +5,7 @@ function fetchArticleDetails(id) {
         .then(data => {
             console.log('게시글 상세 정보:', data);
             displayArticleDetails(data, id);
+            localStorage.setItem('currentWriter', data.username);
         })
         .catch(error => console.error('Error:', error));
 }

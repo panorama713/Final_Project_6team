@@ -43,7 +43,7 @@
                     data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu">
                 <form>
-                    <button class="dropdown-item" id="user-profile">프로필 보기</button>
+                    <a th:href="@{/views/user-profile}" class="dropdown-item" id="user-profile">프로필 보기</a>
                 </form>
                 <form>
                     <button class="dropdown-item" id="user-follow">팔로우</button>
@@ -95,7 +95,7 @@
 <script src="/static/js/article-detail-event-handler.js"></script>
 <script src="/static/js/article-comment-ui.js"></script>
 <script src="/static/js/article-like-event-handler.js"></script>
-<script src="/static/js/article-subscribe-event-handler.js"></script>
+<script src="/js/article-bookmark-event-handler.js"></script>
 <script src="/static/js/article-comment-event-handler.js"></script>
 <script src="/static/js/article-comment-data-process.js"></script>
 <script src="/static/js/article-follow-event-handler.js"></script>

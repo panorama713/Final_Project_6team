@@ -16,16 +16,29 @@ function displayArticles(articles) {
     articles.forEach(function (article) {
         var row = document.createElement('tr');
         var titleElement = document.createElement('td');
-        var usernameElement = document.createElement('td');
         var typeElement = document.createElement('td');
+        var categoryElement = document.createElement('td');
         var createdAtElement = document.createElement('td');
         var viewCountElement = document.createElement('td')
         var likeCountElement = document.createElement('td')
 
         var titleLink = document.createElement('a');
-        titleLink.href = article.id;
+        titleLink.href = "/views/articles/"+ article.id;
         titleLink.textContent = article.title;
         titleElement.appendChild(titleLink);
+
+        // 카테고리 값 한글로 바꾸기
+        const CategoryMappings = {
+            "FRONTEND": '프론트엔드',
+            "BACKEND": '백엔드',
+            "MOBILE": '모바일',
+            "GAME": '게임',
+            "DEVOPS": '데브옵스'
+        };
+
+        let categoryText = CategoryMappings[article.category] || '';
+        categoryElement.textContent = categoryText;
+
 
         // type 값 한글로 바꾸기
         const typeMappings = {
@@ -39,26 +52,13 @@ function displayArticles(articles) {
         let typeText = typeMappings[article.type] || '';
         typeElement.textContent = typeText;
 
-        // 0을 제외한 (답글이 아닌) 댓글 수 표시
-        if (article.commentCount > 0) {
-            titleLink.innerHTML = `${article.title}<span class='inline-block'>&nbsp;[${article.commentCount}]</span>`;
-        } else {
-            titleLink.textContent = article.title;
-        }
-
-        // 이미지의 유무에 따른 아이콘 표시
-        if (article.hasImage) {
-            titleLink.innerHTML += `<span class='inline-block'>&nbsp;📷</span>`;
-        }
-
-        usernameElement.textContent = article.username;
         createdAtElement.textContent = formatCreatedAt(article.createdAt);
         viewCountElement.textContent = article.viewCount;
         likeCountElement.textContent = article.likeCount;
 
+        row.appendChild(categoryElement);
         row.appendChild(typeElement);
         row.appendChild(titleElement);
-        row.appendChild(usernameElement);
         row.appendChild(createdAtElement);
         row.appendChild(viewCountElement);
         row.appendChild(likeCountElement);
@@ -84,34 +84,29 @@ function displayPageNumbers() {
         }
 
         pageNumberButton.addEventListener('click', () => {
-            fetchArticles(i, savedCategory);
+            fetchArticles(i, username);
         });
 
         paginationContainer.appendChild(pageNumberButton);
     }
 }
 
-
 let currentPage = 0;
 let totalPages = 0;
-
-function fetchArticles(page, category) {
-    console.log(page)
-    fetch(`/api/v1/articles?page=${page}&category=${category}`)
+function fetchArticles(page, username) {
+    fetch(`/api/v1/articles/userArticles?page=${page}&username=${username}`)
         .then(response => response.json())
         .then(result => {
             totalPages = result.totalPages;
             currentPage = result.number;
             displayArticles(result.content);
             displayPageNumbers();
-            localStorage.setItem('currentPage', currentPage);
         })
         .catch(error => console.error('Error:', error));
 }
 
-const savedPage = localStorage.getItem('currentPage');
-const savedCategory = localStorage.getItem('currentCategory')
+const username = localStorage.getItem('currentWriter');
+document.querySelector('#profile-name').textContent = username;
 
-fetchArticles(savedPage, savedCategory);
-document.querySelector('#category-title').textContent = savedCategory+ ' 게시판';
+fetchArticles(0, username);
 

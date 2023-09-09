@@ -57,9 +57,14 @@ public class ArticleController {
     @GetMapping
     public ResponseEntity<Page<ArticleListResponseDto>> listByCategory(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "category", required = false) Category category
+            @RequestParam(value = "category") Category category
     ) {
         return ResponseEntity.ok(articleService.getListByCategory(page, category));
+    }
+
+    @GetMapping("/userArticles")
+    public ResponseEntity<Page<ArticleListResponseDto>> listByUsername(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "username") String username) {
+        return ResponseEntity.ok(articleService.getListByUsername(page, username));
     }
 
     @GetMapping("/search")
@@ -67,6 +72,7 @@ public class ArticleController {
                                                                        @RequestParam("category") Category category) {
         return ResponseEntity.ok(articleService.searchArticles(keyword, category));
     }
+
 
 
     // 게시글 단독 조회 (좋아요 개수 포함)

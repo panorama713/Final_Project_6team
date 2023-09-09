@@ -17,11 +17,9 @@ closeModalBtn.addEventListener("click", function() {
 sendBookmark.addEventListener("click", function() {
 
     const bookmarkName = document.getElementById("bookmark-name")
-
     const param = {
         title: bookmarkName.value
     }
-
 
     fetch("/api/v1/bookmarks/articles/" + articleId, {
         method: "POST",

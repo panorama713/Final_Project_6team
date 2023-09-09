@@ -37,7 +37,19 @@
             </div>
         </div>
         <div class="article-meta">
-            <span id="article-username"></span>
+            <div>
+            <span>작성자:</span>
+            <button id="article-username" class="btn dropdown-toggle username-dropdown" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false"></button>
+            <ul class="dropdown-menu">
+                <form>
+                    <button class="dropdown-item" id="user-profile">프로필 보기</button>
+                </form>
+                <form>
+                    <button class="dropdown-item" id="user-follow">팔로우</button>
+                </form>
+            </ul>
+            </div>
             <span id="article-date"></span>
         </div>
         <div class="article-content">
@@ -86,6 +98,7 @@
 <script src="/static/js/article-subscribe-event-handler.js"></script>
 <script src="/static/js/article-comment-event-handler.js"></script>
 <script src="/static/js/article-comment-data-process.js"></script>
+<script src="/static/js/article-follow-event-handler.js"></script>
 <script type="module" src="/static/js/nav-event-handler.js"></script>
 </body>
 </html>

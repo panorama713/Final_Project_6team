@@ -35,21 +35,32 @@
     margin-bottom: 10px;
 }
 
-.article-dropdown {
+.article-dropdown{
     float: right;
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
     margin-right: 5px;
 }
 
-.list-btn {
+.list-btn{
     float: right;
     color: var(--main-color);
     border-color: var(--sub-color);
     background-color: var(--sub-color);
 }
 
-.list-btn:hover,
+.like-btn, .bookmark-btn {
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
+}
+
+.list-btn:hover, .like-btn:hover, .bookmark-btn:hover, comment-btn:hover {
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+ }
+
+
 .list-btn.btn-primary:not(:disabled):not(.disabled):active,
 .list-btn.btn-primary:not(:disabled):not(.disabled).active {
     background-color: var(--main-color);
@@ -66,6 +77,48 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.article-like {
+    color: #737a81;
+    align-items: center;
+    text-align: center;
+}
+
+/* 북마크 모달 */
+.modal {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.bookmark-name {
+    margin-bottom: 10px;
+}
+
+.closeModalBtn, .sendBookmarkBtn {
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+    margin-bottom: 5px;
+}
+
+.closeModalBtn:hover, .sendBookmarkBtn:hover {
+    border: 1px solid var(--sub-color);
+    background-color: var(--sub-color);
+    color: black;
+}
+
+
 
 .article-content {
     margin-top: 20px;

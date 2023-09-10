@@ -64,4 +64,11 @@ public class FollowService {
     public int getCountOfFollower(User toUser) {
         return followRepository.countByToUser(toUser);
     }
+
+    // 팔로워 카운트 오버라이드
+    public int getCountOfFollower(String toUserName) {
+        User toUser = userRepository.findByUsername(toUserName)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        return followRepository.countByToUser(toUser);
+    }
 }

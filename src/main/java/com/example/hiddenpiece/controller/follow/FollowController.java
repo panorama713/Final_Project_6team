@@ -2,6 +2,8 @@ package com.example.hiddenpiece.controller.follow;
 
 import com.example.hiddenpiece.service.follow.FollowService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,6 @@ public class FollowController {
 
     @PostMapping
     public ResponseEntity<Void> follow(@RequestParam("usernameToFollow") String usernameToFollow, Authentication authentication) {
-        System.out.println("\n\n\n\n\n\n\n\n"+usernameToFollow);
         String username = authentication.getName();
         followService.follow(usernameToFollow, username);
         return ResponseEntity.noContent().build();
@@ -26,4 +27,11 @@ public class FollowController {
         followService.unFollow(usernameToFollow, username);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping
+    public ResponseEntity<Integer> getCountOfFollower (@RequestParam("username") String username) {
+        int followNum = followService.getCountOfFollower(username);
+        return ResponseEntity.ok(followNum);
+    }
+
 }

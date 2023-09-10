@@ -18,10 +18,25 @@
     font-family: "yg-jalnan" !important;
 }
 
+
 .container {
     padding-top:50px;
 }
 
+.go-back {
+    margin-bottom: 10px;
+    background-color: var(--main-color);
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.go-back:hover {
+    background-color: var(--sub-color);
+    color: black;
+}
 
 .user-profile .border {
     border: 2px solid var(--main-color) !important;

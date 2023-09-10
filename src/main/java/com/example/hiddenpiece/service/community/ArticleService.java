@@ -75,18 +75,17 @@ public class ArticleService {
     public Page<ArticleListResponseDto> getListByCategory(int page, Category category) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
 
-//        String jpql = "SELECT a, (SELECT COUNT(c) FROM Comment c WHERE c.article = a AND c.parentComment IS NULL) " +
-//                "FROM Article a " +
-//                "WHERE a.category = :category " +
-//                "ORDER BY a.createdAt DESC";
-//
-//        Map<String, Object> parameters = new HashMap<>();
-//        parameters.put("category", category);
-//
-//        List<ArticleListResponseDto> result = getArticlesWithCommentCount(jpql, parameters);
-//
-//        return new PageImpl<>(result, pageable, result.size());
-        return articleRepository.findByCategory(category, pageable).map(ArticleListResponseDto::new);
+        String jpql = "SELECT a, (SELECT COUNT(c) FROM Comment c WHERE c.article = a AND c.parentComment IS NULL) " +
+                "FROM Article a " +
+                "WHERE a.category = :category " +
+                "ORDER BY a.createdAt DESC";
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("category", category);
+
+        List<ArticleListResponseDto> result = getArticlesWithCommentCount(jpql, parameters);
+
+        return new PageImpl<>(result, pageable, result.size());
     }
 
     public Page<ArticleListResponseDto> getListByUsername(int page, String username) {
@@ -95,6 +94,14 @@ public class ArticleService {
         Pageable pageable = PageRequest.of(page, 5, Sort.by("createdAt").descending());
         return articleRepository.findByUser(user, pageable)
                 .map(ArticleListResponseDto::new);
+    }
+
+    // 유저가 쓴 게시글 개수
+    public int getCountOfArticles(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        return articleRepository.countByUser(user);
+
     }
 
     // 게시글 단독 조회

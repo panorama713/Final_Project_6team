@@ -68,7 +68,7 @@ function displayArticles(articles) {
     });
 }
 
-// 페이지 번호 표시
+// 작성글 페이지 번호 표시
 function displayPageNumbers() {
     const paginationContainer = document.getElementById('pagination-container');
     paginationContainer.innerHTML = '';
@@ -91,6 +91,7 @@ function displayPageNumbers() {
     }
 }
 
+
 let currentPage = 0;
 let totalPages = 0;
 function fetchArticles(page, username) {
@@ -105,8 +106,45 @@ function fetchArticles(page, username) {
         .catch(error => console.error('Error:', error));
 }
 
+let countOfFollower = 0;
+// 팔로워 수 받아오기
+function getCountOfFollower(username) {
+    fetch('/api/v1/users/follow?username='+username)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('팔로워 수 불러오기 오류');
+            }
+            return response.json(); // JSON 형식으로 파싱
+        })
+        .then(data => {
+            var followCount = data;
+            document.querySelector('#follower-num').textContent = followCount;
+        })
+        .catch(error => console.error('Error:', error));
+
+}
+
+// 게시글 수 받아오기
+function getCountOfArticles(username) {
+    fetch("/api/v1/articles/countOfArticles?username="+username)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('게시글 수 불러오기 오류');
+            }
+            return response.json(); // JSON 형식으로 파싱
+        })
+        .then(data => {
+            var articleCount = data;
+            document.querySelector('#article-num').textContent = articleCount;
+        })
+        .catch(error => console.error('Error:', error));
+
+}
+
 const username = localStorage.getItem('currentWriter');
 document.querySelector('#profile-name').textContent = username;
 
 fetchArticles(0, username);
+getCountOfFollower(username);
+getCountOfArticles(username);
 

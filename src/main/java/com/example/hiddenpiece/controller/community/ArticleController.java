@@ -62,6 +62,14 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.getListByCategory(page, category));
     }
 
+    // 유저가 쓴 게시글 수
+    @GetMapping("/countOfArticles")
+    public ResponseEntity<Integer> getCountOfArticle (@RequestParam("username") String username) {
+        int articleNum = articleService.getCountOfArticles(username);
+        return ResponseEntity.ok(articleNum);
+    }
+
+    // 유저가 쓴 게시물 목록
     @GetMapping("/userArticles")
     public ResponseEntity<Page<ArticleListResponseDto>> listByUsername(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "username") String username) {
         return ResponseEntity.ok(articleService.getListByUsername(page, username));
@@ -72,6 +80,7 @@ public class ArticleController {
                                                                        @RequestParam("category") Category category) {
         return ResponseEntity.ok(articleService.searchArticles(keyword, category));
     }
+
 
 
 

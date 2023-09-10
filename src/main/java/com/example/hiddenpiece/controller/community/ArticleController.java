@@ -76,9 +76,11 @@ public class ArticleController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<ArticleListResponseDto>> searchArticles(@RequestParam("keyword") String keyword,
-                                                                       @RequestParam("category") Category category) {
-        return ResponseEntity.ok(articleService.searchArticles(keyword, category));
+    public ResponseEntity<Page<ArticleListResponseDto>> searchArticles(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam("category") Category category,
+            @RequestParam("keyword") String keyword) {
+        return ResponseEntity.ok(articleService.searchArticles(page, category, keyword));
     }
 
 

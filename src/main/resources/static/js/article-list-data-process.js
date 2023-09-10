@@ -84,13 +84,16 @@ function displayPageNumbers() {
         }
 
         pageNumberButton.addEventListener('click', () => {
-            fetchArticles(i, savedCategory);
+            if (currentKeyword) {
+                searchPosts(i);
+            } else {
+                fetchArticles(i, savedCategory);
+            }
         });
 
         paginationContainer.appendChild(pageNumberButton);
     }
 }
-
 
 let currentPage = 0;
 let totalPages = 0;

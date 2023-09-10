@@ -80,12 +80,18 @@ public class ArticleService {
                 "WHERE a.category = :category " +
                 "ORDER BY a.createdAt DESC";
 
+        String countJpql = "SELECT COUNT(a) FROM Article a WHERE a.category = :category"; // 전체 항목 수를 계산하는 쿼리
+
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("category", category);
 
-        List<ArticleListResponseDto> result = getArticlesWithCommentCount(jpql, parameters);
+        List<ArticleListResponseDto> result = getArticlesWithCommentCount(jpql, parameters, pageable);
 
-        return new PageImpl<>(result, pageable, result.size());
+        TypedQuery<Long> countQuery = entityManager.createQuery(countJpql, Long.class);
+        countQuery.setParameter("category", category);
+        long totalCount = countQuery.getSingleResult();
+
+        return new PageImpl<>(result, pageable, totalCount);
     }
 
     public Page<ArticleListResponseDto> getListByUsername(int page, String username) {
@@ -129,18 +135,28 @@ public class ArticleService {
                 .build();
     }
 
-    public List<ArticleListResponseDto> searchArticles(String keyword, Category category) {
+    public Page<ArticleListResponseDto> searchArticles(int page, Category category, String keyword) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
 
         String jpql = "SELECT a, (SELECT COUNT(c) FROM Comment c WHERE c.article = a AND c.parentComment IS NULL) " +
                 "FROM Article a " +
                 "WHERE (a.title LIKE :keyword OR a.content LIKE :keyword) AND a.category = :category " +
                 "ORDER BY a.createdAt DESC";
 
+        String countJpql = "SELECT COUNT(a) FROM Article a WHERE (a.title LIKE :keyword OR a.content LIKE :keyword) AND a.category = :category";
+
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("keyword", "%" + keyword + "%");
         parameters.put("category", category);
 
-        return getArticlesWithCommentCount(jpql, parameters);
+        List<ArticleListResponseDto> result = getArticlesWithCommentCount(jpql, parameters, pageable);
+
+        TypedQuery<Long> countQuery = entityManager.createQuery(countJpql, Long.class);
+        countQuery.setParameter("keyword", "%" + keyword + "%");
+        countQuery.setParameter("category", category);
+        long totalCount = countQuery.getSingleResult();
+
+        return new PageImpl<>(result, pageable, totalCount);
     }
 
     @Transactional
@@ -182,17 +198,21 @@ public class ArticleService {
     }
 
     /**
-     * 게시글과 해당하는 댓글 수를 함께 조회하는 메서드
+     * 게시글과 해당 게시글의 댓글 수를 함께 조회하는 메서드
      * @param jpql           실행할 JPQL 쿼리 문자열
-     * @param parameters     JPQL 쿼리의 파라미터와 해당하는 값을 매핑한 Map
-     * @return               게시글 정보와 해당하는 댓글 수를 포함한 DTO 리스트
+     * @param parameters     JPQL 쿼리에 필요한 파라미터를 포함한 Map
+     * @param pageable       페이지네이션 정보를 포함한 Pageable 객체
+     * @return               각 게시글과 해당 댓글 수를 포함한 DTO 리스트
      */
-    private List<ArticleListResponseDto> getArticlesWithCommentCount(String jpql, Map<String, Object> parameters) {
+    private List<ArticleListResponseDto> getArticlesWithCommentCount(String jpql, Map<String, Object> parameters, Pageable pageable) {
         TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
 
         for (Map.Entry<String, Object> entry : parameters.entrySet()) {
             query.setParameter(entry.getKey(), entry.getValue());
         }
+
+        query.setFirstResult((int) pageable.getOffset());
+        query.setMaxResults(pageable.getPageSize());
 
         List<ArticleListResponseDto> result = query.getResultList().stream()
                 .map(row -> {

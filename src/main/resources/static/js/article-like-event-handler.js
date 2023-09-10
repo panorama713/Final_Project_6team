@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
                                 });
                         }
                     }
+                    if (response.status === 403) {
+                        alert("자신의 글은 좋아요를 누를 수 없습니다.")
+                    }
                 }
                 else {
                     alert("좋아요 누르셨습니다.")

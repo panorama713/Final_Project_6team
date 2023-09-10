@@ -17,11 +17,9 @@ closeModalBtn.addEventListener("click", function() {
 sendBookmark.addEventListener("click", function() {
 
     const bookmarkName = document.getElementById("bookmark-name")
-
     const param = {
         title: bookmarkName.value
     }
-
 
     fetch("/api/v1/bookmarks/articles/" + articleId, {
         method: "POST",
@@ -43,6 +41,9 @@ sendBookmark.addEventListener("click", function() {
                                 console.error("북마크 취소 오류:", error);
                             });
                     }
+                }
+                if (response.status === 403) {
+                    alert("자신의 글은 북마크할 수 없습니다.")
                 }
             }
             else {

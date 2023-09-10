@@ -20,8 +20,8 @@ public class FollowService {
     private final FollowRepository followRepository;
 
     @Transactional
-    public void follow(Long toUserId, String fromUserUsername) {
-        User toUser = userRepository.findById(toUserId)
+    public void follow(String toUserId, String fromUserUsername) {
+        User toUser = userRepository.findByUsername(toUserId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
 
         User fromUser = userRepository.findByUsername(fromUserUsername)
@@ -31,14 +31,18 @@ public class FollowService {
             throw new CustomException(FOLLOW_FAILED);
         }
 
+        if (toUser == fromUser) {
+            throw new CustomException(CANNOT_FOLLOW_YOURSELF);
+        }
+
         followRepository.save(Follow.builder()
                         .fromUser(fromUser)
                         .toUser(toUser).build());
     }
 
     @Transactional
-    public void unFollow(Long toUserId, String fromUserUsername) {
-        User toUser = userRepository.findById(toUserId)
+    public void unFollow(String toUserId, String fromUserUsername) {
+        User toUser = userRepository.findByUsername(toUserId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
 
         User fromUser = userRepository.findByUsername(fromUserUsername)
@@ -58,6 +62,13 @@ public class FollowService {
 
     // 팔로워 카운트 세는 로직
     public int getCountOfFollower(User toUser) {
+        return followRepository.countByToUser(toUser);
+    }
+
+    // 팔로워 카운트 오버라이드
+    public int getCountOfFollower(String toUserName) {
+        User toUser = userRepository.findByUsername(toUserName)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
         return followRepository.countByToUser(toUser);
     }
 }

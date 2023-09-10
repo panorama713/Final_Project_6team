@@ -39,6 +39,10 @@ public class ArticleBookmarkService {
             throw new CustomException(CustomExceptionCode.ALREADY_EXIST_ARTICLE_BOOKMARK);
         }
 
+        if (loginUser == targetArticle.getUser()) {
+            throw new CustomException(CustomExceptionCode.CANNOT_BOOKMARK_YOUR_ARTICLE);
+        }
+
         ArticleBookmark articleBookmark = ArticleBookmark.builder()
                 .user(loginUser)
                 .article(targetArticle)

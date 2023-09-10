@@ -1,0 +1,160 @@
+/* 글씨체 적용 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #4e4897;
+    --sub-color: #a7a5cd;
+    --white-color: #ffffff;
+}
+
+/* 폰트 설정 */
+* {
+    font-family: "yg-jalnan" !important;
+}
+
+
+.container {
+    padding-top:50px;
+}
+
+.go-back {
+    margin-bottom: 10px;
+    background-color: var(--main-color);
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.go-back:hover {
+    background-color: var(--sub-color);
+    color: black;
+}
+
+.user-profile .border {
+    border: 2px solid var(--main-color) !important;
+    border-radius: 5px;
+}
+
+.user-profile {
+    /* 이전 스타일 코드 */
+    text-align: center; /* 프로필 정보 가운데 정렬 */
+}
+
+.user-profile .user-details {
+    display: flex;
+    flex-direction: row; /* 기존은 column 이었음 */
+    align-items: center;
+    text-align: left;
+}
+
+.col-md-2 {
+    order: -1;
+}
+
+
+.col-md-10 {
+    order: 1;
+}
+
+.user-profile h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#profile-pic {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-name {
+    color: var(--main-color);
+}
+
+.btn-follow {
+    background-color: var(--main-color);
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.btn-follow:hover {
+    background-color: var(--sub-color);
+    color: black;
+}
+
+.user-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 0 10px;
+}
+
+.user-stats-item {
+    text-align: center;
+}
+
+.nav-link:hover {
+    color: var(--main-color);
+}
+
+.active {
+    color: var(--main-color) !important;
+}
+
+.nav-link {
+    color: black;
+}
+
+/* 글 목록 테이블 스타일 */
+.article-list, .roadmap-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.article-list th, .roadmap-list th {
+    border: none;
+    border-bottom: 3px solid var(--sub-color);
+    padding: 8px;
+    text-align: center;
+}
+
+.article-list th, .article-list td,.roadmap-list th, .roadmap-list td {
+    text-align: left;
+}
+
+.article-list th.title-col, .roadmap-list th.title-col {
+    width: 35%;
+}
+
+.article-item, .roadmap-item {
+    text-align: left;
+    margin-top: 10px;
+}
+
+a, a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--main-color);
+    text-decoration: underline;
+}
+
+
+
+

@@ -61,14 +61,19 @@ document.querySelector('.search-btn').addEventListener('click', function(event) 
 function handleButtonClick(buttonId) {
     if (buttonId === 'category-front-end') {
         localStorage.setItem('currentCategory', 'FRONTEND');
+        localStorage.setItem('currentPage', 0);
     } else if (buttonId === 'category-back-end') {
         localStorage.setItem('currentCategory', 'BACKEND');
+        localStorage.setItem('currentPage', 0);
     } else if (buttonId === 'category-mobile') {
         localStorage.setItem('currentCategory', 'MOBILE');
+        localStorage.setItem('currentPage', 0);
     } else if (buttonId === 'category-game') {
         localStorage.setItem('currentCategory', 'GAME');
+        localStorage.setItem('currentPage', 0);
     } else if (buttonId === 'category-devops') {
         localStorage.setItem('currentCategory', 'DEVOPS');
+        localStorage.setItem('currentPage', 0);
     }
     window.location.href = '/views/articles/list';
 }

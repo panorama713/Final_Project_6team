@@ -35,6 +35,10 @@ public class LikeService {
             throw new CustomException(LIKE_FAILED);
         }
 
+        if (user == article.getUser()) {
+            throw new CustomException(CANNOT_LIKE_YOUR_ARTICLE);
+        }
+
         Like like = Like.builder()
                 .user(user)
                 .article(article).build();

@@ -31,6 +31,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.example.hiddenpiece.exception.CustomExceptionCode.NOT_FOUND_USER;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -84,6 +86,22 @@ public class ArticleService {
         List<ArticleListResponseDto> result = getArticlesWithCommentCount(jpql, parameters);
 
         return new PageImpl<>(result, pageable, result.size());
+    }
+
+    public Page<ArticleListResponseDto> getListByUsername(int page, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        Pageable pageable = PageRequest.of(page, 5, Sort.by("createdAt").descending());
+        return articleRepository.findByUser(user, pageable)
+                .map(ArticleListResponseDto::new);
+    }
+
+    // 유저가 쓴 게시글 개수
+    public int getCountOfArticles(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        return articleRepository.countByUser(user);
+
     }
 
     // 게시글 단독 조회

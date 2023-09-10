@@ -42,6 +42,10 @@
     margin-right: 5px;
 }
 
+.username-dropdown {
+    color: #737a81;
+}
+
 .list-btn{
     float: right;
     color: var(--main-color);

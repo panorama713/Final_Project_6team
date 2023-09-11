@@ -10,6 +10,7 @@
 :root {
     --main-color: #4e4897;
     --sub-color: #a7a5cd;
+    --sub-color2: #6762A6;
     --white-color: #ffffff;
 }
 
@@ -317,4 +318,8 @@
 
 .form-control:hover {
     border-color: var(--sub-color);
+}
+
+.article-writer-badge {
+    background-color: var(--sub-color2);
 }

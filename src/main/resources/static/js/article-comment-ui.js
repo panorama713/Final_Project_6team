@@ -36,14 +36,14 @@ function commentTemplate(comment) {
     const formattedContent = formatContent(comment.content);
     const formattedDateTime = formatDateTime(comment.createdAt, comment.lastModifiedAt);
 
-    // 작성자의 일치 여부에 따른 수정 및 삭제 옵션 표시
+    // 작성자의 일치 여부에 따른 수정 및 삭제 옵션 표시 (게시글 작성자 == 로그인 유저)
     const commentActions = comment.isWriter ?
         `
     <li><a class="dropdown-item edit-comment-btn" href="#">수정</a></li>
     <li><a class="dropdown-item delete-comment-btn" href="#">삭제</a></li>
     ` : '';
 
-    // 작성자의 일치 여부에 따른 작성자 뱃지 표시
+    // 작성자의 일치 여부에 따른 작성자 뱃지 표시 (게시글 작성자 == 댓글/답글 작성자)
     const articleWriterBadge = comment.isArticleWriter ? '<span class="badge article-writer-badge">작성자</span>' : '';
 
     return `
@@ -67,7 +67,7 @@ function commentTemplate(comment) {
 function replyTemplate(reply) {
     const formattedDateTime = formatDateTime(reply.createdAt, reply.lastModifiedAt);
 
-    // 작성자의 일치 여부에 따른 수정 및 삭제 옵션 표시
+    // 작성자의 일치 여부에 따른 수정 및 삭제 옵션 표시 (게시글 작성자 == 로그인 유저)
     const replyActions = reply.isWriter ?
         `
         <button class="btn btn-secondary btn-sm dropdown-toggle comment-dropdown" type="button" data-bs-toggle="dropdown"></button>
@@ -77,7 +77,7 @@ function replyTemplate(reply) {
         </ul>
         ` : '';
 
-    // 작성자의 일치 여부에 따른 작성자 뱃지 표시
+    // 작성자의 일치 여부에 따른 작성자 뱃지 표시 (게시글 작성자 == 댓글/답글 작성자)
     const articleWriterBadge = reply.isArticleWriter ? '<span class="badge article-writer-badge">작성자</span>' : '';
 
     return `

@@ -1,6 +1,14 @@
 // 이벤트 리스너 연결
 window.addEventListener('DOMContentLoaded', attachRoadmapElementEventListeners);
 
+// 로드맵 요소 생성 id 저장
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('add-element')) {
+        var roadmapId = event.target.dataset.roadmapId;
+        document.getElementById('add-element-submit').dataset.roadmapId = roadmapId;
+    }
+})
+
 // 로드맵 요소 이벤트 리스너 연결
 function attachRoadmapElementEventListeners() {
     const modalForm = document.getElementById('addRoadmapElement');
@@ -17,7 +25,7 @@ function handleCreateRoadmapElement(event) {
 
     const formData = getFormData(event.target)
     // 현재 페이지의 roadmapId 추출
-    const roadmapId = getRoadmapIdFromUrl();
+    const roadmapId = event.target.dataset.roadmapId;
 
     createRoadmapElement(formData, roadmapId).then(() => {
         window.history.pushState({}, null, `/views/roadmaps/${roadmapId}/elements`)

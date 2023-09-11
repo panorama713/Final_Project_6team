@@ -5,7 +5,7 @@ $(document).ready(async function () {
     await drawTodayLine();
 });
 
-window.addEventListener('resize', adjustFillProgress, drawTodayLine);
+window.addEventListener('resize', adjustFillProgress);
 
 document.querySelector("#create-roadmap-submit").addEventListener('click', createNewRoadmap)
 
@@ -117,7 +117,10 @@ function createRoadmaps(roadmap) {
 
     var categoryAddElement = document.createElement('span');
     categoryAddElement.classList.add('add-element')
-    categoryAddElement.value = roadmap.id;
+    categoryAddElement.dataset.roadmapId = roadmap.id;
+    categoryAddElement.dataset.roadmapType = roadmap.type;
+    categoryAddElement.dataset.bsToggle = 'modal';
+    categoryAddElement.dataset.bsTarget = '#createRoadmapElementModal';
     categoryAddElement.textContent = '일정추가';
 
     var line1 = document.createElement('span');
@@ -293,6 +296,8 @@ function calculateDate(date) {
 
     return (daysSinceYearStart / 365) * 100;
 }
+
+
 
 // 로드맵 수정 기능
 document.addEventListener('click', function (event) {

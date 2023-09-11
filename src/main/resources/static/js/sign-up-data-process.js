@@ -15,7 +15,9 @@ function displayError(errorElement, message) {
 }
 
 function hideError(errorElement) {
-    errorElement.textContent = '';
+    if (errorElement) {
+        errorElement.textContent = '';
+    }
 }
 
 // 유효성 검사 관련
@@ -80,6 +82,22 @@ function checkPhoneValid(phoneInput, phoneError) {
         displayError(phoneError, "올바른 전화번호 형식으로 입력해 주세요. (예: 01012345678)");
     } else {
         hideError(phoneError);
+    }
+}
+
+function checkQuestionValid(questionInput, questionError) {
+    if (!questionInput.value.trim()) {
+        displayError(questionError, "보안 질문은 필수입니다.");
+    } else {
+        hideError(questionError);
+    }
+}
+
+function checkAnswerValid(answerInput, answerError) {
+    if (!answerInput.value.trim()) {
+        displayError(answerError, "보안 답변은 필수입니다.");
+    } else {
+        hideError(answerError);
     }
 }
 

@@ -10,6 +10,8 @@ function attachEventListeners() {
         realName: signUpForm.querySelector("#realName"),
         email: signUpForm.querySelector("#email"),
         phone: signUpForm.querySelector("#phone"),
+        question: signUpForm.querySelector("#question"),
+        answer: signUpForm.querySelector("#answer"),
         personalInfoAgreement: signUpForm.querySelector("#personalInfoAgreement"),
         serviceAgreement: signUpForm.querySelector("#serviceAgreement")
     };
@@ -20,7 +22,9 @@ function attachEventListeners() {
         passwordCheckError: document.getElementById("passwordCheckError"),
         realNameError: document.getElementById("realNameError"),
         emailError: document.getElementById("emailError"),
-        phoneError: document.getElementById("phoneError")
+        phoneError: document.getElementById("phoneError"),
+        questionError: document.getElementById("questionError"),
+        answerError: document.getElementById("answerError")
     };
 
     // 폼 제출 이벤트에 대한 핸들러 연결
@@ -65,5 +69,13 @@ function attachEventListeners() {
 
     fields.phone.addEventListener("input", function() {
         checkPhoneValid(fields.phone, errors.phoneError);
+    });
+
+    fields.question.addEventListener("input", function() {
+        checkQuestionValid(fields.question, errors.questionError);
+    });
+
+    fields.answer.addEventListener("input", function() {
+        checkAnswerValid(fields.answer, errors.answerError);
     });
 }

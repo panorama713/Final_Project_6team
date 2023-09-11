@@ -45,7 +45,6 @@ public class User extends BaseTimeEntity {
     private String provider;
     private String providerId;
 
-    // 인증 방식 미정
     private String question;
     private String answer;
     private LocalDateTime deletedAt;
@@ -74,7 +73,8 @@ public class User extends BaseTimeEntity {
     public User(
             String username, String password, String realName,
             String email, String phone, Role role,
-            String profileImg, String provider, String providerId
+            String profileImg, String provider, String providerId,
+            String question, String answer
     ) {
         this.username = username;
         this.password = password;
@@ -85,6 +85,8 @@ public class User extends BaseTimeEntity {
         this.profileImg = profileImg;
         this.provider = provider;
         this.providerId = providerId;
+        this.question = question;
+        this.answer = answer;
     }
 
     public void updateInfo(String newPassword, String newEmail, String newPhone, String imagePath) {

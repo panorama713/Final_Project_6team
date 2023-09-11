@@ -15,8 +15,23 @@ function createInputFields() {
         const type = row.getAttribute('data-type');
         const id = row.getAttribute('data-id');
 
+        let inputElement = '';
+        if (row.classList.contains('select-row')) {
+            inputElement = `
+                <select class="form-select" id="${id}" name="${id}" required>
+                    <option selected disabled>보안 질문을 선택하세요.</option>
+                    <option value="nickname">어렸을 적 기억나는 별명은?</option>
+                    <option value="teacherName">학창시절 기억나는 선생님 혹은 짝꿍의 이름은?</option>
+                    <option value="friendName">첫 애완동물의 이름은?</option>
+                    <option value="friendName">처음으로 비행기를 타고 방문한 곳은?</option>
+                </select>
+            `;
+        } else {
+            inputElement = `<input type="${type}" class="form-control" id="${id}" name="${id}" required>`;
+        }
+
         let errorElement = '';
-        if (id === 'username' || id === 'password' || id === 'passwordCheck' || id === 'realName' || id === 'email' || id === 'phone') {
+        if (id === 'username' || id === 'password' || id === 'passwordCheck' || id === 'realName' || id === 'email' || id === 'phone' || id === 'answer') {
             errorElement = `<div id="${id}Error" class="text-danger"></div>`;
         }
 
@@ -25,7 +40,7 @@ function createInputFields() {
             <div class="row mb-3">
                 <label for="${id}" class="form-label col-sm-3">${label}</label>
                 <div class="col-sm-9">
-                    <input type="${type}" class="form-control" id="${id}" name="${id}" required>
+                    ${inputElement}
                     ${errorElement}
                 </div>
             </div>

@@ -10,6 +10,14 @@ function getFormData(form) {
     return dataObj;
 }
 
+function displayError(errorElement, message) {
+    errorElement.textContent = message;
+}
+
+function hideError(errorElement) {
+    errorElement.textContent = '';
+}
+
 // 비밀번호 에러 관련
 function displayPasswordMismatchError(passwordCheckError) {
     passwordCheckError.textContent = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
@@ -24,6 +32,62 @@ function checkPasswordMatch(fields, passwordCheckError) {
         displayPasswordMismatchError(passwordCheckError);
     } else {
         hidePasswordError(passwordCheckError);
+    }
+}
+
+function checkUsernameValid(usernameInput, usernameError) {
+    const usernamePattern = /^[a-z][a-z0-9]{4,14}$/;
+
+    if (!usernameInput.value) {
+        displayError(usernameError, "아이디는 필수입니다.");
+    } else if (!usernamePattern.test(usernameInput.value)) {
+        displayError(usernameError, "아이디는 5~15자의 영문 소문자, 숫자만 사용 가능합니다.");
+    } else {
+        hideError(usernameError);
+    }
+}
+
+function checkPasswordValid(passwordInput, passwordError) {
+    const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[`~₩!@#$%^&*]).{7,19}$/;
+
+    if (!passwordInput.value) {
+        displayError(passwordError, "비밀번호는 필수입니다.");
+    } else if (!passwordPattern.test(passwordInput.value)) {
+        displayError(passwordError, "비밀번호는 8~20자의 영문, 숫자, 특수문자를 모두 포함해야 합니다.");
+    } else {
+        hideError(passwordError);
+    }
+}
+
+function checkRealNameValid(realNameInput, realNameError) {
+    if (!realNameInput.value.trim()) {
+        displayError(realNameError, "실명은 필수입니다.");
+    } else {
+        hideError(realNameError);
+    }
+}
+
+function checkEmailValid(emailInput, emailError) {
+    const emailPattern = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+    if (!emailInput.value.trim()) {
+        displayError(emailError, "이메일은 필수입니다.");
+    } else if (!emailPattern.test(emailInput.value)) {
+        displayError(emailError, "올바른 이메일 형식으로 입력해 주세요. (예: example@example.com)");
+    } else {
+        hideError(emailError);
+    }
+}
+
+function checkPhoneValid(phoneInput, phoneError) {
+    const phonePattern = /^01(?:0|1|[6-9])[.-]?(\d{3}|\d{4})[.-]?(\d{4})$/;
+
+    if (!phoneInput.value.trim()) {
+        displayError(phoneError, "휴대전화는 필수입니다.");
+    } else if (!phonePattern.test(phoneInput.value)) {
+        displayError(phoneError, "올바른 전화번호 형식으로 입력해 주세요. (예: 01012345678)");
+    } else {
+        hideError(phoneError);
     }
 }
 

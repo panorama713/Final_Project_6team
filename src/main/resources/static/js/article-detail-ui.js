@@ -5,7 +5,7 @@ function displayArticleDetails(data, articleId) {
     document.querySelector('#article-username').textContent = data.username;
     document.getElementById('bookmark-name').value = data.title;
 
-    const displayDate = formatDateTime(data.createdAt, data.lastModifiedAt);
+    const displayDate = formatArticleDateTime(data.createdAt, data.lastModifiedAt);
     document.querySelector('#article-date').textContent = "작성 일시: " + displayDate;
 
     if (data.type) {
@@ -92,4 +92,21 @@ function displayArticleImages(images, articleId) {
     // 이미지의 유무에 따른 이미지 액션 버튼 표시
     const imageActionButton = document.getElementById('article-images-action');
     imageActionButton.style.display = images.length > 0 ? 'block' : 'none';
+}
+
+// 작성 일시 포맷팅
+function formatArticleDateTime(createdAt, lastModifiedAt) {
+    const createdAtDate = new Date(createdAt);
+    const updatedAtDate = lastModifiedAt ? new Date(lastModifiedAt) : null;
+
+    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    const formattedTime = createdAtDate.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+
+    let displayString = `${formattedDate} ${formattedTime}`;
+
+    if (updatedAtDate && (createdAtDate.getTime() !== updatedAtDate.getTime())) {
+        displayString += ' (수정됨)';
+    }
+
+    return displayString;
 }

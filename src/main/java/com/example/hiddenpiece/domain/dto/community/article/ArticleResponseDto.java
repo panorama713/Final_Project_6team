@@ -28,14 +28,14 @@ public class ArticleResponseDto {
     private int viewCount;
 
     @JsonProperty("isWriter")
-    private boolean isWriter;
+    private Boolean isWriter;
 
     @JsonProperty("isLike")
-    private boolean isLike;
+    private Boolean isLike;
 
     @JsonProperty("isFollow")
-    private boolean isFollow;
+    private Boolean isFollow;
 
     @JsonProperty("isBookmark")
-    private boolean isBookmark;
+    private Boolean isBookmark;
 }

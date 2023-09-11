@@ -5,6 +5,7 @@ import com.example.hiddenpiece.domain.entity.bookmark.ArticleBookmark;
 import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.like.Like;
+import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -52,6 +53,10 @@ public class User extends BaseTimeEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Article> articles = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Roadmap> roadmaps = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)

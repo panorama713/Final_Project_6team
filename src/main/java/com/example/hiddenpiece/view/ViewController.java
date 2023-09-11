@@ -100,5 +100,10 @@ public class ViewController {
     public String readRoadmap() {
         return "roadmap";
     }
+
+    @GetMapping("/my-page/following")
+    public String followingUser() {
+        return "following-user";
+    }
 }
 

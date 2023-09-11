@@ -1,6 +1,7 @@
 package com.example.hiddenpiece.domain.repository.follow;
 
 import com.example.hiddenpiece.domain.dto.user.ResponseFollowerDto;
+import com.example.hiddenpiece.domain.dto.user.ResponseFollowingDto;
 import com.example.hiddenpiece.domain.entity.follow.Follow;
 import com.example.hiddenpiece.domain.entity.user.User;
 import org.springframework.data.domain.Page;
@@ -17,10 +18,17 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     int countByFromUser(User fromUser);
     int countByToUser(User toUser);
 
-    @Query("SELECT new com.example.hiddenpiece.domain.dto.user.ResponseFollowerDto(f.toUser.id, f.toUser.username, f.createdAt) " +
+    @Query("SELECT new com.example.hiddenpiece.domain.dto.user.ResponseFollowingDto(f.toUser.id, f.toUser.username, f.createdAt) " +
             "FROM Follow f " +
             "WHERE f.fromUser = :currentUser " +
             "GROUP BY f.toUser.id, f.toUser.username " +
             "ORDER BY f.toUser.id ASC")
-    Page<ResponseFollowerDto> findFollowByFromUser(@Param("currentUser") User currentUser, Pageable pageable);
+    Page<ResponseFollowingDto> findFollowByFromUser(@Param("currentUser") User currentUser, Pageable pageable);
+
+    @Query("SELECT new com.example.hiddenpiece.domain.dto.user.ResponseFollowerDto(f.fromUser.id, f.fromUser.username, f.createdAt) " +
+            "FROM Follow f " +
+            "WHERE f.toUser = :currentUser " +
+            "GROUP BY f.fromUser.id, f.fromUser.username " +
+            "ORDER BY f.fromUser.id ASC")
+    Page<ResponseFollowerDto> findFollowByToUser(@Param("currentUser") User currentUser, Pageable pageable);
 }

@@ -103,7 +103,12 @@ public class ViewController {
 
     @GetMapping("/my-page/following")
     public String followingUser() {
-        return "following-user";
+        return "my-following";
+    }
+
+    @GetMapping("/my-page/follower")
+    public String followerUser() {
+        return "my-follower";
     }
 }
 

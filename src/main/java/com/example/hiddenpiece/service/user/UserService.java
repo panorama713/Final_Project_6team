@@ -247,7 +247,8 @@ public class UserService {
         return (int) userRepository.count();
     }
 
-    public Page<ResponseFollowerDto> readMyFollowers(Integer num, Integer limit, String username, Long userId) {
+    // 내가 팔로우 하고 있는 유저 목록 페이징 조회
+    public Page<ResponseFollowingDto> readMyFollowings(Integer num, Integer limit, String username, Long userId) {
         User currentUser = userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
 
         if (!currentUser.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
@@ -255,5 +256,16 @@ public class UserService {
         Pageable pageable = PageRequest.of(num, limit);
 
         return followRepository.findFollowByFromUser(currentUser, pageable);
+    }
+
+    // 나를 팔로우 하고 있는 유저 목록 페이징 조회
+    public Page<ResponseFollowerDto> readMyFollowers(Integer num, Integer limit, String username, Long userId) {
+        User currentUser = userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        if (!currentUser.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
+
+        Pageable pageable = PageRequest.of(num, limit);
+
+        return followRepository.findFollowByToUser(currentUser, pageable);
     }
 }

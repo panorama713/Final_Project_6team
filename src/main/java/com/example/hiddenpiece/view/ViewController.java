@@ -51,11 +51,6 @@ public class ViewController {
         return "article-update";
     }
 
-    @GetMapping("/my-page")
-    public String myPage() {
-        return "my-page";
-    }
-
     @GetMapping("/find/username")
     public String findUsernamePage() {
         return "find-username";
@@ -71,14 +66,34 @@ public class ViewController {
         return "change-password";
     }
 
-    @GetMapping("/roadmaps/{roadmapId}/elements")
-    public String roadmap() {
-        return "roadmap-function";
-    }
-
     @GetMapping("/search")
     public String searchRoadmaps() {
         return "search-items";
+    }
+
+    @GetMapping("/my-page/profile")
+    public String myProfile() {
+        return "my-profile";
+    }
+
+    @GetMapping("/my-page/update-info")
+    public String updateInfo() {
+        return "update-info";
+    }
+
+    @GetMapping("/roadmaps/{roadmapId}/elements")
+    public String roadmapElement() {
+        return "roadmap-element";
+    }
+
+    @GetMapping("/bookmarks/roadmaps")
+    public String roadmapBookmark() {
+        return "roadmap-bookmark";
+    }
+
+    @GetMapping("/roadmaps/{roadmapId}")
+    public String readRoadmap() {
+        return "roadmap";
     }
 }
 

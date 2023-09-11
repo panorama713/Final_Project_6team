@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static com.example.hiddenpiece.service.user.UserService.DEFAULT_PROFILE_IMG_PATH;
+
 @Data
 public class SignupRequestDto {
     @NotBlank(message = "아이디는 필수입니다.")
@@ -39,6 +41,7 @@ public class SignupRequestDto {
                 .realName(realName)
                 .email(email)
                 .phone(phone)
+                .profileImg(DEFAULT_PROFILE_IMG_PATH)
                 .role(Role.USER)
                 .build();
     }

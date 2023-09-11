@@ -10,6 +10,7 @@ import com.example.hiddenpiece.redis.RedisService;
 import com.example.hiddenpiece.security.CookieManager;
 import com.example.hiddenpiece.security.CustomUserDetails;
 import com.example.hiddenpiece.service.follow.FollowService;
+import com.example.hiddenpiece.service.image.UserImageHandler;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Duration;
 
@@ -35,6 +37,9 @@ public class UserService {
     private final JwtUtil jwtUtil;
     private final CookieManager cookieManager;
     private final FollowService followService;
+    private final UserImageHandler userImageHandler;
+
+    public static final String DEFAULT_PROFILE_IMG_PATH = "/static/img/profile_default.jpg";
 
     // 회원가입
     @Transactional
@@ -98,10 +103,12 @@ public class UserService {
                 TokenDto tokenDto = jwtUtil.generateTokenDto(userDetails);
                 String newAccessToken = tokenDto.getAccessToken();
 
-                long accessTokenExpirationMillis = jwtUtil.getAccessTokenExpirationMillis();
+                long accessTokenExpirationMillis = jwtUtil.getAccessTokenExpirationMillis() / 1000;
 
                 cookieManager.setCookie(response, newAccessToken, ACCESS_TOKEN, accessTokenExpirationMillis);
                 log.info("재발급 성공");
+            } else {
+                throw new CustomException(REISSUE_FAILED);
             }
         } catch (Exception e) {
             log.error("재발급 실패: 리프레쉬 토큰 만료");
@@ -120,6 +127,7 @@ public class UserService {
                 .username(user.getUsername())
                 .realName(user.getRealName())
                 .email(user.getEmail())
+                .profileImg(user.getProfileImg())
                 .numberOfWrittenArticle(0)     // TODO 기능 구현시 구현 예정
                 .numberOfWrittenComment(0)     // TODO 기능 구현시 구현 예정
                 .followingCount(followService.getCountOfFollowing(user))
@@ -133,6 +141,7 @@ public class UserService {
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
 
         return UserProfileResponseDto.builder()
+                .userId(user.getId())
                 .username(user.getUsername())
                 .realName(user.getRealName())
                 .email(user.getEmail())
@@ -193,7 +202,19 @@ public class UserService {
     }
 
     // 유저 정보 수정
+    @Transactional
+    public void updateUserInfo(RequestUpdateUserInfoDto dto, MultipartFile image, Long userId, String username) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
 
+        if (!user.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
+
+        String path = userImageHandler.parseFileInfo(userId, image);
+        if (path == null) path = user.getProfileImg();
+
+        user.updateInfo(passwordEncoder.encode(dto.getPassword()), dto.getEmail(), dto.getPhone() , path);
+        userRepository.save(user);
+        log.info("이미지 등록 성공");
+    }
 
     // 계정 탈퇴
 

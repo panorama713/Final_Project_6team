@@ -61,12 +61,13 @@ public class WebSecurityConfig {
                                 "/api/v1/roadmaps/top5",
                                 "/api/v1/roadmaps/search/**",
                                 "/views/**",
-                                "/static/**"
+                                "/static/**",
+                                "/uploads/**"
                                 // 임시
                                 ,"/api/v1/roadmap"
                         )
                         .permitAll()
-//                        .requestMatchers("/api/v1/roadmap/**").authenticated() // 이 부분 조건에 맞게 수정해야함
+                        .requestMatchers("/api/v1/roadmaps/**").authenticated()
                         .anyRequest().hasAuthority("ROLE_" + Role.USER.name()))
                 .oauth2Login(oauth -> oauth
                         .loginPage("/views/login")

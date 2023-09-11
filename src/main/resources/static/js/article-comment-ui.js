@@ -32,8 +32,6 @@ function timeAgo(dateString) {
 }
 
 // 작성 일시 포맷팅
-window.formatDateTime = formatDateTime;
-
 function formatDateTime(createdAt, lastModifiedAt) {
     const timeAgoString = timeAgo(createdAt);
 

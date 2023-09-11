@@ -108,16 +108,3 @@ async function registerUser(data) {
         console.error("#console# 회원가입 에러", error);
     }
 }
-
-// 이벤트 핸들러
-function handleSignUp(event, fields) {
-    event.preventDefault();
-
-    if (!fields.personalInfoAgreement.checked || !fields.serviceAgreement.checked) {
-        alert("모든 필수 항목에 동의해주세요.");
-        return;
-    }
-
-    const formData = getFormData(event.target);
-    registerUser(formData);
-}

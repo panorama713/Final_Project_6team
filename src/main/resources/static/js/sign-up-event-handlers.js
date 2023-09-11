@@ -28,6 +28,21 @@ function attachEventListeners() {
         handleSignUp(event, fields, errors.passwordCheckError);
     });
 
+    // 사용자의 회원가입 요청을 처리하는 핸들러
+    function handleSignUp(event, fields) {
+        event.preventDefault();
+
+        if (!fields.personalInfoAgreement.checked || !fields.serviceAgreement.checked) {
+            alert("모든 필수 항목에 동의해주세요.");
+            return;
+        }
+
+        const formData = getFormData(event.target);
+        registerUser(formData).catch(error => {
+            console.error("회원가입 처리 중 오류 발생:", error);
+        });
+    }
+
     fields.username.addEventListener("input", function() {
         checkUsernameValid(fields.username, errors.usernameError);
     });

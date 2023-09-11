@@ -1,6 +1,5 @@
 package com.example.hiddenpiece.domain.entity.user;
 
-import com.example.hiddenpiece.domain.dto.user.RequestUpdateUserInfoDto;
 import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
 import com.example.hiddenpiece.domain.entity.bookmark.ArticleBookmark;
 import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;

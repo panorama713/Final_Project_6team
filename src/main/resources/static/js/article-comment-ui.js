@@ -43,10 +43,13 @@ function commentTemplate(comment) {
     <li><a class="dropdown-item delete-comment-btn" href="#">삭제</a></li>
     ` : '';
 
+    // 작성자의 일치 여부에 따른 작성자 뱃지 표시
+    const articleWriterBadge = comment.isArticleWriter ? '<span class="badge article-writer-badge">작성자</span>' : '';
+
     return `
         <div class="comment" data-id="${comment.id}">
             <div class="comment-align">
-                <h7 class="comment-user">${comment.username}</h7>
+                <h7 class="comment-user">${comment.username} ${articleWriterBadge}</h7>
                 <small class="comment-date">${formattedDateTime}</small>
                 <span class="reply-count"></span>
                 <button class="btn btn-secondary btn-sm dropdown-toggle comment-dropdown" type="button" data-bs-toggle="dropdown"></button>
@@ -74,10 +77,13 @@ function replyTemplate(reply) {
         </ul>
         ` : '';
 
+    // 작성자의 일치 여부에 따른 작성자 뱃지 표시
+    const articleWriterBadge = reply.isArticleWriter ? '<span class="badge article-writer-badge">작성자</span>' : '';
+
     return `
         <div class="comment-reply" data-id="${reply.id}">
             <div class="comment-align">
-                <h7 class="comment-user">${reply.username}</h7>
+                <h7 class="comment-user">${reply.username} ${articleWriterBadge}</h7>
                 <small class="comment-date">${formattedDateTime}</small>
                 ${replyActions}
             </div>

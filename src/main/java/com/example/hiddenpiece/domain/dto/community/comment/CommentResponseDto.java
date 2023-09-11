@@ -23,9 +23,17 @@ public class CommentResponseDto {
     @JsonProperty("isWriter")
     private Boolean isWriter;
 
+    private String articleWriter;
+
+    @JsonProperty("isArticleWriter")
+    private Boolean isArticleWriter;
+
     public static CommentResponseDto fromEntity(Comment entity) {
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         boolean isCurrentWriter = entity.getUser().getUsername().equals(currentUsername);
+
+        String articleWriterUsername = entity.getArticle().getUser().getUsername();
+        boolean isCommentArticleWriter = entity.getUser().getUsername().equals(articleWriterUsername);
 
         return CommentResponseDto.builder()
                 .id(entity.getId())
@@ -34,6 +42,8 @@ public class CommentResponseDto {
                 .createdAt(entity.getCreatedAt())
                 .lastModifiedAt(entity.getLastModifiedAt())
                 .isWriter(isCurrentWriter)
+                .isArticleWriter(isCommentArticleWriter)
+                .articleWriter(articleWriterUsername)
                 .build();
     }
 
@@ -43,9 +53,11 @@ public class CommentResponseDto {
     public void setReplies(List<CommentResponseDto> replies) {
         if (replies != null && !replies.isEmpty()) {
             String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+            String articleWriterUsername = this.articleWriter;
 
             for (CommentResponseDto reply : replies) {
                 reply.setIsWriter(reply.getUsername().equals(currentUsername));
+                reply.setIsArticleWriter(reply.getUsername().equals(articleWriterUsername));
             }
         }
 
@@ -54,5 +66,9 @@ public class CommentResponseDto {
 
     public void setIsWriter(boolean isWriter) {
         this.isWriter = isWriter;
+    }
+
+    public void setIsArticleWriter(boolean isArticleWriter) {
+        this.isArticleWriter = isArticleWriter;
     }
 }

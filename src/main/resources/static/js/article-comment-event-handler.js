@@ -74,11 +74,11 @@ function handleUpdateComment(commentId) {
     if (newContent && newContent !== currentContent) {
         updateComment(articleId, commentId, newContent, function(updatedComment) {
             const commentElement = document.querySelector(`.comment[data-id="${commentId}"]`);
+            commentElement.querySelector('p').innerText = updatedComment.content;
 
-            // lastModifiedAt 업데이트
+            // lastModifiedAt 값을 현재 시간으로 업데이트
             updatedComment.lastModifiedAt = new Date().toISOString();
 
-            commentElement.querySelector('p').innerText = updatedComment.content;
             const formattedDateTime = formatDateTime(updatedComment.createdAt, updatedComment.lastModifiedAt);
             commentElement.querySelector('.comment-date').innerHTML = formattedDateTime;
         });
@@ -119,13 +119,14 @@ function handleUpdateReply(replyId) {
     if (newContent && newContent !== currentContent) {
         updateComment(articleId, replyId, newContent, function(updatedReply) {
             const replyElement = document.querySelector(`.comment-reply[data-id="${replyId}"]`);
+            replyElement.querySelector('p').innerText = updatedReply.content;
 
-            // lastModifiedAt 업데이트
+            // lastModifiedAt 값을 현재 시간으로 업데이트
             updatedReply.lastModifiedAt = new Date().toISOString();
 
-            replyElement.querySelector('p').innerText = updatedReply.content;
             const formattedDateTime = formatDateTime(updatedReply.createdAt, updatedReply.lastModifiedAt);
             replyElement.querySelector('.comment-date').innerHTML = formattedDateTime;
+
             updateReplyCount(parentCommentId);
         });
     }

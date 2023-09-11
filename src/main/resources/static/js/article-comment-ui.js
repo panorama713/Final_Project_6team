@@ -11,24 +11,37 @@ function formatContent(content) {
     return content.replace(/\n/g, '<br>');
 }
 
+// 작성 일시를 '몇 분 전', '몇 시간 전', '몇 일 전' 형태로 반환
+function timeAgo(dateString) {
+    const currentTime = new Date().getTime();
+    const timeDifference = currentTime - new Date(dateString).getTime();
+
+    const minute = 60 * 1000;
+    const hour = minute * 60;
+    const day = hour * 24;
+
+    if (timeDifference < minute) {
+        return '방금 전';
+    } else if (timeDifference < hour) {
+        return Math.floor(timeDifference / minute) + '분 전';
+    } else if (timeDifference < day) {
+        return Math.floor(timeDifference / hour) + '시간 전';
+    } else {
+        return Math.floor(timeDifference / day) + '일 전';
+    }
+}
+
 // 작성 일시 포맷팅
 window.formatDateTime = formatDateTime;
 
 function formatDateTime(createdAt, lastModifiedAt) {
-    const createdAtDate = new Date(createdAt);
-    const updatedAtDate = lastModifiedAt ? new Date(lastModifiedAt) : null;
+    const timeAgoString = timeAgo(createdAt);
 
-    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
-    const formattedTime = createdAtDate.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-
-    let displayString = `${formattedDate} ${formattedTime}`;
-
-    // 수정된 경우 "수정됨" 추가
-    if (updatedAtDate && (createdAtDate.getTime() !== updatedAtDate.getTime())) {
-        displayString += " (수정됨)";
+    if (createdAt !== lastModifiedAt) {
+        return `${timeAgoString} (수정됨)`;
     }
 
-    return displayString;
+    return timeAgoString;
 }
 
 // 댓글 템플릿 생성

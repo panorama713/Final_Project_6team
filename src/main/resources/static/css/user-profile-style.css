@@ -112,8 +112,6 @@
     cursor: pointer;
 }
 
-
-
 .user-stats {
     display: flex;
     justify-content: space-between;
@@ -173,6 +171,11 @@ a, a:visited {
 a:hover {
     color: var(--main-color);
     text-decoration: underline;
+}
+
+.inline-block {
+    color: var(--sub-color);
+    display: inline-block;
 }
 
 

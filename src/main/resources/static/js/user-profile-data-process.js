@@ -52,6 +52,18 @@ function displayArticles(articles) {
         let typeText = typeMappings[article.type] || '';
         typeElement.textContent = typeText;
 
+        // 0을 제외한 (답글이 아닌) 댓글 수 표시
+        if (article.commentCount > 0) {
+            titleLink.innerHTML = `${article.title}<span class='inline-block'>&nbsp;[${article.commentCount}]</span>`;
+        } else {
+            titleLink.textContent = article.title;
+        }
+
+        // 이미지의 유무에 따른 아이콘 표시
+        if (article.hasImage) {
+            titleLink.innerHTML += `<span class='inline-block'>&nbsp;📷</span>`;
+        }
+
         createdAtElement.textContent = formatCreatedAt(article.createdAt);
         viewCountElement.textContent = article.viewCount;
         likeCountElement.textContent = article.likeCount;

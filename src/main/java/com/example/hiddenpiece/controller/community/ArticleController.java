@@ -71,7 +71,9 @@ public class ArticleController {
 
     // 유저가 쓴 게시물 목록
     @GetMapping("/userArticles")
-    public ResponseEntity<Page<ArticleListResponseDto>> listByUsername(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "username") String username) {
+    public ResponseEntity<Page<ArticleListResponseDto>> listByUsername(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "username") String username) {
         return ResponseEntity.ok(articleService.getListByUsername(page, username));
     }
 

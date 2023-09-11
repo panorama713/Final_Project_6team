@@ -58,7 +58,7 @@ function displayArticleDetails(data, articleId) {
 
     // 팔로우 여부에 따른 텍스트 변경
     const isFollow = data.isFollow;
-    const followButton = document.getElementById('user-follow');
+    const followButton = document.getElementById('follow-btn');
     if (isFollow) {
         followButton.textContent = '언팔로우';
     } else {

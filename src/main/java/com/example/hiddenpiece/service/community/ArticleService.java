@@ -93,9 +93,18 @@ public class ArticleService {
     public Page<ArticleListResponseDto> getListByUsername(int page, String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
-        Pageable pageable = PageRequest.of(page, 5, Sort.by("createdAt").descending());
-        return articleRepository.findByUser(user, pageable)
-                .map(ArticleListResponseDto::new);
+        String jpql = "SELECT a, (SELECT COUNT(c) FROM Comment c WHERE c.article = a AND c.parentComment IS NULL) " +
+                "FROM Article a " +
+                "WHERE a.user = :user " +
+                "ORDER BY a.createdAt DESC";
+
+        String countJpql = "SELECT COUNT(a) FROM Article a WHERE a.user = :user";
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("user", user);
+        System.out.println(getArticlesAndPage(jpql, countJpql, parameters, page));
+        System.out.println("dsafasfadsf");
+        return getArticlesAndPage(jpql, countJpql, parameters, page);
     }
 
     // 유저가 쓴 게시글 개수
@@ -123,8 +132,6 @@ public class ArticleService {
         boolean isLike = likeRepository.existsByUserAndArticle(currentUser, article);
         boolean isFollow = followRepository.existsByToUserAndFromUser(Writer, currentUser);
         boolean isBookmark = articleBookmarkRepository.existsByUserAndArticle(currentUser, article);
-
-
 
         return ArticleResponseDto.builder()
                 .articleId(articleId)

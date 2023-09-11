@@ -1,5 +1,6 @@
 package com.example.hiddenpiece.domain.entity.user;
 
+import com.example.hiddenpiece.domain.dto.user.RequestUpdateUserInfoDto;
 import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
 import com.example.hiddenpiece.domain.entity.bookmark.ArticleBookmark;
 import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
@@ -39,7 +40,6 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Setter
     private String profileImg;
 
     private String provider;
@@ -81,6 +81,13 @@ public class User extends BaseTimeEntity {
         this.profileImg = profileImg;
         this.provider = provider;
         this.providerId = providerId;
+    }
+
+    public void updateInfo(String newPassword, String newEmail, String newPhone, String imagePath) {
+        this.password = newPassword;
+        this.email = newEmail;
+        this.phone = newPhone;
+        this.profileImg = imagePath;
     }
 
     public void addLikeArticles(Like like) {

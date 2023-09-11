@@ -10,6 +10,7 @@ import com.example.hiddenpiece.redis.RedisService;
 import com.example.hiddenpiece.security.CookieManager;
 import com.example.hiddenpiece.security.CustomUserDetails;
 import com.example.hiddenpiece.service.follow.FollowService;
+import com.example.hiddenpiece.service.image.UserImageHandler;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,6 +41,7 @@ public class UserService {
     private final JwtUtil jwtUtil;
     private final CookieManager cookieManager;
     private final FollowService followService;
+    private final UserImageHandler userImageHandler;
 
     public static final String DEFAULT_PROFILE_IMG_PATH = "/static/img/profile_default.jpg";
 
@@ -105,10 +107,12 @@ public class UserService {
                 TokenDto tokenDto = jwtUtil.generateTokenDto(userDetails);
                 String newAccessToken = tokenDto.getAccessToken();
 
-                long accessTokenExpirationMillis = jwtUtil.getAccessTokenExpirationMillis();
+                long accessTokenExpirationMillis = jwtUtil.getAccessTokenExpirationMillis() / 1000;
 
                 cookieManager.setCookie(response, newAccessToken, ACCESS_TOKEN, accessTokenExpirationMillis);
                 log.info("재발급 성공");
+            } else {
+                throw new CustomException(REISSUE_FAILED);
             }
         } catch (Exception e) {
             log.error("재발급 실패: 리프레쉬 토큰 만료");
@@ -141,6 +145,7 @@ public class UserService {
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
 
         return UserProfileResponseDto.builder()
+                .userId(user.getId())
                 .username(user.getUsername())
                 .realName(user.getRealName())
                 .email(user.getEmail())
@@ -201,37 +206,16 @@ public class UserService {
     }
 
     // 유저 정보 수정
-
-
-    // 유저 프로필 수정
     @Transactional
-    public void updateProfileImg(MultipartFile image, Long userId, String username) {
+    public void updateUserInfo(RequestUpdateUserInfoDto dto, MultipartFile image, Long userId, String username) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
 
         if (!user.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
 
-        String profileImgDir = String.format("uploads/profile_images/%d/", userId);
-        try {
-            Files.createDirectories(Path.of(profileImgDir));
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new CustomException(INTERNAL_ERROR);
-        }
+        String path = userImageHandler.parseFileInfo(userId, image);
+        if (path == null) path = user.getProfileImg();
 
-        String originalFilename = image.getOriginalFilename();
-        String[] fileNameSplit = originalFilename.split("\\.");
-        String extension = fileNameSplit[fileNameSplit.length - 1];
-        String profileFilename = UUID.randomUUID() + "." + extension;
-        String profileImagePath = profileImgDir + profileFilename;
-
-        try {
-            image.transferTo(Path.of(profileImagePath));
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new CustomException(INTERNAL_ERROR);
-        }
-
-        user.setProfileImg(String.format("/static/profile_images/%d/%s", userId, profileFilename));
+        user.updateInfo(passwordEncoder.encode(dto.getPassword()), dto.getEmail(), dto.getPhone() , path);
         userRepository.save(user);
         log.info("이미지 등록 성공");
     }

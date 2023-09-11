@@ -92,15 +92,16 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    // 유저 프로필 이미지 변경
-    @PutMapping(value = "/{userId}/profile-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Void> updateProfileImg(
+    // 유저 정보 수정
+    @PutMapping(value = "/{userId}/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> updateProfile(
             @PathVariable Long userId,
-            @RequestParam("image") MultipartFile profileImg,
+            @RequestPart(required = false, value = "profileImg") MultipartFile profileImg,
+            @RequestPart("dto") RequestUpdateUserInfoDto dto,
             Authentication authentication
     ) {
         String username = authentication.getName();
-        userService.updateProfileImg(profileImg, userId, username);
+        userService.updateUserInfo(dto, profileImg, userId, username);
         return ResponseEntity.noContent().build();
     }
 }

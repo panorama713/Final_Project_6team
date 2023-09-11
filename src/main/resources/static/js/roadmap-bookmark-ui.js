@@ -1,15 +1,19 @@
-window.addEventListener('DOMContentLoaded', fetchMyRoadmapBookmarks);
+let currentPage = 0;
+let totalPages = 0;
+window.addEventListener('DOMContentLoaded', fetchMyRoadmapBookmarks(currentPage));
 
 // 나의 로드맵 북마크 목록 정보 가져오기
-function fetchMyRoadmapBookmarks() {
-    fetch(`/api/v1/bookmarks/roadmaps`, {
+function fetchMyRoadmapBookmarks(page) {
+    fetch(`/api/v1/bookmarks/roadmaps?page=${page}`, {
         method: 'GET'
     })
         .then(response => response.json())
         .then(data => {
             console.log('로드맵 북마크 상세 정보:', data.content);
+            totalPages = data.totalPages;
+            currentPage = data.number;
             displayMyRoadmapBookmarks(data.content);
-            displayPageNumbers();
+            displayBookmarksPageNumbers();
         })
         .catch(error => console.error('Error:', error));
 }
@@ -81,4 +85,26 @@ function formatDate(createdAt) {
     const formattedDate = createdAtDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
     return `${formattedDate}`;
+}
+
+// 페이지 번호 표시
+function displayBookmarksPageNumbers() {
+    const paginationContainer = document.getElementById('pagination-container');
+    paginationContainer.innerHTML = '';
+
+    for (let i = 0; i < totalPages; i++) {
+        const pageNumberButton = document.createElement('button');
+        pageNumberButton.textContent = i + 1;
+        pageNumberButton.classList.add('btn', 'custom-button');
+
+        if (i === currentPage) {
+            pageNumberButton.classList.add('active');
+        }
+
+        pageNumberButton.addEventListener('click', () => {
+            fetchMyRoadmapBookmarks(i);
+        });
+
+        paginationContainer.appendChild(pageNumberButton);
+    }
 }

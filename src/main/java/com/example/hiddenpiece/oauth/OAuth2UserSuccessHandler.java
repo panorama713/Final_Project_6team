@@ -63,8 +63,8 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         TokenDto tokenDto = jwtUtil.generateTokenDto((CustomUserDetails) userDetails);
         String accessToken = tokenDto.getAccessToken();
         String refreshToken = tokenDto.getRefreshToken();
-        cookieManager.setCookie(response, accessToken, "accessToken", jwtUtil.getAccessTokenExpirationMillis());
-        cookieManager.setCookie(response, refreshToken, "refreshToken", jwtUtil.getRefreshTokenExpirationMillis());
+        cookieManager.setCookie(response, accessToken, "accessToken", jwtUtil.getAccessTokenExpirationMillis() / 1000);
+        cookieManager.setCookie(response, refreshToken, "refreshToken", jwtUtil.getRefreshTokenExpirationMillis() / 1000);
 
         redisService.setValues(username, refreshToken, Duration.ofMillis(refreshTokenExpirationMillis));
 

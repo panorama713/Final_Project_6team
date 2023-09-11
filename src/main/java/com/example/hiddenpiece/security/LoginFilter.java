@@ -60,8 +60,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String refreshToken = tokenDto.getRefreshToken();
         long accessTokenExpirationMillis = jwtUtil.getAccessTokenExpirationMillis();
         long refreshTokenExpirationMillis = jwtUtil.getRefreshTokenExpirationMillis();
-        cookieManager.setCookie(response, accessToken, ACCESS_TOKEN, accessTokenExpirationMillis);
-        cookieManager.setCookie(response, refreshToken, REFRESH_TOKEN, refreshTokenExpirationMillis);
+        cookieManager.setCookie(response, accessToken, ACCESS_TOKEN, accessTokenExpirationMillis / 1000);
+        cookieManager.setCookie(response, refreshToken, REFRESH_TOKEN, refreshTokenExpirationMillis / 1000);
         // User 찾기
         User user = userService.findUserAndCheckUserExists(customUserDetails.getId());
         redisService.setValues(user.getUsername(), refreshToken, Duration.ofMillis(refreshTokenExpirationMillis));

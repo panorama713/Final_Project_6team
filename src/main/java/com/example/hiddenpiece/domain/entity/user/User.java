@@ -82,6 +82,13 @@ public class User extends BaseTimeEntity {
         this.providerId = providerId;
     }
 
+    public void updateInfo(String newPassword, String newEmail, String newPhone, String imagePath) {
+        this.password = newPassword;
+        this.email = newEmail;
+        this.phone = newPhone;
+        this.profileImg = imagePath;
+    }
+
     public void addLikeArticles(Like like) {
         if (!likeArticles.contains(like)) likeArticles.add(like);
     }

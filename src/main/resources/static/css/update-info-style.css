@@ -1,0 +1,19 @@
+/* 폰트 로드 */
+@font-face {
+    font-family: "CustomFont";
+    src: url("/static/fonts/JalnanOTF.otf") format("opentype"),
+    url("/static/fonts/Jalnan.ttf") format("truetype");
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #4e4897;
+    --sub-color: #a7a5cd;
+    --white-color: #ffffff;
+}
+
+/* 기본 스타일 */
+body {
+    background-color: #f6f6f6;
+    font-family: 'CustomFont', sans-serif;
+}

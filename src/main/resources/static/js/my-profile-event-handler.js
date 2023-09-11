@@ -15,6 +15,7 @@ async function loadUserProfile() {
             const writtenComments = document.getElementById('written-comments')
 
             if (data) {
+                localStorage.setItem('userId', data.userId)
                 profileImage.src = data.profileImg
                 username.textContent = data.username
                 realName.textContent = data.realName
@@ -33,3 +34,5 @@ async function loadUserProfile() {
         return null;
     }
 }
+
+window.addEventListener('DOMContentLoaded', loadUserProfile)

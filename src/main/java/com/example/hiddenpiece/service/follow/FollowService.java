@@ -71,4 +71,13 @@ public class FollowService {
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
         return followRepository.countByToUser(toUser);
     }
+
+    public boolean isFollow(String writerName, String username) {
+        User writer = userRepository.findByUsername(writerName)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        return followRepository.existsByToUserAndFromUser(writer, user);
+    }
+
 }

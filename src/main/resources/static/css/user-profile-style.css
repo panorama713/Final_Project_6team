@@ -80,19 +80,39 @@
     color: var(--main-color);
 }
 
-.btn-follow {
+
+#follow-btn {
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
+}
+
+#follow-btn:hover {
     background-color: var(--main-color);
+    border-color: var(--main-color);
     color: white;
+}
+
+#follow-btn.unfollow{
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+    color: white;
+}
+
+#follow-btn.unfollow:hover {
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
+}
+
+.btn-follow {
     padding: 5px 15px;
     border: none;
     border-radius: 20px;
     cursor: pointer;
 }
 
-.btn-follow:hover {
-    background-color: var(--sub-color);
-    color: black;
-}
+
 
 .user-stats {
     display: flex;

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var userFollowBtn = document.getElementById("user-follow");
+    var userFollowBtn = document.getElementById("follow-btn");
 
     userFollowBtn.addEventListener("click", function() {
         event.preventDefault();

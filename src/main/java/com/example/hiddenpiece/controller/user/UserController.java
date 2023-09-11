@@ -104,4 +104,16 @@ public class UserController {
         userService.updateUserInfo(dto, profileImg, userId, username);
         return ResponseEntity.noContent().build();
     }
+
+    // 회원 탈퇴
+    @DeleteMapping("/{userId}/withdrawal")
+    public ResponseEntity<Void> deleteUser(
+            @PathVariable Long userId,
+            @RequestBody RequestDeleteUserDto dto,
+            Authentication authentication
+    ) {
+        String username = authentication.getName();
+        userService.deleteUser(dto, username, userId);
+        return ResponseEntity.noContent().build();
+    }
 }

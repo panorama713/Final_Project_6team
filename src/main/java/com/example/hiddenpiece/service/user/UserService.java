@@ -188,7 +188,6 @@ public class UserService {
         return userRepository.existUserByRealNameAndUsername(dto.getRealName(), dto.getUsername());
     }
 
-    // TODO 계정 탈퇴, 유저 정보 수정
     // 유저 비밀번호 수정
     @Transactional
     public void updatePassword(RequestChangePasswordDto dto, Long userId) {
@@ -217,7 +216,18 @@ public class UserService {
     }
 
     // 계정 탈퇴
+    @Transactional
+    public void deleteUser(RequestDeleteUserDto dto, String username, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
 
+        if (!user.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
+
+        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+            throw new CustomException(PASSWORD_NOT_MATCH);
+        }
+
+        userRepository.delete(user);
+    }
 
     public User findUserAndCheckUserExists(Long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));

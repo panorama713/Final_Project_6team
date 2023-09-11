@@ -81,6 +81,11 @@ public class ViewController {
         return "update-info";
     }
 
+    @GetMapping("/my-page/withdrawal")
+    public String deleteUser() {
+        return "withdrawal";
+    }
+
     @GetMapping("/roadmaps/{roadmapId}/elements")
     public String roadmapElement() {
         return "roadmap-element";

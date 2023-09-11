@@ -38,11 +38,26 @@
     margin-bottom: 10px;
 }
 
-.article-dropdown{
+.article-dropdown {
     float: right;
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
     margin-right: 5px;
+}
+
+.article-dropdown:hover,
+.article-dropdown.show,
+.article-dropdown:first-child:active {
+    background-color: var(--sub-color2);
+}
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:active {
+    background-color: var(--sub-color);
+}
+
+.dropdown-menu .dropdown-item:active {
+    color: var(--white-color);
 }
 
 .username-dropdown {
@@ -96,7 +111,7 @@
 .list-btn:hover, comment-btn:hover {
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
- }
+}
 
 
 .list-btn.btn-primary:not(:disabled):not(.disabled):active,

@@ -34,4 +34,11 @@ public class FollowController {
         return ResponseEntity.ok(followNum);
     }
 
+    @GetMapping("/isFollow")
+    public ResponseEntity<Boolean> isFollow ( Authentication authentication,
+                                              @RequestParam("writer") String writer) {
+        String username = authentication.getName();
+        boolean isFollow = followService.isFollow(writer, username);
+        return ResponseEntity.ok(isFollow);
+    }
 }

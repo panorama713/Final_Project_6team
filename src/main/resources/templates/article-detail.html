@@ -46,7 +46,7 @@
                     <a th:href="@{/views/user-profile}" class="dropdown-item" id="user-profile">프로필 보기</a>
                 </form>
                 <form>
-                    <button class="dropdown-item" id="user-follow">팔로우</button>
+                    <button class="dropdown-item" id="follow-btn">팔로우</button>
                 </form>
             </ul>
             </div>
@@ -57,16 +57,17 @@
         </div>
         <div id="article-images" class="article-images"></div>
         <div class="article-like">
-            <span id="article-like-count"></span>
-        </div>
-        <button class="btn btn-primary like-btn" id="like-btn" type="button">좋아요</button>
-        <button class="btn btn-primary bookmark-btn" id="bookmark-btn" type="button">북마크</button>
-        <div id="bookmarkModal" class="modal">
-            <div class="modal-content">
-                <span>북마크 이름:</span>
-                <input class="bookmark-name" type="text" id="bookmark-name" value="">
-                <button class="btn btn-primary sendBookmarkBtn" id="sendBookmarkBtn">보내기</button>
-                <button class="btn btn-primary closeModalBtn" id="closeModalBtn">닫기</button>
+            <div class="article-like">
+                <button class="btn btn-primary like-btn" id="like-btn" type="button">좋아요</button>
+                <button class="btn btn-primary bookmark-btn" id="bookmark-btn" type="button">북마크</button>
+                <div id="bookmarkModal" class="modal">
+                    <div class="modal-content">
+                        <span>북마크 이름:</span>
+                        <input class="bookmark-name" type="text" id="bookmark-name" value="">
+                        <button class="btn btn-primary sendBookmarkBtn" id="sendBookmarkBtn">보내기</button>
+                        <button class="btn btn-primary closeModalBtn" id="closeModalBtn">닫기</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -95,10 +96,11 @@
 <script src="/static/js/article-detail-event-handler.js"></script>
 <script src="/static/js/article-comment-ui.js"></script>
 <script src="/static/js/article-like-event-handler.js"></script>
-<script src="/js/article-bookmark-event-handler.js"></script>
+<script src="/static/js/article-bookmark-event-handler.js"></script>
 <script src="/static/js/article-comment-event-handler.js"></script>
 <script src="/static/js/article-comment-data-process.js"></script>
 <script src="/static/js/article-follow-event-handler.js"></script>
+<script src="/static/js/reissue-interceptor.js"></script>
 <script type="module" src="/static/js/nav-event-handler.js"></script>
 </body>
 </html>

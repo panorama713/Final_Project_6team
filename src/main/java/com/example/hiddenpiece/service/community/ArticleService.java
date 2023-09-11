@@ -6,7 +6,10 @@ import com.example.hiddenpiece.domain.dto.community.article.CreateArticleRespons
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.community.Category;
 import com.example.hiddenpiece.domain.entity.user.User;
+import com.example.hiddenpiece.domain.repository.bookmark.ArticleBookmarkRepository;
 import com.example.hiddenpiece.domain.repository.community.ArticleRepository;
+import com.example.hiddenpiece.domain.repository.follow.FollowRepository;
+import com.example.hiddenpiece.domain.repository.like.LikeRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
@@ -44,6 +47,9 @@ public class ArticleService {
     private final ArticleImageService articleImageService;
     private final CommentService commentService;
     private final EntityManager entityManager;
+    private final LikeRepository likeRepository;
+    private final FollowRepository followRepository;
+    private final ArticleBookmarkRepository articleBookmarkRepository;
 
     @Transactional
     public CreateArticleResponseDto createArticle(String username, ArticleRequestDto dto) {
@@ -87,9 +93,16 @@ public class ArticleService {
     public Page<ArticleListResponseDto> getListByUsername(int page, String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
-        Pageable pageable = PageRequest.of(page, 5, Sort.by("createdAt").descending());
-        return articleRepository.findByUser(user, pageable)
-                .map(ArticleListResponseDto::new);
+        String jpql = "SELECT a, (SELECT COUNT(c) FROM Comment c WHERE c.article = a AND c.parentComment IS NULL) " +
+                "FROM Article a " +
+                "WHERE a.user = :user " +
+                "ORDER BY a.createdAt DESC";
+
+        String countJpql = "SELECT COUNT(a) FROM Article a WHERE a.user = :user";
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("user", user);
+        return getArticlesAndPage(jpql, countJpql, parameters, page);
     }
 
     // 유저가 쓴 게시글 개수
@@ -108,6 +121,16 @@ public class ArticleService {
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         boolean isCurrentWriter = article.getUser().getUsername().equals(currentUsername);
 
+        User currentUser = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        User Writer = userRepository.findByUsername(article.getUser().getUsername())
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        boolean isLike = likeRepository.existsByUserAndArticle(currentUser, article);
+        boolean isFollow = followRepository.existsByToUserAndFromUser(Writer, currentUser);
+        boolean isBookmark = articleBookmarkRepository.existsByUserAndArticle(currentUser, article);
+
         return ArticleResponseDto.builder()
                 .articleId(articleId)
                 .username(article.getUser().getUsername())
@@ -122,6 +145,9 @@ public class ArticleService {
                 .images(articleImageService.readAllArticleImages(articleId))
                 .comments(commentService.readAllCommentsForArticle(articleId))
                 .isWriter(isCurrentWriter)
+                .isLike(isLike)
+                .isFollow(isFollow)
+                .isBookmark(isBookmark)
                 .build();
     }
 

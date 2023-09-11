@@ -29,4 +29,13 @@ public class ArticleResponseDto {
 
     @JsonProperty("isWriter")
     private boolean isWriter;
+
+    @JsonProperty("isLike")
+    private boolean isLike;
+
+    @JsonProperty("isFollow")
+    private boolean isFollow;
+
+    @JsonProperty("isBookmark")
+    private boolean isBookmark;
 }

@@ -8,13 +8,13 @@ window.addEventListener('DOMContentLoaded', function () {
     fetchArticleDetails(articleId);
 
     // 수정 버튼 클릭 시 게시글 수정 페이지 이동
-    document.getElementById("article-update").addEventListener("click", function(event) {
+    document.getElementById("article-update").addEventListener("click", function (event) {
         event.preventDefault();
         window.location.href = "/views/articles/edit/" + articleId;
     });
 
     // 삭제 버튼 클릭 시 게시글 삭제 로직 실행
-    document.getElementById('article-delete').addEventListener('click', function(event) {
+    document.getElementById('article-delete').addEventListener('click', function (event) {
         event.preventDefault();
         handleDeleteArticle(articleId);
     });
@@ -25,8 +25,6 @@ const listButton = document.getElementById('list-btn');
 listButton.addEventListener('click', () => {
     window.location.href = '/views/articles/list';
 });
-
-
 
     // 이미지 선택 모드 활성화 여부
     let imageSelectingMode = false;

@@ -52,6 +52,18 @@ function displayArticles(articles) {
         let typeText = typeMappings[article.type] || '';
         typeElement.textContent = typeText;
 
+        // 0을 제외한 (답글이 아닌) 댓글 수 표시
+        if (article.commentCount > 0) {
+            titleLink.innerHTML = `${article.title}<span class='inline-block'>&nbsp;[${article.commentCount}]</span>`;
+        } else {
+            titleLink.textContent = article.title;
+        }
+
+        // 이미지의 유무에 따른 아이콘 표시
+        if (article.hasImage) {
+            titleLink.innerHTML += `<span class='inline-block'>&nbsp;📷</span>`;
+        }
+
         createdAtElement.textContent = formatCreatedAt(article.createdAt);
         viewCountElement.textContent = article.viewCount;
         likeCountElement.textContent = article.likeCount;
@@ -131,7 +143,7 @@ function getCountOfArticles(username) {
             if (!response.ok) {
                 throw new Error('게시글 수 불러오기 오류');
             }
-            return response.json(); // JSON 형식으로 파싱
+            return response.json();
         })
         .then(data => {
             var articleCount = data;
@@ -141,10 +153,35 @@ function getCountOfArticles(username) {
 
 }
 
+// 팔로우 여부 받아오기
+function isFollow(username) {
+    fetch("/api/v1/users/follow/isFollow?writer="+username)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('팔로우 여부 받아오기 오류');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var isFollow = data;
+            const followButton = document.getElementById('follow-btn');
+
+            if (isFollow) {
+                followButton.classList.add('unfollow');
+                followButton.textContent = '팔로우 중';
+            } else {
+                followButton.classList.remove('unfollow');
+                followButton.textContent = '팔로우';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
 const username = localStorage.getItem('currentWriter');
 document.querySelector('#profile-name').textContent = username;
 
 fetchArticles(0, username);
 getCountOfFollower(username);
 getCountOfArticles(username);
+isFollow(username);
 

@@ -22,11 +22,13 @@
 /* 게시글 설정 */
 .article {
     max-width: 1200px;
+    min-height: 20em;
     margin: 100px auto auto;
     padding: 20px;
     border: 2px solid var(--main-color);
     border-radius: 5px;
     background-color: #f8f9fa;
+    position: relative;
 }
 
 .article-title {
@@ -59,7 +61,38 @@
     background-color: var(--sub-color);
 }
 
-.list-btn:hover, .like-btn:hover, .bookmark-btn:hover, comment-btn:hover {
+.like-btn:hover {
+    background-color: rgba(255, 139, 148, 0.94);
+    border-color:rgba(255, 139, 148, 0.94);
+    color: #fff;
+}
+
+.like-btn.unlike{
+    background-color: rgba(255, 139, 148, 0.94);
+    border-color:rgba(255, 139, 148, 0.94);
+    color: #fff;
+}
+
+.bookmark-btn.cancel-bookmark {
+    background-color: rgba(82, 190, 122, 0.94);
+    border-color: rgba(82, 190, 122, 0.94);
+    color: #fff;
+}
+
+.bookmark-btn:hover {
+    background-color: rgba(82, 190, 122, 0.94);
+    border-color: rgba(82, 190, 122, 0.94);
+    color: #fff;
+}
+
+
+.like-btn.unlike:hover,.bookmark-btn.cancel-bookmark:hover {
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
+}
+
+.list-btn:hover, comment-btn:hover {
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
  }
@@ -83,9 +116,16 @@
 }
 
 .article-like {
-    color: #737a81;
-    align-items: center;
-    text-align: center;
+    position: absolute;
+    display: flex;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.article-like button {
+    white-space: nowrap; /* 텍스트 줄 바꿈 금지 */
+    margin-right: 5px;
 }
 
 /* 북마크 모달 */
@@ -122,12 +162,10 @@
     color: black;
 }
 
-
-
 .article-content {
     margin-top: 20px;
     padding-top: 10px;
-    min-height: 10em;
+    margin-bottom: 20px;
 }
 
 .type {
@@ -143,7 +181,7 @@
     max-height: 400px;
     width: auto;
     height: auto;
-    margin: 0 20px 20px 0;
+    margin: 0 20px 50px 0;
     border: 3px solid var(--main-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

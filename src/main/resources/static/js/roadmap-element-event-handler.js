@@ -24,11 +24,12 @@ function handleCreateRoadmapElement(event) {
     event.preventDefault()
 
     const formData = getFormData(event.target)
+    console.log('submit form data : ', formData)
     // 현재 페이지의 roadmapId 추출
-    const roadmapId = event.target.dataset.roadmapId;
+    const roadmapId = document.getElementById('add-element-submit').dataset.roadmapId;
 
     createRoadmapElement(formData, roadmapId).then(() => {
-        window.history.pushState({}, null, `/views/roadmaps/${roadmapId}/elements`)
+        location.reload();
     }).catch(error => {
         console.error("로드맵 엘리멘트 생성 에러", error)
     })

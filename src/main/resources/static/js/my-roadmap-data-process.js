@@ -70,7 +70,7 @@ const typeColors = {
     "GAME": "rgba(61,243,152,0.85)"
 };
 
-function createRoadmapElement(roadmapId, element, type) {
+function createRoadmapElements(roadmapId, element, type) {
     var elementDiv = document.createElement('div');
     elementDiv.classList.add('fill-progress');
     elementDiv.dataset.start = calculateDate(element.startDate);
@@ -163,13 +163,13 @@ function createRoadmaps(roadmap) {
     })
         .then((response) => response.json())
         .then(elements => {
-            console.log("Fetch elements: ", elements)
+            // console.log("Fetch elements: ", elements)
             if (elements.length === 0) {
                 customFillBox.textContent = '일정을 추가해 주세요'
             } else {
                 elements.forEach(function (element) {
-                    var roadmapElement = createRoadmapElement(roadmap.id, element, roadmap.type);
-                    console.log('element: ', element)
+                    var roadmapElement = createRoadmapElements(roadmap.id, element, roadmap.type);
+                    // console.log('element: ', element)
                     // customFillBox.appendChild(roadmapElement);
 
                     // 검사하려는 날짜 구간
@@ -217,7 +217,7 @@ async function getRoadmap(year) {
     })
         .then((response) => response.json())
         .then(roadmaps => {
-            console.log("Fetched Roadmaps", roadmaps);
+            // console.log("Fetched Roadmaps", roadmaps);
             displayRoadmaps(roadmaps);
         })
         .catch(error => {

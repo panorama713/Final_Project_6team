@@ -30,6 +30,7 @@
     border: 2px solid var(--main-color);
     background-color: white;
     border-radius: 5px;
+    margin-top: 50px;
 }
 
 /* 작성 버튼 설정 */

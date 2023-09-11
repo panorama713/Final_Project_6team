@@ -66,11 +66,6 @@ public class ViewController {
         return "change-password";
     }
 
-    @GetMapping("/roadmaps/{roadmapId}/elements")
-    public String roadmap() {
-        return "roadmap-function";
-    }
-
     @GetMapping("/search")
     public String searchRoadmaps() {
         return "search-items";
@@ -84,6 +79,21 @@ public class ViewController {
     @GetMapping("/my-page/update-info")
     public String updateInfo() {
         return "update-info";
+    }
+
+    @GetMapping("/roadmaps/{roadmapId}/elements")
+    public String roadmapElement() {
+        return "roadmap-element";
+    }
+
+    @GetMapping("/bookmarks/roadmaps")
+    public String roadmapBookmark() {
+        return "roadmap-bookmark";
+    }
+
+    @GetMapping("/roadmaps/{roadmapId}")
+    public String readRoadmap() {
+        return "roadmap";
     }
 }
 

@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', createInputFields);
 
 // 로드맵 엘리먼트 정보 입력 필드를 동적으로 생성
 function createInputFields() {
-    const modalBody = document.querySelector('.modal-body');
+    const modalBody = document.querySelector('.add-element-body');
 
     modalBody.querySelectorAll('.input-row').forEach(row => {
         const label = row.getAttribute('data-label');

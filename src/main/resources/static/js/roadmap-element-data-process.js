@@ -1,10 +1,3 @@
-// 현재 페이지의 로드맵 ID 추출
-function getRoadmapIdFromUrl() {
-    const regex = /\/roadmaps\/(\d+)\/elements/;
-    const match = window.location.pathname.match(regex);
-    return match[1];
-}
-
 function getFormData(form) {
     const formData = new FormData(form)
     const dataObj = {}
@@ -20,10 +13,11 @@ async function createRoadmapElement(data, roadmapId) {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
     }).then(async response => {
-        console.log(response);
+        console.log('add-element:', response);
 
         if (response.ok) {
-            window.location.href = `/views/roadmaps/${roadmapId}/elements`;
+            alert('일정이 추가되었습니다!')
+            location.reload();
         } else {
             const errorRes = await response.json()
             alert(errorRes.message || "에러")

@@ -79,5 +79,4 @@ public class FollowService {
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
         return followRepository.existsByToUserAndFromUser(writer, user);
     }
-
 }

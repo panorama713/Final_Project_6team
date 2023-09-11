@@ -18,20 +18,12 @@ function hideError(errorElement) {
     errorElement.textContent = '';
 }
 
-// 비밀번호 에러 관련
-function displayPasswordMismatchError(passwordCheckError) {
-    passwordCheckError.textContent = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
-}
-
-function hidePasswordError(passwordCheckError) {
-    passwordCheckError.textContent = "";
-}
-
+// 유효성 검사 관련
 function checkPasswordMatch(fields, passwordCheckError) {
     if (!passwordsMatch(fields.password.value, fields.passwordCheck.value)) {
-        displayPasswordMismatchError(passwordCheckError);
+        displayError(passwordCheckError, "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     } else {
-        hidePasswordError(passwordCheckError);
+        hideError(passwordCheckError);
     }
 }
 
@@ -118,7 +110,7 @@ async function registerUser(data) {
 }
 
 // 이벤트 핸들러
-function handleSignUp(event, fields, passwordCheckError) {
+function handleSignUp(event, fields) {
     event.preventDefault();
 
     if (!fields.personalInfoAgreement.checked || !fields.serviceAgreement.checked) {
@@ -127,11 +119,5 @@ function handleSignUp(event, fields, passwordCheckError) {
     }
 
     const formData = getFormData(event.target);
-
-    if (!passwordsMatch(formData.password, formData.passwordCheck)) {
-        displayPasswordMismatchError(passwordCheckError);
-        return;
-    }
-
     registerUser(formData);
 }

@@ -102,8 +102,6 @@ public class ArticleService {
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("user", user);
-        System.out.println(getArticlesAndPage(jpql, countJpql, parameters, page));
-        System.out.println("dsafasfadsf");
         return getArticlesAndPage(jpql, countJpql, parameters, page);
     }
 

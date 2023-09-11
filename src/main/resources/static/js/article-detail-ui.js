@@ -3,19 +3,11 @@ function displayArticleDetails(data, articleId) {
     document.querySelector('#article-title').textContent = data.title;
     document.querySelector('#article-content').innerHTML = data.content.replace(/\n/g, '<br>');
     document.querySelector('#article-username').textContent = data.username;
-    document.querySelector('#article-like-count').textContent = "좋아요: " + data.likeCount + "개";
     document.getElementById('bookmark-name').value = data.title;
 
     const displayDate = formatDateTime(data.createdAt, data.lastModifiedAt);
     document.querySelector('#article-date').textContent = "작성 일시: " + displayDate;
 
-    let articleLikeCountElement = document.querySelector('#article-likeCount');
-
-    if (articleLikeCountElement) {
-        articleLikeCountElement.textContent = data.likeCount;
-    } else {
-        console.warn('DOM에서 #article-likeCount 요소를 찾을 수 없음');
-    }
     if (data.type) {
         // type 값 한글로 바꾸기
         const typeMappings = {
@@ -38,6 +30,43 @@ function displayArticleDetails(data, articleId) {
     if (articleActionButton) {
         articleActionButton.style.display = data.isWriter ? 'block' : 'none';
     }
+
+    // 좋아요 여부에 따른 버튼 변경
+    const isLike = data.isLike;
+    const likeButton = document.getElementById('like-btn');
+
+    if (isLike) {
+        likeButton.classList.add('unlike');
+    } else {
+        likeButton.classList.remove('unlike');
+    }
+
+    const likeCount = data.likeCount
+    likeButton.textContent = '❤️ ' + likeCount;
+
+    // 북마크 여부에 따른 버튼 변경
+    const isBookmark = data.isBookmark;
+    const bookmarkButton = document.getElementById('bookmark-btn');
+
+    if (isBookmark) {
+        bookmarkButton.classList.add('cancel-bookmark');
+        bookmarkButton.textContent = '✅ 북마크';
+    } else {
+        bookmarkButton.classList.remove('cancel-bookmark');
+        bookmarkButton.textContent = '북마크';
+    }
+
+    // 팔로우 여부에 따른 텍스트 변경
+    const isFollow = data.isFollow;
+    const followButton = document.getElementById('user-follow');
+    if (isFollow) {
+        followButton.textContent = '언팔로우';
+    } else {
+        followButton.textContent = '팔로우';
+    }
+
+
+
 }
 
 // 웹 페이지에 게시글의 이미지 표시

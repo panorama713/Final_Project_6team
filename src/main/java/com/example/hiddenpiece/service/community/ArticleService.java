@@ -6,7 +6,10 @@ import com.example.hiddenpiece.domain.dto.community.article.CreateArticleRespons
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.community.Category;
 import com.example.hiddenpiece.domain.entity.user.User;
+import com.example.hiddenpiece.domain.repository.bookmark.ArticleBookmarkRepository;
 import com.example.hiddenpiece.domain.repository.community.ArticleRepository;
+import com.example.hiddenpiece.domain.repository.follow.FollowRepository;
+import com.example.hiddenpiece.domain.repository.like.LikeRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
@@ -44,6 +47,9 @@ public class ArticleService {
     private final ArticleImageService articleImageService;
     private final CommentService commentService;
     private final EntityManager entityManager;
+    private final LikeRepository likeRepository;
+    private final FollowRepository followRepository;
+    private final ArticleBookmarkRepository articleBookmarkRepository;
 
     @Transactional
     public CreateArticleResponseDto createArticle(String username, ArticleRequestDto dto) {
@@ -112,6 +118,18 @@ public class ArticleService {
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         boolean isCurrentWriter = article.getUser().getUsername().equals(currentUsername);
 
+        User currentUser = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        User Writer = userRepository.findByUsername(article.getUser().getUsername())
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        boolean isLike = likeRepository.existsByUserAndArticle(currentUser, article);
+        boolean isFollow = followRepository.existsByToUserAndFromUser(Writer, currentUser);
+        boolean isBookmark = articleBookmarkRepository.existsByUserAndArticle(currentUser, article);
+
+
+
         return ArticleResponseDto.builder()
                 .articleId(articleId)
                 .username(article.getUser().getUsername())
@@ -126,6 +144,9 @@ public class ArticleService {
                 .images(articleImageService.readAllArticleImages(articleId))
                 .comments(commentService.readAllCommentsForArticle(articleId))
                 .isWriter(isCurrentWriter)
+                .isLike(isLike)
+                .isFollow(isFollow)
+                .isBookmark(isBookmark)
                 .build();
     }
 

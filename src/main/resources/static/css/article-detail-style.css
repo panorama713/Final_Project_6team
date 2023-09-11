@@ -59,7 +59,38 @@
     background-color: var(--sub-color);
 }
 
-.list-btn:hover, .like-btn:hover, .bookmark-btn:hover, comment-btn:hover {
+.like-btn:hover {
+    background-color: rgba(255, 139, 148, 0.94);
+    border-color:rgba(255, 139, 148, 0.94);
+    color: #fff;
+}
+
+.like-btn.unlike{
+    background-color: rgba(255, 139, 148, 0.94);
+    border-color:rgba(255, 139, 148, 0.94);
+    color: #fff;
+}
+
+.bookmark-btn.cancel-bookmark {
+    background-color: rgba(82, 190, 122, 0.94);
+    border-color: rgba(82, 190, 122, 0.94);
+    color: #fff;
+}
+
+.bookmark-btn:hover {
+    background-color: rgba(82, 190, 122, 0.94);
+    border-color: rgba(82, 190, 122, 0.94);
+    color: #fff;
+}
+
+
+.like-btn.unlike:hover,.bookmark-btn.cancel-bookmark:hover {
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
+}
+
+.list-btn:hover, comment-btn:hover {
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
  }
@@ -83,7 +114,6 @@
 }
 
 .article-like {
-    color: #737a81;
     align-items: center;
     text-align: center;
 }

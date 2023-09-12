@@ -48,7 +48,7 @@ body {
 /* 폼 스타일 */
 #findUsernameForm {
     margin: 0 auto;
-    max-width: 400px;
+    max-width: 600px;
     padding-bottom: 60px;
     position: relative;
 }
@@ -64,13 +64,18 @@ body {
     align-items: center;
     font-weight: bold;
     margin-bottom: 10px;
+    min-width: 100px;
 }
 
 .form-control, .form-check-input, .form-select {
     border: 2px solid var(--main-color);
     border-radius: 0;
     padding: 10px;
+}
+
+.form-control, .form-select {
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .form-control:focus, .form-check-input:focus, .form-select:focus {
@@ -84,6 +89,7 @@ body {
 
 #question {
     color: #737a81;
+    font-size: 1rem;
 }
 
 #question option:disabled {

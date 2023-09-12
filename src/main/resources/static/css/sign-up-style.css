@@ -89,6 +89,7 @@ body {
 
 #question {
     color: #737a81;
+    font-size: 1rem;
 }
 
 #question option:disabled {

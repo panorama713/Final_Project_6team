@@ -110,5 +110,10 @@ public class ViewController {
     public String followerUser() {
         return "my-follower";
     }
+
+    @GetMapping("/my-page/following/articles")
+    public String readFollowUserArticles() {
+        return "my-following-articles";
+    }
 }
 

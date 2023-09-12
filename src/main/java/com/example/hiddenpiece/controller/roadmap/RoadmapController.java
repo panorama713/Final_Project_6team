@@ -111,12 +111,24 @@ public class RoadmapController {
         return null;
     }
 
+    // 통합 검색
     @GetMapping("/total-search")
     public ResponseEntity<Page<ResponseSearchRoadmapDto>> readAllRoadmapsWithKeyword(
         @RequestParam(value = "keyword", required = false) String keyword,
         @RequestParam(value = "page", defaultValue = "0") Integer page
     ) {
         return ResponseEntity.ok(roadmapService.readAllByContaining(keyword, page));
+    }
+
+    // 로드맵 찾기
+    @GetMapping("/search")
+    public ResponseEntity<Page<ResponseSearchRoadmapDto>> readAllByTypeOrderBy(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "field", required = false) String field,
+            @RequestParam(value = "sort", required = false) String sort,
+            @RequestParam(value = "page", defaultValue = "0") Integer page
+    ) {
+        return ResponseEntity.ok(roadmapService.readAllByTypeOrderBy(page, keyword, field, sort));
     }
 
     // 팔로우 한 유저의 게시글 목록 페이징 조회

@@ -33,6 +33,7 @@ public class JwtFilter extends OncePerRequestFilter {
                     "/api/v1/roadmaps/top5",
                     "/api/v1/roadmaps/total-search/**",
                     "/api/v1/articles/total-search/**",
+                    "/api/v1/roadmaps/search/**",
                     "/views/**",
                     "/uploads/**",
                     "/static/**");

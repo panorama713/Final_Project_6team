@@ -47,4 +47,10 @@ public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
            "WHERE r.title LIKE %:keyword% OR r.description LIKE %:keyword% " +
            "ORDER BY r.id")
     Page<ResponseSearchRoadmapDto> findByContaining(@Param("keyword") String keyword, Pageable pageable);
+
+    @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseSearchRoadmapDto(r.id, r.title, r.description, r.user.username) " +
+            "FROM Roadmap r " +
+            "WHERE (:field IS NULL OR r.type = :field) AND (:keyword IS NULL OR r.title LIKE %:keyword% OR r.description LIKE %:keyword%)")
+    Page<ResponseSearchRoadmapDto> findRoadmapByTypeOrderBySort(
+            @Param("keyword") String keyword, @Param("field") String field, Pageable pageable);
 }

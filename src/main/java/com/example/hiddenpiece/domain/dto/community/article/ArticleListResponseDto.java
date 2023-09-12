@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class ArticleListResponseDto {
     private Long id;
     private String username;
+    private Long userId;
     private String title;
     private Category category;
     private ArticleType type;
@@ -26,6 +27,7 @@ public class ArticleListResponseDto {
     public ArticleListResponseDto(Article entity, int commentCount) {
         this.id = entity.getId();
         this.username = entity.getUser().getUsername();
+        this.userId = entity.getUser().getId();
         this.title = entity.getTitle();
         this.category = entity.getCategory();
         this.type = entity.getType();

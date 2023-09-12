@@ -1,0 +1,58 @@
+@font-face {
+    font-family: "CustomFont";
+    src: url("/static/fonts/JalnanOTF.otf") format("opentype"),
+    url("/static/fonts/Jalnan.ttf") format("truetype");
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #9490c7;
+    --sub-color: #a7a5cd;
+    --sub-color2: #6762A6;
+    --white-color: #ffffff;
+    --bs-emphasis-color: #000;
+    --bs-emphasis-color-rgb: 0,0,0;
+    --bs-tertiary-bg: #f8f9fa;
+}
+
+/* 기본 스타일 */
+body {
+    background-color: #f6f6f6;
+    font-family: 'CustomFont', sans-serif;
+}
+
+.custom-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 글 목록 테이블 스타일 */
+.article-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.article-list th, .roadmap-list th {
+    border: none;
+    border-bottom: 3px solid var(--sub-color);
+    padding: 8px;
+    text-align: center;
+}
+
+.article-list th, .article-list td {
+    text-align: left;
+}
+
+.article-list th.title-col {
+    width: 35%;
+}
+
+.article-item {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+

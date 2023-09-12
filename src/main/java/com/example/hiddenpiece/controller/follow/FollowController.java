@@ -10,35 +10,35 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users/follow")
+@RequestMapping("/api/v1/users/follow/{userId}")
 public class FollowController {
     private final FollowService followService;
 
     @PostMapping
-    public ResponseEntity<Void> follow(@RequestParam("usernameToFollow") String usernameToFollow, Authentication authentication) {
+    public ResponseEntity<Void> follow(@PathVariable final Long userId, Authentication authentication) {
         String username = authentication.getName();
-        followService.follow(usernameToFollow, username);
+        followService.follow(userId, username);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> unfollow(@RequestParam("usernameToFollow") String usernameToFollow, Authentication authentication) {
+    public ResponseEntity<Void> unfollow(@PathVariable final Long userId, Authentication authentication) {
         String username = authentication.getName();
-        followService.unFollow(usernameToFollow, username);
+        followService.unFollow(userId, username);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<Integer> getCountOfFollower (@RequestParam("username") String username) {
-        int followNum = followService.getCountOfFollower(username);
+    public ResponseEntity<Integer> getCountOfFollower (@PathVariable final Long userId) {
+        int followNum = followService.getCountOfFollower(userId);
         return ResponseEntity.ok(followNum);
     }
 
     @GetMapping("/isFollow")
     public ResponseEntity<Boolean> isFollow ( Authentication authentication,
-                                              @RequestParam("writer") String writer) {
+                                              @PathVariable final Long userId) {
         String username = authentication.getName();
-        boolean isFollow = followService.isFollow(writer, username);
+        boolean isFollow = followService.isFollow(userId, username);
         return ResponseEntity.ok(isFollow);
     }
 }

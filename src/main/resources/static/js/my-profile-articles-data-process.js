@@ -1,3 +1,14 @@
+window.onload = function() {
+    fetch('/api/v1/users/mini-profile').then((response) => {
+        return response.json();
+    }).then((data) => {
+        let username = data.username;
+        fetchArticles(0, username);
+    }).catch((error) => {
+        console.error(error.message);
+    })
+}
+
 // createdAt 출력 형식
 function formatCreatedAt(dateString) {
     const date = new Date(dateString);
@@ -6,7 +17,6 @@ function formatCreatedAt(dateString) {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
-
 
 // articles 표시
 function displayArticles(articles) {
@@ -107,88 +117,14 @@ function displayPageNumbers() {
 let currentPage = 0;
 let totalPages = 0;
 function fetchArticles(page, username) {
+
     fetch(`/api/v1/articles/userArticles?page=${page}&username=${username}`)
         .then(response => response.json())
         .then(result => {
-
-            followElement.setAttribute("user-id-value", result.content[0].userId);
-            var userId = followElement.getAttribute("user-id-value")
-
             totalPages = result.totalPages;
             currentPage = result.number;
             displayArticles(result.content);
             displayPageNumbers();
-            getCountOfFollower(userId);
-            isFollow(userId);
         })
         .catch(error => console.error('Error:', error));
 }
-
-let countOfFollower = 0;
-// 팔로워 수 받아오기
-function getCountOfFollower(userId) {
-    fetch('/api/v1/users/follow/'+userId)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('팔로워 수 불러오기 오류');
-            }
-            return response.json(); // JSON 형식으로 파싱
-        })
-        .then(data => {
-            var followCount = data;
-            document.querySelector('#follower-num').textContent = followCount;
-        })
-        .catch(error => console.error('Error:', error));
-
-}
-
-// 게시글 수 받아오기
-function getCountOfArticles(username) {
-    fetch("/api/v1/articles/countOfArticles?username="+username)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('게시글 수 불러오기 오류');
-            }
-            return response.json();
-        })
-        .then(data => {
-            var articleCount = data;
-            document.querySelector('#article-num').textContent = articleCount;
-        })
-        .catch(error => console.error('Error:', error));
-
-}
-
-
-// 팔로우 여부 받아오기
-function isFollow(userId) {
-    fetch("/api/v1/users/follow/"+userId+"/isFollow")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('팔로우 여부 받아오기 오류');
-            }
-            return response.json();
-        })
-        .then(data => {
-            var isFollow = data;
-            const followButton = document.getElementById('follow-btn');
-
-            if (isFollow) {
-                followButton.classList.add('unfollow');
-                followButton.textContent = '팔로우 중';
-            } else {
-                followButton.classList.remove('unfollow');
-                followButton.textContent = '팔로우';
-            }
-        })
-        .catch(error => console.error('Error:', error));
-}
-
-const username = localStorage.getItem('currentWriter');
-document.querySelector('#profile-name').textContent = username;
-
-
-var followElement = document.getElementById("follow-btn");
-fetchArticles(0, username);
-getCountOfArticles(username);
-

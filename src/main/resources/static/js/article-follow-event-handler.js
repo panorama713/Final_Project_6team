@@ -4,14 +4,15 @@ document.addEventListener("DOMContentLoaded", function() {
     userFollowBtn.addEventListener("click", function() {
         event.preventDefault();
         var usernameToFollow = localStorage.getItem('currentWriter');
-        fetch("/api/v1/users/follow?usernameToFollow="+encodeURIComponent(usernameToFollow), {
+        var userId = userFollowBtn.getAttribute("user-id-value")
+        fetch("/api/v1/users/follow/"+ userId, {
             method: "POST"
         })
             .then(response => {
                 if (!response.ok) {
                     if (response.status === 409) {
                         if (confirm('이미 팔로우 중인 유저입니다. 팔로우를 취소하시겠습니까?')) {
-                            fetch("/api/v1/users/follow?usernameToFollow="+encodeURIComponent(usernameToFollow), {
+                            fetch("/api/v1/users/follow/"+userId, {
                                 method: "DELETE"
                             })
                                 .then(data => {

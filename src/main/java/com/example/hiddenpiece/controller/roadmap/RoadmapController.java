@@ -2,10 +2,7 @@ package com.example.hiddenpiece.controller.roadmap;
 
 import com.example.hiddenpiece.common.ResponseDto;
 import com.example.hiddenpiece.common.SystemMessage;
-import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapDto;
-import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
-import com.example.hiddenpiece.domain.dto.roadmap.ResponseSearchRoadmapDto;
-import com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto;
+import com.example.hiddenpiece.domain.dto.roadmap.*;
 import com.example.hiddenpiece.service.roadmap.RoadmapService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -121,5 +118,16 @@ public class RoadmapController {
         @RequestParam(value = "limit", defaultValue = "7") Integer limit
     ) {
         return ResponseEntity.ok(roadmapService.readAllByContaining(keyword, page, limit));
+    }
+
+    // 팔로우 한 유저의 게시글 목록 페이징 조회
+    @GetMapping("/following")
+    public ResponseEntity<Page<ResponseFollowingRoadmapsDto>> readRoadmapsByFollowings(
+            Authentication authentication,
+            @RequestParam(name = "num", defaultValue = "0") Integer num,
+            @RequestParam(name = "limit", defaultValue = "3") Integer limit
+    ) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(roadmapService.readRoadmapsByFollowings(username, num, limit));
     }
 }

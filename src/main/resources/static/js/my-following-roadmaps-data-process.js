@@ -8,36 +8,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 서버에서 유저 데이터를 가져와서 표시하는 함수
     function fetchUserData() {
-        fetch(`/api/v1/articles/following?num=${currentPage - 1}&limit=${itemsPerPage}`)
+        fetch(`/api/v1/roadmaps/following?num=${currentPage - 1}&limit=${itemsPerPage}`)
             .then((response) => response.json())
             .then((data) => {
-                const articleList = document.getElementById('articleList');
-                articleList.innerHTML = '';
+                const roadmapList = document.getElementById('roadmapList');
+                roadmapList.innerHTML = '';
 
                 if (data.content) {
                     // 데이터를 테이블에 표시합니다.
-                    data.content.forEach((article) => {
-                        const articleItem = document.createElement('div');
-                        const createdAtString = getRelativeTime(article.createdAt);
-                        articleItem.innerHTML = `
+                    data.content.forEach((roadmap) => {
+                        const roadmapItem = document.createElement('div');
+                        const createdAtString = getRelativeTime(roadmap.createdAt);
+                        roadmapItem.innerHTML = `
                         <div class="card" style="margin-bottom: 20px">
                             <div class="card-body">
-                                <p><a href="/views/articles/${article.articleId}">제목: ${article.title}</a></p>
-                                <p>작성자: ${article.writer} </p>
-                                <p>내용: ${article.description} </p>
+                                <p><a href="/views/roadmaps/${roadmap.roadmapId}">제목: ${roadmap.title}</a></p>
+                                <p>작성자: ${roadmap.writer} </p>
+                                <p>내용: ${roadmap.description} </p>
                                 <p>상태: ${createdAtString} </p>
-                                <button onclick="clickBtn('${article.articleId}', '${article.title}')">북마크</button>
+                                <button onclick="clickBtn('${roadmap.roadmapId}', '${roadmap.title}')">북마크</button>
                             </div>
                         </div>
                     `;
-                        articleList.appendChild(articleItem);
+                        roadmapList.appendChild(roadmapItem);
                     });
 
                     // 페이지네이션 업데이트
                     const totalPages = Math.ceil(data.content.length / itemsPerPage);
                     updatePagination(totalPages);
                 } else {
-                    articleList.innerHTML = `<h3>팔로우한 유저가 없습니다.</h3>`;
+                    roadmapList.innerHTML = `<h3>팔로우한 유저가 없습니다.</h3>`;
                 }
             })
             .catch((error) => {
@@ -110,16 +110,16 @@ function getRelativeTime(dateString) {
     }
 }
 
-function clickBtn(articleId, title) {
+function clickBtn(roadmapId, title) {
     const confirmed = confirm('북마크 하시겠습니까?')
     if (confirmed) {
-        handleBookmark(articleId, title)
+        handleBookmark(roadmapId, title)
     }
 }
 
-async function handleBookmark(articleId, title) {
+async function handleBookmark(roadmapId, title) {
     const requestBody = { title: title }
-    fetch(`/api/v1/bookmarks/articles/${articleId}`, {
+    fetch(`/api/v1/bookmarks/roadmaps/${roadmapId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

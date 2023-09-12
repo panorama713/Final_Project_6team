@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // 초기 페이지 번호 설정
     let currentPage = 1;
-    const itemsPerPage = 10; // 한 페이지에 보여줄 유저 수
+    const itemsPerPage = 4; // 한 페이지에 보여줄 유저 수
 
     // 페이지 로드시 초기 데이터 표시
     fetchUserData();
@@ -23,9 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         const userItem = document.createElement('div');
                         const createdAtString = getRelativeTime(user.createdAt);
                         userItem.innerHTML = `
-                        <span>아이디: ${user.username} </span>
-                        <span>상태: ${createdAtString} </span>
-                        <button id="followButton" onclick="clickBtn('${user.username}')">맞팔로우</button>
+                        <div class="card" style="margin-bottom: 20px">
+                            <div class="card-body">
+                                <p>아이디: ${user.username}</p>
+                                <p>상태: ${createdAtString}</p>
+                                <button onclick="clickBtn('${user.username}')">맞팔로우</button>
+                            </div>
+                        </div>
                     `;
                         userList.appendChild(userItem);
                     });

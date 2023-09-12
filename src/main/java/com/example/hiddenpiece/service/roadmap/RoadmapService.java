@@ -86,6 +86,15 @@ public class RoadmapService {
         return roadmapDtos;
     }
 
+    // readOne
+    // 로드맵 단일 조회
+    public ResponseRoadmapDto readOne(Long roadmapId) {
+        Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_ROADMAP));
+
+        return ResponseRoadmapDto.fromEntity(targetRoadmap);
+    }
+
     // update
     @Transactional
     public ResponseRoadmapDto update(Long roadmapId, String username, RequestRoadmapDto dto) {

@@ -1,0 +1,155 @@
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: "yg-jalnan" !important;
+}
+
+:root {
+    --main-color: #7e79af;
+    --sub-color: #a7a5cd;
+    --white-color: #ffffff;
+}
+.container-md {
+    padding-top: 100px;
+}
+
+.out-b {
+}
+.rb {
+}
+.tl{
+    text-align: left;
+    font-size: 5px;
+}
+
+.select-year {
+    border: 1px solid rgba(147, 143, 143, 0.66);
+}
+
+.days {
+    position: relative;
+}
+.today-line {
+    content: '▼';
+    position: absolute;
+    border-right: 1px dotted #ff0000;
+    padding: 0;
+    width: 0.1px;
+    height: 200px;
+}
+
+.category {
+    border: 1px solid rgba(147, 143, 143, 0.66);
+    border-radius: 8px;
+}
+
+.category-title{
+    text-align: left;
+    background-color: #f8f9fa;
+    border-bottom: solid 1px rgba(147, 143, 143, 0.66);
+    border-radius: 8px 8px 0px 0px;
+    padding: 5px 5px 5px 5px;
+}
+
+.category-tool {
+    padding: 5px 10px;
+}
+
+/* category-tool 에 포함된 요소 */
+.add-element:hover, .roadmap-update:hover, .roadmap-delete:hover {
+    cursor: pointer;
+    color: var(--main-color);
+}
+
+.custom-fill-box {
+    width: 100%;
+    height: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.fill-progress-title {
+    position: relative;
+    margin-top: 3px;
+    margin-left: 5px;
+    text-align: left;
+    /*transform: translate(-50%, -50%); !* 중앙 정렬 *!*/
+    z-index: 1; /* 다른 요소 위로 표시 */
+    color: white; /* 글씨를 흰색으로 설정 */
+    font-family: TmoneyRoundWindRegular, serif;
+    font-size: 14px;
+    white-space: nowrap; /* 텍스트 오버플로우를 방지하고 텍스트를 한 줄로 유지 */
+    overflow: hidden; /* 텍스트 오버플로우가 발생하면 숨김 */
+    text-overflow: ellipsis; /* 텍스트 오버플로우가 발생할 때 ...으로 표시 */
+}
+
+.fill-progress-title:hover {
+    cursor: pointer;
+}
+
+.fill-progress {
+    height: 100%;
+    background-color: var(--main-color); /* Set your desired color */
+    border-radius: 5px;
+    position: absolute;
+}
+
+
+.fill-box-line {
+    position: absolute;
+}
+.line-left {
+    background-color: black;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: calc(100% / 12 - 1px);
+}
+
+.create-roadmap {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: solid 1px rgba(147, 143, 143, 0.66);
+}
+.create-roadmap:hover {
+    background-color: #6762A6;
+    color: #eeeeee;
+}
+
+/* 팝업 스타일 */
+.popup {
+    display: none; /* 초기에는 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* 배경을 반투명하게 설정 */
+    z-index: 1;
+    overflow: auto;
+}
+
+.popup-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    position: relative;
+}
+
+/* 팝업 닫기 버튼 스타일 */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}

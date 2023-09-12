@@ -64,7 +64,8 @@ function displayMyRoadmapBookmarks(bookmarks) {
                 "BACKEND": 'BE',
                 "FRONTEND": 'FE',
                 "DATA": 'DB',
-                "CS": 'CS',
+                "MOBILE": 'MB',
+                "GAME": 'GM'
             };
             type.textContent = typeMappings[bookmark.typeOfRoadmap] || '';
             username.textContent = bookmark.username;

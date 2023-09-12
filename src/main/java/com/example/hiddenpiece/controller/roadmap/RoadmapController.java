@@ -111,13 +111,12 @@ public class RoadmapController {
         return null;
     }
 
-    @GetMapping("/search")
+    @GetMapping("/total-search")
     public ResponseEntity<Page<ResponseSearchRoadmapDto>> readAllRoadmapsWithKeyword(
         @RequestParam(value = "keyword", required = false) String keyword,
-        @RequestParam(value = "page", defaultValue = "0") Integer page,
-        @RequestParam(value = "limit", defaultValue = "7") Integer limit
+        @RequestParam(value = "page", defaultValue = "0") Integer page
     ) {
-        return ResponseEntity.ok(roadmapService.readAllByContaining(keyword, page, limit));
+        return ResponseEntity.ok(roadmapService.readAllByContaining(keyword, page));
     }
 
     // 팔로우 한 유저의 게시글 목록 페이징 조회

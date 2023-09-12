@@ -59,7 +59,8 @@ public class WebSecurityConfig {
                                 "/api/v1/roadmaps/count",
                                 "/api/v1/users/count",
                                 "/api/v1/roadmaps/top5",
-                                "/api/v1/roadmaps/search/**",
+                                "/api/v1/roadmaps/total-search/**",
+                                "/api/v1/articles/total-search/**",
                                 "/views/**",
                                 "/static/**",
                                 "/uploads/**"

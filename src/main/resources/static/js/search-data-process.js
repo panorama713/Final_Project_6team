@@ -1,12 +1,12 @@
-// 로드맵 검색 결과 리스트
-const searchRoadmapList = document.getElementById('item-list');
+// 통합 검색 결과 리스트
+const searchList = document.getElementById('item-list');
 const paginationContainer = document.getElementById('pagination-nums');
 const searchButton = document.querySelector('.search-button');
 const searchText = document.getElementById('search-bar-text');
 
 let currentPage = 1;
 let totalPages = 0;
-const itemsPerPage = 7;
+const itemsPerPage = 8;
 
 let query = getQueryFromURL();
 
@@ -36,25 +36,27 @@ function reloadKeyword() {
 function fetchDataAndRender(page) {
     // 초기 페이지 로드 시 첫 번째 페이지의 데이터를 가져와 렌더링
     fetchData(page)
-        .then((pageData) => {
-            const data = pageData.content;
+        .then(([roadmapData, articleData]) => {
+            const roadmapItems = roadmapData.content;
+            const articleItems = articleData.content;
 
-            // 총 페이지 수 계산 (서버에서 총 아이템 수를 받아서 계산)
-            totalPages = Math.ceil(pageData.totalElements / itemsPerPage);
+            const allItems = [...roadmapItems, ...articleItems];
+            totalPages = Math.ceil((roadmapData.totalElements + articleData.totalElements) / itemsPerPage);
 
-            // 데이터를 받아서 결과 항목 및 페이징을 렌더링
-            renderItems(data);
+            renderItems(allItems);
 
-            // 페이징을 렌더링
             renderPagination(currentPage, totalPages);
         })
         .catch((error) => {
             console.error('에러 발생', error);
-        });
+        })
 }
 
 function fetchData(page) {
-    return fetch(`/api/v1/roadmaps/search?keyword=${query}&page=${page - 1}&limit=${itemsPerPage}`)
+    const roadmapURL = `/api/v1/roadmaps/total-search?keyword=${query}&page=${page - 1}`;
+    const articleURL = `/api/v1/articles/total-search?keyword=${query}&page=${page - 1}`;
+
+    const roadmapPromise = fetch(roadmapURL)
         .then(async (response) => {
             if (!response.ok) {
                 throw new Error('데이터 가져오기 실패');
@@ -65,10 +67,24 @@ function fetchData(page) {
             console.error('에러 발생', error);
             throw error;
         });
+
+    const articlePromise = fetch(articleURL)
+        .then(async (response) => {
+            if (!response.ok) {
+                throw new Error('게시글 데이터 가져오기 실패');
+            }
+            return await response.json();
+        })
+        .catch((error) => {
+            console.error('에러 발생', error);
+            throw error;
+        });
+
+    return Promise.all([roadmapPromise, articlePromise]);
 }
 
 function renderItems(data) {
-    searchRoadmapList.innerHTML = '';
+    searchList.innerHTML = '';
 
     if (data.length > 0) {
         data.forEach((item) => {
@@ -77,8 +93,17 @@ function renderItems(data) {
 
             const titleDiv = document.createElement('div');
             titleDiv.classList.add('result-title');
-            // TODO 구현 되면 수정
-            titleDiv.innerHTML = `<h4><a href="/views/roadmaps/${item.roadmapId}" class="item-link">${item.title}</a></h4>`
+
+            const typeDiv = document.createElement('div');
+            typeDiv.classList.add('result-type');
+
+            if (item.hasOwnProperty('roadmapId')) {
+                titleDiv.innerHTML = `<h4><a href="/views/roadmaps/${item.roadmapId}" class="item-link">${item.title}</a></h4>`
+                typeDiv.textContent = '위치: 로드맵';
+            } else {
+                titleDiv.innerHTML = `<h4><a href="/views/articles/${item.articleId}" class="item-link">${item.title}</a></h4>`
+                typeDiv.textContent = '위치: 게시글';
+            }
 
             const descDiv = document.createElement('div');
             descDiv.classList.add('result-desc');
@@ -91,17 +116,17 @@ function renderItems(data) {
             const divideLine = document.createElement('hr')
 
             resultItemDiv.appendChild(titleDiv);
+            resultItemDiv.appendChild(typeDiv);
             resultItemDiv.appendChild(descDiv);
             resultItemDiv.appendChild(writerDiv);
 
-            searchRoadmapList.appendChild(resultItemDiv);
-            searchRoadmapList.appendChild(divideLine);
+            searchList.appendChild(resultItemDiv);
+            searchList.appendChild(divideLine);
         });
     } else {
         const noDataDiv = document.createElement('div');
-        // noDataDiv.textContent = '찾으시는 결과가 없습니다.';
         noDataDiv.innerHTML = `<h3 class="noResult">찾으시는 결과가 없습니다.</h3>`
-        searchRoadmapList.appendChild(noDataDiv);
+        searchList.appendChild(noDataDiv);
     }
 }
 
@@ -132,9 +157,14 @@ function renderPagination(currentPage, totalPages) {
     previousLink.addEventListener('click', () => {
         if (currentPage > 1) {
             fetchData(currentPage - 1)
-                .then((pageData) => {
-                    const data = pageData.content;
-                    renderItems(data);
+                .then(([roadmapData, articleData]) => {
+                    const roadmapItems = roadmapData.content;
+                    const articleItems = articleData.content;
+
+                    const allItems = [...roadmapItems, ...articleItems];
+
+                    renderItems(allItems);
+
                     currentPage = currentPage - 1; // 현재 페이지 업데이트
                     updatePagination(currentPage);
                 })
@@ -161,10 +191,15 @@ function renderPagination(currentPage, totalPages) {
         pageLink.addEventListener('click', () => {
             if (page !== currentPage) {
                 fetchData(page)
-                    .then((pageData) => {
-                        const data = pageData.content;
-                        renderItems(data);
-                        currentPage = page; // 현재 페이지 업데이트
+                    .then(([roadmapData, articleData]) => {
+                        const roadmapItems = roadmapData.content;
+                        const articleItems = articleData.content;
+
+                        const allItems = [...roadmapItems, ...articleItems];
+
+                        renderItems(allItems);
+
+                        currentPage = page;
                         updatePagination(currentPage);
                     })
                     .catch((error) => {
@@ -190,10 +225,15 @@ function renderPagination(currentPage, totalPages) {
     nextLink.addEventListener('click', () => {
         if (currentPage < totalPages) {
             fetchData(currentPage + 1)
-                .then((pageData) => {
-                    const data = pageData.content;
-                    renderItems(data);
-                    currentPage = currentPage + 1; // 현재 페이지 업데이트
+                .then(([roadmapData, articleData]) => {
+                    const roadmapItems = roadmapData.content;
+                    const articleItems = articleData.content;
+
+                    const allItems = [...roadmapItems, ...articleItems];
+
+                    renderItems(allItems);
+
+                    currentPage = currentPage + 1;
                     updatePagination(currentPage);
                 })
                 .catch((error) => {

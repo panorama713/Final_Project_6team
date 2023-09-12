@@ -38,7 +38,6 @@ document.addEventListener('click', function (event) {
         document.getElementById('update-todo-url').value = url;
 
         // update-submit data-todoId 추가
-        // console.log('todo id : ', todoId);
         document.getElementById('update-todo-submit').dataset.todoId = todoId;
     }
 

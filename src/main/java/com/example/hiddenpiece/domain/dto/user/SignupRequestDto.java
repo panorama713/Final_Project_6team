@@ -1,5 +1,6 @@
 package com.example.hiddenpiece.domain.dto.user;
 
+import com.example.hiddenpiece.domain.entity.user.Question;
 import com.example.hiddenpiece.domain.entity.user.Role;
 import com.example.hiddenpiece.domain.entity.user.User;
 import jakarta.validation.constraints.NotBlank;
@@ -30,8 +31,7 @@ public class SignupRequestDto {
     @Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "올바른 전화번호 형식으로 입력해 주세요. (예: 01012345678)")
     private String phone;
 
-    @NotBlank(message = "보안 질문은 필수입니다.")
-    private String question;
+    private Question question;
 
     @NotBlank(message = "보안 답변은 필수입니다.")
     private String answer;

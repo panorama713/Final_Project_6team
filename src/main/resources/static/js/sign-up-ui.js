@@ -1,3 +1,10 @@
+const QUESTIONS = {
+    NICKNAME: "어렸을 적 기억나는 별명은?",
+    TEACHER_NAME: "학창시절 기억나는 선생님 혹은 짝꿍의 이름은?",
+    FIRST_PET: "첫 애완동물의 이름은?",
+    FIRST_FLIGHT_DESTINATION: "처음으로 비행기를 타고 방문한 곳은?"
+};
+
 // 동적 UI 구성
 window.addEventListener('DOMContentLoaded', init);
 
@@ -20,10 +27,9 @@ function createInputFields() {
             inputElement = `
                 <select class="form-select" id="${id}" name="${id}" required>
                     <option selected disabled>보안 질문을 선택하세요.</option>
-                    <option value="nickname">어렸을 적 기억나는 별명은?</option>
-                    <option value="teacherName">학창시절 기억나는 선생님 혹은 짝꿍의 이름은?</option>
-                    <option value="friendName">첫 애완동물의 이름은?</option>
-                    <option value="friendName">처음으로 비행기를 타고 방문한 곳은?</option>
+                    ${Object.entries(QUESTIONS).map(([key, value]) =>
+                `<option value="${key}">${value}</option>`).join('')
+            }
                 </select>
             `;
         } else {

@@ -45,7 +45,9 @@ public class User extends BaseTimeEntity {
     private String provider;
     private String providerId;
 
-    private String question;
+    @Enumerated(EnumType.STRING)
+    private Question question;
+
     private String answer;
     private LocalDateTime deletedAt;
 
@@ -74,7 +76,7 @@ public class User extends BaseTimeEntity {
             String username, String password, String realName,
             String email, String phone, Role role,
             String profileImg, String provider, String providerId,
-            String question, String answer
+            Question question, String answer
     ) {
         this.username = username;
         this.password = password;

@@ -1,3 +1,4 @@
+/* 폰트 로드 */
 @font-face {
     font-family: "CustomFont";
     src: url("/static/fonts/JalnanOTF.otf") format("opentype"),
@@ -27,19 +28,13 @@ body {
 }
 
 .container {
-    margin-top: 100px;
-    padding-top: 100px;
+    margin: 50px auto;
 }
 
 /* 로고 스타일 */
-.logo-container, #logo {
+.main-logo {
     text-align: center;
-    margin: 10px;
-    padding-bottom: 10px;
-}
-
-#logo {
-    max-width: 100px;
+    padding-bottom: 30px;
 }
 
 /* 로그인 폼 컨테이너 스타일 */
@@ -47,7 +42,7 @@ body {
     background-color: var(--white-color);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 50px 40px;
+    padding: 40px;
 }
 
 /* 폼 스타일 */
@@ -68,33 +63,32 @@ div.pw-eye i {
     top: 27px;
 }
 
-.c-headline::before {
-    content: "";
-    position: absolute;
-    top: 45%;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: #eee;
-}
-
 .c-headline {
     position: relative;
     text-align: center;
     font-weight: bold;
     color: #848484;
     margin-top: 30px;
-    padding: 0 230px;
+    padding: 0 10px;
 }
 
-.c-headline-desc {
-    position: relative;
-    text-align: center;
-    font-weight: normal;
-    color: #848484;
-    margin-top: 20px;
-    padding: 0 10px;
-    background: #ffffff;
+.c-headline::before,
+.c-headline::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1px;
+    background: #eee;
+    width: calc(40% - 70px);
+}
+
+.c-headline::before {
+    left: 0;
+}
+
+.c-headline::after {
+    right: 0;
 }
 
 .img-container {
@@ -129,7 +123,7 @@ div.pw-eye i {
     margin-bottom: 10px;
 }
 
-.form-control, .form-check-input {
+.form-control, .form-check-input, #save-username {
     border: 2px solid var(--main-color);
     border-radius: 0;
     padding: 10px;
@@ -139,7 +133,7 @@ div.pw-eye i {
     margin-bottom: 20px;
 }
 
-.form-control:focus, .form-check-input:focus {
+.form-control:focus, .form-check-input:focus, #save-username:focus {
     border-color: var(--main-color);
     box-shadow: 0 0 0 0.3rem rgba(78, 72, 151, 0.25);
 }
@@ -160,6 +154,13 @@ div.pw-eye i {
 .form-check-input:checked {
     background-color: var(--main-color);
     border-color: var(--main-color);
+}
+
+#save-username {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 10px;
 }
 
 /* 버튼 스타일 */
@@ -231,9 +232,9 @@ div.pw-eye i {
 }
 
 .idSearch {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .pwSearch {
-    margin-left: 5px;
+    margin-left: 10px;
 }

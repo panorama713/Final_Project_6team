@@ -15,8 +15,8 @@ function createInputFields() {
         const id = row.getAttribute('data-id');
 
         let errorElement = '';
-        if (id === 'pwCheck') {
-            errorElement = '<div id="passwordCheckError" class="text-danger"></div>';
+        if (id === 'newPassword' || id === 'passwordCheck') {
+            errorElement = `<div id="${id}Error" class="text-danger"></div>`;
         }
 
         // HTML 구조를 동적으로 생성

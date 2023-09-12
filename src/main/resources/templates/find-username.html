@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>계정 찾기</title>
+    <title>Hidden Piece 계정 찾기</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
           crossorigin="anonymous">
@@ -14,18 +14,37 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2 find-username-container">
-            <div class="logo-container">
-                <a href="/views/main"><img src="/static/img/logo.png" alt="Hidden Piece LOGO" id="logo"></a>
-            </div>
             <form id="findUsernameForm">
+                <!-- 로고 -->
+                <div class="main-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="200pt" height="150pt" viewBox="0 0 163.000000 97.000000"
+                         preserveAspectRatio="xMidYMid meet">
+                        <a href="/views/main">
+                            <g transform="translate(0.000000,99.000000) scale(0.100000,-0.100000)" fill="#4e4897" stroke="none">
+                                <path d="M608 905 c-167 -32 -318 -105 -402 -195 -62 -67 -89 -129 -90 -205 0-354 679 -548 1133 -323 100 49 191 133 223 205 33 71 31 171 -4 238 -64 122-209 218 -401 266 -109 27 -349 35 -459 14z m467 -34 c170 -45 322 -147 375-251 12 -24 25 -70 27 -102 5 -51 2 -66 -26 -123 -115 -234 -532 -353 -911 -259 -36 9 -106 36 -157 60 -368 176 -319 515 94 653 130 44 179 50 358 47 123 -3 178 -9 240 -25z"/>
+                                <path d="M552 728 c-23 -56 -36 -74 -53 -76 -15 -3 -20 0 -17 10 35 94 35 94 5 100 -15 2 -25 -13 -49 -69 -17 -40 -36 -73 -42 -73 -18 0 -52 -27 -44 -35 3 -4 16 -2 27 5 25 13 27 1 11 -68 -8 -31 -7 -47 2 -62 16 -25 28 -26 28 -2 0 9 10 50 21 90 19 61 25 72 44 72 l23 0 -24 -66 c-23 -61 -24 -114 -4 -114 5 0 16 26 25 57 16 53 105 244 127 270 14 17 1 33 -27 33 -19 0 -28 -12 -53 -72z"/>
+                                <path d="M1267 693 c-2 -5 -12 -33 -22 -63 -15 -44 -20 -51 -26 -35 -4 11 -8 30 -8 43 -1 15 -7 22 -21 22 -11 0 -20 5 -20 10 0 6 -14 10 -31 10 -45 0 -120 -21 -113 -32 7 -12 -15 -68 -27 -68 -5 0 -9 -8 -9 -17 -1 -10 -7 -35 -14 -55 -12 -33 -11 -37 3 -40 9 -2 21 2 26 8 6 6 31 19 58 27 45 15 47 15 47 -3 0 -39 21 -29 45 21 l24 52 16 -41 c27 -66 35 -59 84 77 26 68 28 80 15 85 -20 8 -22 8 -27 -1z m-107 -52 c0 -4 -10 -31 -21 -60 -19 -45 -25 -51 -51 -51 -16 0 -38 -5 -49 -10 -15 -8 -19 -7 -19 5 0 21 36 55 60 55 11 0 20 5 20 10 0 6 -11 10 -25 10 -22 0 -24 3 -15 19 5 11 20 22 32 24 41 8 68 7 68 -2z"/>
+                                <path d="M705 673 c-11 -13 -27 -23 -37 -23 -15 0 -16 -3 -7 -18 18 -29 -15 -109 -48 -115 -19 -4 -23 -1 -17 12 35 82 44 115 35 124 -5 5 -14 6 -19 3 -12 -7 -46 -96 -55 -143 -6 -31 -6 -32 18 -21 20 9 28 8 44 -6 15 -14 20 -14 29 -3 7 8 29 19 49 25 53 16 113 68 113 97 0 25 -33 55 -61 55 -10 0 -19 8 -21 18 -3 15 -6 14 -23 -5z m71 -55 c8 -13 -58 -78 -80 -78 -13 0 -13 6 2 45 14 38 20 45 44 45 15 0 30 -5 34 -12z"/>
+                                <path d="M880 673 c-8 -13 -23 -23 -34 -23 -15 0 -16 -3 -6 -15 18 -22 -16 -104 -49 -117 l-26 -9 25 -19 c16 -12 29 -15 36 -9 6 5 39 23 73 40 66 33 96 67 87 97 -6 19 -45 42 -71 42 -7 0 -15 8 -17 18 -3 15 -6 14 -18 -5z m70 -61 c0 -20 -21 -42 -58 -62 -33 -16 -35 -9 -16 39 14 35 21 41 45 41 22 0 29 -5 29 -18z"/>
+                                <path d="M520 388 c-39 -90 -66 -199 -40 -158 9 13 10 13 10 0 0 -8 9 4 20 28 17 38 22 42 55 42 65 0 117 86 74 122 -17 14 -25 15 -42 6 -16 -8 -22 -8 -25 1 -8 25 -31 8 -52 -41z m100 8 c0 -19 -46 -66 -65 -66 -13 0 -14 4 -4 23 12 23 48 56 62 57 4 0 7 -6 7 -14z"/>
+                                <path d="M787 427 c-22 -7 -36 -15 -32 -19 9 -9 -14 -68 -26 -68 -5 0 -9 -8 -9 -17 -1 -10 -7 -35 -14 -55 -12 -33 -11 -37 5 -41 10 -3 20 1 22 8 3 6 26 18 51 25 26 7 49 17 52 21 7 12 -43 11 -67 -1 -15 -8 -19 -7 -19 5 0 21 36 55 60 55 11 0 20 5 20 10 0 6 -11 10 -25 10 -22 0 -24 3 -15 20 7 13 25 21 60 26 33 4 50 11 50 20 0 17 -58 18 -113 1z"/>
+                                <path d="M1115 435 c-5 -2 -23 -6 -38 -10 -18 -4 -27 -11 -24 -19 3 -7 -3 -27 -13 -44 -14 -23 -50 -122 -50 -138 0 -7 37 3 45 12 6 6 31 19 58 28 26 10 47 20 47 23 0 7 -60 -2 -82 -11 -16 -7 -17 -5 -7 23 8 24 18 32 45 37 39 7 46 24 10 24 -19 0 -23 4 -19 19 4 15 17 21 59 27 34 4 53 11 51 18 -3 11 -61 19 -8 11z"/>
+                                <path d="M928 419 c-26 -15 -70 -95 -66 -121 2 -12 15 -29 30 -37 23 -13 30 -13 52 -1 14 7 33 24 41 37 14 21 14 24 -1 30 -10 4 -20 0 -26 -10 -11 -21 -45 -40 -58 -32 -6 4 -4 20 5 43 25 58 65 94 65 57 0 -8 7 -15 15 -15 26 0 17 40 -11 50 -30 12 -25 12 -46 -1z"/>
+                                <path d="M675 391 c-16 -31 -47 -142 -42 -148 17 -16 95 145 82 167 -11 17 -24 11 -40 -19z"/>
+                            </g>
+                        </a>
+                    </svg>
+                </div>
                 <div class="account-info-inputs">
                     <div class="input-row" data-label="실명" data-type="text" data-id="realName"></div>
                     <div class="input-row" data-label="이메일" data-type="text" data-id="email"></div>
+                    <div class="input-row select-row" data-label="보안 질문" data-id="question"></div>
+                    <div class="input-row" data-label="보안 답변" data-type="text" data-id="answer"></div>
                 </div>
 
                 <div class="btn-wrap">
                     <button type="button" class="btn btn-primary back-btn">BACK</button>
-                    <button id="findUsernameButton" type="submit" class="btn btn-primary find-username-btn" data-bs-toggle="modal" data-bs-target="#findUsernameModal">계정 찾기</button>
+                    <button id="findUsernameButton" type="submit" class="btn btn-primary find-username-btn">계정 찾기</button>
                 </div>
             </form>
 
@@ -50,8 +69,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
-<script src="/static/js/find-username-data-process.js"></script>
 <script src="/static/js/find-username-ui.js"></script>
 <script src="/static/js/find-username-event-handlers.js"></script>
+<script src="/static/js/find-username-data-process.js"></script>
 </body>
 </html>

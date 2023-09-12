@@ -10,20 +10,39 @@ function getFormData(form) {
     return dataObj;
 }
 
-// 비밀번호 에러 관련
-function displayPasswordMismatchError(passwordCheckError) {
-    passwordCheckError.textContent = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
+function displayError(errorElement, message) {
+    errorElement.textContent = message;
 }
 
-function hidePasswordError(passwordCheckError) {
-    passwordCheckError.textContent = "";
+function hideError(errorElement) {
+    if (errorElement) {
+        errorElement.textContent = '';
+    }
 }
 
-function checkPasswordMatch(fields, passwordCheckError) {
-    if (!passwordsMatch(fields.password.value, fields.passwordCheck.value)) {
-        displayPasswordMismatchError(passwordCheckError);
+// 유효성 검사 관련
+function checkPasswordMatch(passwordField, passwordCheckField, passwordCheckError) {
+    if (!passwordsMatch(passwordField.value, passwordCheckField.value)) {
+        displayError(passwordCheckError, "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        return false;
     } else {
-        hidePasswordError(passwordCheckError);
+        hideError(passwordCheckError);
+        return true;
+    }
+}
+
+function checkPasswordValid(passwordInput, passwordError) {
+    const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[`~₩!@#$%^&*]).{7,19}$/;
+
+    if (!passwordInput.value) {
+        displayError(passwordError, "새로운 비밀번호는 필수입니다.");
+        return false;
+    } else if (!passwordPattern.test(passwordInput.value)) {
+        displayError(passwordError, "비밀번호는 8~20자의 영문, 숫자, 특수문자를 모두 포함해야 합니다.");
+        return false;
+    } else {
+        hideError(passwordError);
+        return true;
     }
 }
 
@@ -33,6 +52,7 @@ async function sendDataToServer(data) {
 
     if (userId == null) {
         document.getElementById('result').textContent = '비밀번호 찾기를 다시 실행해주세요.'
+        throw new Error('Invalid userId');
     }
 
     return await fetch(`/api/v1/users/${userId}/change-password`, {
@@ -62,21 +82,4 @@ async function changePw(data) {
     } catch (error) {
         console.error("#console# 에러", error);
     }
-}
-
-// 이벤트 핸들러
-function handleChangePw(event, passwordCheckError) {
-    event.preventDefault();
-
-    const formData = getFormData(event.target);
-    const mappedData = {
-        newPassword: formData.newPw
-    };
-
-    if (!passwordsMatch(formData.password, formData.passwordCheck)) {
-        displayPasswordMismatchError(passwordCheckError);
-        return;
-    }
-
-    changePw(mappedData);
 }

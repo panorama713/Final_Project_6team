@@ -10,20 +10,114 @@ function getFormData(form) {
     return dataObj;
 }
 
-// 비밀번호 에러 관련
-function displayPasswordMismatchError(passwordCheckError) {
-    passwordCheckError.textContent = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
+function displayError(errorElement, message) {
+    errorElement.textContent = message;
 }
 
-function hidePasswordError(passwordCheckError) {
-    passwordCheckError.textContent = "";
+function hideError(errorElement) {
+    if (errorElement) {
+        errorElement.textContent = '';
+    }
 }
 
-function checkPasswordMatch(fields, passwordCheckError) {
-    if (!passwordsMatch(fields.password.value, fields.passwordCheck.value)) {
-        displayPasswordMismatchError(passwordCheckError);
+// 유효성 검사 관련
+function checkPasswordMatch(passwordField, passwordCheckField, passwordCheckError) {
+    if (!passwordsMatch(passwordField.value, passwordCheckField.value)) {
+        displayError(passwordCheckError, "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        return false;
     } else {
-        hidePasswordError(passwordCheckError);
+        hideError(passwordCheckError);
+        return true;
+    }
+}
+
+function checkUsernameValid(usernameInput, usernameError) {
+    const usernamePattern = /^[a-z][a-z0-9]{4,14}$/;
+
+    if (!usernameInput.value) {
+        displayError(usernameError, "아이디는 필수입니다.");
+        return false;
+    } else if (!usernamePattern.test(usernameInput.value)) {
+        displayError(usernameError, "아이디는 5~15자의 영문 소문자, 숫자만 사용 가능합니다.");
+        return false;
+    } else {
+        hideError(usernameError);
+        return true;
+    }
+}
+
+function checkPasswordValid(passwordInput, passwordError) {
+    const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[`~₩!@#$%^&*]).{7,19}$/;
+
+    if (!passwordInput.value) {
+        displayError(passwordError, "비밀번호는 필수입니다.");
+        return false;
+    } else if (!passwordPattern.test(passwordInput.value)) {
+        displayError(passwordError, "비밀번호는 8~20자의 영문, 숫자, 특수문자를 모두 포함해야 합니다.");
+        return false;
+    } else {
+        hideError(passwordError);
+        return true;
+    }
+}
+
+function checkRealNameValid(realNameInput, realNameError) {
+    if (!realNameInput.value.trim()) {
+        displayError(realNameError, "실명은 필수입니다.");
+        return false;
+    } else {
+        hideError(realNameError);
+        return true;
+    }
+}
+
+function checkEmailValid(emailInput, emailError) {
+    const emailPattern = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+    if (!emailInput.value.trim()) {
+        displayError(emailError, "이메일은 필수입니다.");
+        return false;
+    } else if (!emailPattern.test(emailInput.value)) {
+        displayError(emailError, "올바른 이메일 형식으로 입력해 주세요. (예: example@example.com)");
+        return false;
+    } else {
+        hideError(emailError);
+        return true;
+    }
+}
+
+function checkPhoneValid(phoneInput, phoneError) {
+    const phonePattern = /^01(?:0|1|[6-9])[.-]?(\d{3}|\d{4})[.-]?(\d{4})$/;
+
+    if (!phoneInput.value.trim()) {
+        displayError(phoneError, "휴대전화는 필수입니다.");
+        return false;
+    } else if (!phonePattern.test(phoneInput.value)) {
+        displayError(phoneError, "올바른 전화번호 형식으로 입력해 주세요. (예: 01012345678)");
+        return false;
+    } else {
+        hideError(phoneError);
+        return true;
+    }
+}
+
+function checkQuestionValid(questionInput, questionError) {
+    if (!questionInput.value.trim()) {
+        displayError(questionError, "보안 질문은 필수입니다.");
+        return false;
+    } else {
+        hideError(questionError);
+        return true;
+    }
+}
+
+function checkAnswerValid(answerInput, answerError) {
+    if (!answerInput.value.trim()) {
+        displayError(answerError, "보안 답변은 필수입니다.");
+        return false;
+    } else {
+        hideError(answerError);
+        return true;
     }
 }
 
@@ -53,21 +147,20 @@ async function registerUser(data) {
     }
 }
 
-// 이벤트 핸들러
-function handleSignUp(event, fields, passwordCheckError) {
-    event.preventDefault();
-
-    if (!fields.personalInfoAgreement.checked || !fields.serviceAgreement.checked) {
-        alert("모든 필수 항목에 동의해주세요.");
-        return;
-    }
-
-    const formData = getFormData(event.target);
-
-    if (!passwordsMatch(formData.password, formData.passwordCheck)) {
-        displayPasswordMismatchError(passwordCheckError);
-        return;
-    }
-
-    registerUser(formData);
+function fetchContentForModal(id) {
+    fetch(`/static/agreements/${id}.txt`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("네트워크 응답이 올바르지 않습니다.");
+            }
+            return response.text();
+        })
+        .then(data => {
+            const formattedData = data.replace(/\n/g, '<br>');
+            const modalBody = document.querySelector(`#${id}Modal .modal-body`);
+            modalBody.innerHTML = formattedData;
+        })
+        .catch(error => {
+            console.error("약관 내용 로드 실패:", error);
+        });
 }

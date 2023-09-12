@@ -55,7 +55,8 @@ public class CustomUserDetails implements UserDetails {
         return new User(
                 username, password, realName,
                 email, null, role,
-                profileImg, provider, providerId
+                profileImg, provider, providerId,
+                null, null
         );
     }
 

@@ -1,8 +1,45 @@
+// 기본 유틸리티 함수
 function getFormData(form) {
     const formData = new FormData(form);
     const dataObj = {};
     formData.forEach((value, key) => dataObj[key] = value);
     return dataObj;
+}
+
+function displayError(errorElement, message) {
+    errorElement.textContent = message;
+}
+
+function hideError(errorElement) {
+    if (errorElement) {
+        errorElement.textContent = '';
+    }
+}
+
+// 유효성 검사 관련
+function checkRealNameValid(realNameInput, realNameError) {
+    if (!realNameInput.value.trim()) {
+        displayError(realNameError, "실명은 필수입니다.");
+        return false;
+    } else {
+        hideError(realNameError);
+        return true;
+    }
+}
+
+function checkUsernameValid(usernameInput, usernameError) {
+    const usernamePattern = /^[a-z][a-z0-9]{4,14}$/;
+
+    if (!usernameInput.value) {
+        displayError(usernameError, "아이디는 필수입니다.");
+        return false;
+    } else if (!usernamePattern.test(usernameInput.value)) {
+        displayError(usernameError, "아이디는 5~15자의 영문 소문자, 숫자만 사용 가능합니다.");
+        return false;
+    } else {
+        hideError(usernameError);
+        return true;
+    }
 }
 
 // 서버 통신 관련
@@ -34,13 +71,4 @@ async function findPassword(data) {
     } catch (error) {
         console.error("#console# 에러", error);
     }
-}
-
-// 이벤트 핸들러
-function handleFindPassword(event) {
-    event.preventDefault();
-
-    const formData = getFormData(event.target);
-
-    findPassword(formData);
 }

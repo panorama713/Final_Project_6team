@@ -17,6 +17,8 @@ public class CommentResponseDto {
     private Long id;
     private String username;
     private String content;
+    private String articleTitle;
+    private Long articleId;
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
 
@@ -38,6 +40,8 @@ public class CommentResponseDto {
         return CommentResponseDto.builder()
                 .id(entity.getId())
                 .username(entity.getUser().getUsername())
+                .articleId(entity.getArticle().getId())
+                .articleTitle(entity.getArticle().getTitle())
                 .content(entity.getContent())
                 .createdAt(entity.getCreatedAt())
                 .lastModifiedAt(entity.getLastModifiedAt())

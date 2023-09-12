@@ -105,4 +105,11 @@ public class CommentController {
                 .body(commentService.createReply(getUsername(auth), articleId, parentCommentId, dto));
     }
 
+    @GetMapping("/getComments")
+    public ResponseEntity<Page<CommentResponseDto>> getCommentsByUsername( Authentication authentication,
+                                                                           @RequestParam(value = "page", defaultValue = "0") int page) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(commentService.getCommentsByUsername(page, username));
+    }
+
 }

@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,11 +58,11 @@ public class ArticleBookmarkService {
     }
 
     // 북마크한 게시글 목록 조회
-    public Page<ResponseArticleBookmarkDto> readAllArticleByBookmark(String username, Integer page, Integer limit) {
+    public Page<ResponseArticleBookmarkDto> readAllArticleByBookmark(String username, int page) {
         User loginUser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
-        Pageable pageable = PageRequest.of(page, limit);
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
         Page<ArticleBookmark> articleBookmarkPage = articleBookmarkRepository.findAllByUser(loginUser, pageable);
 
         return articleBookmarkPage.map(ResponseArticleBookmarkDto::fromEntity);

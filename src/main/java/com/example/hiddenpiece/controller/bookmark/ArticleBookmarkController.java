@@ -29,11 +29,10 @@ public class ArticleBookmarkController {
     @GetMapping("/articles")
     public ResponseEntity<Page<ResponseArticleBookmarkDto>> readAllArticleByBookmark(
             Authentication authentication,
-            @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "limit", defaultValue = "25") Integer limit
+            @RequestParam(value = "page", defaultValue = "0") Integer page
     ) {
         String username = authentication.getName();
-        return ResponseEntity.ok(articleBookmarkService.readAllArticleByBookmark(username, page, limit));
+        return ResponseEntity.ok(articleBookmarkService.readAllArticleByBookmark(username, page));
     }
 
     @PutMapping("/{bookmarkId}/articles")

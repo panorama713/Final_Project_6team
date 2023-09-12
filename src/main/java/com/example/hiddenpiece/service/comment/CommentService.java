@@ -1,6 +1,8 @@
 package com.example.hiddenpiece.service.comment;
+import com.example.hiddenpiece.domain.dto.bookmark.ResponseArticleBookmarkDto;
 import com.example.hiddenpiece.domain.dto.community.comment.CommentRequestDto;
 import com.example.hiddenpiece.domain.dto.community.comment.CommentResponseDto;
+import com.example.hiddenpiece.domain.entity.bookmark.ArticleBookmark;
 import com.example.hiddenpiece.domain.entity.comment.Comment;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.user.User;
@@ -8,6 +10,7 @@ import com.example.hiddenpiece.domain.repository.comment.CommentRepository;
 import com.example.hiddenpiece.domain.repository.community.ArticleRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
+import com.example.hiddenpiece.exception.CustomExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -145,4 +148,11 @@ public class CommentService {
         return CommentResponseDto.fromEntity(savedReply);
     }
 
+    public Page<CommentResponseDto> getCommentsByUsername(int page, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
+        Page<Comment> commentPage = commentRepository.findCommentsByUser(user, pageable);
+        return commentPage.map(CommentResponseDto::fromEntity);
+    }
 }

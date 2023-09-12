@@ -6,7 +6,7 @@ let currentPage = 0;
 let totalPages = 0;
 function fetchBookmarks(page) {
 
-    fetch("/api/v1/bookmarks/articles")
+    fetch("/api/v1/bookmarks/articles?page="+page)
         .then(response => response.json())
         .then(result => {
             totalPages = result.totalPages;
@@ -17,16 +17,8 @@ function fetchBookmarks(page) {
         .catch(error => console.error('Error:', error));
 }
 
-// createdAt 출력 형식
-function formatCreatedAt(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-}
 
-// articles 표시
+// bookmarks 표시
 function displayBookmarks(bookmarks) {
     const bookmarkList = document.getElementById('bookmark-list');
     bookmarkList.innerHTML = ''; // 이전 데이터 초기화
@@ -71,7 +63,7 @@ function displayPageNumbers() {
         }
 
         pageNumberButton.addEventListener('click', () => {
-            fetchArticles(i, username);
+            fetchBookmarks(i);
         });
 
         paginationContainer.appendChild(pageNumberButton);

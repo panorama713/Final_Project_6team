@@ -145,10 +145,4 @@ public class CommentService {
         return CommentResponseDto.fromEntity(savedReply);
     }
 
-//    public Page<CommentResponseDto> getCommentsByUsername(int page, String username) {
-//        User user = userRepository.findByUsername(username)
-//                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
-//        Pageable pageable = PageRequest.of(page, 5, Sort.by("createdAt").descending());
-//        return commentRepository.findCommentsByUser(user, pageable).map(CommentResponseDto::new);
-//    }
 }

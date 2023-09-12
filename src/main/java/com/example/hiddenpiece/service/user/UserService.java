@@ -177,10 +177,17 @@ public class UserService {
     // 유저의 이름, 등록한 이메일 기반으로 아이디 찾기
     @Transactional
     public String findUsername(RequestFindUsernameDto dto) {
+        // 실명과 이메일로 사용자 존재 여부 확인
         if (!userRepository.existsByRealNameAndEmail(dto.getRealName(), dto.getEmail())) {
             throw new CustomException(NOT_FOUND_USER);
         }
-        return userRepository.findUsernameByRealNameAndEmail(dto.getRealName(), dto.getEmail());
+
+        // 실명, 이메일, 그리고 질문에 따른 답변이 일치하는지 확인
+        if (!userRepository.existsByRealNameAndEmailAndQuestionAndAnswer(dto.getRealName(), dto.getEmail(), dto.getQuestion(), dto.getAnswer())) {
+            throw new CustomException(WRONG_SECURITY_ANSWER);
+        }
+
+        return userRepository.findUsernameByRealNameAndEmailAndQuestionAndAnswer(dto.getRealName(), dto.getEmail(), dto.getQuestion(), dto.getAnswer());
     }
 
     // 유저의 이름, 아이디로 계정 확인

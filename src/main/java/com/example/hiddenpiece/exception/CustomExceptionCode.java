@@ -14,6 +14,7 @@ public enum CustomExceptionCode {
     ALREADY_LOGOUT_USER(HttpStatus.BAD_REQUEST, "다시 로그인해 주시기 바랍니다."),
     NOT_ALLOW_MORE_REPLY(HttpStatus.BAD_REQUEST, "더 이상 대댓글을 등록할 수 없습니다."),
     IMAGE_COUNT_MISMATCH(HttpStatus.BAD_REQUEST, "전달된 이미지의 수와 업로드된 이미지의 수가 일치하지 않습니다."),
+    WRONG_SECURITY_ANSWER(HttpStatus.BAD_REQUEST, "보안 질문 혹은 답변을 다시 확인해 주시기 바랍니다."),
 
     /*
      * 401

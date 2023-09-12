@@ -21,11 +21,13 @@
                 <div class="account-info-inputs">
                     <div class="input-row" data-label="실명" data-type="text" data-id="realName"></div>
                     <div class="input-row" data-label="이메일" data-type="text" data-id="email"></div>
+                    <div class="input-row select-row" data-label="보안 질문" data-id="question"></div>
+                    <div class="input-row" data-label="보안 답변" data-type="text" data-id="answer"></div>
                 </div>
 
                 <div class="btn-wrap">
                     <button type="button" class="btn btn-primary back-btn">BACK</button>
-                    <button id="findUsernameButton" type="submit" class="btn btn-primary find-username-btn" data-bs-toggle="modal" data-bs-target="#findUsernameModal">계정 찾기</button>
+                    <button id="findUsernameButton" type="submit" class="btn btn-primary find-username-btn">계정 찾기</button>
                 </div>
             </form>
 
@@ -50,8 +52,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
-<script src="/static/js/find-username-data-process.js"></script>
 <script src="/static/js/find-username-ui.js"></script>
 <script src="/static/js/find-username-event-handlers.js"></script>
+<script src="/static/js/find-username-data-process.js"></script>
 </body>
 </html>

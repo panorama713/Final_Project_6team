@@ -10,11 +10,8 @@ import com.example.hiddenpiece.service.image.ArticleImageService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -22,17 +19,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/articles")
 public class ArticleController {
-
     private final ArticleService articleService;
     private final ArticleImageService articleImageService;
     private final ArticleRepository articleRepository;
-
 
     // 게시글 작성
     @PostMapping
@@ -48,7 +42,6 @@ public class ArticleController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
-
 
     // 게시글 리스트 조회
     @GetMapping
@@ -82,6 +75,7 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.searchArticles(page, category, keyword));
     }
 
+    // 팔로우 한 유저의 게시글 목록 페이징 조회
     @GetMapping("/following")
     public ResponseEntity<Page<ResponseFollowingArticlesDto>> readArticleByFollowings(
             Authentication authentication,
@@ -136,7 +130,6 @@ public class ArticleController {
         return ResponseEntity.noContent().build();
     }
 
-
     // 게시글 삭제
     @DeleteMapping("/{articleId}")
     public ResponseEntity<Void> deleteArticle(Authentication authentication, @PathVariable final Long articleId) {
@@ -144,5 +137,4 @@ public class ArticleController {
         articleService.deleteArticle(username, articleId);
         return ResponseEntity.noContent().build();
     }
-
 }

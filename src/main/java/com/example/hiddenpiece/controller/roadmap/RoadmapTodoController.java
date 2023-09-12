@@ -84,4 +84,12 @@ public class RoadmapTodoController {
         roadmapTodoService.delete(roadmapId, elementId, todoId);
         return ResponseEntity.noContent().build();
     }
+
+    // 로드맵 투두 달성율
+    @GetMapping("/done-progress")
+    public Long doneProgress(
+            @PathVariable("elementId") Long elementId
+    ) {
+        return roadmapTodoService.todoProgress(elementId);
+    }
 }

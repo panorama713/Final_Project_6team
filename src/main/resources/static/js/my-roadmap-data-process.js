@@ -3,7 +3,8 @@ $(document).ready(async function () {
     var year = document.querySelector(".select-year").value;
     await getRoadmap(year);
     await roadmapPaddingTop();
-    await drawTodayLine();
+    await adjustDoneProgress();
+    // await drawTodayLine();
 });
 
 window.addEventListener('resize', adjustFillProgress);
@@ -49,7 +50,6 @@ function adjustFillProgress() {
         const start = parseInt(fillProgress.dataset.start, 0) || 0;
         const end = parseInt(fillProgress.dataset.end, 0) || 0;
 
-
         const parentWidth = fillProgress.parentElement.offsetWidth;
         const fillWidth = (parentWidth * end / 100) - (parentWidth * start / 100);
 
@@ -58,6 +58,20 @@ function adjustFillProgress() {
     }
 }
 
+function adjustDoneProgress() {
+    const doneProgresses = document.querySelectorAll('.done-progress');
+
+    for (const doneProgress of doneProgresses) {
+        const start = parseInt(doneProgress.dataset.start);
+        const end = parseInt(doneProgress.dataset.end);
+
+        const parentWidth = doneProgress.parentElement.offsetWidth;
+        const doneWidth = (parentWidth * end / 100) - (parentWidth * start / 100);
+
+        doneProgress.style.width = doneWidth + 'px';
+        doneProgress.style.left = start + "%";
+    }
+}
 
 function displayRoadmaps(roadmaps) {
     var container = document.querySelector('.roadmap-container');
@@ -66,7 +80,6 @@ function displayRoadmaps(roadmaps) {
         var roadmapList = createRoadmaps(roadmap);
         container.appendChild(roadmapList);
     });
-    adjustFillProgress();
 }
 
 // 로드맵 타입과 색상을 매핑한 객체
@@ -77,6 +90,28 @@ const typeColors = {
     "MOBILE": "rgba(190,129,247,0.85)",
     "GAME": "rgba(61,243,152,0.85)"
 };
+
+// element_todo 달성비율 확인 기능
+async function roadmapElementTodoDoneProgress(roadmapId, element) {
+    await fetch(`/api/v1/roadmaps/${roadmapId}/elements/${element.id}/todo/done-progress`, {
+        method: 'GET'
+    })
+        .then(response => {
+            if (response.ok) {
+                // console.log(response)
+                return response.json()
+            } else {
+                throw new Error('서버로부터 데이터를 가져오는 중 오류 발생');
+            }
+        })
+        .then(data => {
+            console.log('progress data:', data);
+            document.getElementById(`done-progress-${element.id}`).dataset.end = data.toString();
+        })
+        .catch(error => {
+            console.log('done progress 불러오기 오류', error.message);
+        })
+}
 
 function createRoadmapElements(roadmapId, element, type) {
     var elementDiv = document.createElement('div');
@@ -100,10 +135,10 @@ function createRoadmapElements(roadmapId, element, type) {
 
     var done = document.createElement('div');
     done.classList.add('fill-progress', 'done-progress');
+    done.id = `done-progress-${element.id}`;
+    done.dataset.start ='0';
     done.style.backgroundColor = color;
-    // Todo: 데이터의 갯수에 따른 성공 개수에 따라 다른 값이 오도록 해야함
-    done.dataset.end = '75';
-    done.style.zIndex = -1;
+    done.style.zIndex = '-1';
 
     elementDiv.appendChild(done);
     elementDiv.append(elementTitle);
@@ -180,8 +215,11 @@ function createRoadmaps(roadmap) {
             } else {
                 elements.forEach(function (element) {
                     var roadmapElement = createRoadmapElements(roadmap.id, element, roadmap.type);
-                    // console.log('element: ', element)
-                    // customFillBox.appendChild(roadmapElement);
+                    roadmapElementTodoDoneProgress(roadmap.id, element).then(response => {
+                        adjustDoneProgress();
+                        }
+                        // console.log('test:',document.getElementById(`done-progress-${element.id}`).dataset.end)
+                    );
 
                     // 검사하려는 날짜 구간
                     var newStartDate = calculateDate(element.startDate);
@@ -212,7 +250,7 @@ function createRoadmaps(roadmap) {
                     customFillBox.appendChild(roadmapElement);
                 })
             }
-            adjustFillProgress(roadmap);
+            adjustFillProgress();
         })
         .catch(error => console.error('Error', error))
 
@@ -383,6 +421,9 @@ async function deleteRoadmap(event) {
             .then(response => {
                 alert('로드맵이 삭제되었습니다.');
                 location.reload();
+            })
+            .catch(error => {
+                console.log(error.message);
             })
     }
 }

@@ -5,14 +5,6 @@ document.addEventListener('click', function (event) {
         getElementTodo(event);
     }
 
-    if (event.target.classList.contains('.form-check-input')) {
-        // 체크박스 상태가 변경될 때마다 업데이트 함수 호출
-        const checkboxes = document.querySelectorAll('.form-check-input');
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateCheckedCount);
-        });
-    }
-
     if (event.target.classList.contains('create-todo-submit')) {
         var title = document.getElementById('todo-title').value;
         var content = document.getElementById('todo-content').value;
@@ -61,10 +53,22 @@ document.addEventListener('click', function (event) {
         var elementId = event.target.dataset.elementId;
         var todoId = parseInt(event.target.dataset.todoId);
 
-        console.log(event.target.dataset)
-
         deleteTodo(roadmapId, elementId, todoId);
     }
+
+    // updateDone 관련 로직
+    if (event.target.classList.contains('form-check-input')) {
+        var roadmapId = event.target.dataset.roadmapId;
+        var elementId = event.target.dataset.elementId;
+        var todoId = event.target.dataset.todoId;
+
+        updateDone(roadmapId, elementId, todoId);
+        document.getElementById('donePercent').textContent = doneProgress() + '%';
+    }
+})
+
+$('#roadmapElementTodoModal').on('hidden.bs.modal', function (){
+    location.reload();
 })
 
 async function getElementTodo(event) {
@@ -99,13 +103,6 @@ function displayTodo(roadmapId, elementId, todoDataList, elementTitle) {
     var modal = document.getElementById('roadmapElementTodoModalLabel');
     modal.textContent = '일정: ' + elementTitle;
 
-    var donePercent = document.createElement('span');
-    donePercent.classList.add('col', 'align-self-end')
-    donePercent.style.float = 'right';
-    donePercent.textContent = doneProgress(todoDataList) + '%';
-
-    modal.append(donePercent);
-
     var container = document.querySelector('.element-todo-body');
     todoDataList.forEach(data => {
         var todoDiv = document.createElement('div');
@@ -117,7 +114,8 @@ function displayTodo(roadmapId, elementId, todoDataList, elementTitle) {
         todoDone.innerHTML =
             `
             <div class="form-check" style="text-align: left">
-              <input class="form-check-input" type="checkbox" value="" id="todo-done-check" ${data.done ? 'checked' : ''}>
+              <input class="form-check-input" type="checkbox" value="" id="todo-done-check" ${data.done ? 'checked' : ''}
+              data-roadmap-id="${roadmapId}" data-element-id="${elementId}" data-todo-id="${data.id}">
               <a class="form-check-label" for="todo-done-check" href="#" >
                 ${data.title}
               </a>
@@ -136,47 +134,44 @@ function displayTodo(roadmapId, elementId, todoDataList, elementTitle) {
         container.appendChild(todoDiv);
     })
 
+    var donePercent = document.createElement('span');
+    donePercent.classList.add('col', 'align-self-end')
+    donePercent.id = 'donePercent';
+    donePercent.style.float = 'right';
+    donePercent.textContent = doneProgress() + '%';
+
+    modal.append(donePercent);
+
     // createTodo
     var createTodoButton = document.createElement('div');
     createTodoButton.innerHTML =
         `
         <div>
-            <button class="btn btn-sm create-todo"  data-bs-toggle="modal" data-bs-target="#createTodo">+ Todo 추가하기</button>
+            <button class="btn btn-sm create-todo"  data-bs-toggle="modal" data-bs-target="#createTodoModal" onclick="event.preventDefault();">+ Todo 추가하기</button>
         </div>
         `
     container.append(createTodoButton);
 }
 
 // done-progress data-end 변경 기능
-function doneProgress(todoDataList) {
-    var todoCount = todoDataList.length;
+function doneProgress() {
+    var elements = document.querySelectorAll('.form-check');
+    var todoCount = elements.length;
     var trueCount = 0;
 
     // 원래 값이 없다면 0%
     if (todoCount === 0) {
         return 0;
     } else {
-        todoDataList.forEach(data => {
-            if (data.done === true) trueCount = trueCount + 1;
-        })
+        elements.forEach(element => {
+            var checkbox = element.querySelector('input[type="checkbox"]');
+            if (checkbox && checkbox.checked) {
+                trueCount = trueCount + 1;
+            }
+        });
         return Math.round(trueCount / todoCount * 100);
     }
 }
-
-//Bootstrap multiple modal
-$('#createTodo').on('hidden.bs.modal', function (e) {
-    e.stopPropagation();
-});
-
-$('#roadmapElementTodoModal').on('hide.bs.modal', function (e) {
-    if (e.target === this) {
-        e.stopPropagation();
-    }
-});
-
-$('#closeTodoModalButton').click(function () {
-    $('#parentModal').modal('hide');
-});
 
 // createTodo
 function createTodo(roadmapId, elementId, jsonData) {
@@ -227,4 +222,17 @@ function deleteTodo(roadmapId, elementId, todoId) {
                 alert(error.message);
             });
     }
+}
+
+// todoUpdateDone
+function updateDone(roadmapId, elementId, todoId) {
+    fetch(`/api/v1/roadmaps/${roadmapId}/elements/${elementId}/todo/${todoId}/done`, {
+        method: 'PUT'
+    })
+        .then(response => {
+            console.log("todo 완료!");
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
 }

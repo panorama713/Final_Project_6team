@@ -25,7 +25,6 @@ import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
 public class RoadmapElementService {
     private final RoadmapRepository roadmapRepository;
     private final RoadmapElementRepository roadmapElementRepository;
-    // todo: user repository
 
     // 로드맵 요소 추가 기능
     // create

@@ -111,4 +111,12 @@ public class RoadmapTodoService {
         roadmapTodoRepository.delete(targetRoadmapTodo);
         log.info("로드맵 Todo 삭제 성공");
     }
+
+    // roadmap_todo 달성 비율 계산 기능
+    public Long todoProgress(Long elementId) {
+        long total = roadmapTodoRepository.getTotalDoneCountByElementId(elementId);
+        long trueCount = roadmapTodoRepository.getTrueDoneCountByElementId(elementId);
+
+        return (long) Math.round((float) trueCount / total * 100);
+    }
 }

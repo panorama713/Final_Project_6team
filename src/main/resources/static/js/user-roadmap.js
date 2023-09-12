@@ -1,8 +1,16 @@
 window.addEventListener('resize', adjustFillProgress);
+window.addEventListener('resize', roadmapPaddingTop);
 window.addEventListener('DOMContentLoaded', function () {
     const roadmapId = getRoadmapIdFromUrl();
     fetchUserRoadmaps(roadmapId);
 });
+
+// 로드맵 위치 조정
+function roadmapPaddingTop() {
+    document.querySelector('.container-md')
+        .style.paddingTop = document.querySelector('.container-xxl').offsetHeight + 20 + 'px';
+}
+
 
 function getRoadmapIdFromUrl() {
     const regex = /\/roadmaps\/(\d+)/;
@@ -148,8 +156,11 @@ function createRoadmapElements(roadmapId, element, type) {
     elementDiv.dataset.end = calculateDate(element.endDate);
 
     const elementTitle = document.createElement('div');
-    elementTitle.classList.add('fill-progress-title');
+    elementTitle.classList.add('fill-progress-title', 'element-todo-list');
+    elementTitle.dataset.bsToggle = 'modal';
+    elementTitle.dataset.bsTarget = '#roadmapElementTodoModal';
     elementTitle.textContent = element.title;
+    elementTitle.dataset.elementTitle = element.title;
     elementTitle.dataset.roadmapId = roadmapId;
     elementTitle.dataset.elementId = element.id;
     elementTitle.style.fontWeight = 'normal';
@@ -159,7 +170,7 @@ function createRoadmapElements(roadmapId, element, type) {
     elementDiv.style.backgroundColor = color;
 
     const done = document.createElement('div');
-    done.classList.add('fill-progress');
+    done.classList.add('fill-progress', 'done-progress');
     done.style.backgroundColor = color;
     // Todo: 데이터의 갯수에 따른 성공 개수에 따라 다른 값이 오도록 해야함
     done.dataset.end = '75';

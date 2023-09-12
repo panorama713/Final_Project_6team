@@ -33,7 +33,7 @@ function displayRoadmaps(roadmap) {
 
 function formatDate(createdAt) {
     const createdAtDate = new Date(createdAt);
-    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', { year: 'numeric'});
+    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', {year: 'numeric'});
     return formattedDate;
 }
 
@@ -41,15 +41,40 @@ function createRoadmaps(roadmap) {
     const roadmapDiv = document.createElement('div');
     roadmapDiv.classList.add('roadmap-div', 'row', 'category', 'p-0', 'out-b', 'pb-2', 'mb-1');
 
-    const categoryTitle = document.createElement('div');
-    categoryTitle.classList.add('category-title', 'rb');
-    categoryTitle.textContent = roadmap.type + " : " + roadmap.title;
-    categoryTitle.style.position = 'relative';
+    const typeTitle = document.createElement('div');
+    typeTitle.classList.add('category-title', 'rb');
+    typeTitle.textContent = roadmap.type + " : " + roadmap.title;
+    typeTitle.style.position = 'relative';
+
+    const btnDiv = document.createElement('div');
+    btnDiv.classList.add('btn-tool');
+    btnDiv.style.position = 'absolute';
+    btnDiv.style.textAlign = 'right';
+
+    const bookmarkBtn = document.createElement('button');
+    bookmarkBtn.classList.add('bookmark-btn', 'btn', 'btn-primary');
+    bookmarkBtn.textContent = '북마크';
+    bookmarkBtn.addEventListener('click', async function () {
+        if (await existBookmark(roadmap)) {
+            const bookmarkId = await getBookmarkId(roadmap);
+            await cancelRoadmapBookmark(bookmarkId);
+        } else {
+            await addRoadmapBookmark(roadmap);
+        }
+    });
+
+    const userProfileBtn = document.createElement('button');
+    userProfileBtn.classList.add('user-profile-btn', 'btn', 'btn-primary');
+    userProfileBtn.textContent = '프로필';
+
+    btnDiv.appendChild(bookmarkBtn);
+    btnDiv.appendChild(userProfileBtn);
 
     const customFillBox = document.createElement('div');
     customFillBox.classList.add('custom-fill-box', 'mt-2', 'mx-0', 'p-0', 'element');
 
-    roadmapDiv.appendChild(categoryTitle);
+    roadmapDiv.appendChild(typeTitle);
+    roadmapDiv.appendChild(btnDiv);
     roadmapDiv.appendChild(customFillBox);
 
     fetchRoadmapElements(roadmap);
@@ -115,6 +140,7 @@ const typeColors = {
     "MOBILE": "rgba(190,129,247,0.85)",
     "GAME": "rgba(61,243,152,0.85)"
 };
+
 function createRoadmapElements(roadmapId, element, type) {
     const elementDiv = document.createElement('div');
     elementDiv.classList.add('fill-progress');

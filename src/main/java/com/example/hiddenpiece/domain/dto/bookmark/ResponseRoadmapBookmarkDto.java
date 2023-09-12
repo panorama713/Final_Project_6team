@@ -19,6 +19,7 @@ public class ResponseRoadmapBookmarkDto {
     private String username;
     private String typeOfRoadmap;
     private LocalDateTime createdAt;
+    private Long id;
 
     public static ResponseRoadmapBookmarkDto fromEntity(RoadmapBookmark roadmapBookmark) {
         return ResponseRoadmapBookmarkDto.builder()
@@ -28,6 +29,7 @@ public class ResponseRoadmapBookmarkDto {
                 .username(roadmapBookmark.getRoadmap().getUser().getUsername())
                 .typeOfRoadmap(roadmapBookmark.getRoadmap().getType())
                 .createdAt(roadmapBookmark.getCreatedAt())
+                .id(roadmapBookmark.getId())
                 .build();
     }
 

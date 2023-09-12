@@ -10,8 +10,9 @@
 }
 
 :root {
-    --main-color: #7e79af;
+    --main-color: #4e4897;
     --sub-color: #a7a5cd;
+    --sub-color2: #6762A6;
     --white-color: #ffffff;
 }
 .container-md {
@@ -152,4 +153,17 @@
     right: 10px;
     font-size: 24px;
     cursor: pointer;
+}
+
+.bookmark-btn, .user-profile-btn {
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
+}
+
+.bookmark-btn:hover, .user-profile-btn:hover {
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+    margin-bottom: 5px;
+    color: #fff;
 }

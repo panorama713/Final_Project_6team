@@ -148,9 +148,9 @@ public class RoadmapService {
         return roadmapRepository.findTop5ByRoadmapsWithId();
     }
 
-    // 검색어에 따른 페이징 조회 -> 기준은 우선 조회수
-    public Page<ResponseSearchRoadmapDto> readAllByContaining(String keyword, Integer page, Integer limit) {
-        Pageable pageable = PageRequest.of(page, limit);
+    // 통합 검색 로드맵 조회
+    public Page<ResponseSearchRoadmapDto> readAllByContaining(String keyword, Integer page) {
+        Pageable pageable = PageRequest.of(page, 4);
         return roadmapRepository.findByContaining(keyword, pageable);
     }
 

@@ -75,6 +75,15 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.searchArticles(page, category, keyword));
     }
 
+    // 통합 검색
+    @GetMapping("/total-search")
+    public ResponseEntity<Page<ResponseSearchArticleDto>> readAllArticlesWithKeyword(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "page", defaultValue = "0") Integer page
+    ) {
+        return ResponseEntity.ok(articleService.readAllByContaining(keyword, page));
+    }
+
     // 팔로우 한 유저의 게시글 목록 페이징 조회
     @GetMapping("/following")
     public ResponseEntity<Page<ResponseFollowingArticlesDto>> readArticleByFollowings(

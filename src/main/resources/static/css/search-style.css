@@ -125,7 +125,7 @@ body {
 .result-item {
     display: flex;
     flex-direction: column;
-    height: 100px;
+    height: 130px;
 }
 
 .result-title {

@@ -250,4 +250,10 @@ public class ArticleService {
         Page<Article> articlePage = followRepository.findArticlesByFromUserFollowing(currentUser, pageable);
         return articlePage.map(ResponseFollowingArticlesDto::fromEntity);
     }
+
+    // 통합 검색 게시글 조회
+    public Page<ResponseSearchArticleDto> readAllByContaining(String keyword, Integer page) {
+        Pageable pageable = PageRequest.of(page, 4);
+        return articleRepository.findByContaining(keyword, pageable);
+    }
 }

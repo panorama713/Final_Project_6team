@@ -127,7 +127,7 @@ function fetchArticles(page, username) {
 let countOfFollower = 0;
 // 팔로워 수 받아오기
 function getCountOfFollower(userId) {
-    fetch('/api/v1/users/follow/'+userId)
+    fetch(`/api/v1/users/${userId}/follow`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('팔로워 수 불러오기 오류');
@@ -156,13 +156,12 @@ function getCountOfArticles(username) {
             document.querySelector('#article-num').textContent = articleCount;
         })
         .catch(error => console.error('Error:', error));
-
 }
 
 
 // 팔로우 여부 받아오기
 function isFollow(userId) {
-    fetch("/api/v1/users/follow/"+userId+"/isFollow")
+    fetch(`/api/v1/users/${userId}/follow/isFollow`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('팔로우 여부 받아오기 오류');

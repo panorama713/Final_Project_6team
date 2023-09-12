@@ -69,7 +69,7 @@ public class ArticleService {
     }
 
     // 모든 게시글 목록 조회
-    public Page<ArticleListResponseDto> getList(int page) {
+    public Page<ArticleListResponseDto> getList(int page, String username) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createdAt"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
@@ -134,6 +134,7 @@ public class ArticleService {
         return ArticleResponseDto.builder()
                 .articleId(articleId)
                 .username(article.getUser().getUsername())
+                .userId(article.getUser().getId())
                 .title(article.getTitle())
                 .content(article.getContent())
                 .type(article.getType())

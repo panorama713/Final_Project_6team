@@ -76,6 +76,9 @@ public class ViewController {
         return "my-profile";
     }
 
+    @GetMapping("/my-page/articles")
+    public String myArticles() {return "my-profile-articles";}
+
     @GetMapping("/my-page/update-info")
     public String updateInfo() {
         return "update-info";

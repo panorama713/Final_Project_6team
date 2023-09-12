@@ -6,6 +6,10 @@ function fetchArticleDetails(id) {
             console.log('게시글 상세 정보:', data);
             displayArticleDetails(data, id);
             localStorage.setItem('currentWriter', data.username);
+
+            const followElement = document.getElementById("follow-btn");
+            followElement.setAttribute("user-id-value", data.userId);
+
         })
         .catch(error => console.error('Error:', error));
 }

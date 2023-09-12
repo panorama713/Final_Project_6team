@@ -16,6 +16,7 @@ import java.util.List;
 public class ArticleResponseDto {
     private Long articleId;
     private String username;
+    private Long userId;
     private String title;
     private String content;
     private Category category;

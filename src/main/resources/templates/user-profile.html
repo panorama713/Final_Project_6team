@@ -13,7 +13,7 @@
 
 <body>
 
-<header th:replace="navbar.html :: header"></header>
+<header th:replace="~{navbar.html :: header}"></header>
 
 <div class="container mt-5">
     <button class="btn go-back" onclick="goBack()">뒤로 가기</button>
@@ -31,7 +31,7 @@
                                 <h2 class="profile-name" id="profile-name">유저이름</h2>
                             </div>
                             <div>
-                                <button class="btn btn-follow" id="follow-btn">Follow</button>
+                                <button class="btn btn-follow" id="follow-btn" user-id-value="" >팔로우</button>
                             </div>
                         </div>
                         <div class="row mt-3">

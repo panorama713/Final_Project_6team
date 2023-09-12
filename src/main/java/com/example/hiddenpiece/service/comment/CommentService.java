@@ -1,5 +1,4 @@
 package com.example.hiddenpiece.service.comment;
-
 import com.example.hiddenpiece.domain.dto.community.comment.CommentRequestDto;
 import com.example.hiddenpiece.domain.dto.community.comment.CommentResponseDto;
 import com.example.hiddenpiece.domain.entity.comment.Comment;
@@ -11,11 +10,17 @@ import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
@@ -139,4 +144,11 @@ public class CommentService {
         log.info("#log# 데이터베이스 저장 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}] -> 대댓글 [{}]", username, articleId, parentCommentId, savedReply.getId());
         return CommentResponseDto.fromEntity(savedReply);
     }
+
+//    public Page<CommentResponseDto> getCommentsByUsername(int page, String username) {
+//        User user = userRepository.findByUsername(username)
+//                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+//        Pageable pageable = PageRequest.of(page, 5, Sort.by("createdAt").descending());
+//        return commentRepository.findCommentsByUser(user, pageable).map(CommentResponseDto::new);
+//    }
 }

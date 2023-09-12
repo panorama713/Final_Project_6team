@@ -2,6 +2,7 @@ package com.example.hiddenpiece.domain.repository.follow;
 
 import com.example.hiddenpiece.domain.dto.user.ResponseFollowerDto;
 import com.example.hiddenpiece.domain.dto.user.ResponseFollowingDto;
+import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.follow.Follow;
 import com.example.hiddenpiece.domain.entity.user.User;
 import org.springframework.data.domain.Page;
@@ -31,4 +32,10 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
             "GROUP BY f.fromUser.id, f.fromUser.username " +
             "ORDER BY f.fromUser.id ASC")
     Page<ResponseFollowerDto> findFollowByToUser(@Param("currentUser") User currentUser, Pageable pageable);
+
+    @Query("SELECT a FROM Article a " +
+            "JOIN a.user u " +
+            "JOIN Follow f ON u = f.toUser " +
+            "WHERE f.fromUser = :currentUser")
+    Page<Article> findArticlesByFromUserFollowing(@Param("currentUser") User currentUser, Pageable pageable);
 }

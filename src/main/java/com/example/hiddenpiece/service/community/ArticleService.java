@@ -1,8 +1,5 @@
 package com.example.hiddenpiece.service.community;
-import com.example.hiddenpiece.domain.dto.community.article.ArticleRequestDto;
-import com.example.hiddenpiece.domain.dto.community.article.ArticleListResponseDto;
-import com.example.hiddenpiece.domain.dto.community.article.ArticleResponseDto;
-import com.example.hiddenpiece.domain.dto.community.article.CreateArticleResponseDto;
+import com.example.hiddenpiece.domain.dto.community.article.*;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.community.Category;
 import com.example.hiddenpiece.domain.entity.user.User;
@@ -243,5 +240,13 @@ public class ArticleService {
         }
 
         return countQuery.getSingleResult();
+    }
+
+    public Page<ResponseFollowingArticlesDto> readArticlesByFollowings(String username, Integer num, Integer limit) {
+        User currentUser = userRepository.findByUsername(username).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        Pageable pageable = PageRequest.of(num, limit);
+
+        Page<Article> articlePage = followRepository.findArticlesByFromUserFollowing(currentUser, pageable);
+        return articlePage.map(ResponseFollowingArticlesDto::fromEntity);
     }
 }

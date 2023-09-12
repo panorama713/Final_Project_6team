@@ -1,8 +1,5 @@
 package com.example.hiddenpiece.controller.community;
-import com.example.hiddenpiece.domain.dto.community.article.ArticleListResponseDto;
-import com.example.hiddenpiece.domain.dto.community.article.ArticleRequestDto;
-import com.example.hiddenpiece.domain.dto.community.article.ArticleResponseDto;
-import com.example.hiddenpiece.domain.dto.community.article.CreateArticleResponseDto;
+import com.example.hiddenpiece.domain.dto.community.article.*;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.community.Category;
 import com.example.hiddenpiece.domain.repository.community.ArticleRepository;
@@ -85,8 +82,15 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.searchArticles(page, category, keyword));
     }
 
-
-
+    @GetMapping("/following")
+    public ResponseEntity<Page<ResponseFollowingArticlesDto>> readArticleByFollowings(
+            Authentication authentication,
+            @RequestParam(name = "num", defaultValue = "0") Integer num,
+            @RequestParam(name = "limit", defaultValue = "3") Integer limit
+    ) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(articleService.readArticlesByFollowings(username, num, limit));
+    }
 
     // 게시글 단독 조회 (좋아요 개수 포함)
     @GetMapping("/{articleId}")

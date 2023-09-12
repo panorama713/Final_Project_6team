@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -152,6 +153,16 @@ public class RoadmapService {
     public Page<ResponseSearchRoadmapDto> readAllByContaining(String keyword, Integer page) {
         Pageable pageable = PageRequest.of(page, 4);
         return roadmapRepository.findByContaining(keyword, pageable);
+    }
+
+    // 로드맵 찾기 페이지 조회
+    public Page<ResponseSearchRoadmapDto> readAllByTypeOrderBy(Integer page, String keyword, String field, String sort) {
+        Sort pageableSort = Sort.by("createdAt");
+
+        pageableSort = "newest".equals(sort) ? pageableSort.descending() : pageableSort.ascending();
+
+        Pageable pageable = PageRequest.of(page, 8, pageableSort);
+        return roadmapRepository.findRoadmapByTypeOrderBySort(keyword, field, pageable);
     }
 
     // 팔로우 한 유저의 로드맵 조회

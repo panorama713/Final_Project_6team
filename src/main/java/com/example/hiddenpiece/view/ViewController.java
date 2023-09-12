@@ -67,8 +67,13 @@ public class ViewController {
     }
 
     @GetMapping("/search")
-    public String searchRoadmaps() {
+    public String totalSearch() {
         return "search-items";
+    }
+
+    @GetMapping("/search/roadmaps")
+    public String searchRoadmaps() {
+        return "search-roadmaps";
     }
 
     @GetMapping("/my-page/profile")

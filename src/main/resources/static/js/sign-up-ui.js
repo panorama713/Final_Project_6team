@@ -5,6 +5,24 @@ const QUESTIONS = {
     FIRST_FLIGHT_DESTINATION: "처음으로 비행기를 타고 방문한 곳은?"
 };
 
+const agreementsData = [
+    {
+        id: "personalInfoAgreement",
+        title: "개인정보 수집 및 이용",
+        required: true
+    },
+    {
+        id: "serviceAgreement",
+        title: "서비스 이용 약관",
+        required: true
+    },
+    {
+        id: "marketingAgreement",
+        title: "마케팅 정보 수신",
+        required: false
+    }
+];
+
 // 동적 UI 구성
 window.addEventListener('DOMContentLoaded', init);
 
@@ -57,19 +75,21 @@ function createInputFields() {
 // 약관 동의 섹션을 동적으로 생성
 function createAgreementSections() {
     const container = document.querySelector('.agreements');
+    container.innerHTML = '';
 
-    container.querySelectorAll('.agreement').forEach(agreement => {
-        const id = agreement.getAttribute('data-id');
-        const title = agreement.getAttribute('data-title');
-        const required = agreement.getAttribute('data-required') === 'true';
+    agreementsData.forEach(agreement => {
+        const { id, title, required } = agreement;
+
+        const agreementElement = document.createElement('div');
+        agreementElement.classList.add('agreement');
 
         // HTML 구조를 동적으로 생성
-        agreement.innerHTML = `
+        agreementElement.innerHTML = `
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="${id}" ${required ? 'required' : ''}>
                 <label class="form-check-label" for="${id}">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#${id}Modal">
-                        <span class="agreement-text">${title}</span></a>에 <span>동의합니다.</span>
+                        <span class="agreement-text">${title}</span></a> 에 <span>동의합니다.</span>
                     <span class="${required ? 'required' : 'optional'}-badge">${required ? '필수' : '선택'}</span>
                 </label>
             </div>
@@ -81,7 +101,7 @@ function createAgreementSections() {
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            ${title} 약관 내용...
+                            ⏳⌛로딩 중...
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-main-color" data-bs-dismiss="modal">닫기</button>
@@ -90,5 +110,11 @@ function createAgreementSections() {
                 </div>
             </div>
         `;
+
+        agreementElement.querySelector(`a[data-bs-target="#${id}Modal"]`).addEventListener('click', function() {
+            fetchContentForModal(id);
+        });
+
+        container.appendChild(agreementElement);
     });
 }

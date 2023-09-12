@@ -146,3 +146,21 @@ async function registerUser(data) {
         console.error("#console# 회원가입 에러", error);
     }
 }
+
+function fetchContentForModal(id) {
+    fetch(`/static/agreements/${id}.txt`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("네트워크 응답이 올바르지 않습니다.");
+            }
+            return response.text();
+        })
+        .then(data => {
+            const formattedData = data.replace(/\n/g, '<br>');
+            const modalBody = document.querySelector(`#${id}Modal .modal-body`);
+            modalBody.innerHTML = formattedData;
+        })
+        .catch(error => {
+            console.error("약관 내용 로드 실패:", error);
+        });
+}

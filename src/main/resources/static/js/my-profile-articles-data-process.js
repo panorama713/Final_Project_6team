@@ -2,7 +2,7 @@ window.onload = function() {
     fetch('/api/v1/users/mini-profile').then((response) => {
         return response.json();
     }).then((data) => {
-        let username = data.username;
+        username = data.username;
         fetchArticles(0, username);
     }).catch((error) => {
         console.error(error.message);
@@ -128,3 +128,5 @@ function fetchArticles(page, username) {
         })
         .catch(error => console.error('Error:', error));
 }
+
+var username;

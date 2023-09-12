@@ -79,6 +79,12 @@ public class ViewController {
     @GetMapping("/my-page/articles")
     public String myArticles() {return "my-profile-articles";}
 
+    @GetMapping("/my-page/comments")
+    public String myComments() {return "my-profile-comments";}
+
+    @GetMapping("/my-page/bookmarks")
+    public String myBookmarks() {return "my-profile-bookmarks";}
+
     @GetMapping("/my-page/update-info")
     public String updateInfo() {
         return "update-info";

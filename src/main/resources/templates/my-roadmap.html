@@ -35,18 +35,18 @@
                 <div class="col text-center align-self-center">
                     <!-- 월 표시 -->
                     <div class="row">
-                        <div class="col-1 p-0 tl rb">01</div>
-                        <div class="col-1 p-0 tl rb">02</div>
-                        <div class="col-1 p-0 tl rb">03</div>
-                        <div class="col-1 p-0 tl rb">04</div>
-                        <div class="col-1 p-0 tl rb">05</div>
-                        <div class="col-1 p-0 tl rb">06</div>
-                        <div class="col-1 p-0 tl rb">07</div>
-                        <div class="col-1 p-0 tl rb">08</div>
-                        <div class="col-1 p-0 tl rb">09</div>
-                        <div class="col-1 p-0 tl rb">10</div>
-                        <div class="col-1 p-0 tl rb">11</div>
-                        <div class="col-1 p-0 tl rb">12</div>
+                        <div class="col-1 p-0 tl">01</div>
+                        <div class="col-1 p-0 tl">02</div>
+                        <div class="col-1 p-0 tl">03</div>
+                        <div class="col-1 p-0 tl">04</div>
+                        <div class="col-1 p-0 tl">05</div>
+                        <div class="col-1 p-0 tl">06</div>
+                        <div class="col-1 p-0 tl">07</div>
+                        <div class="col-1 p-0 tl">08</div>
+                        <div class="col-1 p-0 tl">09</div>
+                        <div class="col-1 p-0 tl">10</div>
+                        <div class="col-1 p-0 tl">11</div>
+                        <div class="col-1 p-0 tl">12</div>
                     </div>
                     <!-- 로드맵 표시 -->
                     <div class="roadmap-container"></div>
@@ -126,7 +126,7 @@
 
                     <!-- 로드맵 수정 모달창 -->
                     <div class="row">
-                        <div class="modal fade" id="updateRoadmap" tabindex="-1" aria-hidden="true">
+                        <div class="modal fade" id="updateRoadmap" tabindex="-1" aria-hidden="true" >
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -169,20 +169,106 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- 로드맵 elementTodo 모달창 -->
+                    <div class="modal fade" id="roadmapElementTodoModal" aria-hidden="true" >
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 col" style="text-align: left" id="roadmapElementTodoModalLabel">element title</h1>
+                                    <button id="closeTodoModalButton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form id="readElementTodo">
+                                    <div class="element-todo-body modal-body">
+                                        <!-- elementTodo 리스트 -->
+                                    </div>
+<!--                                    <div class="modal-footer">-->
+<!--                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>-->
+<!--                                        <button type="submit" class="btn btn-primary" id="element-submit">저장 후 닫기</button>-->
+<!--                                    </div>-->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- createTodo 모달창 -->
+                    <div class="modal fade" id="createTodo" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="todoModalLabel">todo 생성</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <!-- createTodo title -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="todo-title-label">제목</span>
+                                                <input type="text" id="todo-title" class="form-control" placeholder="제목을 입력해 주세요" aria-describedby="todo-title">
+                                            </div>
+                                            <!-- createTodo content -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="todo-content-label">제목</span>
+                                                <input type="text" id="todo-content" class="form-control" placeholder="내용을 입력해 주세요" aria-describedby="todo-content">
+                                            </div>
+                                            <!-- createTodo url -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="todo-url-label">URL</span>
+                                                <input type="text" id="todo-url" class="form-control" placeholder="URL을 입력해 주세요" aria-describedby="todo-url">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button type="button" id="create-todo-submit" class="btn btn-primary create-todo-submit">저장</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- updateTodo 모달창 -->
+                    <div class="modal fade" id="updateTodo" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="updateTodoModalLabel">Todo update</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <!-- updateTodo title -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="update-todo-title-label">제목</span>
+                                                <input type="text" id="update-todo-title" class="form-control" placeholder="제목을 입력해 주세요" aria-describedby="todo-title">
+                                            </div>
+                                            <!-- updateTodo content -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="update-todo-content-label">내용</span>
+                                                <input type="text" id="update-todo-content" class="form-control" placeholder="내용을 입력해 주세요" aria-describedby="todo-content">
+                                            </div>
+                                            <!-- updateTodo url -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="update-todo-url-label">URL</span>
+                                                <input type="text" id="update-todo-url" class="form-control" placeholder="URL을 입력해 주세요" aria-describedby="todo-url">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button type="button" id="update-todo-submit" class="btn btn-primary update-todo-submit">저장</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 팝업 창 -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <!-- 팝업 내용 -->
-            <p>팝업 내용을 여기에 추가합니다.</p>
-            <!-- 닫기 버튼 -->
-            <span class="close" id="close-popup">&times;</span>
-        </div>
-    </div>
 </section>
 <script>
 

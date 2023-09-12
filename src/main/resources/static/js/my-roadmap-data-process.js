@@ -2,12 +2,20 @@ $(document).ready(async function () {
     // 선택된 드롭다운의 값을 가져옵니다.
     var year = document.querySelector(".select-year").value;
     await getRoadmap(year);
+    await roadmapPaddingTop();
     await drawTodayLine();
 });
 
 window.addEventListener('resize', adjustFillProgress);
+window.addEventListener('resize', roadmapPaddingTop);
 
 document.querySelector("#create-roadmap-submit").addEventListener('click', createNewRoadmap)
+
+// 로드맵 위치 조정
+function roadmapPaddingTop() {
+    document.querySelector('.container-md')
+        .style.paddingTop = document.querySelector('.container-xxl').offsetHeight + 20 + 'px';
+}
 
 // 선택된 dropdown-item에 따라 dropdown-toggle 업데이트
 document.querySelectorAll('.dropdown-item').forEach(function(item) {
@@ -77,8 +85,11 @@ function createRoadmapElements(roadmapId, element, type) {
     elementDiv.dataset.end = calculateDate(element.endDate);
 
     var elementTitle = document.createElement('div');
-    elementTitle.classList.add('fill-progress-title');
+    elementTitle.classList.add('fill-progress-title', 'element-todo-list');
+    elementTitle.dataset.bsToggle = 'modal';
+    elementTitle.dataset.bsTarget = '#roadmapElementTodoModal'
     elementTitle.textContent = element.title;
+    elementTitle.dataset.elementTitle = element.title;
     elementTitle.dataset.roadmapId = roadmapId;
     elementTitle.dataset.elementId = element.id;
     elementTitle.style.fontWeight = 'normal';
@@ -88,7 +99,7 @@ function createRoadmapElements(roadmapId, element, type) {
     elementDiv.style.backgroundColor = color;
 
     var done = document.createElement('div');
-    done.classList.add('fill-progress');
+    done.classList.add('fill-progress', 'done-progress');
     done.style.backgroundColor = color;
     // Todo: 데이터의 갯수에 따른 성공 개수에 따라 다른 값이 오도록 해야함
     done.dataset.end = '75';

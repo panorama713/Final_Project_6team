@@ -36,6 +36,21 @@ function attachEventListeners() {
     function handleSignUp(event, fields) {
         event.preventDefault();
 
+        // 각 항목의 유효성 검사
+        const isValidUsername = checkUsernameValid(fields.username, errors.usernameError);
+        const isValidPassword = checkPasswordValid(fields.password, errors.passwordError);
+        const isPasswordMatched = checkPasswordMatch(fields.password, fields.passwordCheck, errors.passwordCheckError);
+        const isRealNameValid = checkRealNameValid(fields.realName, errors.realNameError);
+        const isEmailValid = checkEmailValid(fields.email, errors.emailError);
+        const isPhoneValid = checkPhoneValid(fields.phone, errors.phoneError);
+        const isQuestionValid = checkQuestionValid(fields.question, errors.questionError);
+        const isAnswerValid = checkAnswerValid(fields.answer, errors.answerError);
+
+        // 하나라도 유효하지 않다면 서버로 데이터를 전송하지 않음
+        if (!isValidUsername || !isValidPassword || !isPasswordMatched || !isRealNameValid || !isEmailValid || !isPhoneValid || !isQuestionValid || !isAnswerValid) {
+            return;
+        }
+
         if (!fields.personalInfoAgreement.checked || !fields.serviceAgreement.checked) {
             alert("모든 필수 항목에 동의해주세요.");
             return;

@@ -118,6 +118,18 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    // 나의 팔로잉 목록 조회
+    @GetMapping("/{userId}/following-list")
+    public ResponseEntity<Page<ResponseFollowingDto>> readFollowing(
+            @PathVariable Long userId,
+            Authentication authentication,
+            @RequestParam("num") Integer num,
+            @RequestParam("limit") Integer limit
+    ) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(userService.readMyFollowings(num, limit, username, userId));
+    }
+
     // 나의 팔로워 목록 조회
     @GetMapping("/{userId}/follower-list")
     public ResponseEntity<Page<ResponseFollowerDto>> readFollower(

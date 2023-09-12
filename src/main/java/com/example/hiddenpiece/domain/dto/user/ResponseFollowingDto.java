@@ -1,19 +1,22 @@
 package com.example.hiddenpiece.domain.dto.user;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ResponseFollowerDto {
-    private Long fromUserId;
+public class ResponseFollowingDto {
+    private Long toUserId;
     private String username;
     private LocalDateTime createdAt;
 
     @Builder
-    public ResponseFollowerDto(Long fromUserId, String username, LocalDateTime createdAt) {
-        this.fromUserId = fromUserId;
+    public ResponseFollowingDto(Long toUserId, String username, LocalDateTime createdAt) {
+        this.toUserId = toUserId;
         this.username = username;
         this.createdAt = createdAt;
     }

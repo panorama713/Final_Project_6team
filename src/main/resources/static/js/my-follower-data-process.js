@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         const createdAtString = getRelativeTime(user.createdAt);
                         userItem.innerHTML = `
                         <span>아이디: ${user.username} </span>
-                        <span>팔로우 시작 날짜: ${createdAtString} </span>
-                        <button onclick="clickBtn('${user.username}')">언팔로우</button>
+                        <span>상태: ${createdAtString} </span>
+                        <button id="followButton" onclick="clickBtn('${user.username}')">맞팔로우</button>
                     `;
                         userList.appendChild(userItem);
                     });
@@ -108,7 +108,7 @@ function getRelativeTime(dateString) {
 }
 
 function clickBtn(username) {
-    const confirmed = confirm('언팔로우 하시겠습니까?')
+    const confirmed = confirm('팔로우 하시겠습니까?')
     if (confirmed) {
         handleFollow(username)
     }
@@ -117,7 +117,7 @@ function clickBtn(username) {
 async function handleFollow(username) {
     // TODO api 교체후 수정하기
     fetch(`/api/v1/users/follow?usernameToFollow=${username}`, {
-        method: 'DELETE'
+        method: 'POST'
     }).then(() => {
         window.location.reload()
     }).catch((error) => {

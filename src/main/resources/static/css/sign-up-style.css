@@ -27,14 +27,14 @@ body {
     margin: 0 auto;
 }
 
-/* 로고 스타일 */
-.logo-container, #logo {
-    text-align: center;
-    margin: 0 auto;
+.container {
+    margin: 50px auto;
 }
 
-#logo {
-    max-width: 200px;
+/* 로고 스타일 */
+.main-logo {
+    text-align: center;
+    padding-bottom: 30px;
 }
 
 /* 회원가입 폼 컨테이너 스타일 */
@@ -42,13 +42,13 @@ body {
     background-color: var(--white-color);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px 40px;
+    padding: 40px;
 }
 
 /* 폼 스타일 */
 #sign-up-form {
     margin: 0 auto;
-    max-width: 400px;
+    max-width: 600px;
     padding-bottom: 60px;
     position: relative;
 }
@@ -100,8 +100,10 @@ body {
     margin-left: 10px;
 }
 
-.form-check-input {
+.form-check .form-check-input {
     vertical-align: middle;
+    float: left;
+    margin-left: -1.3em;
 }
 
 .form-check-input:checked {
@@ -146,6 +148,10 @@ body {
 }
 
 /* 약관 스타일 */
+.agreements {
+    height: 100px;
+}
+
 .agreement-text {
     background-color: var(--main-color);
     border-radius: 5px;

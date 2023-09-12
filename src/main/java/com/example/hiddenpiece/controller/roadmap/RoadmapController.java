@@ -2,7 +2,6 @@ package com.example.hiddenpiece.controller.roadmap;
 
 import com.example.hiddenpiece.common.ResponseDto;
 import com.example.hiddenpiece.common.SystemMessage;
-import com.example.hiddenpiece.domain.dto.community.article.ResponseFollowingArticlesDto;
 import com.example.hiddenpiece.domain.dto.roadmap.*;
 import com.example.hiddenpiece.service.roadmap.RoadmapService;
 import lombok.RequiredArgsConstructor;

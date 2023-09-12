@@ -4,6 +4,7 @@ import com.example.hiddenpiece.auth.JwtUtil;
 import com.example.hiddenpiece.auth.TokenDto;
 import com.example.hiddenpiece.domain.dto.user.*;
 import com.example.hiddenpiece.domain.entity.user.User;
+import com.example.hiddenpiece.domain.repository.follow.FollowRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.redis.RedisService;
@@ -16,6 +17,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +41,7 @@ public class UserService {
     private final JwtUtil jwtUtil;
     private final CookieManager cookieManager;
     private final FollowService followService;
+    private final FollowRepository followRepository;
     private final UserImageHandler userImageHandler;
 
     public static final String DEFAULT_PROFILE_IMG_PATH = "/static/img/profile_default.jpg";
@@ -240,5 +245,27 @@ public class UserService {
 
     public Integer countUsers() {
         return (int) userRepository.count();
+    }
+
+    // 내가 팔로우 하고 있는 유저 목록 페이징 조회
+    public Page<ResponseFollowingDto> readMyFollowings(Integer num, Integer limit, String username, Long userId) {
+        User currentUser = userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        if (!currentUser.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
+
+        Pageable pageable = PageRequest.of(num, limit);
+
+        return followRepository.findFollowByFromUser(currentUser, pageable);
+    }
+
+    // 나를 팔로우 하고 있는 유저 목록 페이징 조회
+    public Page<ResponseFollowerDto> readMyFollowers(Integer num, Integer limit, String username, Long userId) {
+        User currentUser = userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        if (!currentUser.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
+
+        Pageable pageable = PageRequest.of(num, limit);
+
+        return followRepository.findFollowByToUser(currentUser, pageable);
     }
 }

@@ -103,5 +103,25 @@ public class ViewController {
     public String readRoadmap() {
         return "roadmap";
     }
+
+    @GetMapping("/my-page/following")
+    public String followingUser() {
+        return "my-following";
+    }
+
+    @GetMapping("/my-page/follower")
+    public String followerUser() {
+        return "my-follower";
+    }
+
+    @GetMapping("/my-page/following/articles")
+    public String readFollowUserArticles() {
+        return "my-following-articles";
+    }
+
+    @GetMapping("/my-page/following/roadmaps")
+    public String readFollowUserRoadmaps() {
+        return "my-following-roadmaps";
+    }
 }
 

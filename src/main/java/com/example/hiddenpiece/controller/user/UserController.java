@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -115,5 +116,29 @@ public class UserController {
         String username = authentication.getName();
         userService.deleteUser(dto, username, userId);
         return ResponseEntity.noContent().build();
+    }
+
+    // 나의 팔로잉 목록 조회
+    @GetMapping("/{userId}/following-list")
+    public ResponseEntity<Page<ResponseFollowingDto>> readFollowing(
+            @PathVariable Long userId,
+            Authentication authentication,
+            @RequestParam("num") Integer num,
+            @RequestParam("limit") Integer limit
+    ) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(userService.readMyFollowings(num, limit, username, userId));
+    }
+
+    // 나의 팔로워 목록 조회
+    @GetMapping("/{userId}/follower-list")
+    public ResponseEntity<Page<ResponseFollowerDto>> readFollower(
+            @PathVariable Long userId,
+            Authentication authentication,
+            @RequestParam("num") Integer num,
+            @RequestParam("limit") Integer limit
+    ) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(userService.readMyFollowers(num, limit, username, userId));
     }
 }

@@ -5,10 +5,10 @@
     url("/static/fonts/Jalnan.ttf") format("truetype");
 }
 
-.btn-main-color, .btn-primary {
-    background-color: var(--white-color);
-    border: 3px solid var(--main-color);
-    border-radius: 15px;
-    color: var(--main-color);
-    transition: background-color 0.3s, border-color 0.3s;
-}
+/*.btn-main-color, .btn-primary {*/
+/*    background-color: var(--white-color);*/
+/*    border: 3px solid var(--main-color);*/
+/*    border-radius: 15px;*/
+/*    color: var(--main-color);*/
+/*    transition: background-color 0.3s, border-color 0.3s;*/
+/*}*/

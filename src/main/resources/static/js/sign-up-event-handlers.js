@@ -29,7 +29,7 @@ function attachEventListeners() {
 
     // 폼 제출 이벤트에 대한 핸들러 연결
     signUpForm.addEventListener("submit", function(event) {
-        handleSignUp(event, fields, errors.passwordCheckError);
+        handleSignUp(event, fields);
     });
 
     // 사용자의 회원가입 요청을 처리하는 핸들러
@@ -56,7 +56,7 @@ function attachEventListeners() {
     });
 
     fields.passwordCheck.addEventListener("input", function() {
-        checkPasswordMatch(fields, errors.passwordCheckError);
+        checkPasswordMatch(fields.password, fields.passwordCheck, errors.passwordCheckError);
     });
 
     fields.realName.addEventListener("input", function() {

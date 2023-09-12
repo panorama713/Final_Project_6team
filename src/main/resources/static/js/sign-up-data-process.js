@@ -21,8 +21,8 @@ function hideError(errorElement) {
 }
 
 // 유효성 검사 관련
-function checkPasswordMatch(fields, passwordCheckError) {
-    if (!passwordsMatch(fields.password.value, fields.passwordCheck.value)) {
+function checkPasswordMatch(passwordField, passwordCheckField, passwordCheckError) {
+    if (!passwordsMatch(passwordField.value, passwordCheckField.value)) {
         displayError(passwordCheckError, "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     } else {
         hideError(passwordCheckError);

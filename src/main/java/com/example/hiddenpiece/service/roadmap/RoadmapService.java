@@ -1,12 +1,10 @@
 package com.example.hiddenpiece.service.roadmap;
 
-import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapDto;
-import com.example.hiddenpiece.domain.dto.roadmap.ResponseRoadmapDto;
-import com.example.hiddenpiece.domain.dto.roadmap.ResponseSearchRoadmapDto;
-import com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto;
+import com.example.hiddenpiece.domain.dto.roadmap.*;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.user.User;
 import com.example.hiddenpiece.domain.repository.bookmark.RoadmapBookmarkRepository;
+import com.example.hiddenpiece.domain.repository.follow.FollowRepository;
 import com.example.hiddenpiece.domain.repository.roadmap.RoadmapRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
@@ -33,6 +31,7 @@ public class RoadmapService {
     private final RoadmapRepository roadmapRepository;
     private final UserRepository userRepository;
     private final RoadmapBookmarkRepository roadmapBookmarkRepository;
+    private final FollowRepository followRepository;
 
     // create
     @Transactional
@@ -153,5 +152,14 @@ public class RoadmapService {
     public Page<ResponseSearchRoadmapDto> readAllByContaining(String keyword, Integer page, Integer limit) {
         Pageable pageable = PageRequest.of(page, limit);
         return roadmapRepository.findByContaining(keyword, pageable);
+    }
+
+    // 팔로우 한 유저의 로드맵 조회
+    public Page<ResponseFollowingRoadmapsDto> readRoadmapsByFollowings(String username, Integer num, Integer limit) {
+        User currentUser = userRepository.findByUsername(username).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        Pageable pageable = PageRequest.of(num, limit);
+
+        Page<Roadmap> roadmapPage = followRepository.findRoadmapsByFromUserFollowing(currentUser, pageable);
+        return roadmapPage.map(ResponseFollowingRoadmapsDto::fromEntity);
     }
 }

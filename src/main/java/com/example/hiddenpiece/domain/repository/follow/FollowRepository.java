@@ -4,6 +4,7 @@ import com.example.hiddenpiece.domain.dto.user.ResponseFollowerDto;
 import com.example.hiddenpiece.domain.dto.user.ResponseFollowingDto;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.follow.Follow;
+import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,4 +39,10 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
             "JOIN Follow f ON u = f.toUser " +
             "WHERE f.fromUser = :currentUser")
     Page<Article> findArticlesByFromUserFollowing(@Param("currentUser") User currentUser, Pageable pageable);
+
+    @Query("SELECT r FROM Roadmap r " +
+            "JOIN r.user u " +
+            "JOIN Follow f ON u = f.toUser " +
+            "WHERE f.fromUser = :currentUser")
+    Page<Roadmap> findRoadmapsByFromUserFollowing(@Param("currentUser") User currentUser, Pageable pageable);
 }

@@ -241,6 +241,7 @@ public class ArticleService {
         return countQuery.getSingleResult();
     }
 
+    // 팔로우한 유저의 게시글 조회
     public Page<ResponseFollowingArticlesDto> readArticlesByFollowings(String username, Integer num, Integer limit) {
         User currentUser = userRepository.findByUsername(username).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
         Pageable pageable = PageRequest.of(num, limit);

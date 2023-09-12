@@ -115,5 +115,10 @@ public class ViewController {
     public String readFollowUserArticles() {
         return "my-following-articles";
     }
+
+    @GetMapping("/my-page/following/roadmaps")
+    public String readFollowUserRoadmaps() {
+        return "my-following-roadmaps";
+    }
 }
 

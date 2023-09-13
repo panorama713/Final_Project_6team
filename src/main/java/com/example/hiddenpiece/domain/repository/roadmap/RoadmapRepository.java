@@ -44,9 +44,9 @@ public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
     List<ResponseTop5RoadmapDto> findTop5ByRoadmapsWithRandom();
 
     @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseSearchRoadmapDto(r.id, r.title, r.description, r.user.username) " +
-           "FROM Roadmap r " +
-           "WHERE r.title LIKE %:keyword% OR r.description LIKE %:keyword% " +
-           "ORDER BY r.id")
+            "FROM Roadmap r " +
+            "WHERE r.title LIKE %:keyword% OR r.description LIKE %:keyword% " +
+            "ORDER BY r.id")
     Page<ResponseSearchRoadmapDto> findByContaining(@Param("keyword") String keyword, Pageable pageable);
 
     @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseSearchRoadmapDto(r.id, r.title, r.description, r.user.username) " +

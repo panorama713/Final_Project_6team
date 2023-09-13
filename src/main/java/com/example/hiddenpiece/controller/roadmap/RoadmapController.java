@@ -4,6 +4,7 @@ import com.example.hiddenpiece.common.ResponseDto;
 import com.example.hiddenpiece.common.SystemMessage;
 import com.example.hiddenpiece.domain.dto.roadmap.*;
 import com.example.hiddenpiece.service.roadmap.RoadmapService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ public class RoadmapController {
 
     // create
     // 로드맵 생성
+    @Operation(summary = "로드맵 생성 요청", description = "로드맵 생성 기능을 실행합니다.")
     @PostMapping
     public ResponseEntity<ResponseRoadmapDto> createRoadmap(
             Authentication authentication,
@@ -37,6 +39,7 @@ public class RoadmapController {
     }
 
     // read
+    @Operation(summary = "나의 모든 로드맵 불러오기 요청", description = "나의 모든 로드맵 조회 기능을 실행합니다.")
     @GetMapping
     public ResponseEntity<List<ResponseRoadmapDto>> readAllByUser(
             Authentication authentication,
@@ -51,6 +54,7 @@ public class RoadmapController {
 
     // readOne
     // 로드맵 단일 조회
+    @Operation(summary = "로드맵 단일 조회 요청", description = "로드맵 단일 조회 기능을 실행합니다.")
     @GetMapping("/{roadmapId}")
     public ResponseEntity<ResponseRoadmapDto> readOneRoadmap(
             Authentication authentication,
@@ -66,6 +70,7 @@ public class RoadmapController {
 
     // update
     // 로드맵 수정
+    @Operation(summary = "로드맵 수정 요청", description = "로드맵 수정 기능을 실행합니다.")
     @PutMapping("/{roadmapId}")
     public ResponseEntity<ResponseRoadmapDto> updateRoadmap(
             Authentication authentication,
@@ -82,6 +87,7 @@ public class RoadmapController {
 
     // delete
     // 로드맵 삭제
+    @Operation(summary = "로드맵 삭제 요청", description = "로드맵 삭제 기능을 실행합니다.")
     @DeleteMapping("/{roadmapId}")
     public ResponseEntity<ResponseDto> deleteRoadmap(
             Authentication authentication,
@@ -96,6 +102,7 @@ public class RoadmapController {
     }
 
     // count
+    @Operation(summary = "로드맵 전체 개수 조회 요청", description = "로드맵 전체 개수 조회 기능을 실행합니다.")
     @GetMapping("/count")
     public ResponseEntity<Integer> countRoadmaps(
             @RequestParam(required = false) String date
@@ -107,6 +114,7 @@ public class RoadmapController {
         return ResponseEntity.ok(roadmapService.countRoadmaps());
     }
 
+    @Operation(summary = "인기로드맵 순위 5위까지 조회 요청", description = "인기로드맵 순위 5위까지 조회하여 가져옵니다.")
     @GetMapping("/count/{userId}")
     public ResponseEntity<Integer> countRoadmapsByUserId(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok(roadmapService.countRoadmapsByUserId(userId));
@@ -132,6 +140,7 @@ public class RoadmapController {
     }
 
     // 통합 검색
+    @Operation(summary = "통합 검색 요청(페이징)", description = "통합 검색 기능을 페이징하여 가져옵니다.")
     @GetMapping("/total-search")
     public ResponseEntity<Page<ResponseSearchRoadmapDto>> readAllRoadmapsWithKeyword(
             @RequestParam(value = "keyword", required = false) String keyword,
@@ -141,6 +150,7 @@ public class RoadmapController {
     }
 
     // 로드맵 찾기
+    @Operation(summary = "로드맵 찾기(검색) 요청", description = "로드맵 찾기(검색) 기능을 페이징하여 가져옵니다.")
     @GetMapping("/search")
     public ResponseEntity<Page<ResponseSearchRoadmapDto>> readAllByTypeOrderBy(
             @RequestParam(value = "keyword", required = false) String keyword,
@@ -152,6 +162,7 @@ public class RoadmapController {
     }
 
     // 팔로우 한 유저의 게시글 목록 페이징 조회
+    @Operation(summary = "팔로우 한 유저의 게시글 목록 조회 요청(페이징)", description = "팔로우 한 유저의 게시글 목록 조회 기능을 페이징하여 가져옵니다.")
     @GetMapping("/following")
     public ResponseEntity<Page<ResponseFollowingRoadmapsDto>> readRoadmapsByFollowings(
             Authentication authentication,
@@ -171,6 +182,7 @@ public class RoadmapController {
     }
 
     // 마이페이지 내 로드맵 불러오기
+    @Operation(summary = "내가 생성한 로드맵 목록 불러오기 요청(페이징)", description = "내가 생성한 로드맵 목록 조회 기능을 페이징하여 가져옵니다.")
     @GetMapping("/my-page")
     public ResponseEntity<Page<ResponseMyPageRoadmapDto>> readMyPageRoadmaps(
             Authentication authentication,

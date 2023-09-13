@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +40,10 @@ public class ArticleBookmarkService {
             throw new CustomException(CustomExceptionCode.ALREADY_EXIST_ARTICLE_BOOKMARK);
         }
 
+        if (loginUser == targetArticle.getUser()) {
+            throw new CustomException(CustomExceptionCode.CANNOT_BOOKMARK_YOUR_ARTICLE);
+        }
+
         ArticleBookmark articleBookmark = ArticleBookmark.builder()
                 .user(loginUser)
                 .article(targetArticle)
@@ -53,11 +58,11 @@ public class ArticleBookmarkService {
     }
 
     // 북마크한 게시글 목록 조회
-    public Page<ResponseArticleBookmarkDto> readAllArticleByBookmark(String username, Integer page, Integer limit) {
+    public Page<ResponseArticleBookmarkDto> readAllArticleByBookmark(String username, int page) {
         User loginUser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
-        Pageable pageable = PageRequest.of(page, limit);
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
         Page<ArticleBookmark> articleBookmarkPage = articleBookmarkRepository.findAllByUser(loginUser, pageable);
 
         return articleBookmarkPage.map(ResponseArticleBookmarkDto::fromEntity);
@@ -73,15 +78,15 @@ public class ArticleBookmarkService {
 
     // 게시글 북마크 삭제
     @Transactional
-    public void deleteArticleBookmark(String username, Long bookmarkId) {
-        articleBookmarkRepository.delete(process(username, bookmarkId));
+    public void deleteArticleBookmark(String username, Long articleId) {
+        articleBookmarkRepository.delete(process(username, articleId));
     }
 
-    private ArticleBookmark process(String username, Long bookmarkId) {
+    private ArticleBookmark process(String username, Long articleId) {
         User loginUser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
-        ArticleBookmark articleBookmark = articleBookmarkRepository.findById(bookmarkId)
+        ArticleBookmark articleBookmark = articleBookmarkRepository.findByArticleId(articleId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ARTICLE_BOOKMARK));
 
         if (!articleBookmark.getUser().equals(loginUser)) {

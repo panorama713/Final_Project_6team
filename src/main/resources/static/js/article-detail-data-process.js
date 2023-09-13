@@ -4,7 +4,12 @@ function fetchArticleDetails(id) {
         .then(response => response.json())
         .then(data => {
             console.log('게시글 상세 정보:', data);
-            displayArticleDetails(data);
+            displayArticleDetails(data, id);
+            localStorage.setItem('currentWriter', data.username);
+
+            const followElement = document.getElementById("follow-btn");
+            followElement.setAttribute("user-id-value", data.userId);
+
         })
         .catch(error => console.error('Error:', error));
 }
@@ -12,7 +17,7 @@ function fetchArticleDetails(id) {
 // 게시글 삭제 처리
 function handleDeleteArticle(articleId) {
     if (confirm('게시글을 삭제하시겠습니까?')) {
-        fetch('/api/v1/articles/' + articleId, { method: 'DELETE' })
+        fetch('/api/v1/articles/' + articleId, {method: 'DELETE'})
             .then(response => {
                 if (response.ok) {
                     alert('게시글이 삭제되었습니다.');
@@ -31,11 +36,14 @@ function handleDeleteArticle(articleId) {
 
 // 현재 페이지의 게시글 ID 추출
 function getArticleIdFromUrl() {
+    console.trace("getArticleIdFromUrl 호출 추적");
+    console.log("getArticleIdFromUrl 호출 시작");
     const pathSegments = window.location.pathname.split('/');
     const articleId = pathSegments[pathSegments.length - 1];
     console.log('URL:', window.location.href);
     console.log('Pathname:', window.location.pathname);
     console.log('articleId:', articleId);
+    console.log("getArticleIdFromUrl 호출 종료");
     return articleId;
 }
 
@@ -54,3 +62,4 @@ function convertPathToUrl(path, articleId) {
     }
     return basePath + '/' + path;
 }
+

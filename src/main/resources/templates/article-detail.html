@@ -8,20 +8,27 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
           crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/article-detail-style.css">
+    <link rel="stylesheet" href="/static/css/nav-style.css">
 </head>
 <body>
+<header th:replace="~{navbar.html :: header}"></header>
 <div class="container mt-5">
     <div class="article">
         <div class="article-top">
+            <button class="btn btn-primary list-btn" id="list-btn" type="button">목록으로</button>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle article-dropdown" type="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">글 설정</button>
+                        data-bs-toggle="dropdown" aria-expanded="false">글 설정
+                </button>
                 <ul class="dropdown-menu">
                     <form>
                         <button class="dropdown-item" id="article-update">수정</button>
                     </form>
                     <form>
                         <button class="dropdown-item" id="article-delete">삭제</button>
+                    </form>
+                    <form>
+                        <button class="dropdown-item" id="article-images-action">이미지만 수정/삭제</button>
                     </form>
                 </ul>
             </div>
@@ -31,13 +38,37 @@
             </div>
         </div>
         <div class="article-meta">
-            <span id="article-username"></span>
+            <div>
+                <span>작성자:</span>
+                <button id="article-username" class="btn dropdown-toggle username-dropdown" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false"></button>
+                <ul class="dropdown-menu">
+                    <form>
+                        <a th:href="@{/views/user-profile}" class="dropdown-item" id="user-profile">프로필 보기</a>
+                    </form>
+                    <form>
+                        <button class="dropdown-item" id="follow-btn" user-id-value="">팔로우</button>
+                    </form>
+                </ul>
+            </div>
             <span id="article-date"></span>
         </div>
         <div class="article-content">
             <span id="article-content"></span>
         </div>
         <div id="article-images" class="article-images"></div>
+        <div class="article-like">
+            <button class="btn btn-primary like-btn" id="like-btn" type="button">좋아요</button>
+            <button class="btn btn-primary bookmark-btn" id="bookmark-btn" type="button">북마크</button>
+            <div id="bookmarkModal" class="modal">
+                <div class="modal-content">
+                    <span>북마크 이름:</span>
+                    <input class="bookmark-name" type="text" id="bookmark-name" value="">
+                    <button class="btn btn-primary sendBookmarkBtn" id="sendBookmarkBtn">보내기</button>
+                    <button class="btn btn-primary closeModalBtn" id="closeModalBtn">닫기</button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="comments">
         <div class="comment-num">
@@ -60,9 +91,16 @@
         crossorigin="anonymous"></script>
 <script src="/static/js/article-detail-data-process.js"></script>
 <script src="/static/js/article-detail-ui.js"></script>
+<script src="/static/js/article-image-data-process.js"></script>
 <script src="/static/js/article-detail-event-handler.js"></script>
 <script src="/static/js/article-comment-ui.js"></script>
+<script src="/static/js/article-like-event-handler.js"></script>
+<script src="/static/js/article-bookmark-event-handler.js"></script>
 <script src="/static/js/article-comment-event-handler.js"></script>
 <script src="/static/js/article-comment-data-process.js"></script>
+<script src="/static/js/article-follow-event-handler.js"></script>
+<script src="/static/js/reissue-interceptor.js"></script>
+<script type="module" src="/static/js/nav-event-handler.js"></script>
+<script src="/static/js/reissue-interceptor.js"></script>
 </body>
 </html>

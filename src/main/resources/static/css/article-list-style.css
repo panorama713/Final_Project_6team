@@ -18,7 +18,6 @@
     font-family: "yg-jalnan" !important;
 }
 
-
 /* styles.css */
 
 a, a:visited {
@@ -41,11 +40,11 @@ a:hover {
 
 .line {
     background: var(--main-color);
-    height:4px;
-    border:0;
+    height: 4px;
+    border: 0;
 }
 
-.search-btn {
+.article-search-btn {
     border: 2px solid var(--main-color);
     background-color: var(--main-color);
 }
@@ -54,21 +53,49 @@ a:hover {
     width: 40%;
 }
 
-.page-link:hover {
-    background-color: rgb(241, 238, 255);
-    color: var(--main-color);
-
+/* pagenation 버튼 스타일 */
+.custom-button {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+    color: white;
+    margin-right: 5px;
 }
 
-.write-btn {
+.custom-button:last-child {
+    margin-right: 0;
+}
+
+/* 현재 page 스타일 */
+.custom-button.active {
+    background-color: var(--sub-color);
+    border-color: var(--sub-color);
+    color: var(--main-color);
+}
+
+#write-btn {
     float: right;
     border: 2px solid var(--main-color);
     background-color: var(--main-color);
-    color: white !important;
+    color: white;
 }
 
-.write-btn:hover {
+#write-btn:hover, #article-search-button:hover {
     text-decoration: none;
     border: 2px solid var(--sub-color);
     background-color: var(--sub-color);
+    color: var(--main-color);
+}
+
+.inline-block {
+    color: var(--sub-color);
+    display: inline-block;
+}
+
+.form-control:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 0.3rem rgba(78, 72, 151, 0.25);
+}
+
+.form-control:hover {
+    border-color: var(--sub-color);
 }

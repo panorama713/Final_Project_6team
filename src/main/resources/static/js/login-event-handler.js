@@ -7,7 +7,7 @@ function attachEventListeners() {
     const loginForm = document.getElementById("login-form");
 
     // 폼 제출 이벤트에 대한 핸들러 연결
-    loginForm.addEventListener("submit", function(event) {
+    loginForm.addEventListener("submit", function (event) {
         handleLogin(event);
     });
 }
@@ -25,6 +25,7 @@ function preventBack() {
 
     socialImages.forEach(imageLink => {
         imageLink.addEventListener("click", () => {
+            localStorage.setItem('isLoggedIn', 'O')
             window.history.pushState({}, null, "/views/main")
         })
     })

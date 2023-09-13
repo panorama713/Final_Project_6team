@@ -6,20 +6,31 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseRoadmapBookmarkDto {
+    private Long roadmapId;
     private String titleOfBookmark;
-    private String titleOfArticle;
+    private String titleOfRoadmap;
     private String username;
+    private String typeOfRoadmap;
+    private LocalDateTime createdAt;
+    private Long id;
 
     public static ResponseRoadmapBookmarkDto fromEntity(RoadmapBookmark roadmapBookmark) {
         return ResponseRoadmapBookmarkDto.builder()
+                .roadmapId(roadmapBookmark.getRoadmap().getId())
                 .titleOfBookmark(roadmapBookmark.getTitle())
-                .titleOfArticle(roadmapBookmark.getRoadmap().getTitle())
-                .username(roadmapBookmark.getUser().getUsername())
+                .titleOfRoadmap(roadmapBookmark.getRoadmap().getTitle())
+                .username(roadmapBookmark.getRoadmap().getUser().getUsername())
+                .typeOfRoadmap(roadmapBookmark.getRoadmap().getType())
+                .createdAt(roadmapBookmark.getCreatedAt())
+                .id(roadmapBookmark.getId())
                 .build();
     }
+
 }

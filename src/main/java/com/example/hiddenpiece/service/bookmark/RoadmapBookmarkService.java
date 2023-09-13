@@ -2,8 +2,8 @@ package com.example.hiddenpiece.service.bookmark;
 
 import com.example.hiddenpiece.domain.dto.bookmark.RequestRoadmapBookmarkDto;
 import com.example.hiddenpiece.domain.dto.bookmark.ResponseRoadmapBookmarkDto;
-import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
+import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.user.User;
 import com.example.hiddenpiece.domain.repository.bookmark.RoadmapBookmarkRepository;
 import com.example.hiddenpiece.domain.repository.roadmap.RoadmapRepository;
@@ -37,6 +37,10 @@ public class RoadmapBookmarkService {
         Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
 
+        if (targetRoadmap.getUser().getUsername().equals(username)) {
+            throw new CustomException(CustomExceptionCode.CANNOT_BOOKMARK_YOUR_ROADMAP);
+        }
+
         if (roadmapBookmarkRepository.existsByUserAndRoadmap(loginUser, targetRoadmap)) {
             throw new CustomException(CustomExceptionCode.ALREADY_EXIST_ROADMAP_BOOKMARK);
         }
@@ -67,6 +71,19 @@ public class RoadmapBookmarkService {
         return roadmapBookmarkPage.map(ResponseRoadmapBookmarkDto::fromEntity);
     }
 
+    // 로드맵 북마크 단일 조회
+    public ResponseRoadmapBookmarkDto readOne(String username, Long roadmapId) {
+        // 로그인 확인
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+        // 로드맵 존재 확인
+        Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
+
+        RoadmapBookmark targetRoadmapBookmark = roadmapBookmarkRepository.findByUserAndRoadmap(loginUser, targetRoadmap);
+        return ResponseRoadmapBookmarkDto.fromEntity(targetRoadmapBookmark);
+    }
+
     // 로드맵 북마크 수정
     @Transactional
     public void update(String username, Long bookmarkId, RequestRoadmapBookmarkDto dto) {
@@ -95,5 +112,16 @@ public class RoadmapBookmarkService {
             throw new CustomException(CustomExceptionCode.UNAUTHORIZED_ACCESS);
 
         return targetRoadmapBookmark;
+    }
+
+    public boolean exist(String username, Long roadmapId) {
+        // 로그인 확인
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+        // 로드맵 존재 확인
+        Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ROADMAP));
+
+        return roadmapBookmarkRepository.existsByUserAndRoadmap(loginUser, targetRoadmap);
     }
 }

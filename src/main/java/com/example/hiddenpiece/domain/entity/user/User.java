@@ -3,8 +3,10 @@ package com.example.hiddenpiece.domain.entity.user;
 import com.example.hiddenpiece.domain.entity.BaseTimeEntity;
 import com.example.hiddenpiece.domain.entity.bookmark.ArticleBookmark;
 import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
+import com.example.hiddenpiece.domain.entity.comment.Comment;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.like.Like;
+import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,7 +20,7 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@SQLDelete(sql = "UPDATE user SET deletedAt = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLDelete(sql = "UPDATE user SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at is null")
 @Table(name = "user")
 public class User extends BaseTimeEntity {
@@ -29,6 +31,7 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @Setter
     private String password;
     private String realName;
 
@@ -43,14 +46,23 @@ public class User extends BaseTimeEntity {
     private String provider;
     private String providerId;
 
-    // 인증 방식 미정
-    private String question;
+    @Enumerated(EnumType.STRING)
+    private Question question;
+
     private String answer;
     private LocalDateTime deletedAt;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Article> articles = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Roadmap> roadmaps = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -68,7 +80,8 @@ public class User extends BaseTimeEntity {
     public User(
             String username, String password, String realName,
             String email, String phone, Role role,
-            String profileImg, String provider, String providerId
+            String profileImg, String provider, String providerId,
+            Question question, String answer
     ) {
         this.username = username;
         this.password = password;
@@ -79,6 +92,15 @@ public class User extends BaseTimeEntity {
         this.profileImg = profileImg;
         this.provider = provider;
         this.providerId = providerId;
+        this.question = question;
+        this.answer = answer;
+    }
+
+    public void updateInfo(String newPassword, String newEmail, String newPhone, String imagePath) {
+        this.password = newPassword;
+        this.email = newEmail;
+        this.phone = newPhone;
+        this.profileImg = imagePath;
     }
 
     public void addLikeArticles(Like like) {

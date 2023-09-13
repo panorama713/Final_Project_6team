@@ -2,6 +2,7 @@ package com.example.hiddenpiece.controller.community;
 
 import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.service.image.ArticleImageService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -34,10 +35,8 @@ public class ArticleImageController {
 
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads";
 
-    /**
-     * GET /{imageName:.+}
-     * 이미지 조회
-     */
+    // 이미지 조회
+    @Operation(summary = "게시글 이미지 조회 요청", description = "게시글의 이미지를 조회하는 기능을 실행합니다.")
     @GetMapping("/{imageName:.+}")
     public ResponseEntity<Resource> viewImage(
             @PathVariable Long articleId, @PathVariable String imageName
@@ -71,10 +70,8 @@ public class ArticleImageController {
                 .body(imageResource);
     }
 
-    /**
-     * PUT
-     * 이미지 수정 - 특정
-     */
+    // 이미지 수정 - 특정
+    @Operation(summary = "게시글 이미지 수정 요청", description = "게시글 이미지를 수정하는 기능을 실행합니다.")
     @PutMapping
     public ResponseEntity<Void> updateSpecificImage(
             @RequestPart List<Long> imageIds,
@@ -86,10 +83,8 @@ public class ArticleImageController {
         return ResponseEntity.noContent().build();
     }
 
-    /**
-     * DELETE
-     * 이미지 삭제 - 특정
-     */
+    // 이미지 삭제 - 특정
+    @Operation(summary = "게시글 이미지 삭제 요청", description = "게시글 이미지 삭제 기능을 실행합니다.")
     @DeleteMapping
     public ResponseEntity<Void> deleteSpecificImages(
             @RequestPart List<Long> imageIds,

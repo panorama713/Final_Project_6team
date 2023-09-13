@@ -15,7 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -27,7 +30,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.*;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -53,12 +56,24 @@ public class WebSecurityConfig {
                                 "/api/v1/users/signup",
                                 "/api/v1/users/login",
                                 "/api/v1/users/reissue",
-                                "/api/v1/users/logout",
+                                "/api/v1/users/find/username",
+                                "/api/v1/users/find/password",
+                                "/api/v1/users/*/change-password",
+                                "/api/v1/roadmaps/count",
+                                "/api/v1/users/count",
+                                "/api/v1/roadmaps/top5",
+                                "/api/v1/roadmaps/total-search/**",
+                                "/api/v1/articles/total-search/**",
+                                "/api/v1/roadmaps/search/**",
                                 "/views/**",
-                                "/static/**"
+                                "/static/**",
+                                "/uploads/**"
+                                //swagger
+                                ,"/v3/**"
+                                ,"swagger-ui/**"
                         )
                         .permitAll()
-                        .requestMatchers("/api/v1/roadmap/**").authenticated()
+                        .requestMatchers("/api/v1/roadmaps/**").authenticated()
                         .anyRequest().hasAuthority("ROLE_" + Role.USER.name()))
                 .oauth2Login(oauth -> oauth
                         .loginPage("/views/login")
@@ -68,6 +83,7 @@ public class WebSecurityConfig {
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                         .accessDeniedHandler(new CustomAccessDeniedHandler()))
                 .apply(new CustomFilterConfigurer());
+
         return http.build();
     }
 
@@ -103,7 +119,7 @@ public class WebSecurityConfig {
             loginFilter.setFilterProcessesUrl("/api/*/users/login");
 
             http.addFilter(loginFilter)
-                .addFilterAfter(jwtFilter, LoginFilter.class);
+                    .addFilterAfter(jwtFilter, LoginFilter.class);
         }
     }
 }

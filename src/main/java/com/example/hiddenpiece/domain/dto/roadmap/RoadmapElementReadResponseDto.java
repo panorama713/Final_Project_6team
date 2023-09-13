@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoadmapElementReadResponseDto {
+    private Long id;
     private String title;
     private String content;
     private LocalDateTime startDate;
@@ -20,6 +21,7 @@ public class RoadmapElementReadResponseDto {
 
     public static RoadmapElementReadResponseDto fromEntity(RoadmapElement entity) {
         return RoadmapElementReadResponseDto.builder()
+                .id(entity.getId())
                 .title(entity.getTitle())
                 .content(entity.getContent())
                 .startDate(entity.getStartDate())

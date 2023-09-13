@@ -14,7 +14,7 @@ public enum CustomExceptionCode {
     ALREADY_LOGOUT_USER(HttpStatus.BAD_REQUEST, "다시 로그인해 주시기 바랍니다."),
     NOT_ALLOW_MORE_REPLY(HttpStatus.BAD_REQUEST, "더 이상 대댓글을 등록할 수 없습니다."),
     IMAGE_COUNT_MISMATCH(HttpStatus.BAD_REQUEST, "전달된 이미지의 수와 업로드된 이미지의 수가 일치하지 않습니다."),
-
+    WRONG_SECURITY_ANSWER(HttpStatus.BAD_REQUEST, "보안 질문 혹은 답변을 다시 확인해 주시기 바랍니다."),
     /*
      * 401
      */
@@ -26,6 +26,9 @@ public enum CustomExceptionCode {
      * 403
      */
     UNAUTHORIZED_ACCESS(HttpStatus.FORBIDDEN, "잘못된 접근입니다."),
+    CANNOT_LIKE_YOUR_ARTICLE(HttpStatus.FORBIDDEN, "자신의 글은 좋아요를 누를 수 없습니다."),
+    CANNOT_BOOKMARK_YOUR_ARTICLE(HttpStatus.FORBIDDEN, "자신의 글은 북마크할 수 없습니다."),
+    CANNOT_FOLLOW_YOURSELF(HttpStatus.FORBIDDEN, "자기 자신은 팔로우 할 수 없습니다."),
     /*
      * 404
      */
@@ -45,17 +48,21 @@ public enum CustomExceptionCode {
     NOT_FOUND_LIKE(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다."),
     NOT_FOUND_COMMENT(HttpStatus.NOT_FOUND, "해당 댓글을 찾을 수 없습니다."),
     NOT_FOUND_IMAGE(HttpStatus.NOT_FOUND, "해당 이미지를 찾을 수 없습니다."),
+    NOT_FOUND_FOLLOW(HttpStatus.NOT_FOUND, "아직 팔로우 한 인원이 없습니다."),
     /*
      * 409
      */
     ALREADY_EXIST_USER(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다."),
     ALREADY_EXIST_EMAIL(HttpStatus.CONFLICT, "이미 존재하는 이메일입니다."),
+    ALREADY_USED_PASSWORD(HttpStatus.CONFLICT, "기존 비밀번호로 변경할 수 없습니다."),
     USER_NOT_MATCH(HttpStatus.CONFLICT, "해당 사용자가 존재하지 않거나, 아이디 혹은 비밀번호가 일치하지 않습니다."),
+    PASSWORD_NOT_MATCH(HttpStatus.CONFLICT, "비밀번호가 일치하지 않습니다."),
     REISSUE_FAILED(HttpStatus.CONFLICT, "다시 로그인하여 주시기 바랍니다."),
     FOLLOW_FAILED(HttpStatus.CONFLICT, "이미 팔로우 한 유저입니다."),
     UNFOLLOW_FAILED(HttpStatus.CONFLICT, "이미 언팔로우 한 유저입니다."),
     LIKE_FAILED(HttpStatus.CONFLICT, "이미 좋아요 한 게시글입니다."),
     UNLIKE_FAILED(HttpStatus.CONFLICT, "이미 좋아요를 취소한 게시글입니다."),
+    CANNOT_BOOKMARK_YOUR_ROADMAP(HttpStatus.CONFLICT, "자신의 로드맵은 북마크할 수 없습니다."),
     ALREADY_EXIST_ARTICLE_BOOKMARK(HttpStatus.CONFLICT, "이미 북마크에 저장된 게시글입니다."),
     ALREADY_EXIST_ROADMAP_BOOKMARK(HttpStatus.CONFLICT, "이미 북마크에 저장된 로드맵입니다."),
     /*

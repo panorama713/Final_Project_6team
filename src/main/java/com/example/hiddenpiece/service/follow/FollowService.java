@@ -31,9 +31,13 @@ public class FollowService {
             throw new CustomException(FOLLOW_FAILED);
         }
 
+        if (toUser == fromUser) {
+            throw new CustomException(CANNOT_FOLLOW_YOURSELF);
+        }
+
         followRepository.save(Follow.builder()
-                        .fromUser(fromUser)
-                        .toUser(toUser).build());
+                .fromUser(fromUser)
+                .toUser(toUser).build());
     }
 
     @Transactional
@@ -59,5 +63,20 @@ public class FollowService {
     // 팔로워 카운트 세는 로직
     public int getCountOfFollower(User toUser) {
         return followRepository.countByToUser(toUser);
+    }
+
+    // 팔로워 카운트 오버라이드
+    public int getCountOfFollower(Long toUserName) {
+        User toUser = userRepository.findById(toUserName)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        return followRepository.countByToUser(toUser);
+    }
+
+    public boolean isFollow(Long writerName, String username) {
+        User writer = userRepository.findById(writerName)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        return followRepository.existsByToUserAndFromUser(writer, user);
     }
 }

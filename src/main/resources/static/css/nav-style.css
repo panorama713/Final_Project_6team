@@ -1,0 +1,143 @@
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: "yg-jalnan" !important;
+}
+
+/* 사용자 지정 속성 */
+.navbar :root {
+    --main-color: #4e4897;
+    --sub-color: #6762A6;
+    --white-color: #ffffff;
+}
+
+.dropdown-item:hover {
+    cursor: pointer;
+}
+
+/* 기본 스타일 */
+.navbar body {
+    background-color: #f6f6f6;
+}
+
+.navbar .bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.search-container {
+    position: relative;
+    width: 282px;
+    left: 0;
+    margin-right: 10px;
+}
+
+.search-box {
+    padding: 5px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid var(--main-color);
+    border-radius: 30px;
+    transition: 0.4s;
+    width: 29px;
+}
+
+.search-box:hover {
+    box-shadow: 0 0 .5px 1px var(--main-color);
+    width: 280px;
+}
+
+.search-btn {
+    text-decoration: none;
+    width: 25px;
+    height: 25px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--main-color);
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    transition: right 0.4s, opacity 0.4s;
+}
+
+.search-box:hover > .search-btn {
+    background-color: #fff;
+    right: 0;
+    opacity: 1;
+}
+
+.search-txt {
+    color: #848484;
+    display: flex;
+    padding: 0;
+    width: 0;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 14px;
+    line-height: 0;
+    transition: .4s;
+}
+
+.search-box:hover > .search-txt {
+    width: 240px;
+    padding: 0 6px;
+}
+
+.profile-container {
+    margin: 0 auto;
+    min-width: 310px;
+    height: 50px;
+}
+
+.info-logout {
+    position: relative;
+}
+
+.my-info {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    height: 50px;
+}
+
+#profileImg {
+    margin: 0 auto;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#username {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+}
+
+#logout-button {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 50px;
+    right: 0;
+}

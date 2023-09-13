@@ -16,7 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
+import static com.example.hiddenpiece.exception.CustomExceptionCode.NOT_FOUND_ROADMAP;
+import static com.example.hiddenpiece.exception.CustomExceptionCode.NOT_FOUND_ROADMAP_ELEMENT;
 
 @Service
 @Slf4j
@@ -25,7 +26,6 @@ import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
 public class RoadmapElementService {
     private final RoadmapRepository roadmapRepository;
     private final RoadmapElementRepository roadmapElementRepository;
-    // todo: user repository
 
     // 로드맵 요소 추가 기능
     // create

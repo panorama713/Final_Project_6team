@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ResponseReadRoadmapTodoDto {
+    private Long id;
     private String title;
     private String content;
     private String url;
@@ -18,6 +19,7 @@ public class ResponseReadRoadmapTodoDto {
 
     public static ResponseReadRoadmapTodoDto fromEntity(RoadmapTodo entity) {
         return ResponseReadRoadmapTodoDto.builder()
+                .id(entity.getId())
                 .title(entity.getTitle())
                 .content(entity.getContent())
                 .url(entity.getUrl())

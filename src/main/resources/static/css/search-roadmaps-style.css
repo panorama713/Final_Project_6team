@@ -1,0 +1,261 @@
+@font-face {
+    font-family: "CustomFont";
+    src: url("/static/fonts/JalnanOTF.otf") format("opentype"),
+    url("/static/fonts/Jalnan.ttf") format("truetype");
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #4e4897;
+    --sub-color: #a7a5cd;
+    --sub-color2: #6762A6;
+    --white-color: #ffffff;
+}
+
+/* 기본 스타일 */
+body {
+    background-color: #f6f6f6;
+    font-family: 'CustomFont', sans-serif;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+.search-wrap {
+    margin-top: 70px;
+}
+
+.top-search {
+    display: flex;
+    margin-bottom: 30px;
+    flex-direction: column;
+}
+
+.title {
+    display: flex;
+    text-align: start;
+    margin-bottom: 20px;
+    height: 50px;
+}
+
+.top-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.result-search {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.top-form {
+    display: flex;
+    width: 550px;
+    margin-left: 20px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    width: 500px;
+}
+
+.search-bar-inline {
+    display: flex;
+    border: 2px solid #4e4897;
+    border-radius: 30px;
+    width: 500px;
+    height: 50px;
+}
+
+.search-bar-text {
+    display: flex;
+    background: none;
+    border: none;
+    outline: none;
+    margin-left: 20px;
+    width: 500px;
+}
+
+.search-bar-button {
+    display: flex;
+    align-items: center;
+}
+
+.search-button {
+    display: flex;
+    border: 2px solid #4e4897;
+    border-radius: 50%;
+    color: var(--main-color);
+    width: 35px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+}
+
+.bi-search {
+    display: flex;
+}
+
+#dropdown {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 20px;
+}
+
+#dropButton, #dropButton2 {
+    border: 2px solid var(--main-color);
+}
+
+.dropdown-menu {
+    border: 2px solid var(--main-color);
+}
+
+.dropdown-item:active {
+    background-color: var(--sub-color);
+}
+
+.dropdown-item.active {
+    background-color: var(--sub-color);
+}
+
+.condition-btn {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.condition-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--main-color);
+    border-radius: 30px;
+    width: 120px;
+    height: 35px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.remove-condition {
+    background: none;
+    border: none;
+}
+
+.search-results {
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.result-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.result-item {
+    border: 2px solid var(--main-color);
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.result-title {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.bi-bookmark-plus {
+    cursor: pointer;
+}
+
+.item-link {
+    text-decoration: none;
+    color: black;
+}
+
+.noResult {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.pagination-list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination {
+    justify-content: center;
+}
+
+.page-link {
+    background-color: var(--white-color);
+    color: black;
+}
+
+.page-link:hover {
+    background-color: #eeeeee;
+    color: black;
+}
+
+.page-item.active .page-link {
+    background-color: var(--sub-color);
+    color: var(--white-color);
+    border-color: var(--sub-color);
+}
+
+.page-item.disabled .page-link {
+    background-color: var(--sub-color2);
+    color: var(--white-color);
+    border-color: var(--sub-color2);
+}
+
+.footer-wrapper {
+    height: 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left {
+    display: flex;
+}
+
+.footer-logo {
+    float: left;
+    position: relative;
+    bottom: 0;
+}
+
+.footer-line {
+    display: flex;
+    align-items: center;
+    width: 400px;
+    height: 50px;
+    text-align: left;
+}
+
+.footer-right {
+    display: flex;
+}

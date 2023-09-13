@@ -10,6 +10,7 @@ async function loginUser(data) {
         const response = await sendDataToServer(data);
 
         if (response.ok) {
+            localStorage.setItem('isLoggedIn', 'O')
             window.location.replace("/views/main")
         } else {
             const errorRes = await response.json()
@@ -20,6 +21,7 @@ async function loginUser(data) {
         console.error("로그인 에러", error)
     }
 }
+
 // 서버 통신
 async function sendDataToServer(data) {
     return await fetch("/api/v1/users/login", {

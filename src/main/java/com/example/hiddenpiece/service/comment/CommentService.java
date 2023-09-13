@@ -11,6 +11,10 @@ import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,16 +25,13 @@ import java.util.stream.Collectors;
 import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
 
 @RequiredArgsConstructor
-@Slf4j
 @Service
 public class CommentService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
 
-    /**
-     * 댓글 등록
-     */
+    // 댓글 등록
     @Transactional
     public CommentResponseDto createComment(
             String username, Long articleId, CommentRequestDto dto
@@ -45,21 +46,14 @@ public class CommentService {
                 .content(dto.getContent())
                 .build();
         Comment savedComment = commentRepository.save(comment);
-        log.info("#log# 데이터베이스 저장 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}]", username, articleId, savedComment.getId());
         return CommentResponseDto.fromEntity(savedComment);
     }
 
-    /**
-     * 댓글 및 대댓글 조회
-     */
+    // 댓글 및 답글 조회
     @Transactional(readOnly = true)
     public List<CommentResponseDto> readAllCommentsForArticle(Long articleId) {
         List<Comment> comments = commentRepository.findByArticleId(articleId);
-        if (comments.isEmpty()) {
-            return new ArrayList<>();
-        }
-        log.info("#log# 데이터베이스 조회 - 게시글 [{}] -> (대)댓글", articleId);
-        return comments.stream()
+        return comments.isEmpty() ? new ArrayList<>() : comments.stream()
                 .filter(comment -> comment.getParentComment() == null)
                 .map(mainComment -> {
                     CommentResponseDto dto = CommentResponseDto.fromEntity(mainComment);
@@ -76,9 +70,7 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * 댓글 및 대댓글 수정
-     */
+    // 댓글 및 답글 수정
     @Transactional
     public CommentResponseDto updateComment(
             String username, Long articleId, Long commentId, CommentRequestDto dto
@@ -91,13 +83,10 @@ public class CommentService {
             throw new CustomException(NOT_MATCH_WRITER);
         }
         comment.update(dto.getContent());
-        log.info("#log# 데이터베이스 수정 - 사용자 [{}] -> 게시글 [{}] -> (대)댓글 [{}]", username, articleId, commentId);
         return CommentResponseDto.fromEntity(comment);
     }
 
-    /**
-     * 댓글 및 대댓글 삭제
-     */
+    // 댓글 및 답글 삭제
     @Transactional
     public void deleteComment(
             String username, Long articleId, Long commentId
@@ -110,12 +99,9 @@ public class CommentService {
             throw new CustomException(NOT_MATCH_WRITER);
         }
         commentRepository.deleteById(commentId);
-        log.info("#log# 데이터베이스 소프트 삭제 - 사용자 [{}] -> 게시글 [{}] -> (대)댓글 [{}]", username, articleId, commentId);
     }
 
-    /**
-     * 대댓글 등록
-     */
+    // 답글 등록
     @Transactional
     public CommentResponseDto createReply(
             String username, Long articleId, Long parentCommentId, CommentRequestDto dto
@@ -136,7 +122,14 @@ public class CommentService {
                 .parentComment(parentComment)
                 .build();
         Comment savedReply = commentRepository.save(reply);
-        log.info("#log# 데이터베이스 저장 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}] -> 대댓글 [{}]", username, articleId, parentCommentId, savedReply.getId());
         return CommentResponseDto.fromEntity(savedReply);
+    }
+
+    public Page<CommentResponseDto> getCommentsByUsername(int page, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
+        Page<Comment> commentPage = commentRepository.findCommentsByUser(user, pageable);
+        return commentPage.map(CommentResponseDto::fromEntity);
     }
 }

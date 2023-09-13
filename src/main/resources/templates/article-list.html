@@ -1,73 +1,71 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SPRING 게시판</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <link rel="stylesheet" href="/static/css/article-list-style.css">
-  <script src="/static/js/bootstrap.bundle.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://getbootstrap.kr/docs/5.3/examples/carousel/carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/nav-style.css">
+    <link rel="stylesheet" href="/static/css/article-list-style.css">
 </head>
 
 <body>
 
+<header th:replace="navbar.html :: header"></header>
+
 <div class="container mt-5">
 
-  <div class="row">
-    <div class="col">
-      <h1>SPRING 게시판</h1>
+    <div class="row">
+        <div class="col">
+            <h1><span id="category-title">게시판</span></h1>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group">
+                <input type="text" class="form-control" id="keyword" placeholder="게시글 검색">
+                <button class="btn btn-primary article-search-btn" id="article-search-button" type="button">검색</button>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="게시글 검색">
-        <button class="btn btn-primary search-btn" type="button">검색</button>
-      </div>
+    <hr class="line">
+
+    <div class="row mt-3">
+        <div class="col">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">카테고리</th>
+                    <th scope="col" class="title-col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">작성일</th>
+                    <th scope="col">조회수</th>
+                    <th scope="col">좋아요</th>
+
+                </tr>
+                </thead>
+                <tbody id="article-list"></tbody>
+            </table>
+        </div>
     </div>
-  </div>
-  <hr class="line">
 
-  <div class="row mt-3">
-    <div class="col">
-      <table class="table table-hover">
-        <thead>
-        <tr>
-          <th scope="col">카테고리</th>
-          <th scope="col" class="title-col">제목</th>
-          <th scope="col">작성자</th>
-          <th scope="col">작성일</th>
-          <th scope="col">조회수</th>
+    <a th:href="@{/views/articles}" class="btn btn-primary write-btn" id="write-btn">글쓰기</a>
 
-        </tr>
-        </thead>
-        <tbody id="post-list"></tbody>
-      </table>
+    <div class="row mt-3">
+        <div class="col d-flex justify-content-center">
+            <div id="pagination-container" class="pagination justify-content-center">
+                <ul class="pagination" id="pagination"></ul>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <a th:href="@{/views/articles}" class="btn btn-primary write-btn">글쓰기</a>
-
-  <div class="row mt-3">
-    <div class="col d-flex justify-content-center">
-      <ul class="pagination">
-        <li class="page-item disabled">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-
-  <script src="/static/js/article-list-data-process.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/article-list-data-process.js"></script>
+    <script src="/static/js/article-data-search-process.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
+    <script type="module" src="/static/js/nav-event-handler.js"></script>
+    <script src="/static/js/reissue-interceptor.js"></script>
+</div>
 </body>
 </html>

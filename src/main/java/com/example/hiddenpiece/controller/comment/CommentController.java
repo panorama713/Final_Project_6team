@@ -3,9 +3,11 @@ package com.example.hiddenpiece.controller.comment;
 import com.example.hiddenpiece.domain.dto.community.comment.CommentRequestDto;
 import com.example.hiddenpiece.domain.dto.community.comment.CommentResponseDto;
 import com.example.hiddenpiece.service.comment.CommentService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -24,40 +26,32 @@ public class CommentController {
         return auth.getName();
     }
 
-    /**
-     * POST
-     * 댓글 등록
-     */
+    @Operation(summary = "댓글 등록 요청", description = "댓글 등록 기능을 실행합니다.")
+    // 댓글 등록
     @PostMapping
     public ResponseEntity<CommentResponseDto> createComment(
             @PathVariable Long articleId,
             @Valid @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 등록 시도 - 사용자 [{}] -> 게시글 [{}] -> 댓글", getUsername(auth), articleId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(commentService.createComment(getUsername(auth), articleId, dto));
+                .body(commentService.createComment(auth.getName(), articleId, dto));
     }
 
-    /**
-     * GET
-     * 댓글 및 대댓글 조회
-     */
+    @Operation(summary = "게시글의 댓글 및 대댓글 조회 요청", description = "게시글의 댓글 및 대댓글 조회 기능을 실행합니다.")
+    // 댓글 및 답글 조회 - 게시글별
     @GetMapping
     public ResponseEntity<List<CommentResponseDto>> readAllCommentsForArticle(
             @PathVariable Long articleId
     ) {
-        log.info("#log# 조회 시도 - 게시글 [{}] -> (대)댓글", articleId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(commentService.readAllCommentsForArticle(articleId));
     }
 
-    /**
-     * PUT /{commentId}
-     * 댓글 및 대댓글 수정
-     */
+    // 댓글 및 답글 수정
+    @Operation(summary = "댓글 및 대댓글 수정 요청", description = "댓글 및 대댓글 수정 기능을 실행합니다.")
     @PutMapping("/{commentId}")
     public ResponseEntity<CommentResponseDto> updateComment(
             @PathVariable Long articleId,
@@ -65,31 +59,25 @@ public class CommentController {
             @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 수정 시도 - 사용자 [{}] -> 게시글 [{}] -> (대)댓글 [{}]", getUsername(auth), articleId, commentId);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(commentService.updateComment(getUsername(auth), articleId, commentId, dto));
+                .body(commentService.updateComment(auth.getName(), articleId, commentId, dto));
     }
 
-    /**
-     * DELETE /{commentId}
-     * 댓글 및 대댓글 삭제
-     */
+    // 댓글 및 답글 삭제
+    @Operation(summary = "댓글 및 대댓글 삭제 요청", description = "댓글 및 대댓글 삭제 요청 기능을 실행합니다.")
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(
             @PathVariable Long articleId,
             @PathVariable Long commentId,
             Authentication auth
     ) {
-        log.info("#log# 삭제 시도 - 사용자 [{}] -> 게시글 [{}] -> (대)댓글 [{}]", getUsername(auth), articleId, commentId);
-        commentService.deleteComment(getUsername(auth), articleId, commentId);
+        commentService.deleteComment(auth.getName(), articleId, commentId);
         return ResponseEntity.noContent().build();
     }
 
-    /**
-     * POST /{parentCommentId}/replies
-     * 대댓글 등록
-     */
+    // 답글 등록
+    @Operation(summary = "대댓글 등록 요청", description = "대댓글 등록 기능을 실행합니다.")
     @PostMapping("/{parentCommentId}/replies")
     public ResponseEntity<CommentResponseDto> createReply(
             @PathVariable Long articleId,
@@ -97,9 +85,18 @@ public class CommentController {
             @Valid @RequestBody CommentRequestDto dto,
             Authentication auth
     ) {
-        log.info("#log# 등록 시도 - 사용자 [{}] -> 게시글 [{}] -> 댓글 [{}] -> 대댓글", getUsername(auth), articleId, parentCommentId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(commentService.createReply(getUsername(auth), articleId, parentCommentId, dto));
+                .body(commentService.createReply(auth.getName(), articleId, parentCommentId, dto));
+    }
+
+    @Operation(summary = "특정 유저의 댓글 목록 요청", description = "특정 유저의 댓글 목록을 페이징하여 가져옵니다.")
+    // 댓글 및 답글 조회 - 사용자별, 페이지네이션
+    @GetMapping("/getComments")
+    public ResponseEntity<Page<CommentResponseDto>> getCommentsByUsername(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            Authentication auth
+    ) {
+        return ResponseEntity.ok(commentService.getCommentsByUsername(page, auth.getName()));
     }
 }

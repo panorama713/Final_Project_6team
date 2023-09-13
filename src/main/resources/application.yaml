@@ -23,7 +23,7 @@ spring:
   web:
     resources:
       # 정적 파일 탐색 장소
-      static-locations: file:profile/, classpath:/static
+      static-locations: file:uploads/, classpath:/static
 
 ---
 spring:
@@ -41,3 +41,12 @@ spring:
 
 server:
   port: 8082
+
+---
+# Swagger
+# Springdoc OpenAPI 설정
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

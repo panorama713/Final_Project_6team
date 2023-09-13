@@ -10,6 +10,7 @@
 :root {
     --main-color: #4e4897;
     --sub-color: #a7a5cd;
+    --sub-color2: #6762A6;
     --white-color: #ffffff;
 }
 
@@ -21,12 +22,14 @@
 
 /* 게시글 설정 */
 .article {
-    max-width: 1000px;
-    margin: 0 auto;
+    max-width: 1200px;
+    min-height: 20em;
+    margin: 100px auto auto;
     padding: 20px;
     border: 2px solid var(--main-color);
     border-radius: 5px;
     background-color: #f8f9fa;
+    position: relative;
 }
 
 .article-title {
@@ -35,13 +38,83 @@
     margin-bottom: 10px;
 }
 
-.article-dropdown{
+.article-dropdown {
     float: right;
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+    margin-right: 5px;
+}
+
+.article-dropdown:hover,
+.article-dropdown.show,
+.article-dropdown:first-child:active {
+    background-color: var(--sub-color2);
+}
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:active {
+    background-color: var(--sub-color);
+}
+
+.dropdown-menu .dropdown-item:active {
+    color: var(--white-color);
+}
+
+.username-dropdown {
+    color: #737a81;
+}
+
+.list-btn {
+    float: right;
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
+}
+
+.like-btn, .bookmark-btn {
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
+}
+
+.like-btn:hover {
+    background-color: rgba(255, 139, 148, 0.94);
+    border-color: rgba(255, 139, 148, 0.94);
+    color: #fff;
+}
+
+.like-btn.unlike {
+    background-color: rgba(255, 139, 148, 0.94);
+    border-color: rgba(255, 139, 148, 0.94);
+    color: #fff;
+}
+
+.bookmark-btn.cancel-bookmark {
+    background-color: rgba(82, 190, 122, 0.94);
+    border-color: rgba(82, 190, 122, 0.94);
+    color: #fff;
+}
+
+.bookmark-btn:hover {
+    background-color: rgba(82, 190, 122, 0.94);
+    border-color: rgba(82, 190, 122, 0.94);
+    color: #fff;
+}
+
+
+.like-btn.unlike:hover, .bookmark-btn.cancel-bookmark:hover {
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
+}
+
+.list-btn:hover, comment-btn:hover {
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
 }
 
-.btn-secondary:hover {
+.list-btn.btn-primary:not(:disabled):not(.disabled):active,
+.list-btn.btn-primary:not(:disabled):not(.disabled).active {
     background-color: var(--main-color);
     border-color: var(--main-color);
 }
@@ -57,10 +130,55 @@
     align-items: center;
 }
 
+.article-like {
+    position: absolute;
+    display: flex;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.article-like button {
+    white-space: nowrap; /* 텍스트 줄 바꿈 금지 */
+    margin-right: 5px;
+}
+
+/* 북마크 모달 */
+.modal {
+    display: none;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    position: fixed;
+    transform: translate(-50%, -50%);
+}
+
+.bookmark-name {
+    margin-bottom: 10px;
+}
+
+.closeModalBtn, .sendBookmarkBtn {
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+    margin-bottom: 5px;
+}
+
+.closeModalBtn:hover, .sendBookmarkBtn:hover {
+    border: 1px solid var(--sub-color);
+    background-color: var(--sub-color);
+    color: black;
+}
+
 .article-content {
     margin-top: 20px;
     padding-top: 10px;
-    min-height: 10em;
+    margin-bottom: 20px;
 }
 
 .type {
@@ -76,9 +194,44 @@
     max-height: 400px;
     width: auto;
     height: auto;
-    margin: 0 20px 20px 0;
+    margin: 0 20px 50px 0;
     border: 3px solid var(--main-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 이미지 선택 시 테두리 스타일 */
+.image-action-mode img {
+    border: 3px solid transparent;
+}
+
+.article img.selected-for-action {
+    border: 3px solid red;
+}
+
+/* 버튼 공통 스타일 */
+.update-image-btn, .delete-image-btn {
+    margin-right: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* 수정 버튼 */
+.update-image-btn {
+    border: 1px solid green;
+}
+
+.update-image-btn:hover {
+    background-color: rgba(0, 128, 0, 0.2);
+}
+
+/* 삭제 버튼 */
+.delete-image-btn {
+    border: 1px solid red;
+}
+
+.delete-image-btn:hover {
+    background-color: rgba(255, 0, 0, 0.2);
 }
 
 /* 댓글 설정 */
@@ -88,7 +241,7 @@
 }
 
 .comment {
-    margin-top:10px;
+    margin-top: 10px;
     padding: 10px;
     border-top: 1px solid #ddd;
     display: flex;
@@ -100,8 +253,16 @@
 }
 
 .comment-btn {
-    border: 2px solid var(--main-color);
+    border-color: var(--main-color);
     background-color: var(--main-color);
+}
+
+.comment-btn:hover,
+.comment-btn.btn-primary:not(:disabled):not(.disabled):active,
+.comment-btn.btn-primary:not(:disabled):not(.disabled).active {
+    color: var(--main-color);
+    border-color: var(--sub-color);
+    background-color: var(--sub-color);
 }
 
 .comment-dropdown {
@@ -119,6 +280,7 @@
     align-items: center;
     margin-top: 5px;
 }
+
 .comment-actions button {
     margin-left: 10px;
 }
@@ -133,7 +295,6 @@
     align-items: center;
     margin-bottom: 10px;
 }
-
 
 .comment-meta {
     display: flex;
@@ -161,4 +322,17 @@
     color: var(--sub-color);
     margin-left: auto;
     margin-right: 20px;
+}
+
+.form-control:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 0.3rem rgba(78, 72, 151, 0.25);
+}
+
+.form-control:hover {
+    border-color: var(--sub-color);
+}
+
+.article-writer-badge {
+    background-color: var(--sub-color2);
 }

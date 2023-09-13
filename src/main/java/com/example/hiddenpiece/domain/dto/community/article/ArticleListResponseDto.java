@@ -1,4 +1,5 @@
 package com.example.hiddenpiece.domain.dto.community.article;
+
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.community.ArticleType;
 import com.example.hiddenpiece.domain.entity.community.Category;

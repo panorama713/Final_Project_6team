@@ -6,7 +6,7 @@ const searchText = document.getElementById('search-bar-text');
 
 let currentPage = 1;
 let totalPages = 0;
-const itemsPerPage = 8;
+const itemsPerPage = 9;
 
 let query = getQueryFromURL();
 
@@ -126,14 +126,11 @@ function renderItems(data) {
             writerDiv.classList.add('result-writer');
             writerDiv.textContent = `작성자: ${item.writer}`;
 
-            const divideLine = document.createElement('hr')
-
             resultItemDiv.appendChild(titleDiv);
             resultItemDiv.appendChild(descDiv);
             resultItemDiv.appendChild(writerDiv);
 
             searchRoadmapList.appendChild(resultItemDiv);
-            searchRoadmapList.appendChild(divideLine);
         });
     } else {
         const noDataDiv = document.createElement('div');

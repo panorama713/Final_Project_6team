@@ -1,6 +1,7 @@
 package com.example.hiddenpiece.service.roadmap;
 
 import com.example.hiddenpiece.domain.dto.roadmap.*;
+import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.user.User;
 import com.example.hiddenpiece.domain.repository.bookmark.RoadmapBookmarkRepository;
@@ -178,7 +179,7 @@ public class RoadmapService {
 
         pageableSort = "newest".equals(sort) ? pageableSort.descending() : pageableSort.ascending();
 
-        Pageable pageable = PageRequest.of(page, 8, pageableSort);
+        Pageable pageable = PageRequest.of(page, 9, pageableSort);
         return roadmapRepository.findRoadmapByTypeOrderBySort(keyword, field, pageable);
     }
 

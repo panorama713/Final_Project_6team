@@ -168,22 +168,25 @@ body {
 }
 
 .result-items {
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 2px solid var(--main-color);
-    border-radius: 6px;
-    min-height: 975px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
 }
 
 .result-item {
-    display: flex;
-    flex-direction: column;
-    height: 130px;
+    border: 2px solid var(--main-color);
+    border-radius: 6px;
+    padding: 20px;
 }
 
 .result-title {
     margin-bottom: 20px;
     font-weight: bold;
+}
+
+.bi-bookmark-plus {
+    cursor: pointer;
 }
 
 .item-link {

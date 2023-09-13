@@ -28,18 +28,18 @@ public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
             @Param("type") String type
     );
 
-    @Query("SELECT COUNT(r) FROM Roadmap r WHERE r.createdAt = CURRENT_DATE")
-    Integer countTodayRoadmaps();
+    @Query("SELECT COUNT(r) FROM Roadmap r WHERE r.createdAt >= :startOfDay AND r.createdAt < :endOfDay")
+    long countTodayRoadmaps(@Param("startOfDay") LocalDateTime startOfDay, @Param("endOfDay") LocalDateTime endOfDay);
 
-    @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto(r.title, r.user.username) " +
+    @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto(r.id, r.title, r.user.username) " +
             "FROM Roadmap r " +
-            "GROUP BY r.title, r.user.username " +
+            "GROUP BY r.id, r.title, r.user.username " +
             "ORDER BY r.id DESC LIMIT 5")
     List<ResponseTop5RoadmapDto> findTop5ByRoadmapsWithId();
 
-    @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto(r.title, r.user.username) " +
+    @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto(r.id, r.title, r.user.username) " +
             "FROM Roadmap r " +
-            "GROUP BY r.title, r.user.username " +
+            "GROUP BY r.id, r.title, r.user.username " +
             "ORDER BY RANDOM() LIMIT 5")
     List<ResponseTop5RoadmapDto> findTop5ByRoadmapsWithRandom();
 

@@ -101,7 +101,7 @@ public class RoadmapController {
             @RequestParam(required = false) String date
     ) {
         if (date != null) {
-            return ResponseEntity.ok(roadmapService.countRoadmapsByCreatedAt());
+            return ResponseEntity.ok((int) roadmapService.countRoadmapsByCreatedAt());
         }
 
         return ResponseEntity.ok(roadmapService.countRoadmaps());

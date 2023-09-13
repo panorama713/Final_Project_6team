@@ -61,7 +61,7 @@ fetch('/api/v1/roadmaps/top5?keyword=recommend')
 
                 const titleDiv = document.createElement('div');
                 titleDiv.classList.add('roadmap-title');
-                titleDiv.textContent = `${index + 1}. ${roadmap.title}`;
+                titleDiv.innerHTML = `<h5>${index + 1}.<a href="/views/roadmaps/${roadmap.roadmapId}"> ${roadmap.title}</a></h5>`;
 
                 const writerDiv = document.createElement('div');
                 writerDiv.classList.add('roadmap-writer');
@@ -103,7 +103,7 @@ fetch('/api/v1/roadmaps/top5?keyword=popularity')
 
                 const titleDiv = document.createElement('div');
                 titleDiv.classList.add('roadmap-title');
-                titleDiv.textContent = `${index + 1}. ${roadmap.title}`;
+                titleDiv.innerHTML = `<h5>${index + 1}.<a href="/views/roadmaps/${roadmap.roadmapId}"> ${roadmap.title}</a></h5>`;
 
                 const writerDiv = document.createElement('div');
                 writerDiv.classList.add('roadmap-writer');
@@ -145,7 +145,7 @@ fetch('/api/v1/roadmaps/top5')
 
                 const titleDiv = document.createElement('div');
                 titleDiv.classList.add('roadmap-title');
-                titleDiv.textContent = `${index + 1}. ${roadmap.title}`;
+                titleDiv.innerHTML = `<h5>${index + 1}.<a href="/views/roadmaps/${roadmap.roadmapId}"> ${roadmap.title}</a></h5>`;
 
                 const writerDiv = document.createElement('div');
                 writerDiv.classList.add('roadmap-writer');

@@ -145,6 +145,15 @@ body {
     margin-left: 25px;
 }
 
+.roadmap-title a {
+    text-decoration: none;
+    color: black;
+}
+
+.roadmap-title a:hover{
+    color: #424242;
+}
+
 .roadmap-writer {
     display: flex;
     justify-content: flex-end;

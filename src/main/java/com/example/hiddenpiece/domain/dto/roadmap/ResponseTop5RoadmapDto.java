@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResponseTop5RoadmapDto {
+    private Long roadmapId;
     private String title;
     private String username;
 
     @Builder
-    public ResponseTop5RoadmapDto(String title, String username) {
+    public ResponseTop5RoadmapDto(Long roadmapId, String title, String username) {
+        this.roadmapId = roadmapId;
         this.title = title;
         this.username = username;
     }

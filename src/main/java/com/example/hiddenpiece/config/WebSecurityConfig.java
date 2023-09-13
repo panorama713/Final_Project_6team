@@ -27,7 +27,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.*;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -112,7 +112,7 @@ public class WebSecurityConfig {
             loginFilter.setFilterProcessesUrl("/api/*/users/login");
 
             http.addFilter(loginFilter)
-                .addFilterAfter(jwtFilter, LoginFilter.class);
+                    .addFilterAfter(jwtFilter, LoginFilter.class);
         }
     }
 }

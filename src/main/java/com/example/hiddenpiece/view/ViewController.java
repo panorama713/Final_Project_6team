@@ -100,6 +100,11 @@ public class ViewController {
         return "withdrawal";
     }
 
+    @GetMapping("/my-page/roadmaps/bookmarks")
+    public String myRoadmapBookmark() {
+        return "my-profile-roadmap-bookmark";
+    }
+
     @GetMapping("/roadmaps/{roadmapId}/elements")
     public String roadmapElement() {
         return "roadmap-element";

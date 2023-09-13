@@ -83,7 +83,11 @@ function displayMyRoadmapBookmarks(bookmarks) {
 
 function formatDate(createdAt) {
     const createdAtDate = new Date(createdAt);
-    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
 
     return `${formattedDate}`;
 }

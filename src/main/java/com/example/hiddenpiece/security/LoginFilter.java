@@ -25,7 +25,8 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.hiddenpiece.security.CookieManager.*;
+import static com.example.hiddenpiece.security.CookieManager.ACCESS_TOKEN;
+import static com.example.hiddenpiece.security.CookieManager.REFRESH_TOKEN;
 
 @Slf4j
 @RequiredArgsConstructor

@@ -1,11 +1,12 @@
-window.onload = function() {
+window.onload = function () {
     fetchComments(0);
 }
 
 let currentPage = 0;
 let totalPages = 0;
+
 function fetchComments(page) {
-    fetch("/api/v1/articles/{articleId}/comments/getComments?page="+page)
+    fetch("/api/v1/articles/{articleId}/comments/getComments?page=" + page)
         .then(response => response.json())
         .then(result => {
             totalPages = result.totalPages;
@@ -39,7 +40,7 @@ function displayComments(comments) {
         var articleTitleDiv = document.createElement('div');
 
         var titleLink = document.createElement('a');
-        titleLink.href = "/views/articles/"+ comment.articleId;
+        titleLink.href = "/views/articles/" + comment.articleId;
         titleLink.textContent = comment.articleTitle;
         articleTitleDiv.appendChild(titleLink);
 

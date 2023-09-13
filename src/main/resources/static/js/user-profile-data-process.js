@@ -23,7 +23,7 @@ function displayArticles(articles) {
         var likeCountElement = document.createElement('td')
 
         var titleLink = document.createElement('a');
-        titleLink.href = "/views/articles/"+ article.id;
+        titleLink.href = "/views/articles/" + article.id;
         titleLink.textContent = article.title;
         titleElement.appendChild(titleLink);
 
@@ -106,6 +106,7 @@ function displayPageNumbers() {
 
 let currentPage = 0;
 let totalPages = 0;
+
 function fetchArticles(page, username) {
     fetch(`/api/v1/articles/userArticles?page=${page}&username=${username}`)
         .then(response => response.json())
@@ -125,6 +126,7 @@ function fetchArticles(page, username) {
 }
 
 let countOfFollower = 0;
+
 // 팔로워 수 받아오기
 function getCountOfFollower(userId) {
     fetch(`/api/v1/users/${userId}/follow`)
@@ -144,7 +146,7 @@ function getCountOfFollower(userId) {
 
 // 게시글 수 받아오기
 function getCountOfArticles(username) {
-    fetch("/api/v1/articles/countOfArticles?username="+username)
+    fetch("/api/v1/articles/countOfArticles?username=" + username)
         .then(response => {
             if (!response.ok) {
                 throw new Error('게시글 수 불러오기 오류');

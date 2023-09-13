@@ -18,7 +18,8 @@
             <button class="btn btn-primary list-btn" id="list-btn" type="button">목록으로</button>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle article-dropdown" type="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">글 설정</button>
+                        data-bs-toggle="dropdown" aria-expanded="false">글 설정
+                </button>
                 <ul class="dropdown-menu">
                     <form>
                         <button class="dropdown-item" id="article-update">수정</button>
@@ -38,17 +39,17 @@
         </div>
         <div class="article-meta">
             <div>
-            <span>작성자:</span>
-            <button id="article-username" class="btn dropdown-toggle username-dropdown" type="button"
-                    data-bs-toggle="dropdown" aria-expanded="false"></button>
-            <ul class="dropdown-menu">
-                <form>
-                    <a th:href="@{/views/user-profile}" class="dropdown-item" id="user-profile">프로필 보기</a>
-                </form>
-                <form>
-                    <button class="dropdown-item" id="follow-btn" user-id-value="">팔로우</button>
-                </form>
-            </ul>
+                <span>작성자:</span>
+                <button id="article-username" class="btn dropdown-toggle username-dropdown" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false"></button>
+                <ul class="dropdown-menu">
+                    <form>
+                        <a th:href="@{/views/user-profile}" class="dropdown-item" id="user-profile">프로필 보기</a>
+                    </form>
+                    <form>
+                        <button class="dropdown-item" id="follow-btn" user-id-value="">팔로우</button>
+                    </form>
+                </ul>
             </div>
             <span id="article-date"></span>
         </div>

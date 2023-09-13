@@ -27,14 +27,13 @@ public class FollowController {
     }
 
     @GetMapping
-    public ResponseEntity<Integer> getCountOfFollower (@PathVariable final Long userId) {
+    public ResponseEntity<Integer> getCountOfFollower(@PathVariable final Long userId) {
         int followNum = followService.getCountOfFollower(userId);
         return ResponseEntity.ok(followNum);
     }
 
     @GetMapping("/isFollow")
-    public ResponseEntity<Boolean> isFollow ( Authentication authentication,
-                                              @PathVariable final Long userId) {
+    public ResponseEntity<Boolean> isFollow(@PathVariable final Long userId, Authentication authentication) {
         String username = authentication.getName();
         boolean isFollow = followService.isFollow(userId, username);
         return ResponseEntity.ok(isFollow);

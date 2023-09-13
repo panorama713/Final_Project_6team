@@ -12,7 +12,7 @@ public class CookieManager {
     public static final String ACCESS_TOKEN = "accessToken";
     public static final String REFRESH_TOKEN = "refreshToken";
 
-    public void setCookie(HttpServletResponse res, String value, String name, long expiration){
+    public void setCookie(HttpServletResponse res, String value, String name, long expiration) {
         ResponseCookie cookie = ResponseCookie.from(name, value)
                 .maxAge(expiration)
                 .path("/")

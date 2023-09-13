@@ -31,7 +31,7 @@
                                 <h2 class="profile-name" id="profile-name">유저이름</h2>
                             </div>
                             <div>
-                                <button class="btn btn-follow" id="follow-btn" user-id-value="" >팔로우</button>
+                                <button class="btn btn-follow" id="follow-btn" user-id-value="">팔로우</button>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -64,14 +64,19 @@
     <div class="user-content mt-5">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts-tab-pane" type="button" role="tab" aria-controls="posts-tab-pane" aria-selected="true">작성글 목록</button>
+                <button class="nav-link active" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts-tab-pane"
+                        type="button" role="tab" aria-controls="posts-tab-pane" aria-selected="true">작성글 목록
+                </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="roadmaps-tab" data-bs-toggle="tab" data-bs-target="#roadmaps-tab-pane" type="button" role="tab" aria-controls="roadmaps-tab-pane" aria-selected="false">로드맵 목록</button>
+                <button class="nav-link" id="roadmaps-tab" data-bs-toggle="tab" data-bs-target="#roadmaps-tab-pane"
+                        type="button" role="tab" aria-controls="roadmaps-tab-pane" aria-selected="false">로드맵 목록
+                </button>
             </li>
         </ul>
         <div class="tab-content" id="TabContent">
-            <div class="tab-pane fade show active" id="posts-tab-pane" role="tabpanel" aria-labelledby="posts-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="posts-tab-pane" role="tabpanel" aria-labelledby="posts-tab"
+                 tabindex="0">
                 <!-- 작성글 목록 -->
                 <table class="table article-list">
                     <thead>
@@ -84,18 +89,19 @@
                         <th scope="col">좋아요</th>
                     </tr>
                     </thead>
-                    <tbody id="article-list" class="article-item"> </tbody>
+                    <tbody id="article-list" class="article-item"></tbody>
                 </table>
                 <div class="row mt-3">
                     <div class="col d-flex justify-content-center">
                         <div id="pagination-container" class="pagination justify-content-center">
-                            <ul class="pagination" id="pagination"> </ul>
+                            <ul class="pagination" id="pagination"></ul>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="roadmaps-tab-pane" role="tabpanel" aria-labelledby="roadmaps-tab" tabindex="0">
+            <div class="tab-pane fade" id="roadmaps-tab-pane" role="tabpanel" aria-labelledby="roadmaps-tab"
+                 tabindex="0">
                 <!-- 로드맵 목록 -->
                 <table class="table roadmap-list">
                     <thead>
@@ -107,7 +113,7 @@
                         <th scope="col">th</th>
                     </tr>
                     </thead>
-                    <tbody id="roadmap-list" class="roadmap-item"> </tbody>
+                    <tbody id="roadmap-list" class="roadmap-item"></tbody>
                 </table>
             </div>
         </div>

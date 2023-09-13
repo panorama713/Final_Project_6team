@@ -10,12 +10,15 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByUsername(String username);
+
     boolean existsByEmail(String email);
 
     Optional<User> findByUsername(String username);
 
     boolean existsByRealNameAndEmail(String realName, String email);
+
     boolean existsByUsernameAndRealName(String username, String realName);
+
     boolean existsByRealNameAndEmailAndQuestionAndAnswer(String realName, String email, Question question, String answer);
 
     @Query("SELECT u.username FROM User u WHERE u.realName = :realName AND u.email = :email AND u.question = :question AND u.answer = :answer")

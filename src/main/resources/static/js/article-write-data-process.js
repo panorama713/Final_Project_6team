@@ -1,25 +1,24 @@
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("category").value = localStorage.getItem('currentCategory');
+    var submitButton = document.getElementById("article-write");
+    submitButton.addEventListener("click", createArticle);
+});
 
-    document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("category").value = localStorage.getItem('currentCategory');
-        var submitButton = document.getElementById("article-write");
-        submitButton.addEventListener("click", createArticle);
-    });
-
-    function createArticle() {
-        var title = document.getElementById("title").value;
-        var content = document.getElementById("content").value;
-        var category = document.getElementById("category").value;
-        var type = document.getElementById("type").value;
-        var images = document.getElementById("image").files;
+function createArticle() {
+    var title = document.getElementById("title").value;
+    var content = document.getElementById("content").value;
+    var category = document.getElementById("category").value;
+    var type = document.getElementById("type").value;
+    var images = document.getElementById("image").files;
 
     var formData = new FormData();
 
-        var jsonParams = {
-            title: title,
-            content: content,
-            category: category,
-            type: type
-        };
+    var jsonParams = {
+        title: title,
+        content: content,
+        category: category,
+        type: type
+    };
 
     formData.append("params", new Blob([JSON.stringify(jsonParams)], {type: "application/json"}));
 

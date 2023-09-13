@@ -35,13 +35,16 @@ public class UserDetailsManagerImpl implements UserDetailsManager {
     }
 
     @Override
-    public void updateUser(UserDetails user) {}
+    public void updateUser(UserDetails user) {
+    }
 
     @Override
-    public void deleteUser(String username) {}
+    public void deleteUser(String username) {
+    }
 
     @Override
-    public void changePassword(String oldPassword, String newPassword) {}
+    public void changePassword(String oldPassword, String newPassword) {
+    }
 
     public boolean userExists(String username) {
         return this.userRepository.existsByUsername(username);

@@ -28,7 +28,7 @@ function attachEventListeners() {
     };
 
     // 폼 제출 이벤트에 대한 핸들러 연결
-    signUpForm.addEventListener("submit", function(event) {
+    signUpForm.addEventListener("submit", function (event) {
         handleSignUp(event, fields);
     });
 
@@ -62,35 +62,35 @@ function attachEventListeners() {
         });
     }
 
-    fields.username.addEventListener("input", function() {
+    fields.username.addEventListener("input", function () {
         checkUsernameValid(fields.username, errors.usernameError);
     });
 
-    fields.password.addEventListener("input", function() {
+    fields.password.addEventListener("input", function () {
         checkPasswordValid(fields.password, errors.passwordError);
     });
 
-    fields.passwordCheck.addEventListener("input", function() {
+    fields.passwordCheck.addEventListener("input", function () {
         checkPasswordMatch(fields.password, fields.passwordCheck, errors.passwordCheckError);
     });
 
-    fields.realName.addEventListener("input", function() {
+    fields.realName.addEventListener("input", function () {
         checkRealNameValid(fields.realName, errors.realNameError);
     });
 
-    fields.email.addEventListener("input", function() {
+    fields.email.addEventListener("input", function () {
         checkEmailValid(fields.email, errors.emailError);
     });
 
-    fields.phone.addEventListener("input", function() {
+    fields.phone.addEventListener("input", function () {
         checkPhoneValid(fields.phone, errors.phoneError);
     });
 
-    fields.question.addEventListener("input", function() {
+    fields.question.addEventListener("input", function () {
         checkQuestionValid(fields.question, errors.questionError);
     });
 
-    fields.answer.addEventListener("input", function() {
+    fields.answer.addEventListener("input", function () {
         checkAnswerValid(fields.answer, errors.answerError);
     });
 }

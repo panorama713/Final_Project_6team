@@ -21,16 +21,13 @@ import java.util.stream.Collectors;
 import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
 
 @RequiredArgsConstructor
-@Slf4j
 @Service
 public class ArticleImageService {
     private final ArticleImageRepository articleImageRepository;
     private final ArticleImageHandler articleImageHandler;
     private final ArticleRepository articleRepository;
 
-    /**
-     * 이미지 등록
-     */
+    // 이미지 등록
     @Transactional
     public List<ArticleImageResponseDto> createArticleImage(
             List<MultipartFile> multipartFiles, String username, Long articleId
@@ -39,15 +36,12 @@ public class ArticleImageService {
                 .orElseThrow(() -> new CustomException(NOT_FOUND_ARTICLE));
         List<ArticleImage> imageList = articleImageHandler.parseFileInfo(multipartFiles, username, article);
         articleImageRepository.saveAll(imageList);
-        log.info("#log# 데이터베이스 저장 - 사용자 [{}] -> 게시글 [{}] -> 이미지 {}개", username, articleId, imageList.size());
         return imageList.stream()
                 .map(ArticleImageResponseDto::fromEntity)
                 .collect(Collectors.toList());
     }
 
-    /**
-     * 이미지 조회
-     */
+    // 이미지 조회
     @Transactional(readOnly = true)
     public List<ArticleImageResponseDto> readAllArticleImages(Long articleId) {
         List<ArticleImage> imageList = articleImageRepository.findAllByArticleId(articleId);
@@ -56,9 +50,7 @@ public class ArticleImageService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * 이미지 수정 - 전체
-     */
+    // 이미지 수정 - 전체
     @Transactional
     public void updateArticleImage(
             List<MultipartFile> updatedImages, String username, Long articleId
@@ -69,13 +61,10 @@ public class ArticleImageService {
                     .orElseThrow(() -> new CustomException(NOT_FOUND_ARTICLE));
             List<ArticleImage> newImageList = articleImageHandler.parseFileInfo(updatedImages, username, article);
             articleImageRepository.saveAll(newImageList);
-            log.info("#log# 데이터베이스 수정 - 사용자 [{}] -> 게시글 [{}] -> 이미지 {}개", username, articleId, newImageList.size());
         }
     }
 
-    /**
-     * 이미지 삭제 - 전체
-     */
+    // 이미지 삭제 - 전체
     @Transactional
     public void deleteArticleImage(String username, Long articleId) {
         List<ArticleImage> existingImages = articleImageRepository.findAllByArticleId(articleId);
@@ -83,7 +72,6 @@ public class ArticleImageService {
             deletePhysicalImage(image.getImageUrl());
         }
         articleImageRepository.deleteAll(existingImages);
-        log.info("#log# 데이터베이스 삭제 - 사용자 [{}] -> 게시글 [{}] -> 이미지 {}개", username, articleId, existingImages.size());
     }
 
     private void validateArticleAndAuthor(
@@ -101,15 +89,11 @@ public class ArticleImageService {
     private void deletePhysicalImage(String imageUrl) {
         File file = new File(imageUrl);
         if (file.exists()) {
-            if (!file.delete()) {
-                log.error("#log# 이미지 삭제 실패 [{}]", imageUrl);
-            }
+            file.delete();
         }
     }
 
-    /**
-     * 이미지 수정 - 특정
-     */
+    // 이미지 삭제 - 수정
     @Transactional
     public void updateSpecificImage(
             List<Long> imageIds, List<MultipartFile> updatedImages, String username, Long articleId
@@ -126,13 +110,10 @@ public class ArticleImageService {
             ArticleImage updatedImage = articleImageHandler.parseFileInfo(singleUpdatedImageList, username, existingImage.getArticle()).get(0);
             existingImage.updateArticleImage(updatedImage);
             articleImageRepository.save(existingImage);
-            log.info("#log# 데이터베이스 수정 - 사용자 [{}] -> 게시글 [{}] -> 이미지 [{}]", username, articleId, imageIds.get(i));
         }
     }
 
-    /**
-     * 이미지 삭제 - 특정
-     */
+    // 이미지 삭제 - 특정
     @Transactional
     public void deleteSpecificImage(
             List<Long> imageIds, String username, Long articleId
@@ -143,7 +124,6 @@ public class ArticleImageService {
             validateArticleAndAuthor(existingImage, articleId, username);
             deletePhysicalImage(existingImage.getImageUrl());
             articleImageRepository.deleteById(imageId);
-            log.info("#log# 데이터베이스 삭제 - 사용자 [{}] -> 게시글 [{}] -> 이미지 [{}]", username, articleId, imageId);
         }
     }
 }

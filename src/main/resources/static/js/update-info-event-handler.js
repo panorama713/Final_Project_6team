@@ -14,7 +14,7 @@ document.getElementById("updateInfoForm").addEventListener("submit", function (e
         phone: formData.get('newPhone')
     }
     const json = JSON.stringify(dtoData);
-    const blob = new Blob([json], { type: 'application/json' })
+    const blob = new Blob([json], {type: 'application/json'})
 
     formData.append('dto', blob);
 

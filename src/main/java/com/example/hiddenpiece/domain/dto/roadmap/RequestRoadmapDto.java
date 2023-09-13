@@ -1,7 +1,6 @@
 package com.example.hiddenpiece.domain.dto.roadmap;
 
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
-import com.example.hiddenpiece.domain.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

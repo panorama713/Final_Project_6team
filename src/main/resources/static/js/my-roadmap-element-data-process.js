@@ -67,7 +67,7 @@ document.addEventListener('click', function (event) {
     }
 })
 
-$('#roadmapElementTodoModal').on('hidden.bs.modal', function (){
+$('#roadmapElementTodoModal').on('hidden.bs.modal', function () {
     location.reload();
 })
 

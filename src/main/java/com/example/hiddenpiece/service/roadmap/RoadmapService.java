@@ -8,8 +8,6 @@ import com.example.hiddenpiece.domain.repository.follow.FollowRepository;
 import com.example.hiddenpiece.domain.repository.roadmap.RoadmapRepository;
 import com.example.hiddenpiece.domain.repository.user.UserRepository;
 import com.example.hiddenpiece.exception.CustomException;
-import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
-
 import com.example.hiddenpiece.exception.CustomExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
 
 @Service
 @Slf4j
@@ -65,10 +65,10 @@ public class RoadmapService {
         List<Roadmap> roadmaps;
         // year 가 null 이 아닌 경우
         if (year != null) {
-            LocalDateTime targetDate = LocalDateTime.of(year, 1 ,1 ,0 ,0,0);
-            LocalDateTime targetYear = LocalDateTime.of(year, 12 ,31 ,23,59,59);
+            LocalDateTime targetDate = LocalDateTime.of(year, 1, 1, 0, 0, 0);
+            LocalDateTime targetYear = LocalDateTime.of(year, 12, 31, 23, 59, 59);
             roadmaps = roadmapRepository.findRoadmapByUserAndCreatedAtAndType(user, targetDate, targetYear, type);
-        }else {
+        } else {
             // null 인 경우
             roadmaps = roadmapRepository.findRoadmapByUserAndCreatedAtAndType(user, null, null, type);
         }

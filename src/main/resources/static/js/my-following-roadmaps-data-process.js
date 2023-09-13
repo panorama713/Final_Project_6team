@@ -118,11 +118,11 @@ function clickBtn(roadmapId, title) {
 }
 
 async function handleBookmark(roadmapId, title) {
-    const requestBody = { title: title }
+    const requestBody = {title: title}
     fetch(`/api/v1/bookmarks/roadmaps/${roadmapId}`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(requestBody)
     }).then(() => {

@@ -1,4 +1,5 @@
 package com.example.hiddenpiece.domain.dto.community.article;
+
 import com.example.hiddenpiece.domain.dto.community.comment.CommentResponseDto;
 import com.example.hiddenpiece.domain.dto.community.image.ArticleImageResponseDto;
 import com.example.hiddenpiece.domain.entity.community.ArticleType;

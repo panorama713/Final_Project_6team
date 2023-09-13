@@ -2,7 +2,8 @@ package com.example.hiddenpiece.view;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,7 +40,9 @@ public class ViewController {
     }
 
     @GetMapping("/user-profile")
-    public String viewUserProfile() { return "user-profile"; }
+    public String viewUserProfile() {
+        return "user-profile";
+    }
 
     @GetMapping("/articles/{articleId}")
     public String articleDetail() {
@@ -82,13 +85,19 @@ public class ViewController {
     }
 
     @GetMapping("/my-page/articles")
-    public String myArticles() {return "my-profile-articles";}
+    public String myArticles() {
+        return "my-profile-articles";
+    }
 
     @GetMapping("/my-page/comments")
-    public String myComments() {return "my-profile-comments";}
+    public String myComments() {
+        return "my-profile-comments";
+    }
 
     @GetMapping("/my-page/bookmarks")
-    public String myBookmarks() {return "my-profile-bookmarks";}
+    public String myBookmarks() {
+        return "my-profile-bookmarks";
+    }
 
     @GetMapping("/my-page/update-info")
     public String updateInfo() {
@@ -145,4 +154,3 @@ public class ViewController {
         return "my-page-roadmaps";
     }
 }
-

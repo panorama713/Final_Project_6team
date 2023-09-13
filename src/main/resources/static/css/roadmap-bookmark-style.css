@@ -25,6 +25,7 @@
     background-color: #eeeeee;
     float: right;
 }
+
 .roadmap-bookmark-btn:hover {
     text-decoration: none;
     border: 1px solid var(--main-color);

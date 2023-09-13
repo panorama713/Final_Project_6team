@@ -19,7 +19,7 @@ function attachEventListeners() {
     };
 
     // 폼 제출 이벤트에 대한 핸들러 연결
-    findPasswordForm.addEventListener("submit", function(event) {
+    findPasswordForm.addEventListener("submit", function (event) {
         handleFindPassword(event, fields);
     });
 
@@ -46,11 +46,11 @@ function attachEventListeners() {
         modal.show();
     }
 
-    fields.realName.addEventListener("input", function() {
+    fields.realName.addEventListener("input", function () {
         checkRealNameValid(fields.realName, errors.realNameError);
     });
 
-    fields.username.addEventListener("input", function() {
+    fields.username.addEventListener("input", function () {
         checkUsernameValid(fields.username, errors.usernameError);
     });
 }

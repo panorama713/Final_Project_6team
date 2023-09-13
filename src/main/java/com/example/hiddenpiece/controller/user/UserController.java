@@ -24,9 +24,7 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/signup")
-    public ResponseEntity<SignupResponseDto> signup(
-            @Valid @RequestBody SignupRequestDto requestDto
-    ) {
+    public ResponseEntity<SignupResponseDto> signup(@Valid @RequestBody SignupRequestDto requestDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.signup(requestDto));
     }
 
@@ -35,7 +33,7 @@ public class UserController {
     public ResponseEntity<Void> logout(HttpServletRequest req, HttpServletResponse res) {
         userService.logout(req, res);
         log.info("로그아웃 성공");
-       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     // 토큰 재발급 -> 토큰 만료 시 재발급하는 로직 프론트 or 백에서 구현

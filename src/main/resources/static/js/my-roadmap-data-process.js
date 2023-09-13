@@ -19,8 +19,8 @@ function roadmapPaddingTop() {
 }
 
 // 선택된 dropdown-item에 따라 dropdown-toggle 업데이트
-document.querySelectorAll('.dropdown-item').forEach(function(item) {
-    item.addEventListener('click', function() {
+document.querySelectorAll('.dropdown-item').forEach(function (item) {
+    item.addEventListener('click', function () {
         const selectedValue = item.getAttribute('value');
         const selectedText = item.textContent;
         const dropdownButton = document.getElementById('dropdown-btn');
@@ -136,7 +136,7 @@ function createRoadmapElements(roadmapId, element, type) {
     var done = document.createElement('div');
     done.classList.add('fill-progress', 'done-progress');
     done.id = `done-progress-${element.id}`;
-    done.dataset.start ='0';
+    done.dataset.start = '0';
     done.style.backgroundColor = color;
     done.style.zIndex = '-1';
 
@@ -216,7 +216,7 @@ function createRoadmaps(roadmap) {
                 elements.forEach(function (element) {
                     var roadmapElement = createRoadmapElements(roadmap.id, element, roadmap.type);
                     roadmapElementTodoDoneProgress(roadmap.id, element).then(response => {
-                        adjustDoneProgress();
+                            adjustDoneProgress();
                         }
                         // console.log('test:',document.getElementById(`done-progress-${element.id}`).dataset.end)
                     );
@@ -276,15 +276,15 @@ async function getRoadmap(year) {
 
 // 로드맵 생성 로직
 async function createNewRoadmap() {
-       var title = document.getElementById('title').value;
-       var type = document.getElementById('type').value;
-       var description = document.getElementById('description').value;
+    var title = document.getElementById('title').value;
+    var type = document.getElementById('type').value;
+    var description = document.getElementById('description').value;
 
-       var jsonData = {
-           title: title,
-           type: type,
-           description: description
-       }
+    var jsonData = {
+        title: title,
+        type: type,
+        description: description
+    }
 
     await fetch(`/api/v1/roadmaps`, {
         method: 'POST',
@@ -347,7 +347,6 @@ function calculateDate(date) {
 }
 
 
-
 // 로드맵 수정 기능
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('roadmap-update')) {
@@ -389,7 +388,7 @@ async function updateRoadmap(event) {
                 });
             }
             return response.json();
-    })
+        })
         .then(data => {
             alert("로드맵이 수정되었습니다");
             location.reload();
@@ -407,6 +406,7 @@ document.addEventListener('click', function (event) {
         deleteRoadmap(event);
     }
 })
+
 async function deleteRoadmap(event) {
     // 이벤트 객체에서 roadmap 가져오기
     var roadmapTitle = event.target.dataset.roadmapTitle;

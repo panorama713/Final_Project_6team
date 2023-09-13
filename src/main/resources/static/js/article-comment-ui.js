@@ -119,12 +119,12 @@ function addReplyToPage(reply, parentCommentId) {
 // 페이지에 댓글 및 답글 표시
 function readAndDisplayComments() {
     const articleId = window.articleId;
-    readComments(articleId, function(comments) {
-        comments.forEach(function(comment) {
+    readComments(articleId, function (comments) {
+        comments.forEach(function (comment) {
             addCommentToPage(comment);
 
             if (comment.replies && comment.replies.length > 0) {
-                comment.replies.forEach(function(reply) {
+                comment.replies.forEach(function (reply) {
                     addReplyToPage(reply, comment.id);
                 });
                 updateReplyCount(comment.id);

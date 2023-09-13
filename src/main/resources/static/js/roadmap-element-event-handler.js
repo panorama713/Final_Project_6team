@@ -14,7 +14,7 @@ function attachRoadmapElementEventListeners() {
     const modalForm = document.getElementById('addRoadmapElement');
 
     // 폼 제출 이벤트에 대한 핸들러 연결
-    modalForm.addEventListener("submit", function(event) {
+    modalForm.addEventListener("submit", function (event) {
         handleCreateRoadmapElement(event);
     });
 }

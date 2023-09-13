@@ -1,12 +1,13 @@
-window.onload = function() {
+window.onload = function () {
     fetchBookmarks(0);
 }
 
 let currentPage = 0;
 let totalPages = 0;
+
 function fetchBookmarks(page) {
 
-    fetch("/api/v1/bookmarks/articles?page="+page)
+    fetch("/api/v1/bookmarks/articles?page=" + page)
         .then(response => response.json())
         .then(result => {
             totalPages = result.totalPages;
@@ -31,7 +32,7 @@ function displayBookmarks(bookmarks) {
         var articleBookmarkElement = document.createElement('td');
 
         var titleLink = document.createElement('a');
-        titleLink.href = "/views/articles/"+ bookmark.articleId;
+        titleLink.href = "/views/articles/" + bookmark.articleId;
         titleLink.textContent = bookmark.titleOfArticle;
         articleTitleElement.appendChild(titleLink);
 

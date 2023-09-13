@@ -22,7 +22,7 @@ import java.util.List;
 @SQLDelete(sql = "UPDATE roadmaps SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at is null")
 @Table(name = "roadmaps")
-public class Roadmap extends BaseTimeEntity{
+public class Roadmap extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

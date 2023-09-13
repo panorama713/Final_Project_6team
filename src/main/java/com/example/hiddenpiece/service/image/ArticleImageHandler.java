@@ -21,18 +21,16 @@ import static com.example.hiddenpiece.exception.CustomExceptionCode.UNSUPPORTED_
 @Slf4j
 @Component
 public class ArticleImageHandler {
-    //    // MEMO application.yaml 설정 시 아래 주석 해제 (불필요 시 삭제 예정)
-//    @Value("${image.upload.dir}")
-//    private String uploadDir;
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads";
 
     /**
      * MultipartFile 기반으로 ArticleImage 객체들의 목록을 반환
+     *
      * @param multipartFiles 이미지 파일 목록
      * @param username       사용자의 아이디
      * @param article        연관된 Article 객체
-     * @return               ArticleImage 객체의 목록
-     * @throws IOException   파일 처리 관련 예외 발생 시
+     * @return ArticleImage  객체의 목록
+     * @throws IOException 파일 처리 관련 예외 발생 시
      */
     public List<ArticleImage> parseFileInfo(
             List<MultipartFile> multipartFiles, String username, Article article
@@ -48,14 +46,12 @@ public class ArticleImageHandler {
                 imageList.add(articleImage);
                 saveFile(multipartFile, path, newFileName);
             }
-            log.info("#log# 파일 처리 - 사용자 [{}] -> 게시글 [{}] -> 이미지 {}개", username, article.getId(), multipartFiles.size());
+            log.info("파일 처리 - 사용자 [{}] -> 게시글 [{}] -> 이미지 {}개", username, article.getId(), multipartFiles.size());
         }
         return imageList;
     }
 
-    /**
-     * 디렉토리 생성
-     */
+    // 디렉토리 생성
     private String createDirectory(Article article) throws IOException {
         String path = UPLOAD_DIR + "/article_images/" + article.getId();
         File file = new File(path);
@@ -69,9 +65,7 @@ public class ArticleImageHandler {
         return path;
     }
 
-    /**
-     * 이미지 형식 확인 및 확장자 반환
-     */
+    // 이미지 형식 확인 및 확장자 반환
     private String checkImageFormat(MultipartFile multipartFile) {
         String contentType = multipartFile.getContentType();
         if (ObjectUtils.isEmpty(contentType)) {
@@ -85,9 +79,7 @@ public class ArticleImageHandler {
         }
     }
 
-    /**
-     * ArticleImage 객체 생성
-     */
+    // ArticleImage 객체 생성
     private ArticleImage buildArticleImage(
             MultipartFile multipartFile, String newFileName, Article article
     ) {
@@ -103,9 +95,7 @@ public class ArticleImageHandler {
                 imageDto.getImageSize());
     }
 
-    /**
-     * 지정된 경로에 파일 저장
-     */
+    // 지정된 경로에 파일 저장
     private void saveFile(
             MultipartFile multipartFile, String path, String newFileName
     ) throws IOException {

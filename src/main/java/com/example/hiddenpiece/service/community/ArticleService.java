@@ -1,4 +1,5 @@
 package com.example.hiddenpiece.service.community;
+
 import com.example.hiddenpiece.domain.dto.community.article.*;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.community.Category;
@@ -17,18 +18,17 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.*;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.*;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import static com.example.hiddenpiece.exception.CustomExceptionCode.NOT_FOUND_USER;
 
@@ -86,6 +86,7 @@ public class ArticleService {
         return getArticlesAndPage(jpql, countJpql, parameters, page);
     }
 
+    // 사용자별 게시글 목록 조회
     public Page<ArticleListResponseDto> getListByUsername(int page, String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
@@ -163,6 +164,7 @@ public class ArticleService {
         return getArticlesAndPage(jpql, countJpql, parameters, page);
     }
 
+    // 게시글 수정
     @Transactional
     public void updateArticle(String username, final Long articleId, final ArticleRequestDto dto) {
         User loginUser = userRepository.findByUsername(username)
@@ -178,6 +180,7 @@ public class ArticleService {
         target.modify(dto.getTitle(), dto.getContent(), dto.getType(), dto.getCategory());
     }
 
+    // 게시글 삭제
     @Transactional
     public void deleteArticle(String username, final Long articleId) {
         User loginUser = userRepository.findByUsername(username)
@@ -194,6 +197,7 @@ public class ArticleService {
         articleRepository.deleteById(articleId);
     }
 
+    // 게시글 조회수
     @Transactional
     public void increaseViewCount(Long articleId) {
         Query query = entityManager.createQuery("UPDATE Article a SET a.viewCount = a.viewCount + 1 WHERE a.id = :articleId");

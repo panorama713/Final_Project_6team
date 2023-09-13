@@ -28,7 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.Duration;
 
 import static com.example.hiddenpiece.exception.CustomExceptionCode.*;
-import static com.example.hiddenpiece.security.CookieManager.*;
+import static com.example.hiddenpiece.security.CookieManager.ACCESS_TOKEN;
+import static com.example.hiddenpiece.security.CookieManager.REFRESH_TOKEN;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -50,11 +51,9 @@ public class UserService {
     @Transactional
     public SignupResponseDto signup(SignupRequestDto requestDto) {
         if (userRepository.existsByUsername(requestDto.getUsername())) {
-            log.warn("#log# 사용자 [{}] 등록 실패. 아이디 중복", requestDto.getUsername());
             throw new CustomException(ALREADY_EXIST_USER);
         }
         if (userRepository.existsByEmail(requestDto.getEmail())) {
-            log.warn("#log# 사용자 [{}] 등록 실패. 이메일 중복", requestDto.getEmail());
             throw new CustomException(ALREADY_EXIST_EMAIL);
         }
 
@@ -222,7 +221,7 @@ public class UserService {
         String path = userImageHandler.parseFileInfo(userId, image);
         if (path == null) path = user.getProfileImg();
 
-        user.updateInfo(passwordEncoder.encode(dto.getPassword()), dto.getEmail(), dto.getPhone() , path);
+        user.updateInfo(passwordEncoder.encode(dto.getPassword()), dto.getEmail(), dto.getPhone(), path);
         userRepository.save(user);
         log.info("이미지 등록 성공");
     }

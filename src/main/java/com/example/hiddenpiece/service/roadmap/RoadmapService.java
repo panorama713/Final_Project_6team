@@ -1,7 +1,6 @@
 package com.example.hiddenpiece.service.roadmap;
 
 import com.example.hiddenpiece.domain.dto.roadmap.*;
-import com.example.hiddenpiece.domain.entity.bookmark.RoadmapBookmark;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
 import com.example.hiddenpiece.domain.entity.user.User;
 import com.example.hiddenpiece.domain.repository.bookmark.RoadmapBookmarkRepository;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 

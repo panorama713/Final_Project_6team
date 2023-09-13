@@ -25,9 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         userItem.innerHTML = `
                         <div class="card" style="margin-bottom: 20px">
                             <div class="card-body">
-                                <p>아이디: ${user.username}</p>
-                                <p>상태: ${createdAtString}</p>
-                                <button onclick="clickBtn('${user.username}')">맞팔로우</button>
+                                <h6><span class="badge rounded-pill id-icon">아이디</span>${user.username}</h6>
+                                <p><span class="badge rounded-pill status-icon">상태</span>${createdAtString}</p>
+                                <div class="btn-style">
+                                    <button onclick="viewProfile('${user.username}')" class="btn btn-primary profile-btn">프로필 보기</button>
+                                    <button onclick="clickBtn('${user.username}')" class="btn btn-primary follow-btn">맞팔로우</button>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -117,6 +120,12 @@ function clickBtn(username) {
         handleFollow(username)
     }
 }
+
+function viewProfile(username) {
+    localStorage.setItem('currentWriter', username);
+    window.location.href = "/views/user-profile";
+}
+
 
 async function handleFollow(username) {
     // TODO api 교체후 수정하기

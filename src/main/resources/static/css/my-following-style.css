@@ -17,3 +17,48 @@ body {
     background-color: #f6f6f6;
     font-family: 'CustomFont', sans-serif;
 }
+
+/* 카드 스타일 */
+.card {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-right: 10px;
+}
+
+.card-body {
+    width: 400px;
+    padding: 15px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.btn-style {
+    margin-top: auto;
+    align-self: flex-end;
+    padding: 3px 8px;
+}
+
+.follow-btn, .profile-btn  {
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+    color: white;
+}
+
+
+.id-icon, .status-icon {
+    border: 1px solid black;
+    background-color: black;
+    border-radius: 0px;
+    margin-left: 5px;
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.badge {
+    margin-right: 8px;
+}

@@ -37,14 +37,17 @@ body {
     align-items: flex-start;
 }
 
-/* 팔로우 버튼 스타일 */
-.follow-btn  {
-    border: 2px solid var(--main-color);
-    background-color: var(--main-color);
-    color: white;
+
+.btn-style {
     margin-top: auto;
     align-self: flex-end;
     padding: 3px 8px;
+}
+
+.follow-btn, .profile-btn  {
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+    color: white;
 }
 
 .id-icon, .status-icon {

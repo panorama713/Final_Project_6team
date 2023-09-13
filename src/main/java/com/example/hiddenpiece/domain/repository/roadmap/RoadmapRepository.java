@@ -59,4 +59,6 @@ public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
             "FROM Roadmap r " +
             "WHERE r.user = :user")
     Page<ResponseMyPageRoadmapDto> findRoadmapByUser(@Param("user") User user, Pageable pageable);
+
+    int countByUser(User user);
 }

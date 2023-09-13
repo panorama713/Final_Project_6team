@@ -154,6 +154,12 @@ public class RoadmapService {
         return roadmapRepository.countTodayRoadmaps(startOfDay, endOfDay);
     }
 
+    // 유저 로드맵 개수 카운트
+    public int countRoadmapsByUserId(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        return roadmapRepository.countByUser(user);
+    }
+
     // 추천 로드맵 조회
     // TODO 우선은 랜덤 -> 기준을 유저가 설정한 타입으로 하기로 했는데 회원가입 시 추가하는 부분이 없어서 추후 수정해야함
     public List<ResponseTop5RoadmapDto> readTop5RoadmapWithRandom() {

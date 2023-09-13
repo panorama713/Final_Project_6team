@@ -107,6 +107,11 @@ public class RoadmapController {
         return ResponseEntity.ok(roadmapService.countRoadmaps());
     }
 
+    @GetMapping("/count/{userId}")
+    public ResponseEntity<Integer> countRoadmapsByUserId(@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(roadmapService.countRoadmapsByUserId(userId));
+    }
+
     @GetMapping("/top5")
     public ResponseEntity<List<ResponseTop5RoadmapDto>> readRoadmapsTop5WithPopularity(
             @RequestParam(required = false) String keyword

@@ -169,8 +169,10 @@ function fetchArticles(page, username) {
             currentPage = result.number;
             displayArticles(result.content);
             displayArticlePageNumbers();
+            getUserImage(userId)
             getCountOfFollower(userId);
             isFollow(userId);
+            getCountOfRoadmaps(userId)
             fetchRoadmaps(0, userId)
             displayRoadmapPageNumbers(userId)
 
@@ -184,7 +186,7 @@ function fetchRoadmaps(page, userId) {
         .then(response => response.json())
         .then(result => {
             displayRoadmaps(result.content);
-            displayPageNumbers();
+            displayRoadmapPageNumbers();
         })
         .catch(error => console.error('Error:', error))
 }
@@ -198,7 +200,7 @@ function getCountOfFollower(userId) {
             if (!response.ok) {
                 throw new Error('팔로워 수 불러오기 오류');
             }
-            return response.json(); // JSON 형식으로 파싱
+            return response.json();
         })
         .then(data => {
             var followCount = data;
@@ -206,6 +208,34 @@ function getCountOfFollower(userId) {
         })
         .catch(error => console.error('Error:', error));
 
+}
+
+// 유저 프로필 사진 받아오기
+function getUserImage(userId) {
+    fetch("/api/v1/users/" + userId)
+        .then(response => response.json())
+        .then(result => {
+            const profileImage = document.getElementById('profile-pic');
+            profileImage.src = result.profileImg;
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
+// 로드맵 수 받아오기
+function getCountOfRoadmaps(userId) {
+    fetch("/api/v1/roadmaps/count/" + userId)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('로드맵 수 불러오기 오류');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var roadmapCount = data;
+            document.querySelector('#roadmap-num').textContent = roadmapCount;
+        })
+        .catch(error => console.error('Error:', error));
 }
 
 // 게시글 수 받아오기

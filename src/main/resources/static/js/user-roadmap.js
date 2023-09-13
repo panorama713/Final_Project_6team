@@ -55,13 +55,14 @@ function createRoadmaps(roadmap) {
 
     const typeTitle = document.createElement('div');
     typeTitle.classList.add('category-title', 'rb');
-    typeTitle.textContent = roadmap.type + " : " + roadmap.title;
+    typeTitle.textContent = "타입: " + roadmap.type + "  /  " + "제목: " + roadmap.title;
     typeTitle.style.position = 'relative';
 
     const btnDiv = document.createElement('div');
     btnDiv.classList.add('btn-tool');
     btnDiv.style.position = 'absolute';
     btnDiv.style.textAlign = 'right';
+    btnDiv.style.marginTop = '8px';
 
     const bookmarkBtn = document.createElement('button');
     bookmarkBtn.classList.add('bookmark-btn', 'btn', 'btn-primary');
@@ -82,6 +83,7 @@ function createRoadmaps(roadmap) {
     userBtn.textContent = roadmap.username;
     userBtn.setAttribute('data-bs-toggle', 'dropdown');
     userBtn.setAttribute('aria-expanded', 'false');
+
     // ul 요소 생성
     const dropdownMenu = document.createElement('ul');
     dropdownMenu.classList.add('dropdown-menu');

@@ -156,4 +156,15 @@ public class RoadmapController {
         String username = authentication.getName();
         return ResponseEntity.ok(roadmapService.readRoadmapsByFollowings(username, num, limit));
     }
+
+    // 마이페이지 내 로드맵 불러오기
+    @GetMapping("/my-page")
+    public ResponseEntity<Page<ResponseMyPageRoadmapDto>> readMyPageRoadmaps(
+            Authentication authentication,
+            @RequestParam(name = "num", defaultValue = "0") Integer num,
+            @RequestParam(name = "limit", defaultValue = "10") Integer limit
+    ) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(roadmapService.readMyPageRoadmaps(username, num, limit));
+    }
 }

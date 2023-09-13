@@ -191,4 +191,12 @@ public class RoadmapService {
         Page<Roadmap> roadmapPage = followRepository.findRoadmapsByFromUserFollowing(currentUser, pageable);
         return roadmapPage.map(ResponseFollowingRoadmapsDto::fromEntity);
     }
+
+    // 마이페이지 내 로드맵 조회
+    public Page<ResponseMyPageRoadmapDto> readMyPageRoadmaps(String username, Integer num, Integer limit) {
+        User targetUser = userRepository.findByUsername(username).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        Pageable pageable = PageRequest.of(num, limit);
+
+        return roadmapRepository.findRoadmapByUser(targetUser, pageable);
+    }
 }

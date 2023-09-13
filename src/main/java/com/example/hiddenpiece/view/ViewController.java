@@ -139,5 +139,10 @@ public class ViewController {
     public String readFollowUserRoadmaps() {
         return "my-following-roadmaps";
     }
+
+    @GetMapping("/my-page/roadmaps")
+    public String readMyPageRoadmaps() {
+        return "my-page-roadmaps";
+    }
 }
 

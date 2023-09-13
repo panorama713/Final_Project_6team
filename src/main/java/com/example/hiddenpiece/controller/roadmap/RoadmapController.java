@@ -157,6 +157,14 @@ public class RoadmapController {
         return ResponseEntity.ok(roadmapService.readRoadmapsByFollowings(username, num, limit));
     }
 
+    //유저페이지 내 로드맵 조회
+    @GetMapping("/userProfile/{userId}")
+    public ResponseEntity<Page<ResponseMyPageRoadmapDto>> readRoadmapsByUserId(@PathVariable("userId") Long userId,
+                                                                               @RequestParam(value = "page", defaultValue = "0") int page
+    ) {
+        return ResponseEntity.ok(roadmapService.readRoadmapsByUserId(userId, page));
+    }
+
     // 마이페이지 내 로드맵 불러오기
     @GetMapping("/my-page")
     public ResponseEntity<Page<ResponseMyPageRoadmapDto>> readMyPageRoadmaps(

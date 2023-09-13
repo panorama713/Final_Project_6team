@@ -80,10 +80,59 @@ function displayArticles(articles) {
     });
 }
 
+function displayRoadmaps(roadmaps) {
+    const roadmapList = document.getElementById('roadmap-list');
+    roadmapList.innerHTML = ''; // 이전 데이터 초기화
+
+    roadmaps.forEach(function (roadmap) {
+        var row = document.createElement('tr');
+        var typeElement = document.createElement('td');
+        var titleElement = document.createElement('td');
+        var createdAtElement = document.createElement('td');
+
+        var titleLink = document.createElement('a');
+        titleLink.href = "/views/roadmaps/" + roadmap.id;
+        titleLink.textContent = roadmap.title;
+        titleElement.appendChild(titleLink);
+
+        createdAtElement.textContent = formatCreatedAt(roadmap.createdAt);
+        typeElement.textContent = roadmap.type;
+
+        row.appendChild(typeElement);
+        row.appendChild(titleElement);
+        row.appendChild(createdAtElement);
+
+        roadmapList.appendChild(row);
+    });
+}
+
 // 작성글 페이지 번호 표시
-function displayPageNumbers() {
-    const paginationContainer = document.getElementById('pagination-container');
-    paginationContainer.innerHTML = '';
+function displayArticlePageNumbers() {
+    const articlePaginationContainer = document.getElementById('article-pagination-container');
+    articlePaginationContainer.innerHTML = '';
+
+    for (let i = 0; i < totalPages; i++) {
+        const articleNumberButton = document.createElement('button');
+        articleNumberButton.textContent = i + 1;
+        articleNumberButton.classList.add('btn');
+        articleNumberButton.classList.add('custom-button');
+
+        if (i === currentPage) {
+            articleNumberButton.classList.add('active');
+        }
+
+        articleNumberButton.addEventListener('click', () => {
+            fetchArticles(i, username);
+        });
+
+        articlePaginationContainer.appendChild(articleNumberButton);
+    }
+}
+
+// 작성글 로드맵 번호 표시
+function displayRoadmapPageNumbers(userId) {
+    const roadmapPaginationContainer = document.getElementById('roadmap-pagination-container');
+    roadmapPaginationContainer.innerHTML = '';
 
     for (let i = 0; i < totalPages; i++) {
         const pageNumberButton = document.createElement('button');
@@ -96,12 +145,13 @@ function displayPageNumbers() {
         }
 
         pageNumberButton.addEventListener('click', () => {
-            fetchArticles(i, username);
+            fetchRoadmaps(i, userId);
         });
 
-        paginationContainer.appendChild(pageNumberButton);
+        roadmapPaginationContainer.appendChild(pageNumberButton);
     }
 }
+
 
 
 let currentPage = 0;
@@ -118,11 +168,25 @@ function fetchArticles(page, username) {
             totalPages = result.totalPages;
             currentPage = result.number;
             displayArticles(result.content);
-            displayPageNumbers();
+            displayArticlePageNumbers();
             getCountOfFollower(userId);
             isFollow(userId);
+            fetchRoadmaps(0, userId)
+            displayRoadmapPageNumbers(userId)
+
         })
         .catch(error => console.error('Error:', error));
+}
+
+
+function fetchRoadmaps(page, userId) {
+    fetch('/api/v1/roadmaps/userProfile/'+userId+'?page='+page)
+        .then(response => response.json())
+        .then(result => {
+            displayRoadmaps(result.content);
+            displayPageNumbers();
+        })
+        .catch(error => console.error('Error:', error))
 }
 
 let countOfFollower = 0;

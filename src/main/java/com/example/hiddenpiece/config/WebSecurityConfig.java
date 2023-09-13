@@ -65,8 +65,6 @@ public class WebSecurityConfig {
                                 "/views/**",
                                 "/static/**",
                                 "/uploads/**"
-                                // 임시
-                                ,"/api/v1/roadmap"
                         )
                         .permitAll()
                         .requestMatchers("/api/v1/roadmaps/**").authenticated()

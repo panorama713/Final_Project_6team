@@ -132,8 +132,8 @@ public class UserService {
                 .realName(user.getRealName())
                 .email(user.getEmail())
                 .profileImg(user.getProfileImg())
-                .numberOfWrittenArticle(0)     // TODO 기능 구현시 구현 예정
-                .numberOfWrittenComment(0)     // TODO 기능 구현시 구현 예정
+                .numberOfWrittenArticle(user.getArticles().size())
+                .numberOfWrittenComment(user.getComments().size())
                 .followingCount(followService.getCountOfFollowing(user))
                 .followerCount(followService.getCountOfFollower(user))
                 .build();
@@ -150,8 +150,8 @@ public class UserService {
                 .realName(user.getRealName())
                 .email(user.getEmail())
                 .profileImg(user.getProfileImg())
-                .numberOfWrittenArticle(0)     // TODO 기능 구현시 구현 예정
-                .numberOfWrittenComment(0)     // TODO 기능 구현시 구현 예정
+                .numberOfWrittenArticle(user.getArticles().size())
+                .numberOfWrittenComment(user.getComments().size())
                 .followingCount(followService.getCountOfFollowing(user))
                 .followerCount(followService.getCountOfFollower(user))
                 .build();

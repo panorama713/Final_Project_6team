@@ -27,11 +27,16 @@ body {
 
 .profile-container {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    max-width: 800px;
+    min-width: 600px;
+    margin: 0 auto;
+    height: 400px;
 }
 
 .profile-info {
     text-align: center;
+    width: 200px;
 }
 
 
@@ -58,7 +63,7 @@ body {
 
 .profile-details {
     text-align: left;
-    margin-left: 30px;
+    width: 350px;
 }
 
 .profile-follow-details {
@@ -69,4 +74,11 @@ body {
 .profile-info-item {
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+.card-body {
+    display: flex;
+    min-width: 700px;
+    justify-content: space-between;
+    align-items: center;
 }

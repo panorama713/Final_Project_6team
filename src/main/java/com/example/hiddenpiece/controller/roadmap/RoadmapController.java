@@ -174,6 +174,7 @@ public class RoadmapController {
     }
 
     //유저페이지 내 로드맵 조회
+    @Operation(summary = "유저 페이지 로드맵 조회 요청", description = "유저 페이지 내에서 로드맵 조회 기능을 실행합니다.")
     @GetMapping("/userProfile/{userId}")
     public ResponseEntity<Page<ResponseMyPageRoadmapDto>> readRoadmapsByUserId(@PathVariable("userId") Long userId,
                                                                                @RequestParam(value = "page", defaultValue = "0") int page

@@ -44,7 +44,7 @@
                             <div class="col-md-3">
                                 <div>
                                     <div>로드맵</div>
-                                    <div>00</div> <!-- Roadmaps 숫자 -->
+                                    <div id="roadmap-num"></div> <!-- Roadmaps 숫자 -->
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -93,8 +93,8 @@
                 </table>
                 <div class="row mt-3">
                     <div class="col d-flex justify-content-center">
-                        <div id="pagination-container" class="pagination justify-content-center">
-                            <ul class="pagination" id="pagination"></ul>
+                        <div id="article-pagination-container" class="pagination justify-content-center">
+                            <ul class="pagination" id="article-pagination"></ul>
                         </div>
                     </div>
                 </div>
@@ -106,15 +106,20 @@
                 <table class="table roadmap-list">
                     <thead>
                     <tr>
-                        <th scope="col">th</th>
+                        <th scope="col">카테고리</th>
                         <th scope="col" class="title-col">제목</th>
-                        <th scope="col">th</th>
-                        <th scope="col">th</th>
-                        <th scope="col">th</th>
+                        <th scope="col">작성일</th>
                     </tr>
                     </thead>
                     <tbody id="roadmap-list" class="roadmap-item"></tbody>
                 </table>
+                <div class="row mt-3">
+                    <div class="col d-flex justify-content-center">
+                        <div id="roadmap-pagination-container" class="pagination justify-content-center">
+                            <ul class="roadmap-pagination" id="pagination"></ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

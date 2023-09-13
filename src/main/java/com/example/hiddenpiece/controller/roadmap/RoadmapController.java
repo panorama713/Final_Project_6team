@@ -107,6 +107,11 @@ public class RoadmapController {
         return ResponseEntity.ok(roadmapService.countRoadmaps());
     }
 
+    @GetMapping("/count/{userId}")
+    public ResponseEntity<Integer> countRoadmapsByUserId(@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(roadmapService.countRoadmapsByUserId(userId));
+    }
+
     @GetMapping("/top5")
     public ResponseEntity<List<ResponseTop5RoadmapDto>> readRoadmapsTop5WithPopularity(
             @RequestParam(required = false) String keyword
@@ -155,6 +160,14 @@ public class RoadmapController {
     ) {
         String username = authentication.getName();
         return ResponseEntity.ok(roadmapService.readRoadmapsByFollowings(username, num, limit));
+    }
+
+    //유저페이지 내 로드맵 조회
+    @GetMapping("/userProfile/{userId}")
+    public ResponseEntity<Page<ResponseMyPageRoadmapDto>> readRoadmapsByUserId(@PathVariable("userId") Long userId,
+                                                                               @RequestParam(value = "page", defaultValue = "0") int page
+    ) {
+        return ResponseEntity.ok(roadmapService.readRoadmapsByUserId(userId, page));
     }
 
     // 마이페이지 내 로드맵 불러오기

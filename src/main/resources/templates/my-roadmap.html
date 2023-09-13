@@ -5,10 +5,15 @@
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery 라이브러리 로딩 -->
+    <!--  nav  -->
     <link rel="stylesheet" href="/static/css/nav-style.css">
+    <!--  footer  -->
     <link rel="stylesheet" href="/static/css/main-style.css">
     <link rel="stylesheet" href="/static/css/my-roadmap.css">
+    <!--  roadmap  -->
     <link rel="stylesheet" href="/static/css/roadmap-element-style.css">
+    <link rel="stylesheet" href="/static/css/roadmap-bookmark-style.css">
+
     <style>
 
     </style>
@@ -20,7 +25,7 @@
         <div class="out-b" style="">
             <div class="row">
                 <!-- 년도 선택 -->
-                <div class="dropdown p-0 py-1">
+                <div class="dropdown p-0 py-1 col">
                     <button class="btn btn-sm dropdown-toggle select-year" id="dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" value="2023">
                         2023
                     </button>
@@ -29,6 +34,36 @@
                         <li><a class="dropdown-item" value="2022">2022</a></li>
                         <li><a class="dropdown-item" value="2021">2021</a></li>
                     </ul>
+                </div>
+                <div class="col p-0 py-1">
+                    <button type="button" class="btn btn-sm roadmap-bookmark-btn col" data-bs-toggle="modal" data-bs-target="#savedRoadmapBookmarkModal">
+                        나의 북마크
+                    </button>
+                </div>
+                <!-- 저장된 로드맵 북마크 Modal -->
+                <div class="modal fade" id="savedRoadmapBookmarkModal" tabindex="-1" aria-labelledby="savedRoadmapBookmarkModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="savedRoadmapBookmarkModalLabel">로드맵 북마크</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="list-group list-group-flush" id="bookmark-list">
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col d-flex justify-content-center">
+                                    <div class="pagination justify-content-center" id="pagination-container">
+                                        <ul class="pagination" id="pagination"> </ul>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -313,5 +348,8 @@
 <script src="/static/js/roadmap-element-ui.js"></script>
 <script src="/static/js/roadmap-element-event-handler.js"></script>
 <script src="/static/js/roadmap-element-data-process.js"></script>
+<!-- bookmark-->
+<script src="/static/js/roadmap-bookmark-ui.js"></script>
+
 </body>
 </html>

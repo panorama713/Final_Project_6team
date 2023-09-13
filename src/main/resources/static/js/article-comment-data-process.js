@@ -22,7 +22,7 @@ function makeRequest(url, options, callback) {
 // 댓글 생성 API 요청 함수
 function createComment(articleId, content, callback) {
     const url = `/api/v1/articles/${articleId}/comments`;
-    const data = { content: content };
+    const data = {content: content};
 
     makeRequest(url, {
         method: 'POST',
@@ -43,7 +43,7 @@ function readComments(articleId, callback) {
 // 댓글 수정 API 요청 함수
 function updateComment(articleId, commentId, content, callback) {
     const url = `/api/v1/articles/${articleId}/comments/${commentId}`;
-    const data = { content: content };
+    const data = {content: content};
 
     makeRequest(url, {
         method: 'PUT',
@@ -66,7 +66,7 @@ function deleteComment(articleId, commentId, callback) {
 // 답글 생성 API 요청 함수
 function createReply(articleId, parentCommentId, content, callback) {
     const url = `/api/v1/articles/${articleId}/comments/${parentCommentId}/replies`;
-    const data = { content: content };
+    const data = {content: content};
 
     makeRequest(url, {
         method: 'POST',

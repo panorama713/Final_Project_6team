@@ -78,7 +78,7 @@ function createAgreementSections() {
     container.innerHTML = '';
 
     agreementsData.forEach(agreement => {
-        const { id, title, required } = agreement;
+        const {id, title, required} = agreement;
 
         const agreementElement = document.createElement('div');
         agreementElement.classList.add('agreement');
@@ -111,7 +111,7 @@ function createAgreementSections() {
             </div>
         `;
 
-        agreementElement.querySelector(`a[data-bs-target="#${id}Modal"]`).addEventListener('click', function() {
+        agreementElement.querySelector(`a[data-bs-target="#${id}Modal"]`).addEventListener('click', function () {
             fetchContentForModal(id);
         });
 

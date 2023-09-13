@@ -61,7 +61,7 @@ function handleImageDelete() {
     if (confirm('선택한 이미지를 삭제하시겠습니까?')) {
         let formData = new FormData();
 
-        formData.append('imageIds', new Blob([JSON.stringify(window.selectedImageIds)], { type: "application/json" }));
+        formData.append('imageIds', new Blob([JSON.stringify(window.selectedImageIds)], {type: "application/json"}));
 
         fetch(`/api/v1/articles/${articleId}/images`, {
             method: 'DELETE',

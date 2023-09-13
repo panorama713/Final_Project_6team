@@ -32,7 +32,7 @@ async function initAuthStatus() {
 
 window.addEventListener('DOMContentLoaded', initAuthStatus)
 
-logoutButton.addEventListener('click', async() => {
+logoutButton.addEventListener('click', async () => {
     try {
         const response = await fetch('/api/v1/users/logout', {
             method: "POST"
@@ -50,7 +50,7 @@ logoutButton.addEventListener('click', async() => {
     }
 })
 
-document.querySelector('.search-btn').addEventListener('click', function(event) {
+document.querySelector('.search-btn').addEventListener('click', function (event) {
     event.preventDefault();
     const searchInput = document.getElementById('input-keyword').value;
 
@@ -79,26 +79,26 @@ function handleButtonClick(buttonId) {
 }
 
 var frontEndBtn = document.getElementById("category-front-end");
-frontEndBtn.addEventListener("click", function() {
+frontEndBtn.addEventListener("click", function () {
     handleButtonClick('category-front-end');
 });
 
 var backEndBtn = document.getElementById("category-back-end");
-backEndBtn.addEventListener("click", function() {
+backEndBtn.addEventListener("click", function () {
     handleButtonClick('category-back-end');
 });
 
 var mobileBtn = document.getElementById("category-mobile");
-mobileBtn.addEventListener("click", function() {
+mobileBtn.addEventListener("click", function () {
     handleButtonClick('category-mobile');
 });
 
 var gameBtn = document.getElementById("category-game");
-gameBtn.addEventListener("click", function() {
+gameBtn.addEventListener("click", function () {
     handleButtonClick('category-game');
 });
 
 var devOpsBtn = document.getElementById("category-devops");
-devOpsBtn.addEventListener("click", function() {
+devOpsBtn.addEventListener("click", function () {
     handleButtonClick('category-devops');
 });

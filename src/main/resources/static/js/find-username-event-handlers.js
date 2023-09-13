@@ -23,7 +23,7 @@ function attachEventListeners() {
     };
 
     // 폼 제출 이벤트에 대한 핸들러 연결
-    findUsernameForm.addEventListener("submit", function(event) {
+    findUsernameForm.addEventListener("submit", function (event) {
         handleFindUsername(event, fields);
     });
 
@@ -52,19 +52,19 @@ function attachEventListeners() {
         modal.show();
     }
 
-    fields.realName.addEventListener("input", function() {
+    fields.realName.addEventListener("input", function () {
         checkRealNameValid(fields.realName, errors.realNameError);
     });
 
-    fields.email.addEventListener("input", function() {
+    fields.email.addEventListener("input", function () {
         checkEmailValid(fields.email, errors.emailError);
     });
 
-    fields.question.addEventListener("input", function() {
+    fields.question.addEventListener("input", function () {
         checkQuestionValid(fields.question, errors.questionError);
     });
 
-    fields.answer.addEventListener("input", function() {
+    fields.answer.addEventListener("input", function () {
         checkAnswerValid(fields.answer, errors.answerError);
     });
 }

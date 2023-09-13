@@ -17,7 +17,7 @@ function fetchArticleDetails(id) {
 // 게시글 삭제 처리
 function handleDeleteArticle(articleId) {
     if (confirm('게시글을 삭제하시겠습니까?')) {
-        fetch('/api/v1/articles/' + articleId, { method: 'DELETE' })
+        fetch('/api/v1/articles/' + articleId, {method: 'DELETE'})
             .then(response => {
                 if (response.ok) {
                     alert('게시글이 삭제되었습니다.');

@@ -1,12 +1,13 @@
-window.onload = function() {
+window.onload = function () {
     fetchRoadmapBookmarks(0);
 }
 
 let currentPage = 0;
 let totalPages = 0;
+
 function fetchRoadmapBookmarks(page) {
 
-    fetch("/api/v1/bookmarks/roadmaps?page="+page, {
+    fetch("/api/v1/bookmarks/roadmaps?page=" + page, {
         method: 'GET'
     })
         .then(response => response.json())
@@ -34,7 +35,7 @@ function displayBookmarks(bookmarks) {
         const bookmarkCreatedAtElement = document.createElement('td');
 
         const titleLink = document.createElement('a');
-        titleLink.href = "/views/roadmaps/"+ bookmark.roadmapId;
+        titleLink.href = "/views/roadmaps/" + bookmark.roadmapId;
         titleLink.textContent = bookmark.titleOfRoadmap;
         roadmapTitleElement.appendChild(titleLink);
 
@@ -59,6 +60,7 @@ function displayBookmarks(bookmarks) {
         bookmarkList.appendChild(row);
     });
 }
+
 function formatCreatedAt(createdAt) {
     const date = new Date(createdAt);
     const year = date.getFullYear();

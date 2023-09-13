@@ -17,6 +17,7 @@ function fetchArticleInfo() {
         })
         .catch(error => console.error("게시글 정보 가져오기 오류:", error));
 }
+
 function updateArticle() {
     var title = document.getElementById("title").value;
     var content = document.getElementById("content").value;

@@ -4,17 +4,17 @@ const closeModalBtn = document.getElementById("closeModalBtn");
 const sendBookmark = document.getElementById("sendBookmarkBtn");
 
 // 모달 열기
-openModalBtn.addEventListener("click", function() {
+openModalBtn.addEventListener("click", function () {
     modal.style.display = "block";
 });
 
 // 모달 닫기
-closeModalBtn.addEventListener("click", function() {
+closeModalBtn.addEventListener("click", function () {
     modal.style.display = "none";
 });
 
 
-sendBookmark.addEventListener("click", function() {
+sendBookmark.addEventListener("click", function () {
 
     const bookmarkName = document.getElementById("bookmark-name")
     const param = {
@@ -23,7 +23,7 @@ sendBookmark.addEventListener("click", function() {
 
     fetch("/api/v1/bookmarks/articles/" + articleId, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(param)
     })
         .then(response => {
@@ -45,8 +45,7 @@ sendBookmark.addEventListener("click", function() {
                 if (response.status === 403) {
                     alert("자신의 글은 북마크할 수 없습니다.")
                 }
-            }
-            else {
+            } else {
                 alert("북마크 되었습니다.")
                 window.location.reload();
             }

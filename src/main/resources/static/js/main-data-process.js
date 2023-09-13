@@ -170,7 +170,7 @@ fetch('/api/v1/roadmaps/top5')
     })
 
 // 검색 -> 데이터 쿼리 파라미터로 넘겨서 검색 페이지에서 처리
-document.querySelector('.search-button').addEventListener('click', function(event) {
+document.querySelector('.search-button').addEventListener('click', function (event) {
     event.preventDefault();
     const searchInput = document.getElementById('lg-input-text').value;
 

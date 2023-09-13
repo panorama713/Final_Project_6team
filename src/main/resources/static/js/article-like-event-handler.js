@@ -1,7 +1,6 @@
-
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     var likeButton = document.getElementById("like-btn");
-    likeButton.addEventListener("click", function() {
+    likeButton.addEventListener("click", function () {
         fetch("/api/v1/articles/" + articleId + "/like", {
             method: "POST"
         })
@@ -24,8 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (response.status === 403) {
                         alert("자신의 글은 좋아요를 누를 수 없습니다.")
                     }
-                }
-                else {
+                } else {
                     alert("좋아요 누르셨습니다.")
                     window.location.reload();
                 }

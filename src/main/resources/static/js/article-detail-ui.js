@@ -66,7 +66,6 @@ function displayArticleDetails(data, articleId) {
     }
 
 
-
 }
 
 // 웹 페이지에 게시글의 이미지 표시
@@ -99,8 +98,12 @@ function formatArticleDateTime(createdAt, lastModifiedAt) {
     const createdAtDate = new Date(createdAt);
     const updatedAtDate = lastModifiedAt ? new Date(lastModifiedAt) : null;
 
-    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
-    const formattedTime = createdAtDate.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+    const formattedTime = createdAtDate.toLocaleTimeString('ko-KR', {hour: '2-digit', minute: '2-digit'});
 
     let displayString = `${formattedDate} ${formattedTime}`;
 

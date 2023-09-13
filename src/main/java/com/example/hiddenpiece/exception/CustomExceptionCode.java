@@ -15,7 +15,6 @@ public enum CustomExceptionCode {
     NOT_ALLOW_MORE_REPLY(HttpStatus.BAD_REQUEST, "더 이상 대댓글을 등록할 수 없습니다."),
     IMAGE_COUNT_MISMATCH(HttpStatus.BAD_REQUEST, "전달된 이미지의 수와 업로드된 이미지의 수가 일치하지 않습니다."),
     WRONG_SECURITY_ANSWER(HttpStatus.BAD_REQUEST, "보안 질문 혹은 답변을 다시 확인해 주시기 바랍니다."),
-
     /*
      * 401
      */
@@ -29,7 +28,7 @@ public enum CustomExceptionCode {
     UNAUTHORIZED_ACCESS(HttpStatus.FORBIDDEN, "잘못된 접근입니다."),
     CANNOT_LIKE_YOUR_ARTICLE(HttpStatus.FORBIDDEN, "자신의 글은 좋아요를 누를 수 없습니다."),
     CANNOT_BOOKMARK_YOUR_ARTICLE(HttpStatus.FORBIDDEN, "자신의 글은 북마크할 수 없습니다."),
-    CANNOT_FOLLOW_YOURSELF(HttpStatus.FORBIDDEN,"자기 자신은 팔로우 할 수 없습니다." ),
+    CANNOT_FOLLOW_YOURSELF(HttpStatus.FORBIDDEN, "자기 자신은 팔로우 할 수 없습니다."),
     /*
      * 404
      */

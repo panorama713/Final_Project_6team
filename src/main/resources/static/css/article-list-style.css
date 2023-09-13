@@ -40,15 +40,14 @@ a:hover {
 
 .line {
     background: var(--main-color);
-    height:4px;
-    border:0;
+    height: 4px;
+    border: 0;
 }
 
 .article-search-btn {
     border: 2px solid var(--main-color);
     background-color: var(--main-color);
 }
-
 
 .table th.title-col {
     width: 40%;
@@ -72,7 +71,6 @@ a:hover {
     border-color: var(--sub-color);
     color: var(--main-color);
 }
-
 
 #write-btn {
     float: right;

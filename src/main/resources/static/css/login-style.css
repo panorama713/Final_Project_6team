@@ -131,6 +131,7 @@ div.pw-eye i {
 
 .form-control {
     margin-bottom: 20px;
+    height: 55px;
 }
 
 .form-control:focus, .form-check-input:focus, #save-username:focus {

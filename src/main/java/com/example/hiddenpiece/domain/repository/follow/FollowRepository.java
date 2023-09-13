@@ -18,6 +18,7 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     boolean existsByToUserAndFromUser(User toUser, User fromUser);
 
     int countByFromUser(User fromUser);
+
     int countByToUser(User toUser);
 
     @Query("SELECT new com.example.hiddenpiece.domain.dto.user.ResponseFollowingDto(f.toUser.id, f.toUser.username, f.createdAt) " +

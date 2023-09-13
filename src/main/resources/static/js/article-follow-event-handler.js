@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     var userFollowBtn = document.getElementById("follow-btn");
 
-    userFollowBtn.addEventListener("click", function() {
+    userFollowBtn.addEventListener("click", function () {
         event.preventDefault();
         var usernameToFollow = localStorage.getItem('currentWriter');
         var userId = userFollowBtn.getAttribute("user-id-value")
@@ -27,8 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (response.status === 403) {
                         alert("자기 자신은 팔로우 할 수 없습니다.")
                     }
-                }
-                else {
+                } else {
                     alert("팔로우가 완료되었습니다.")
                     window.location.reload();
                 }

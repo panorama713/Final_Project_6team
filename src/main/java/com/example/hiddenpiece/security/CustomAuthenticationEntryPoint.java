@@ -3,7 +3,6 @@ package com.example.hiddenpiece.security;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
 import com.example.hiddenpiece.exception.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

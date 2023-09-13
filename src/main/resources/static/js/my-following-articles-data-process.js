@@ -118,11 +118,11 @@ function clickBtn(articleId, title) {
 }
 
 async function handleBookmark(articleId, title) {
-    const requestBody = { title: title }
+    const requestBody = {title: title}
     fetch(`/api/v1/bookmarks/articles/${articleId}`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(requestBody)
     }).then(() => {

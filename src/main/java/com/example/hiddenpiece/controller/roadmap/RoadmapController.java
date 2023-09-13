@@ -129,8 +129,8 @@ public class RoadmapController {
     // 통합 검색
     @GetMapping("/total-search")
     public ResponseEntity<Page<ResponseSearchRoadmapDto>> readAllRoadmapsWithKeyword(
-        @RequestParam(value = "keyword", required = false) String keyword,
-        @RequestParam(value = "page", defaultValue = "0") Integer page
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "page", defaultValue = "0") Integer page
     ) {
         return ResponseEntity.ok(roadmapService.readAllByContaining(keyword, page));
     }

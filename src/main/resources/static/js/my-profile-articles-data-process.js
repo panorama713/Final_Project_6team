@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function () {
     fetch('/api/v1/users/mini-profile').then((response) => {
         return response.json();
     }).then((data) => {
@@ -33,7 +33,7 @@ function displayArticles(articles) {
         var likeCountElement = document.createElement('td')
 
         var titleLink = document.createElement('a');
-        titleLink.href = "/views/articles/"+ article.id;
+        titleLink.href = "/views/articles/" + article.id;
         titleLink.textContent = article.title;
         titleElement.appendChild(titleLink);
 
@@ -116,6 +116,7 @@ function displayPageNumbers() {
 
 let currentPage = 0;
 let totalPages = 0;
+
 function fetchArticles(page, username) {
 
     fetch(`/api/v1/articles/userArticles?page=${page}&username=${username}`)

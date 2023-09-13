@@ -116,5 +116,5 @@ const savedPage = localStorage.getItem('currentPage');
 const savedCategory = localStorage.getItem('currentCategory')
 
 fetchArticles(savedPage, savedCategory);
-document.querySelector('#category-title').textContent = savedCategory+ ' 게시판';
+document.querySelector('#category-title').textContent = savedCategory + ' 게시판';
 

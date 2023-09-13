@@ -21,10 +21,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 // 목록으로 돌아가기 버튼
-const listButton = document.getElementById('list-btn');
-listButton.addEventListener('click', () => {
-    window.location.href = '/views/articles/list';
-});
+    const listButton = document.getElementById('list-btn');
+    listButton.addEventListener('click', () => {
+        window.location.href = '/views/articles/list';
+    });
 
     // 이미지 선택 모드 활성화 여부
     let imageSelectingMode = false;
@@ -60,8 +60,8 @@ listButton.addEventListener('click', () => {
         }
 
         const buttonTypes = [
-            { className: 'update-image-btn', text: '수정', handler: handleImageUpdate },
-            { className: 'delete-image-btn', text: '삭제', handler: handleImageDelete }
+            {className: 'update-image-btn', text: '수정', handler: handleImageUpdate},
+            {className: 'delete-image-btn', text: '삭제', handler: handleImageDelete}
         ];
 
         buttonTypes.forEach(buttonType => {
@@ -87,7 +87,7 @@ listButton.addEventListener('click', () => {
     }
 
     // 이미지 액션 버튼에 클릭 이벤트 리스너 추가 (이미지 선택 모드 활성화/비활성화)
-    document.getElementById('article-images-action').addEventListener('click', function(event) {
+    document.getElementById('article-images-action').addEventListener('click', function (event) {
         event.preventDefault();
         imageSelectingMode = !imageSelectingMode;
 
@@ -107,7 +107,7 @@ listButton.addEventListener('click', () => {
     });
 
     // 이미지 선택 모드 종료
-    window.exitImageSelectionMode = function() {
+    window.exitImageSelectionMode = function () {
         imageSelectingMode = false;
         const article = document.querySelector('.article');
         article.classList.remove('image-action-mode');

@@ -26,12 +26,14 @@
                             <div class="top-form">
                                 <div class="search-bar">
                                     <div class="search-bar-inline">
-                                        <input id="search-bar-text" type="text" class="search-bar-text" placeholder="Search">
+                                        <input id="search-bar-text" type="text" class="search-bar-text"
+                                               placeholder="Search">
                                     </div>
                                 </div>
                                 <div class="search-bar-button">
                                     <a href="/views/search" class="search-button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" fill="currentColor"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20"
+                                             fill="currentColor"
                                              class="bi-search" viewBox="0 0 16 16">
                                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                                         </svg>
@@ -39,27 +41,47 @@
                                 </div>
                             </div>
                             <div id="dropdown" class="dropdown">
-                                <button id="dropButton" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button id="dropButton" class="btn dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                     개발 분야
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><button class="dropdown-item" type="button" data-field="BACKEND">백엔드</button></li>
-                                    <li><button class="dropdown-item" type="button" data-field="FRONTEND">프론트엔드</button></li>
-                                    <li><button class="dropdown-item" type="button" data-field="FULL">풀스택</button></li>
-                                    <li><button class="dropdown-item" type="button" data-field="ANDROID">안드로이드</button></li>
-                                    <li><button class="dropdown-item" type="button" data-field="IOS">IOS</button></li>
-                                    <li><button class="dropdown-item" type="button" data-field="DEVOPS">데브옵스</button></li>
+                                    <li>
+                                        <button class="dropdown-item" type="button" data-field="BACKEND">백엔드</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button" data-field="FRONTEND">프론트엔드</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button" data-field="FULL">풀스택</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button" data-field="ANDROID">안드로이드</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button" data-field="IOS">IOS</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button" data-field="DEVOPS">데브옵스</button>
+                                    </li>
                                 </ul>
-                                <button id="dropButton2" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button id="dropButton2" class="btn dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                     정렬
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><button class="dropdown-item" type="button" data-sort="newest">생성일자 빠른 순</button></li>
-                                    <li><button class="dropdown-item" type="button" data-sort="oldest">생성일자 느린 순</button></li>
+                                    <li>
+                                        <button class="dropdown-item" type="button" data-sort="newest">생성일자 빠른 순
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button" data-sort="oldest">생성일자 느린 순
+                                        </button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="condition-btn">조건: </div>
+                        <div class="condition-btn">조건:</div>
                     </div>
                     <div class="result-items" id="item-list"></div>
                     <div id="pagination-nums" class="pagination-nums"></div>

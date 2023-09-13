@@ -5,6 +5,7 @@ import com.example.hiddenpiece.common.SystemMessage;
 import com.example.hiddenpiece.domain.dto.roadmap.RequestRoadmapElementDto;
 import com.example.hiddenpiece.domain.dto.roadmap.RoadmapElementReadResponseDto;
 import com.example.hiddenpiece.service.roadmap.RoadmapElementService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ public class RoadmapElementController {
 
     // post
     // 로드맵 요소 생성
+    @Operation(summary = "로드맵 일정 추가 요청", description = "로드맵 일정 추가 기능을 실행합니다.")
     @PostMapping("/elements")
     public ResponseEntity<ResponseDto> createRoadmapElement(
             @Validated @RequestBody RequestRoadmapElementDto dto,
@@ -36,6 +38,7 @@ public class RoadmapElementController {
 
     // get
     // 로드맵 요소 목록 조회
+    @Operation(summary = "로드맵 일정 목록 조회 요청", description = "로드맵 일정 목록 조회 기능을 실행합니다.")
     @GetMapping("/elements")
     public ResponseEntity<List<RoadmapElementReadResponseDto>> readAllElementList(
             @PathVariable("roadmapId") Long roadmapId
@@ -46,6 +49,7 @@ public class RoadmapElementController {
 
     // update
     // 로드맵 요소 수정
+    @Operation(summary = "로드맵 일정 수정 요청", description = "로드맵 일정을 수정하는 요청입니다.")
     @PutMapping("/elements/{elementsId}")
     public ResponseEntity<ResponseDto> updateRoadmapElement(
             @Validated @RequestBody RequestRoadmapElementDto dto,
@@ -60,6 +64,7 @@ public class RoadmapElementController {
 
     // delete
     // 로드맵 요소 삭제
+    @Operation(summary = "로드맵 일정 삭제 요청", description = "로드맵 일정 삭제 기능을 실행합니다.")
     @DeleteMapping("/elements/{elementsId}")
     public ResponseEntity<ResponseDto> deleteRoadmapElement(
             @PathVariable("roadmapId") Long roadmapId,

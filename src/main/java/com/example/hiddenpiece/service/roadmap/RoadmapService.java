@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,8 +148,12 @@ public class RoadmapService {
     }
 
     // 오늘 날짜 기준 생성된 로드맵 개수 카운트
-    public Integer countRoadmapsByCreatedAt() {
-        return roadmapRepository.countTodayRoadmaps();
+    public long countRoadmapsByCreatedAt() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime startOfDay = now.withHour(0).withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime endOfDay = now.withHour(23).withMinute(59).withSecond(59).withNano(999999999);
+
+        return roadmapRepository.countTodayRoadmaps(startOfDay, endOfDay);
     }
 
     // 추천 로드맵 조회

@@ -16,9 +16,9 @@ public interface RoadmapBookmarkRepository extends JpaRepository<RoadmapBookmark
 
     Page<RoadmapBookmark> findAllByUser(User user, Pageable pageable);
 
-    @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto(rb.roadmap.title, rb.roadmap.user.username) " +
+    @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto(rb.roadmap.id, rb.roadmap.title, rb.roadmap.user.username) " +
            "FROM RoadmapBookmark rb " +
-           "GROUP BY rb.roadmap.title, rb.roadmap.user.username " +
+           "GROUP BY rb.roadmap.id, rb.roadmap.title, rb.roadmap.user.username " +
            "ORDER BY COUNT(rb) DESC LIMIT 5")
     List<ResponseTop5RoadmapDto> findTop5ByRoadmapsWithBookmarkCount();
 

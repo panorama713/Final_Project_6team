@@ -28,12 +28,32 @@ function displayBookmarks(bookmarks) {
         var bookmarkTitleElement = document.createElement('td');
         var articleTitleElement = document.createElement('td');
         var articleWriterElement = document.createElement('td')
+        var articleBookmarkElement = document.createElement('td');
 
         var titleLink = document.createElement('a');
         titleLink.href = "/views/articles/"+ bookmark.articleId;
         titleLink.textContent = bookmark.titleOfArticle;
         articleTitleElement.appendChild(titleLink);
 
+        var buttonElement = document.createElement('button');
+        buttonElement.textContent = '북마크 취소';
+        buttonElement.classList.add('bookmark-btn');
+
+        buttonElement.addEventListener("click", function() {
+            var articleId = bookmark.articleId;
+            fetch("/api/v1/bookmarks/articles/" + articleId, {
+                method: "DELETE"
+            })
+                .then(data => {
+                    alert("북마크가 취소되었습니다.");
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error("북마크 취소 오류:", error);
+                });
+        });
+
+        articleBookmarkElement.appendChild(buttonElement);
 
         bookmarkTitleElement.textContent = bookmark.titleOfBookmark;
         articleWriterElement.textContent = bookmark.username;
@@ -41,6 +61,7 @@ function displayBookmarks(bookmarks) {
         row.appendChild(bookmarkTitleElement);
         row.appendChild(articleTitleElement);
         row.appendChild(articleWriterElement);
+        row.appendChild(articleBookmarkElement);
 
         bookmarkList.appendChild(row);
 

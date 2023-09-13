@@ -6,7 +6,7 @@
 
 /* 사용자 지정 속성 */
 :root {
-    --main-color: #9490c7;
+    --main-color: #4E4897FF;
     --sub-color: #a7a5cd;
     --sub-color2: #6762A6;
     --white-color: #ffffff;
@@ -25,4 +25,43 @@ body {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+/* 글 목록 테이블 스타일 */
+.comment-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.comment-list th, .roadmap-list th {
+    border: none;
+    border-bottom: 3px solid var(--sub-color);
+    padding: 8px;
+    text-align: center;
+}
+
+.comment-list th, .comment-list td {
+    text-align: left;
+}
+
+.comment-list th.comment-col {
+    width: 35%;
+}
+
+.comment-item {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+a, a:visited {
+    color: var(--main-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--main-color);
+    text-decoration: underline;
 }

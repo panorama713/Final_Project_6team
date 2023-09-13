@@ -22,11 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         roadmapItem.innerHTML = `
                         <div class="card" style="margin-bottom: 20px">
                             <div class="card-body">
-                                <p><a href="/views/roadmaps/${roadmap.roadmapId}">제목: ${roadmap.title}</a></p>
-                                <p>작성자: ${roadmap.writer} </p>
-                                <p>내용: ${roadmap.description} </p>
-                                <p>상태: ${createdAtString} </p>
-                                <button onclick="clickBtn('${roadmap.roadmapId}', '${roadmap.title}')">북마크</button>
+                                <h5><a href="/views/user-profile" class="title"><span class="badge rounded-pill title-icon">제목</span>${roadmap.title}</a></h5>
+                                <p><span class="badge rounded-pill writer-icon">작성자</span> ${roadmap.writer} </p>
+                                <p><span class="badge rounded-pill content-icon">내용</span> ${roadmap.description} </p>
+                                <p><span class="badge rounded-pill status-icon">상태</span> ${createdAtString} </p>
+                                <button onclick="clickBtn('${roadmap.roadmapId}', '${roadmap.title}')" class="btn btn-primary bookmark-btn">북마크</button>
                             </div>
                         </div>
                     `;

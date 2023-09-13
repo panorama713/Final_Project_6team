@@ -21,6 +21,52 @@ body {
     font-family: 'CustomFont', sans-serif;
 }
 
-.prof-img {
-    width: 150px;
+.custom-class {
+    width: 100%;
+}
+
+.profile-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.profile-info {
+    text-align: center;
+}
+
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.username {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+
+.follow-count {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+
+.profile-details {
+    text-align: left;
+    margin-left: 30px;
+}
+
+.profile-follow-details {
+    margin-top: 10px;
+}
+
+
+.profile-info-item {
+    font-weight: bold;
+    margin-bottom: 10px;
 }

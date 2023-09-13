@@ -7,7 +7,7 @@
 
 /* 사용자 지정 속성 */
 :root {
-    --main-color: #4e4897;
+    --main-color: #4E4897FF;
     --sub-color: #a7a5cd;
     --white-color: #ffffff;
 }
@@ -16,4 +16,73 @@
 body {
     background-color: #f6f6f6;
     font-family: 'CustomFont', sans-serif;
+}
+
+/* 카드 스타일 */
+.card {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-right: 10px;
+}
+
+.card-body {
+    width: 400px;
+    padding: 15px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.card-body p {
+    margin: 2px 0;
+    padding-left: 15px;
+    padding-top: 5px;
+}
+
+.title {
+    padding:15px;
+}
+
+.title-icon {
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+    border-radius: 0px;
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.content-icon, .writer-icon, .status-icon {
+    border: 1px solid black;
+    background-color: black;
+    border-radius: 0px;
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* 북마크 버튼 스타일 */
+.bookmark-btn {
+    border: 2px solid var(--main-color);
+    background-color: var(--main-color);
+    color: white;
+    margin-top: auto;
+    align-self: flex-end;
+    padding: 3px 8px;
+}
+
+a, a:visited {
+    color: var(--main-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--main-color);
+    text-decoration: underline;
+}
+
+.badge {
+    margin-right: 5px;
 }

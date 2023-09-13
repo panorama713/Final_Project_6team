@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         userItem.innerHTML = `
                         <div class="card" style="margin-bottom: 20px">
                             <div class="card-body">
-                                <p>아이디: ${user.username}</p>
-                                <p>상태: ${createdAtString}</p>
-                                <button onclick="clickBtn('${user.username}')">언팔로우</button>
+                                <h6><span class="badge rounded-pill id-icon">아이디</span>${user.username}</h6>
+                                <p><span class="badge rounded-pill status-icon">상태</span>${createdAtString}</p>
+                                <button onclick="clickBtn('${user.username}')" class="btn btn-primary follow-btn">언팔로우</button>
                             </div>
                         </div>
                     `;

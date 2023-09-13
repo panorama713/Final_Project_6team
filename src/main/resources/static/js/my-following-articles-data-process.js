@@ -22,11 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         articleItem.innerHTML = `
                         <div class="card" style="margin-bottom: 20px">
                             <div class="card-body">
-                                <p><a href="/views/articles/${article.articleId}">제목: ${article.title}</a></p>
-                                <p>작성자: ${article.writer} </p>
-                                <p>내용: ${article.description} </p>
-                                <p>상태: ${createdAtString} </p>
-                                <button onclick="clickBtn('${article.articleId}', '${article.title}')">북마크</button>
+                                <h5><a href="/views/articles/${article.articleId}" class="title"><span class="badge rounded-pill title-icon">제목</span> ${article.title}</a></h5>
+                                <p><span class="badge rounded-pill writer-icon">작성자</span> ${article.writer} </p>
+                                <p><span class="badge rounded-pill content-icon">내용</span> ${article.description} </p>
+                                <p><span class="badge rounded-pill status-icon">상태</span> ${createdAtString} </p>
+                                <button onclick="clickBtn('${article.articleId}', '${article.title}')" class="btn btn-primary bookmark-btn">북마크</button>
                             </div>
                         </div>
                     `;

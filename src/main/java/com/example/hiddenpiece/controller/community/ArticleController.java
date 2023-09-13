@@ -8,6 +8,7 @@ import com.example.hiddenpiece.exception.CustomException;
 import com.example.hiddenpiece.exception.CustomExceptionCode;
 import com.example.hiddenpiece.service.community.ArticleService;
 import com.example.hiddenpiece.service.image.ArticleImageService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,6 +32,7 @@ public class ArticleController {
     private final ArticleRepository articleRepository;
 
     // 게시글 작성
+    @Operation(summary = "게시글 작성 요청", description = "게시글 작성 기능을 실행합니다.")
     @PostMapping
     public ResponseEntity<CreateArticleResponseDto> createArticle(
             Authentication authentication,
@@ -46,6 +48,7 @@ public class ArticleController {
     }
 
     // 게시글 리스트 조회
+    @Operation(summary = "특정 카테고리의 게시글 조회 요청", description = "특정 카테고리의 게시글 목록을 페이징하여 가져옵니다.")
     @GetMapping
     public ResponseEntity<Page<ArticleListResponseDto>> listByCategory(
             @RequestParam(value = "page", defaultValue = "0") int page,
@@ -55,6 +58,7 @@ public class ArticleController {
     }
 
     // 유저가 쓴 게시글 수
+    @Operation(summary = "게시글 수 조회 요청", description = "모든 게시글의 수를 조회하는 기능을 실행합니다.")
     @GetMapping("/countOfArticles")
     public ResponseEntity<Integer> getCountOfArticle(@RequestParam("username") String username) {
         int articleNum = articleService.getCountOfArticles(username);
@@ -62,6 +66,7 @@ public class ArticleController {
     }
 
     // 유저가 쓴 게시물 목록
+    @Operation(summary = "특정 유저의 게시글 목록", description = "특정 유저의 게시글 목록을 페이징하여 가져옵니다.")
     @GetMapping("/userArticles")
     public ResponseEntity<Page<ArticleListResponseDto>> listByUsername(
             @RequestParam(value = "page", defaultValue = "0") int page,
@@ -69,6 +74,7 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.getListByUsername(page, username));
     }
 
+    @Operation(summary = "게시글 검색 기능 요청", description = "게시글 검색 목록을 페이징하여 가져옵니다.")
     @GetMapping("/search")
     public ResponseEntity<Page<ArticleListResponseDto>> searchArticles(
             @RequestParam(value = "page", defaultValue = "0") int page,
@@ -78,6 +84,7 @@ public class ArticleController {
     }
 
     // 통합 검색
+    @Operation(summary = "통합 검색 요청", description = "통합 검색 요청 목록을 페이징하여 가져옵니다.")
     @GetMapping("/total-search")
     public ResponseEntity<Page<ResponseSearchArticleDto>> readAllArticlesWithKeyword(
             @RequestParam(value = "keyword", required = false) String keyword,
@@ -87,6 +94,7 @@ public class ArticleController {
     }
 
     // 팔로우 한 유저의 게시글 목록 페이징 조회
+    @Operation(summary = "팔로우 한 유저의 게시글 목록 조회 요청", description = "팔로우 한 유저의 게시글 목록을 페이징하여 가져옵니다.")
     @GetMapping("/following")
     public ResponseEntity<Page<ResponseFollowingArticlesDto>> readArticleByFollowings(
             Authentication authentication,
@@ -98,6 +106,7 @@ public class ArticleController {
     }
 
     // 게시글 단독 조회 (좋아요 개수 포함)
+    @Operation(summary = "게시글 단독 조회 요청", description = "게시글 단독 조회 기능을 실행합니다.")
     @GetMapping("/{articleId}")
     public ResponseEntity<ArticleResponseDto> readArticle(@PathVariable final Long articleId, HttpServletRequest request, HttpServletResponse response) {
         Article article = articleRepository.findById(articleId)
@@ -126,6 +135,7 @@ public class ArticleController {
     }
 
     // 게시글 수정
+    @Operation(summary = "게시글 수정 요청", description = "게시글 수정 기능을 실행합니다.")
     @PutMapping("/{articleId}")
     public ResponseEntity<Void> updateArticle(
             Authentication authentication,
@@ -142,6 +152,7 @@ public class ArticleController {
     }
 
     // 게시글 삭제
+    @Operation(summary = "게시글 삭제 요청", description = "게시글 삭제 기능을 실행합니다.")
     @DeleteMapping("/{articleId}")
     public ResponseEntity<Void> deleteArticle(Authentication authentication, @PathVariable final Long articleId) {
         String username = authentication.getName();

@@ -1,4 +1,5 @@
 package com.example.hiddenpiece.controller.community;
+
 import com.example.hiddenpiece.domain.dto.community.article.*;
 import com.example.hiddenpiece.domain.entity.community.Article;
 import com.example.hiddenpiece.domain.entity.community.Category;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class ArticleController {
 
     // 유저가 쓴 게시글 수
     @GetMapping("/countOfArticles")
-    public ResponseEntity<Integer> getCountOfArticle (@RequestParam("username") String username) {
+    public ResponseEntity<Integer> getCountOfArticle(@RequestParam("username") String username) {
         int articleNum = articleService.getCountOfArticles(username);
         return ResponseEntity.ok(articleNum);
     }
@@ -133,7 +135,7 @@ public class ArticleController {
     ) throws IOException {
         String username = authentication.getName();
         articleService.updateArticle(username, articleId, params);
-        if(images != null && !images.isEmpty()) {
+        if (images != null && !images.isEmpty()) {
             articleImageService.updateArticleImage(images, username, articleId);
         }
         return ResponseEntity.noContent().build();

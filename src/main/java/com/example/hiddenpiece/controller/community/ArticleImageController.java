@@ -34,10 +34,7 @@ public class ArticleImageController {
 
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads";
 
-    /**
-     * GET /{imageName:.+}
-     * 이미지 조회
-     */
+    // 이미지 조회
     @GetMapping("/{imageName:.+}")
     public ResponseEntity<Resource> viewImage(
             @PathVariable Long articleId, @PathVariable String imageName
@@ -71,10 +68,7 @@ public class ArticleImageController {
                 .body(imageResource);
     }
 
-    /**
-     * PUT
-     * 이미지 수정 - 특정
-     */
+    // 이미지 수정 - 특정
     @PutMapping
     public ResponseEntity<Void> updateSpecificImage(
             @RequestPart List<Long> imageIds,
@@ -86,10 +80,7 @@ public class ArticleImageController {
         return ResponseEntity.noContent().build();
     }
 
-    /**
-     * DELETE
-     * 이미지 삭제 - 특정
-     */
+    // 이미지 삭제 - 특정
     @DeleteMapping
     public ResponseEntity<Void> deleteSpecificImages(
             @RequestPart List<Long> imageIds,

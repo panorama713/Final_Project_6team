@@ -155,13 +155,13 @@
     cursor: pointer;
 }
 
-.bookmark-btn, .user-profile-btn {
+.bookmark-btn, .user-btn {
     color: var(--main-color);
     border-color: var(--sub-color);
     background-color: var(--sub-color);
 }
 
-.bookmark-btn:hover, .user-profile-btn:hover {
+.bookmark-btn:hover, .user-btn:hover {
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
     margin-bottom: 5px;

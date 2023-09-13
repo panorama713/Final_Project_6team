@@ -26,6 +26,10 @@ function fetchUserRoadmaps(roadmapId) {
         .then(data => {
             console.log(data); // 데이터 콘솔 출력
             displayRoadmaps(data);
+
+            localStorage.setItem('currentWriter', data.username);
+            const followElement = document.getElementById("follow-btn");
+            followElement.setAttribute("user-id-value", data.userId);
         })
         .catch(error => console.error('Error:', error));
 }
@@ -71,12 +75,77 @@ function createRoadmaps(roadmap) {
         }
     });
 
-    const userProfileBtn = document.createElement('button');
-    userProfileBtn.classList.add('user-profile-btn', 'btn', 'btn-primary');
-    userProfileBtn.textContent = '프로필';
+    // button 요소 생성
+    const userBtn = document.createElement('button');
+    userBtn.id = 'roadmap-username';
+    userBtn.classList.add('user-btn', 'btn', 'dropdown-toggle', 'username-dropdown');
+    userBtn.textContent = roadmap.username;
+    userBtn.setAttribute('data-bs-toggle', 'dropdown');
+    userBtn.setAttribute('aria-expanded', 'false');
+    // ul 요소 생성
+    const dropdownMenu = document.createElement('ul');
+    dropdownMenu.classList.add('dropdown-menu');
+    // 첫 번째 form 요소 생성
+    const userProfileForm = document.createElement('form');
+    const userProfileLink = document.createElement('a');
+    userProfileLink.href = '/views/user-profile';
+    userProfileLink.classList.add('dropdown-item');
+    userProfileLink.textContent = '프로필 보기';
+    userProfileForm.appendChild(userProfileLink);
+    // 두 번째 form 요소 생성
+    const followForm = document.createElement('form');
+    const followBtn = document.createElement('button');
+    followBtn.classList.add('dropdown-item');
+    followBtn.id = 'follow-btn';
+    followBtn.setAttribute('user-id-value', '');
+    const isFollow = roadmap.isFollow;
+    if (isFollow) {
+        followBtn.textContent = '언팔로우';
+    } else {
+        followBtn.textContent = '팔로우';
+    }
+    followBtn.addEventListener('click', function () {
+        event.preventDefault();
+        const usernameToFollow = localStorage.getItem('currentWriter');
+        const userId = followBtn.getAttribute("user-id-value")
+        fetch(`/api/v1/users/${userId}/follow`, {
+            method: "POST"
+        })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 409) {
+                        if (confirm('이미 팔로우 중인 유저입니다. 팔로우를 취소하시겠습니까?')) {
+                            fetch(`/api/v1/users/${userId}/follow`, {
+                                method: "DELETE"
+                            })
+                                .then(data => {
+                                    alert("팔로우가 취소되었습니다.");
+                                    window.location.reload();
+                                })
+                                .catch(error => {
+                                    console.error("팔로우 취소 오류:", error);
+                                });
+                        }
+                    }
+                    if (response.status === 403) {
+                        alert("자기 자신은 팔로우 할 수 없습니다.")
+                    }
+                }
+                else {
+                    alert("팔로우가 완료되었습니다.")
+                    window.location.reload();
+                }
+            })
+    });
+
+    followForm.appendChild(followBtn);
+    // ul에 form 요소들을 추가
+    dropdownMenu.appendChild(userProfileForm);
+    dropdownMenu.appendChild(followForm);
 
     btnDiv.appendChild(bookmarkBtn);
-    btnDiv.appendChild(userProfileBtn);
+    btnDiv.appendChild(userBtn);
+    btnDiv.appendChild(dropdownMenu);
 
     const customFillBox = document.createElement('div');
     customFillBox.classList.add('custom-fill-box', 'mt-2', 'mx-0', 'p-0', 'element');
@@ -97,8 +166,12 @@ function fetchRoadmapElements(roadmap) {
     })
         .then((response) => response.json())
         .then(elements => {
-            console.log(elements);
-            displayRoadmapElements(roadmap, elements);
+            if (elements.length === 0) {
+                const customFillBox = document.querySelector('.element');
+                customFillBox.textContent = '일정을 추가해 주세요';
+            } else {
+                displayRoadmapElements(roadmap, elements);
+            }
             adjustFillProgress();
         })
         .catch(error => console.error('Error', error));

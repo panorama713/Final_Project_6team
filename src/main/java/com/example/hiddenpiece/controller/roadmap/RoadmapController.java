@@ -57,7 +57,7 @@ public class RoadmapController {
             @PathVariable("roadmapId") Long roadmapId
     ) {
         String username = authentication.getName();
-        ResponseRoadmapDto responseDto = roadmapService.readOne(roadmapId);
+        ResponseRoadmapDto responseDto = roadmapService.readOne(username, roadmapId);
 
         return ResponseEntity
                 .status(HttpStatus.OK)

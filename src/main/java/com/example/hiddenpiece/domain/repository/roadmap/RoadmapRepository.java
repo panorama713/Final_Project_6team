@@ -1,5 +1,6 @@
 package com.example.hiddenpiece.domain.repository.roadmap;
 
+import com.example.hiddenpiece.domain.dto.roadmap.ResponseMyPageRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseSearchRoadmapDto;
 import com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto;
 import com.example.hiddenpiece.domain.entity.roadmap.Roadmap;
@@ -53,4 +54,9 @@ public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
             "WHERE (:field IS NULL OR r.type = :field) AND (:keyword IS NULL OR r.title LIKE %:keyword% OR r.description LIKE %:keyword%)")
     Page<ResponseSearchRoadmapDto> findRoadmapByTypeOrderBySort(
             @Param("keyword") String keyword, @Param("field") String field, Pageable pageable);
+
+    @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseMyPageRoadmapDto(r.id, r.type, r.title, r.description, r.createdAt) " +
+            "FROM Roadmap r " +
+            "WHERE r.user = :user")
+    Page<ResponseMyPageRoadmapDto> findRoadmapByUser(@Param("user") User user, Pageable pageable);
 }

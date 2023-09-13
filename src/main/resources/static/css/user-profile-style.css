@@ -20,7 +20,7 @@
 
 
 .container {
-    padding-top:50px;
+    padding-top: 50px;
 }
 
 .go-back {
@@ -93,7 +93,7 @@
     color: white;
 }
 
-#follow-btn.unfollow{
+#follow-btn.unfollow {
     background-color: var(--main-color);
     border-color: var(--main-color);
     color: white;
@@ -150,7 +150,7 @@
     text-align: center;
 }
 
-.article-list th, .article-list td,.roadmap-list th, .roadmap-list td {
+.article-list th, .article-list td, .roadmap-list th, .roadmap-list td {
     text-align: left;
 }
 

@@ -27,34 +27,43 @@
                     </div>
                     <div class="mb-3">
                         <label for="passwordConfirm" class="form-label">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" required>
+                        <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm"
+                               required>
                         <div id="passwordCheckError" class="text-danger"></div>
                     </div>
-                    <button id="withdrawalButton" type="submit" class="btn" data-bs-toggle="modal" data-bs-target="#withdrawalModal">회원 탈퇴</button>
+                    <button id="withdrawalButton" type="submit" class="btn" data-bs-toggle="modal"
+                            data-bs-target="#withdrawalModal">회원 탈퇴
+                    </button>
                 </form>
 
-                <div class="modal fade" id="withdrawalModal" tabindex="-1" aria-labelledby="withdrawalModalLabel" aria-hidden="true">
+                <div class="modal fade" id="withdrawalModal" tabindex="-1" aria-labelledby="withdrawalModalLabel"
+                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="withdrawalModalLabel">탈퇴 확인</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <span id="result1"></span>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" data-bs-target="#withdrawalModal2" data-bs-toggle="modal" class="btn" id="confirmButton">확인</button>
+                                <button type="button" data-bs-target="#withdrawalModal2" data-bs-toggle="modal"
+                                        class="btn" id="confirmButton">확인
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="withdrawalModal2" tabindex="-1" aria-labelledby="withdrawalModalLabel2" aria-hidden="true">
+                <div class="modal fade" id="withdrawalModal2" tabindex="-1" aria-labelledby="withdrawalModalLabel2"
+                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="withdrawalModalLabel2">회원 탈퇴 완료</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <p><span id="result2"></span></p>

@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function fetchUserData() {
         const userId = localStorage.getItem('userId');
 
-        // fetch(`/api/v1/users/${userId}`) -> 팔로우 엔드포인트 변경 후 교체
         fetch(`/api/v1/users/${userId}/following-list?num=${currentPage - 1}&limit=${itemsPerPage}`)
             .then((response) => response.json())
             .then((data) => {
@@ -29,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p><span class="badge rounded-pill status-icon">상태</span>${createdAtString}</p>
                                 <div class="btn-style">
                                     <button onclick="viewProfile('${user.username}')" class="btn btn-primary profile-btn">프로필 보기</button>
-                                    <button onclick="clickBtn('${user.username}')" class="btn btn-primary follow-btn">언팔로우</button>
+                                    <button onclick="clickBtn('${user.toUserId}')" class="btn btn-primary follow-btn">언팔로우</button>
                                 </div>
                             </div>
                         </div>
@@ -114,10 +113,10 @@ function getRelativeTime(dateString) {
     }
 }
 
-function clickBtn(username) {
+function clickBtn(userId) {
     const confirmed = confirm('언팔로우 하시겠습니까?')
     if (confirmed) {
-        handleUnfollow(username)
+        handleUnfollow(userId)
     }
 }
 
@@ -126,9 +125,9 @@ function viewProfile(username) {
     window.location.href = "/views/user-profile";
 }
 
-async function handleUnfollow(username) {
+async function handleUnfollow(userId) {
     // TODO api 교체후 수정하기
-    fetch(`/api/v1/users/follow?usernameToFollow=${username}`, {
+    fetch(`/api/v1/users/${userId}/follow`, {
         method: 'DELETE'
     }).then(() => {
         window.location.reload()

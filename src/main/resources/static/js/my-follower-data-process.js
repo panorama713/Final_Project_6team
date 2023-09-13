@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function fetchUserData() {
         const userId = localStorage.getItem('userId');
 
-        // fetch(`/api/v1/users/${userId}`) -> 팔로우 엔드포인트 변경 후 교체
         fetch(`/api/v1/users/${userId}/follower-list?num=${currentPage - 1}&limit=${itemsPerPage}`)
             .then((response) => response.json())
             .then((data) => {
@@ -29,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p><span class="badge rounded-pill status-icon">상태</span>${createdAtString}</p>
                                 <div class="btn-style">
                                     <button onclick="viewProfile('${user.username}')" class="btn btn-primary profile-btn">프로필 보기</button>
-                                    <button onclick="clickBtn('${user.username}')" class="btn btn-primary follow-btn">맞팔로우</button>
+                                    <button onclick="clickBtn('${user.fromUserId}')" class="btn btn-primary follow-btn">맞팔로우</button>
                                 </div>
                             </div>
                         </div>
@@ -114,10 +113,10 @@ function getRelativeTime(dateString) {
     }
 }
 
-function clickBtn(username) {
+function clickBtn(userId) {
     const confirmed = confirm('팔로우 하시겠습니까?')
     if (confirmed) {
-        handleFollow(username)
+        handleFollow(userId)
     }
 }
 
@@ -127,9 +126,8 @@ function viewProfile(username) {
 }
 
 
-async function handleFollow(username) {
-    // TODO api 교체후 수정하기
-    fetch(`/api/v1/users/follow?usernameToFollow=${username}`, {
+async function handleFollow(userId) {
+    fetch(`/api/v1/users/${userId}/follow`, {
         method: 'POST'
     }).then(() => {
         window.location.reload()

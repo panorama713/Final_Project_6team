@@ -67,7 +67,7 @@ document.addEventListener('click', function (event) {
     }
 })
 
-$('#roadmapElementTodoModal').on('hidden.bs.modal', function () {
+$('#createTodoModal').on('hidden.bs.modal', function () {
     location.reload();
 })
 
@@ -146,9 +146,7 @@ function displayTodo(roadmapId, elementId, todoDataList, elementTitle) {
     var createTodoButton = document.createElement('div');
     createTodoButton.innerHTML =
         `
-        <div>
-            <button class="btn btn-sm create-todo"  data-bs-toggle="modal" data-bs-target="#createTodoModal" onclick="event.preventDefault();">+ Todo 추가하기</button>
-        </div>
+        <button type="button" class="btn btn-sm create-todo-button"  data-bs-toggle="modal" data-bs-target="#createTodoModal"">+ Todo 추가하기</button>
         `
     container.append(createTodoButton);
 }

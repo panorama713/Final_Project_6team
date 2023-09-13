@@ -86,6 +86,23 @@ public class RoadmapService {
         return roadmapDtos;
     }
 
+    // readOne
+    // 로드맵 단일 조회
+    public ResponseRoadmapDto readOne(String username, Long roadmapId) {
+        // 로그인 확인
+        User loginUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.INVALID_JWT));
+        // 로드맵 화인
+        Roadmap targetRoadmap = roadmapRepository.findById(roadmapId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_ROADMAP));
+        User writer = userRepository.findByUsername(targetRoadmap.getUser().getUsername())
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+
+        boolean isFollow = followRepository.existsByToUserAndFromUser(writer, loginUser);
+
+        return ResponseRoadmapDto.fromEntity(targetRoadmap, isFollow);
+    }
+
     // update
     @Transactional
     public ResponseRoadmapDto update(Long roadmapId, String username, RequestRoadmapDto dto) {

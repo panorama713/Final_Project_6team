@@ -21,4 +21,7 @@ public interface RoadmapBookmarkRepository extends JpaRepository<RoadmapBookmark
            "GROUP BY rb.roadmap.title, rb.roadmap.user.username " +
            "ORDER BY COUNT(rb) DESC LIMIT 5")
     List<ResponseTop5RoadmapDto> findTop5ByRoadmapsWithBookmarkCount();
+
+    RoadmapBookmark findByUserAndRoadmap(User user, Roadmap roadmap);
+
 }

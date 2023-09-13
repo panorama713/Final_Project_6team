@@ -49,6 +49,21 @@ public class RoadmapController {
                 .body(roadmapService.readByUsernameAndYearOrType(username, year, type));
     }
 
+    // readOne
+    // 로드맵 단일 조회
+    @GetMapping("/{roadmapId}")
+    public ResponseEntity<ResponseRoadmapDto> readOneRoadmap(
+            Authentication authentication,
+            @PathVariable("roadmapId") Long roadmapId
+    ) {
+        String username = authentication.getName();
+        ResponseRoadmapDto responseDto = roadmapService.readOne(username, roadmapId);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responseDto);
+    }
+
     // update
     // 로드맵 수정
     @PutMapping("/{roadmapId}")

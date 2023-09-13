@@ -42,6 +42,24 @@ public class RoadmapBookmarkController {
         return ResponseEntity.ok(roadmapBookmarkService.readAll(username, page, limit));
     }
 
+    @GetMapping("/roadmaps/{roadmapId}")
+    public ResponseEntity<ResponseRoadmapBookmarkDto> readOneRoadmapBookmark(
+            Authentication authentication,
+            @PathVariable("roadmapId") Long roadmapId
+    ) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(roadmapBookmarkService.readOne(username, roadmapId));
+    }
+
+    @GetMapping("/roadmaps/{roadmapId}/exist")
+    public ResponseEntity<Boolean> existRoadmapBookmark(
+            Authentication authentication,
+            @PathVariable("roadmapId") Long roadmapId
+    ) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(roadmapBookmarkService.exist(username, roadmapId));
+    }
+
     // update
     // 로드맵 북마크 수정(title)
     @PutMapping("/{bookmarkId}/roadmaps")

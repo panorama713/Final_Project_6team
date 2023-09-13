@@ -112,7 +112,7 @@ public class ViewController {
 
     @GetMapping("/roadmaps/{roadmapId}")
     public String readRoadmap() {
-        return "roadmap";
+        return "user-roadmap";
     }
 
     @GetMapping("/my-page/following")

@@ -25,6 +25,7 @@ function preventBack() {
 
     socialImages.forEach(imageLink => {
         imageLink.addEventListener("click", () => {
+            localStorage.setItem('isLoggedIn', 'O')
             window.history.pushState({}, null, "/views/main")
         })
     })

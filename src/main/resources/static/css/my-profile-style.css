@@ -29,14 +29,15 @@ body {
     display: flex;
     align-items: center;
     max-width: 800px;
-    min-width: 600px;
+    min-width: 650px;
     margin: 0 auto;
     height: 400px;
 }
 
 .profile-info {
     text-align: center;
-    width: 200px;
+    min-width: 160px;
+    margin-left: 10px;
 }
 
 
@@ -78,7 +79,7 @@ body {
 
 .card-body {
     display: flex;
-    min-width: 700px;
+    min-width: 650px;
     justify-content: space-between;
     align-items: center;
 }

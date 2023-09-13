@@ -104,7 +104,6 @@
 }
 
 .my-info {
-    position: absolute;
     display: flex;
     justify-content: space-between;
     width: 300px;
@@ -112,7 +111,6 @@
 }
 
 #profileImg {
-    position: absolute;
     margin: 0 auto;
     display: flex;
     width: 50px;
@@ -122,17 +120,15 @@
 }
 
 #username {
-    left: 20%;
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 150px;
     height: 50px;
+    font-size: 1.3vw;
 }
 
 #logout-button {
-    position: absolute;
     margin: 0 auto;
     display: flex;
     align-items: center;

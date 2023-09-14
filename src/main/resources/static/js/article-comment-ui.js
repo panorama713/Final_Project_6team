@@ -13,9 +13,9 @@ function formatContent(content) {
 
 // 작성 일시를 '몇 분 전', '몇 시간 전', '몇 일 전' 형태로 반환
 function timeAgo(dateString) {
-    const currentTime = new Date().getTime();
+    const currentTime = new Date().getTime() - (9 * 60 * 60 * 1000);
     console.log(currentTime)
-    const timeDifference = currentTime - new Date(dateString).getTime() + (9 * 60 * 60 * 1000);
+    const timeDifference = currentTime - new Date(dateString).getTime();
     console.log(timeDifference)
 
     const minute = 60 * 1000;

@@ -1,6 +1,6 @@
 # HIDDEN PIECE
 
-![](https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/bc9cf7ff-1dd9-472f-bc95-da8d778afc1c)
+<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/bc9cf7ff-1dd9-472f-bc95-da8d778afc1c" width=200>
 
 ## HIDDEN PIECE Web Page v1.0
 
@@ -54,7 +54,8 @@ $ cd Final_Project_6team
 ## Stacks 👩🏻‍💻
 
 ### Environment
-![Github](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=GitHub%20Actions&logoColor=white)
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20Idea-000000?style=for-the-badge&logo=IntelliJ%20IDEA&logoColor=white)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
 

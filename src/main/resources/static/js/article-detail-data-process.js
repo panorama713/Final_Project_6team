@@ -5,6 +5,7 @@ function fetchArticleDetails(id) {
         .then(data => {
             console.log('게시글 상세 정보:', data);
             displayArticleDetails(data, id);
+            localStorage.setItem('userId', data.userId)
             localStorage.setItem('currentWriter', data.username);
 
             const followElement = document.getElementById("follow-btn");

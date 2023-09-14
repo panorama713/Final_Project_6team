@@ -3,8 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     userFollowBtn.addEventListener("click", function () {
         event.preventDefault();
-        var usernameToFollow = localStorage.getItem('currentWriter');
-        var userId = userFollowBtn.getAttribute("user-id-value")
+        // var usernameToFollow = localStorage.getItem('currentWriter');
+        // var userId = userFollowBtn.getAttribute("user-id-value")
+        var userId = localStorage.getItem('userId')
         fetch(`/api/v1/users/${userId}/follow`, {
             method: "POST"
         })

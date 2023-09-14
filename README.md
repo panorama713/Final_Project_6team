@@ -9,7 +9,7 @@
 ## 배포 주소
 
 > **깃허브**: [↗️https://github.com/likelion-backend-5th/Final_Project_6team](https://github.com/likelion-backend-5th/Final_Project_6team) <br>
-> **서버**: [↗️http://ec2-43-201-68-117.ap-northeast-2.compute.amazonaws.com/views/main](http://ec2-43-201-68-117.ap-northeast-2.compute.amazonaws.com/views/main) <br>
+> **서버**: [↗️https://www.hidden-piece.kro.kr/views/main](https://www.hidden-piece.kro.kr/views/main) <br>
 
 ## 개발팀 소개 🫂
 
@@ -137,7 +137,7 @@ $ cd Final_Project_6team
 
 <img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/e587e34e-ff4f-4c27-9d5a-2163eeb1a34d" width=600>
 
-### 그 외 자료
+### 그 외
 
 [↗️Notion: Workspace](https://www.notion.so/sssssn/v1-0-91548bf5d2e04809bd8f89b758503388)
 

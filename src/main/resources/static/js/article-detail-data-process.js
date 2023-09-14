@@ -5,6 +5,7 @@ function fetchArticleDetails(id) {
         .then(data => {
             console.log('게시글 상세 정보:', data);
             displayArticleDetails(data, id);
+            localStorage.setItem('userId', data.userId)
             localStorage.setItem('currentWriter', data.username);
 
             const followElement = document.getElementById("follow-btn");
@@ -52,7 +53,8 @@ function convertPathToUrl(path, articleId) {
     if (path.startsWith('http://') || path.startsWith('https://')) {
         return path;
     }
-    const basePath = "http://localhost:8080";
+    // TODO 도메인으로 교체
+    const basePath = "http://ec2-43-201-68-117.ap-northeast-2.compute.amazonaws.com";
     if (path.startsWith('/uploads/article_images/')) {
         const imageName = path.split('/').pop();
         return `${basePath}/api/v1/articles/${articleId}/images/${imageName}`;

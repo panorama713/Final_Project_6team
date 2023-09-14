@@ -161,9 +161,14 @@ function fetchArticles(page, username) {
     fetch(`/api/v1/articles/userArticles?page=${page}&username=${username}`)
         .then(response => response.json())
         .then(result => {
+            var userId = localStorage.getItem('userId');
 
-            followElement.setAttribute("user-id-value", result.content[0].userId);
-            var userId = followElement.getAttribute("user-id-value")
+            // if (result.content) {
+            //     followElement.setAttribute("user-id-value", result.content[0].userId);
+            //     userId = followElement.getAttribute("user-id-value")
+            // } else {
+            //     userId = localStorage.getItem('userId')
+            // }
 
             totalPages = result.totalPages;
             currentPage = result.number;

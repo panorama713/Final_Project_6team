@@ -98,12 +98,14 @@ function formatArticleDateTime(createdAt, lastModifiedAt) {
     const createdAtDate = new Date(createdAt);
     const updatedAtDate = lastModifiedAt ? new Date(lastModifiedAt) : null;
 
-    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', {
+    const koreanCreatedAtDate = new Date(createdAtDate.getTime() + (9 * 60 * 60 * 1000))
+
+    const formattedDate = koreanCreatedAtDate.toLocaleDateString('ko-KR', {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit'
     });
-    const formattedTime = createdAtDate.toLocaleTimeString('ko-KR', {hour: '2-digit', minute: '2-digit'});
+    const formattedTime = koreanCreatedAtDate.toLocaleTimeString('ko-KR', {hour: '2-digit', minute: '2-digit'});
 
     let displayString = `${formattedDate} ${formattedTime}`;
 

@@ -74,7 +74,7 @@ fetch('/api/v1/roadmaps/top5?keyword=recommend')
             })
         } else {
             const noDataDiv = document.createElement('div')
-            noDataDiv.textContent = '???'
+            noDataDiv.textContent = '없음'
             recommendRoadmapList.appendChild(noDataDiv);
         }
     })
@@ -116,7 +116,7 @@ fetch('/api/v1/roadmaps/top5?keyword=popularity')
             })
         } else {
             const noDataDiv = document.createElement('div')
-            noDataDiv.textContent = '???'
+            noDataDiv.textContent = '없음'
             popularRoadmapList.appendChild(noDataDiv);
         }
     })
@@ -158,7 +158,7 @@ fetch('/api/v1/roadmaps/top5')
             })
         } else {
             const noDataDiv = document.createElement('div')
-            noDataDiv.textContent = '???'
+            noDataDiv.textContent = '없음'
             newRoadmapList.appendChild(noDataDiv);
         }
     })

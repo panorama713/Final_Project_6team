@@ -58,6 +58,7 @@ public class ArticleService {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .type(dto.getType())
+                .imagePath(dto.getImagePath())
                 .build();
 
         articleRepository.save(entity);
@@ -136,6 +137,7 @@ public class ArticleService {
                 .content(article.getContent())
                 .type(article.getType())
                 .category(article.getCategory())
+                .imagePath(article.getImagePath())
                 .createdAt(article.getCreatedAt())
                 .lastModifiedAt(article.getLastModifiedAt())
                 .viewCount(article.getViewCount())
@@ -177,7 +179,7 @@ public class ArticleService {
             throw new CustomException(CustomExceptionCode.NOT_MATCH_WRITER);
         }
 
-        target.modify(dto.getTitle(), dto.getContent(), dto.getType(), dto.getCategory());
+        target.modify(dto.getTitle(), dto.getContent(), dto.getType(), dto.getCategory(), dto.getImagePath());
     }
 
     // 게시글 삭제

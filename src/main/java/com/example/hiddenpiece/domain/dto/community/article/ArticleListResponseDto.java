@@ -18,6 +18,7 @@ public class ArticleListResponseDto {
     private String title;
     private Category category;
     private ArticleType type;
+    private String imagePath;
     private int likeCount;
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
@@ -32,6 +33,7 @@ public class ArticleListResponseDto {
         this.title = entity.getTitle();
         this.category = entity.getCategory();
         this.type = entity.getType();
+        this.imagePath = entity.getImagePath();
         this.likeCount = entity.getLikeArticles().size();
         this.createdAt = entity.getCreatedAt();
         this.lastModifiedAt = entity.getLastModifiedAt();

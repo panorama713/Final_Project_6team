@@ -220,7 +220,7 @@ public class UserService {
 
     // 유저 정보 수정
     @Transactional
-    public void updateUserInfo(RequestUpdateUserInfoDto dto, MultipartFile image, Long userId, String username) {
+    public void updateUserInfo(RequestUpdateUserInfoDto dto, String image, Long userId, String username) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
 
         if (!user.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
@@ -233,7 +233,7 @@ public class UserService {
             throw new CustomException(ALREADY_DELETED_EMAIL);
         }
 
-        String path = userImageHandler.parseFileInfo(userId, image);
+        String path = image;
         if (path == null) path = user.getProfileImg();
 
         user.updateInfo(passwordEncoder.encode(dto.getPassword()), dto.getEmail(), dto.getPhone(), path);

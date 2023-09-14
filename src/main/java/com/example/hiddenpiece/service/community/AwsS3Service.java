@@ -1,4 +1,4 @@
-package com.example.hiddenpiece.service.image;
+package com.example.hiddenpiece.service.community;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;

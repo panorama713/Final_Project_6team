@@ -26,4 +26,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u.id FROM User u WHERE u.realName = :realName AND u.username = :username")
     Long existUserByRealNameAndUsername(@Param("realName") String realName, @Param("username") String username);
+
+    @Query(value = "SELECT COUNT(*) FROM user WHERE username = :username AND deleted_at IS NOT NULL", nativeQuery = true)
+    Integer countByUsernameAndDeleted(@Param("username") String username);
+
+    @Query(value = "SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM user WHERE email = :email AND deleted_at IS NOT NULL", nativeQuery = true)
+    Integer countByEmailAndDeleted(@Param("email") String email);
 }

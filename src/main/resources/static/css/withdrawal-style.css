@@ -18,11 +18,67 @@ body {
     font-family: 'CustomFont', sans-serif;
 }
 
-.highlight-text {
-    color: red;
+/* 공통 텍스트 스타일 */
+.text-center {
+    text-align: center;
 }
 
+.margin-auto {
+    margin: 0 auto;
+}
+
+.container {
+    margin: 50px auto;
+}
+
+/* 폼 스타일 */
+#updateInfoForm {
+    margin: 0 auto;
+    position: relative;
+}
+
+.form-label, .form-control {
+    border-color: var(--main-color);
+    color: var(--main-color);
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    min-width: 100px;
+}
+
+.form-control {
+    border: 2px solid var(--main-color);
+    border-radius: 0;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.form-control:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 0.3rem rgba(78, 72, 151, 0.25);
+}
+
+.form-control:hover {
+    border-color: var(--sub-color);
+}
+
+/* 버튼 스타일 */
 #withdrawalButton, #confirmButton, #confirmButton2 {
     background-color: var(--main-color);
     color: var(--white-color);
+}
+
+#withdrawalButton:hover, #confirmButton:hover, #confirmButton2:hover {
+    border: 2px solid var(--sub-color);
+    background-color: var(--sub-color);
+    color: var(--main-color);
+}
+
+.highlight-text {
+    color: red;
 }

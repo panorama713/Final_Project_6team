@@ -143,7 +143,7 @@ $ cd Final_Project_6team
 
 <img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/ca61c1b3-e961-4507-ab97-1b5be63fe002"> </br>
 
-[↗️Swagger: API Documentation](http://ec2-43-201-68-117.ap-northeast-2.compute.amazonaws.com/swagger-ui/index.html#)
+[↗️Swagger: API Documentation](https://hidden-piece.kro.kr/swagger-ui/index.html)
 
 <img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/aaae0f67-bea2-40e3-befc-29449a2a8418">
 

@@ -218,6 +218,10 @@ public class UserService {
 
         if (!user.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
 
+        if (userRepository.existsByEmail(dto.getEmail())) {
+            throw new CustomException(ALREADY_EXIST_EMAIL);
+        }
+
         String path = userImageHandler.parseFileInfo(userId, image);
         if (path == null) path = user.getProfileImg();
 

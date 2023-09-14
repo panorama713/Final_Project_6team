@@ -261,7 +261,7 @@ function createRoadmaps(roadmap) {
 * 로드맵 찾기
 * */
 async function getRoadmap(year) {
-    await fetch(`http://localhost:8080/api/v1/roadmaps?year=${year}`, {
+    await fetch(`/api/v1/roadmaps?year=${year}`, {
         method: 'GET'
     })
         .then((response) => response.json())

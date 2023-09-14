@@ -14,6 +14,16 @@ function createInputFields() {
         const type = row.getAttribute('data-type');
         const id = row.getAttribute('data-id');
 
+        let inputElement = '';
+        if (type === 'file' && id === 'profileImg') {
+            inputElement = `
+        <label for="profileImg" class="form-label">${label}</label>
+        <input type="file" class="form-control" id="profileImg" name="profileImg" accept="image/*">
+    `;
+        } else {
+            inputElement = `<input type="${type}" class="form-control" id="${id}" name="${id}" required>`;
+        }
+
         let errorElement = '';
         if (id === 'newPassword' || id === 'passwordCheck' || id === 'newEmail' || id === 'newPhone') {
             errorElement = `<div id="${id}Error" class="text-danger"></div>`;
@@ -24,7 +34,7 @@ function createInputFields() {
             <div class="row mb-3">
                 <label for="${id}" class="form-label col-sm-3">${label}</label>
                 <div class="col-sm-9">
-                    <input type="${type}" class="form-control" id="${id}" name="${id}" required>
+                    ${inputElement}
                     ${errorElement}
                 </div>
             </div>

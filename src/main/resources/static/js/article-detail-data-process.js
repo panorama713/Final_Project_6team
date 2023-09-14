@@ -54,7 +54,7 @@ function convertPathToUrl(path, articleId) {
         return path;
     }
     // TODO 아마 이 부분에서 s3로 교체해야하지 않나 싶은데...
-    const basePath = "https://www.hidden-piece.kro.kr";
+    const basePath = "//hidden-piece.kro.kr";
     if (path.startsWith('/uploads/article_images/')) {
         const imageName = path.split('/').pop();
         return `${basePath}/api/v1/articles/${articleId}/images/${imageName}`;

@@ -10,24 +10,43 @@ function getFormData(form) {
     return dataObj;
 }
 
-// 비밀번호 에러 관련
-function displayPasswordMismatchError(passwordCheckError) {
-    passwordCheckError.textContent = "입력하신 비밀번호가 일치하지 않습니다.";
+function displayError(errorElement, message) {
+    errorElement.textContent = message;
 }
 
-function hidePasswordError(passwordCheckError) {
-    passwordCheckError.textContent = "";
-}
-
-function checkPasswordMatch(fields, passwordCheckError) {
-    if (!passwordsMatch(fields.password.value, fields.passwordCheck.value)) {
-        displayPasswordMismatchError(passwordCheckError);
-    } else {
-        hidePasswordError(passwordCheckError);
+function hideError(errorElement) {
+    if (errorElement) {
+        errorElement.textContent = '';
     }
 }
 
-// 회원가입 처리와 서버 통신 관련
+// 유효성 검사 관련
+function checkPasswordValid(passwordInput, passwordError) {
+    const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[`~₩!@#$%^&*]).{7,19}$/;
+
+    if (!passwordInput.value) {
+        displayError(passwordError, "새로운 비밀번호는 필수입니다.");
+        return false;
+    } else if (!passwordPattern.test(passwordInput.value)) {
+        displayError(passwordError, "비밀번호는 8~20자의 영문, 숫자, 특수문자를 모두 포함해야 합니다.");
+        return false;
+    } else {
+        hideError(passwordError);
+        return true;
+    }
+}
+
+function checkPasswordMatch(passwordField, passwordCheckField, passwordCheckError) {
+    if (!passwordsMatch(passwordField.value, passwordCheckField.value)) {
+        displayError(passwordCheckError, "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        return false;
+    } else {
+        hideError(passwordCheckError);
+        return true;
+    }
+}
+
+// 회원 탈퇴 처리와 서버 통신 관련
 async function sendDataToServer(data) {
     const userId = localStorage.getItem('userId')
 
@@ -62,41 +81,4 @@ async function process(data) {
     } catch (error) {
         console.error("#console# 에러", error);
     }
-}
-
-// 이벤트 핸들러
-function handleDeleteUser(event, passwordCheckError) {
-    event.preventDefault();
-
-    const formData = getFormData(event.target);
-    const mappedData = {
-        password: formData.password,
-        passwordCheck: formData.passwordConfirm
-    };
-
-    if (!passwordsMatch(formData.password, formData.passwordConfirm)) {
-        displayPasswordMismatchError(passwordCheckError);
-        return;
-    }
-
-    document.getElementById('result1').innerHTML = `
-                                <h6>정말 탈퇴하시겠습니까?</h6>
-                                <p>
-                                    탈퇴를 원하시는 경우, 아래 입력창에 <span class="highlight-text">"삭제합니다."</span> 를 입력해주세요.
-                                </p>
-                                <label for="confirmationInput">
-                                    <input type="text" id="confirmationInput" class="form-control">
-                                </label>`;
-
-    const confirmButton = document.getElementById('confirmButton')
-    confirmButton.disabled = true
-
-    document.getElementById('confirmationInput').addEventListener('input', function () {
-        const inputValue = this.value.trim();
-        confirmButton.disabled = inputValue !== "삭제합니다.";
-    })
-
-    confirmButton.addEventListener('click', async function () {
-        process(mappedData)
-    });
 }

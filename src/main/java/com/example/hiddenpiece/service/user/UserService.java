@@ -225,7 +225,7 @@ public class UserService {
 
         if (!user.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
 
-        if (userRepository.existsByEmail(dto.getEmail())) {
+        if (!user.getEmail().equals(dto.getEmail()) && userRepository.existsByEmail(dto.getEmail())) {
             throw new CustomException(ALREADY_EXIST_EMAIL);
         }
 

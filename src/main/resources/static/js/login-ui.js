@@ -1,3 +1,4 @@
+// 동적 UI 구성
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
@@ -10,40 +11,29 @@ function init() {
 
 // 사용자 정보 입력 필드를 동적으로 생성
 function createInputFields() {
-    const idRow = document.querySelector('.input-id');
+    const container = document.querySelector('.account-info-input');
 
-    if (idRow) {
-        const label = idRow.getAttribute('data-label');
-        const type = idRow.getAttribute('data-type');
-        const id = idRow.getAttribute('data-id');
+    container.querySelectorAll('.input-row').forEach(row => {
+        const label = row.getAttribute('data-label');
+        const type = row.getAttribute('data-type');
+        const id = row.getAttribute('data-id');
 
-        idRow.innerHTML = `
-            <div class="row mb-1">
-                <div class="col">
-                    <input type="${type}" placeholder="${label}" class="form-control" id="${id}" name="${id}" required>
+        let errorElement = '';
+        if (id === 'username' || id === 'password') {
+            errorElement = `<div id="${id}Error" class="text-danger"></div>`;
+        }
+
+        // HTML 구조를 동적으로 생성
+        row.innerHTML = `
+            <div class="row mb-3">
+                <label for="${id}" class="form-label col-sm-3">${label}</label>
+                <div class="col-sm-9">
+                    <input type="${type}" class="form-control" id="${id}" name="${id}" required>
+                    ${errorElement}
                 </div>
             </div>
         `;
-    }
-
-    const pwRow = document.querySelector('.input-pw');
-
-    if (pwRow) {
-        const label = pwRow.getAttribute('data-label');
-        const type = pwRow.getAttribute('data-type');
-        const id = pwRow.getAttribute('data-id');
-
-        pwRow.innerHTML = `
-            <div class="row mb-1">
-                <div class="col">
-                    <div class="pw-eye">
-                        <input type="${type}" placeholder="${label} 8~20자" class="form-control" id="${id}" name="${id}" required>
-                        <i class="fa-solid fa-eye fa-lg" style="color: #000000;"></i>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
+    });
 }
 
 // 비밀번호 보이기 기능 설정

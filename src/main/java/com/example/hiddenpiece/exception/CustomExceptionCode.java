@@ -65,6 +65,8 @@ public enum CustomExceptionCode {
     CANNOT_BOOKMARK_YOUR_ROADMAP(HttpStatus.CONFLICT, "자신의 로드맵은 북마크할 수 없습니다."),
     ALREADY_EXIST_ARTICLE_BOOKMARK(HttpStatus.CONFLICT, "이미 북마크에 저장된 게시글입니다."),
     ALREADY_EXIST_ROADMAP_BOOKMARK(HttpStatus.CONFLICT, "이미 북마크에 저장된 로드맵입니다."),
+    ALREADY_DELETED_USER(HttpStatus.CONFLICT, "이전에 삭제된 아이디입니다."),
+    ALREADY_DELETED_EMAIL(HttpStatus.CONFLICT, "이전에 삭제된 이메일입니다."),
     /*
      * 415
      */

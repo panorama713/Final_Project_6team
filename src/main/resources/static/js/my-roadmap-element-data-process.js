@@ -65,6 +65,48 @@ document.addEventListener('click', function (event) {
         updateDone(roadmapId, elementId, todoId);
         document.getElementById('donePercent').textContent = doneProgress() + '%';
     }
+
+    // update element 관련 로직
+    if (event.target.classList.contains('update-element-button')) {
+        var roadmapId = event.target.dataset.roadmapid;
+        var elementId = event.target.dataset.elementid;
+        var elementTitle = event.target.dataset.elementTitle;
+        var elementStart = event.target.dataset.elementStart;
+        var elementEnd = event.target.dataset.elementEnd;
+
+        document.getElementById('update-element-submit').dataset.roadmapId = roadmapId;
+        document.getElementById('update-element-submit').dataset.elementId = elementId;
+        document.getElementById('update-element-title').value = elementTitle;
+        document.getElementById('update-element-start').value = elementStart;
+        document.getElementById('update-element-end').value = elementEnd;
+    }
+    if (event.target.classList.contains('update-element-submit')) {
+        var roadmapId = event.target.dataset.roadmapId;
+        var elementId = event.target.dataset.elementId;
+        console.log(event.target.dataset)
+
+        var title = document.getElementById('update-element-title').value;
+        var content = document.getElementById('update-element-content').value;
+        var start = document.getElementById('update-element-start').value;
+        var end = document.getElementById('update-element-end').value;
+
+        var jsonData = {
+            title: title,
+            content: content,
+            startDate: start,
+            endDate: end
+        }
+
+        updateElement(roadmapId, elementId, jsonData);
+    }
+
+    // delete element 관련 로직
+    if (event.target.classList.contains('delete-element-button')) {
+        var roadmapId = event.target.dataset.roadmapid;
+        var elementId = event.target.dataset.elementid;
+
+        deleteElement(roadmapId, elementId);
+    }
 })
 
 $('#createTodoModal').on('hidden.bs.modal', function () {
@@ -75,6 +117,8 @@ async function getElementTodo(event) {
     var roadmapId = event.target.dataset.roadmapId;
     var elementId = event.target.dataset.elementId;
     var elementTitle = event.target.dataset.elementTitle;
+    var elementStart = event.target.dataset.start;
+    var elementEnd = event.target.dataset.end;
 
     await fetch(`/api/v1/roadmaps/${roadmapId}/elements/${elementId}/todo`, {
         method: 'GET'
@@ -82,7 +126,7 @@ async function getElementTodo(event) {
         .then(response => response.json())
         .then(elementTodoList => {
             console.log(elementTodoList);
-            displayTodo(roadmapId, elementId, elementTodoList, elementTitle);
+            displayTodo(roadmapId, elementId, elementTodoList, elementTitle, elementStart, elementEnd);
         })
         .catch(error => {
             console.log(error.message);
@@ -91,7 +135,7 @@ async function getElementTodo(event) {
 }
 
 // elementTodo 모달창 내용 생성
-function displayTodo(roadmapId, elementId, todoDataList, elementTitle) {
+function displayTodo(roadmapId, elementId, todoDataList, elementTitle, elementStart, elementEnd) {
     // createTodoSubmit
     document.getElementById('create-todo-submit').dataset.roadmapId = roadmapId;
     document.getElementById('create-todo-submit').dataset.elementId = elementId;
@@ -143,12 +187,31 @@ function displayTodo(roadmapId, elementId, todoDataList, elementTitle) {
     modal.append(donePercent);
 
     // createTodo
-    var createTodoButton = document.createElement('div');
+    var createTodoButton = document.createElement('span');
     createTodoButton.innerHTML =
         `
-        <button type="button" class="btn btn-sm create-todo-button"  data-bs-toggle="modal" data-bs-target="#createTodoModal"">+ Todo 추가하기</button>
+        <button type="button" class="btn btn-sm create-todo-button"  data-bs-toggle="modal" data-bs-target="#createTodoModal"">Todo 추가하기</button>
+        `
+
+    var updateElementButton = document.createElement('span');
+    updateElementButton.innerHTML =
+        `
+        <button type="button" class="btn btn-sm update-element-button"  data-bs-toggle="modal" data-bs-target="#updateElementModal"
+        data-roadmapId="${roadmapId}" data-elementId="${elementId}" data-element-title="${elementTitle}" 
+        data-element-start="${elementStart}" data-element-end="${elementEnd}"
+        >일정수정</button>
+        `
+
+    var deleteElementButton = document.createElement('span');
+    deleteElementButton.innerHTML =
+        `
+        <button type="button" class="btn btn-sm delete-element-button" id="delete-element"
+        data-roadmapId="${roadmapId}" data-elementId="${elementId}"
+        >일정삭제</button>
         `
     container.append(createTodoButton);
+    container.append(updateElementButton);
+    container.append(deleteElementButton);
 }
 
 // done-progress data-end 변경 기능
@@ -233,4 +296,37 @@ function updateDone(roadmapId, elementId, todoId) {
         .catch(error => {
             console.log(error.message);
         })
+}
+
+// element update
+function updateElement(roadmapId, elementId, jsonData) {
+    fetch(`/api/v1/roadmaps/${roadmapId}/elements/${elementId}`, {
+        method: 'PUT',
+        headers: {'Content-type': 'application/json'},
+        body: JSON.stringify(jsonData)
+    })
+        .then(response => {
+            alert('일정이 수정되었습니다.')
+            location.reload();
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+}
+
+// element delete
+function deleteElement(roadmapId, elementId) {
+    var answer = confirm('정말로 해당 일정을 삭제하시겠습니까?');
+
+    if (answer)
+        fetch(`/api/v1/roadmaps/${roadmapId}/elements/${elementId}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                alert('일정이 삭제되었습니다.');
+                location.reload();
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
 }

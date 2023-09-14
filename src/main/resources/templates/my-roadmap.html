@@ -252,6 +252,55 @@
                         </div>
                     </div>
 
+                    <!-- update element 모달창 -->
+                    <div class="modal fade" id="updateElementModal" tabindex="-1" role="dialog" data-bs-backdrop="static"
+                         data-bs-keyboard="false">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="updateElementModalLabel">일정 수정</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <!-- element update title -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="update-element-title-label">제목</span>
+                                                <input type="text" id="update-element-title" class="form-control"
+                                                       placeholder="제목을 입력해 주세요" aria-describedby="todo-title">
+                                            </div>
+                                            <!-- element update content -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="update-element-content-label">내용</span>
+                                                <input type="text" id="update-element-content" class="form-control"
+                                                       placeholder="내용을 입력해 주세요" aria-describedby="todo-content">
+                                            </div>
+                                            <!-- element update start date -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="update-element-start-label">시작</span>
+                                                <input type="datetime-local" id="update-element-start" class="form-control">
+                                            </div>
+                                            <!-- element update end date -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="update-element-end-label">종료</span>
+                                                <input type="datetime-local" id="update-element-end" class="form-control">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button type="button" id="update-element-submit"
+                                            class="btn btn-primary update-element-submit">저장
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <!-- createTodo 모달창 -->
                     <div class="modal fade" id="createTodoModal" tabindex="-1" role="dialog" aria-hidden="true"
                          data-keyboard="false">

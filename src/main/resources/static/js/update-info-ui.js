@@ -17,7 +17,7 @@ function createInputFields() {
         let inputElement = '';
         if (type === 'file' && id === 'profileImg') {
             inputElement = `
-        <label for="profileImg" class="form-label">${label}</label>
+        <label for="profileImg" class="form-label"></label>
         <input type="file" class="form-control" id="profileImg" name="profileImg" accept="image/*">
     `;
         } else {

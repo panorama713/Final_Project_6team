@@ -212,13 +212,10 @@ div.pw-eye i {
     text-decoration: none;
 }
 
-.account-info-input {
-    height: 200px;
-}
-
 .account-container {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 10px;
 }
 
 .find {

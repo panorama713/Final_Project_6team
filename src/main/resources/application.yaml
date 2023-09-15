@@ -41,7 +41,6 @@ spring:
 
 server:
   port: 8082
-
 ---
 # Swagger
 # Springdoc OpenAPI 설정
@@ -50,19 +49,3 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
-
-
----
-# AWS S3 설정
-cloud:
-  aws:
-    s3:
-      bucket: hiddenpiece
-    region:
-      static: ap-northeast-2
-      auto: false
-    stack:
-      auto: false
-    credentials:
-      access-key: AKIAZ4ENSFLQJHQJH3XV
-      secret-key: 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

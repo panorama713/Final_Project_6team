@@ -14,6 +14,8 @@ function fetchArticleInfo() {
             document.getElementById("content").value = data.content;
             document.getElementById("category").value = data.category;
             document.getElementById("type").value = data.type;
+            document.getElementById("image-path").value = data.imagePath;
+
         })
         .catch(error => console.error("게시글 정보 가져오기 오류:", error));
 }
@@ -84,7 +86,7 @@ function updateArticle() {
             });
     }
     else {
-        var imagePath = null;
+        var imagePath = document.getElementById('image-path').value;
         var formData = new FormData();
 
         var jsonParams = {

@@ -233,12 +233,12 @@ public class UserService {
             throw new CustomException(ALREADY_DELETED_EMAIL);
         }
 
-        String path = image;
-        if (path == null) path = user.getProfileImg();
+            String path = image;
+            if (image == null) path = user.getProfileImg();
 
-        user.updateInfo(passwordEncoder.encode(dto.getPassword()), dto.getEmail(), dto.getPhone(), path);
-        userRepository.save(user);
-        log.info("이미지 등록 성공");
+            user.updateInfo(passwordEncoder.encode(dto.getPassword()), dto.getEmail(), dto.getPhone(), path);
+            userRepository.save(user);
+            log.info("이미지 등록 성공");
     }
 
     // 계정 탈퇴

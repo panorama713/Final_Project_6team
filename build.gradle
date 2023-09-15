@@ -58,7 +58,12 @@ dependencies {
 
     // Swagger
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
+
+    // cloud aws
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.1.RELEASE'
+    implementation 'com.amazonaws:aws-java-sdk-s3'
 }
+
 
 tasks.named('test') {
     outputs.dir snippetsDir

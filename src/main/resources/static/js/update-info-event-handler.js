@@ -54,24 +54,57 @@ function attachEventListeners() {
 
         const imageInput = document.getElementById('profileImg')
         if (imageInput.files.length > 0) {
-            const imageFile = imageInput.files[0];
-            formData.append('profileImg', imageFile);
-        }
+            const imageData = new FormData();
+            imageData.append("file", imageInput.files[0]);
 
-        sendDataToServer(formData)
-            .then((response) => {
-                if (response.ok) {
-                    alert('정보 수정이 완료되었습니다.')
-                    window.location.href = '/views/my-page/profile'
-                } else {
-                    response.json().then(errorData => {
-                        alert(errorData.message || '다시 시도해주세요.');
-                    });
-                }
+            fetch("/s3/resource", {
+                method: "POST",
+                body: imageData
             })
-            .catch((error) => {
-                console.error("데이터 전송 중 오류 발생:", error);
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(error => {
+                            throw new Error(error.message || "이미지 업로드 중 오류가 발생했습니다.");
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    var imagePath = data.path
+                    console.log(imagePath)
+                    formData.append('profileImg', imagePath)
+                    sendDataToServer(formData)
+                        .then((response) => {
+                            if (response.ok) {
+                                alert('정보 수정이 완료되었습니다.')
+                                window.location.href = '/views/my-page/profile'
+                            } else {
+                                response.json().then(errorData => {
+                                    alert(errorData.message || '다시 시도해주세요.');
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("데이터 전송 중 오류 발생:", error);
+                        });
+                })
+        }
+        else {
+            sendDataToServer(formData)
+                .then((response) => {
+                    if (response.ok) {
+                        alert('정보 수정이 완료되었습니다.')
+                        window.location.href = '/views/my-page/profile'
+                    } else {
+                        response.json().then(errorData => {
+                            alert(errorData.message || '다시 시도해주세요.');
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error("데이터 전송 중 오류 발생:", error);
+                });
+        }
     }
 
     fields.password.addEventListener("input", function () {

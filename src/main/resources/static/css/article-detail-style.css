@@ -189,7 +189,7 @@
     transition: background-color 0.3s, border-color 0.3s;
 }
 
-.article-images img {
+.article-images {
     max-width: 400px;
     max-height: 400px;
     width: auto;

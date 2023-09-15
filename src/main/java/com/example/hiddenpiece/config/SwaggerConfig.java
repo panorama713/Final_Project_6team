@@ -2,6 +2,10 @@ package com.example.hiddenpiece.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
@@ -28,5 +32,25 @@ public class SwaggerConfig {
                 .group("개발자 로드맵 서비스 API v1")
                 .pathsToMatch(paths)
                 .build();
+    }
+
+    private static final String SECURITY_SCHEME_NAME = "authorization";	// 추가
+
+    @Bean
+    public OpenAPI swaggerApi() {
+        return new OpenAPI()
+                .components(new Components()
+                        // 여기부터 추가 부분
+                        .addSecuritySchemes(SECURITY_SCHEME_NAME, new SecurityScheme()
+                                .name(SECURITY_SCHEME_NAME)
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")))
+                .addSecurityItem(new SecurityRequirement().addList(SECURITY_SCHEME_NAME));
+                // 여기까지
+//                .info(new Info()
+//                        .title("스프링시큐리티 + JWT 예제")
+//                        .description("스프링시큐리티와 JWT를 이용한 사용자 인증 예제입니다.")
+//                        .version("1.0.0"));
     }
 }

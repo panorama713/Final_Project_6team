@@ -107,7 +107,7 @@ public class UserController {
     @PutMapping(value = "/{userId}/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> updateProfile(
             @PathVariable Long userId,
-            @RequestPart(required = false, value = "profileImg") MultipartFile profileImg,
+            @RequestPart(required = false, value = "profileImg") String profileImg,
             @RequestPart("dto") RequestUpdateUserInfoDto dto,
             Authentication authentication
     ) {

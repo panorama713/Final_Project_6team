@@ -127,6 +127,8 @@ function createRoadmapElements(roadmapId, element, type) {
     elementTitle.dataset.elementTitle = element.title;
     elementTitle.dataset.roadmapId = roadmapId;
     elementTitle.dataset.elementId = element.id;
+    elementTitle.dataset.start = element.startDate;
+    elementTitle.dataset.end = element.endDate;
     elementTitle.style.fontWeight = 'normal';
 
     // 로드맵 타입에 따른 색상 설정

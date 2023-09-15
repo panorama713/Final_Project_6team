@@ -51,6 +51,7 @@ public class Article extends BaseTimeEntity {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int likeCount;
 
+    private String imagePath;
     private LocalDateTime deletedAt;
 
     @JsonIgnore
@@ -64,7 +65,7 @@ public class Article extends BaseTimeEntity {
     @Builder
     public Article(
             User user, Category category, String title,
-            String content, ArticleType type, Long viewCount
+            String content, ArticleType type, Long viewCount, String imagePath
     ) {
         this.user = user;
         this.category = category;
@@ -72,13 +73,15 @@ public class Article extends BaseTimeEntity {
         this.content = content;
         this.type = type;
         this.viewCount = 0;
+        this.imagePath = imagePath;
     }
 
-    public void modify(String title, String content, ArticleType type, Category category) {
+    public void modify(String title, String content, ArticleType type, Category category, String imagePath) {
         this.title = title;
         this.content = content;
         this.type = type;
         this.category = category;
+        this.imagePath = imagePath;
     }
 
     public void addLikeArticles(Like like) {

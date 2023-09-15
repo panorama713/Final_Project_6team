@@ -28,6 +28,7 @@ public class ArticleResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
     private int viewCount;
+    private String imagePath;
 
     @JsonProperty("isWriter")
     private Boolean isWriter;

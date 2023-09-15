@@ -72,3 +72,16 @@ jwt:
   secret: aaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaesasdfqve
   access-token-expiration-millis: 1800000           # 30분
   refresh-token-expiration-millis: 21600000         # 6시간
+
+cloud:
+  aws:
+    s3:
+      bucket: hiddenpiece
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+    credentials:
+      access-key: AKIAZ4ENSFLQJHQJH3XV
+      secret-key: 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

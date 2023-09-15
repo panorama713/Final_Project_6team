@@ -21,16 +21,6 @@ function hideError(errorElement) {
 }
 
 // 유효성 검사 관련
-function checkPasswordMatch(passwordField, passwordCheckField, passwordCheckError) {
-    if (!passwordsMatch(passwordField.value, passwordCheckField.value)) {
-        displayError(passwordCheckError, "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-        return false;
-    } else {
-        hideError(passwordCheckError);
-        return true;
-    }
-}
-
 function checkPasswordValid(passwordInput, passwordError) {
     const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[`~₩!@#$%^&*]).{7,19}$/;
 
@@ -42,6 +32,16 @@ function checkPasswordValid(passwordInput, passwordError) {
         return false;
     } else {
         hideError(passwordError);
+        return true;
+    }
+}
+
+function checkPasswordMatch(passwordField, passwordCheckField, passwordCheckError) {
+    if (!passwordsMatch(passwordField.value, passwordCheckField.value)) {
+        displayError(passwordCheckError, "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        return false;
+    } else {
+        hideError(passwordCheckError);
         return true;
     }
 }
@@ -65,7 +65,6 @@ async function sendDataToServer(data) {
 async function changePw(data) {
     try {
         const response = await sendDataToServer(data);
-
         if (response.ok) {
             document.getElementById('result').textContent = '비밀번호 변경이 완료되었습니다. 로그인 페이지로 이동합니다.'
             localStorage.removeItem('userId')

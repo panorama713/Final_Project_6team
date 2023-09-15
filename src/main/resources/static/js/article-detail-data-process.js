@@ -5,6 +5,7 @@ function fetchArticleDetails(id) {
         .then(data => {
             console.log('게시글 상세 정보:', data);
             displayArticleDetails(data, id);
+            localStorage.setItem('userId', data.userId)
             localStorage.setItem('currentWriter', data.username);
 
             const followElement = document.getElementById("follow-btn");
@@ -52,7 +53,8 @@ function convertPathToUrl(path, articleId) {
     if (path.startsWith('http://') || path.startsWith('https://')) {
         return path;
     }
-    const basePath = "http://localhost:8080";
+    // TODO 아마 이 부분에서 s3로 교체해야하지 않나 싶은데...
+    const basePath = "//hidden-piece.kro.kr";
     if (path.startsWith('/uploads/article_images/')) {
         const imageName = path.split('/').pop();
         return `${basePath}/api/v1/articles/${articleId}/images/${imageName}`;

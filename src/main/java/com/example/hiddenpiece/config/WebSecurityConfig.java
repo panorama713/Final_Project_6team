@@ -15,10 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -61,7 +58,7 @@ public class WebSecurityConfig {
                                 "/api/v1/users/*/change-password",
                                 "/api/v1/roadmaps/count",
                                 "/api/v1/users/count",
-                                "/api/v1/roadmaps/top5",
+                                "/api/v1/roadmaps/top5/**",
                                 "/api/v1/roadmaps/total-search/**",
                                 "/api/v1/articles/total-search/**",
                                 "/api/v1/roadmaps/search/**",

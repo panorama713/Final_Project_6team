@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function getRelativeTime(dateString) {
     const date = new Date(dateString);
-    const now = new Date();
+    const now = new Date() - (9 * 60 * 60 * 1000);
 
     const timeDiff = now - date;
 

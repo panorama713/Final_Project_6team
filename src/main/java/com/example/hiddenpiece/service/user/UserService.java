@@ -53,8 +53,17 @@ public class UserService {
         if (userRepository.existsByUsername(requestDto.getUsername())) {
             throw new CustomException(ALREADY_EXIST_USER);
         }
+
         if (userRepository.existsByEmail(requestDto.getEmail())) {
             throw new CustomException(ALREADY_EXIST_EMAIL);
+        }
+
+        if (userRepository.countByUsernameAndDeleted(requestDto.getUsername()) > 0) {
+            throw new CustomException(ALREADY_DELETED_USER);
+        }
+
+        if (userRepository.countByEmailAndDeleted(requestDto.getEmail()) > 0) {
+            throw new CustomException(ALREADY_DELETED_EMAIL);
         }
 
         User user = requestDto.toEntity(passwordEncoder);
@@ -176,12 +185,10 @@ public class UserService {
     // 유저의 이름, 등록한 이메일 기반으로 아이디 찾기
     @Transactional
     public String findUsername(RequestFindUsernameDto dto) {
-        // 실명과 이메일로 사용자 존재 여부 확인
         if (!userRepository.existsByRealNameAndEmail(dto.getRealName(), dto.getEmail())) {
             throw new CustomException(NOT_FOUND_USER);
         }
 
-        // 실명, 이메일, 그리고 질문에 따른 답변이 일치하는지 확인
         if (!userRepository.existsByRealNameAndEmailAndQuestionAndAnswer(dto.getRealName(), dto.getEmail(), dto.getQuestion(), dto.getAnswer())) {
             throw new CustomException(WRONG_SECURITY_ANSWER);
         }
@@ -213,17 +220,25 @@ public class UserService {
 
     // 유저 정보 수정
     @Transactional
-    public void updateUserInfo(RequestUpdateUserInfoDto dto, MultipartFile image, Long userId, String username) {
+    public void updateUserInfo(RequestUpdateUserInfoDto dto, String image, Long userId, String username) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(NOT_FOUND_USER));
 
         if (!user.getUsername().equals(username)) throw new CustomException(USER_NOT_MATCH);
 
-        String path = userImageHandler.parseFileInfo(userId, image);
-        if (path == null) path = user.getProfileImg();
+        if (!user.getEmail().equals(dto.getEmail()) && userRepository.existsByEmail(dto.getEmail())) {
+            throw new CustomException(ALREADY_EXIST_EMAIL);
+        }
 
-        user.updateInfo(passwordEncoder.encode(dto.getPassword()), dto.getEmail(), dto.getPhone(), path);
-        userRepository.save(user);
-        log.info("이미지 등록 성공");
+        if (userRepository.countByEmailAndDeleted(dto.getEmail()) > 0) {
+            throw new CustomException(ALREADY_DELETED_EMAIL);
+        }
+
+            String path = image;
+            if (image == null) path = user.getProfileImg();
+
+            user.updateInfo(passwordEncoder.encode(dto.getPassword()), dto.getEmail(), dto.getPhone(), path);
+            userRepository.save(user);
+            log.info("이미지 등록 성공");
     }
 
     // 계정 탈퇴

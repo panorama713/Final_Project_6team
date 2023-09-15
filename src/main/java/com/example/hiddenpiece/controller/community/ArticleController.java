@@ -41,9 +41,9 @@ public class ArticleController {
     ) throws IOException {
         String username = authentication.getName();
         CreateArticleResponseDto responseDto = articleService.createArticle(username, params);
-        if (images != null && !images.isEmpty()) {
-            articleImageService.createArticleImage(images, username, responseDto.getId());
-        }
+//        if (images != null && !images.isEmpty()) {
+//            articleImageService.createArticleImage(images, username, responseDto.getId());
+//        }
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 

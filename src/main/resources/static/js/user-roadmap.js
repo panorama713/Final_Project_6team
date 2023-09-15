@@ -27,7 +27,7 @@ function fetchUserRoadmaps(roadmapId) {
             console.log(data); // 데이터 콘솔 출력
             displayRoadmaps(data);
 
-            localStorage.setItem('currentWriter', data.username);
+            localStorage.setItem('userId', data.userId);
             const followElement = document.getElementById("follow-btn");
             followElement.setAttribute("user-id-value", data.userId);
         })
@@ -94,6 +94,10 @@ function createRoadmaps(roadmap) {
     userProfileLink.classList.add('dropdown-item');
     userProfileLink.textContent = '프로필 보기';
     userProfileForm.appendChild(userProfileLink);
+
+    userProfileLink.addEventListener('click', () => {
+        localStorage.setItem('currentWriter', `${roadmap.username}`);
+    })
     // 두 번째 form 요소 생성
     const followForm = document.createElement('form');
     const followBtn = document.createElement('button');
@@ -106,9 +110,8 @@ function createRoadmaps(roadmap) {
     } else {
         followBtn.textContent = '팔로우';
     }
-    followBtn.addEventListener('click', function () {
+    followBtn.addEventListener('click', function (event) {
         event.preventDefault();
-        const usernameToFollow = localStorage.getItem('currentWriter');
         const userId = followBtn.getAttribute("user-id-value")
         fetch(`/api/v1/users/${userId}/follow`, {
             method: "POST"

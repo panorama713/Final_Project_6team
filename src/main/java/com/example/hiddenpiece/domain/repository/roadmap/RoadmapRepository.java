@@ -40,7 +40,7 @@ public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
     @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseTop5RoadmapDto(r.id, r.title, r.user.username) " +
             "FROM Roadmap r " +
             "GROUP BY r.id, r.title, r.user.username " +
-            "ORDER BY RANDOM() LIMIT 5")
+            "ORDER BY RAND() LIMIT 5")
     List<ResponseTop5RoadmapDto> findTop5ByRoadmapsWithRandom();
 
     @Query("SELECT new com.example.hiddenpiece.domain.dto.roadmap.ResponseSearchRoadmapDto(r.id, r.title, r.description, r.user.username) " +

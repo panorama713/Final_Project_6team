@@ -13,4 +13,5 @@ public class ArticleRequestDto {
     private String content;
     private Category category;
     private ArticleType type;
+    private String imagePath;
 }

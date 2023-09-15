@@ -47,7 +47,7 @@ function displayArticles(articles) {
         }
 
         // 이미지의 유무에 따른 아이콘 표시
-        if (article.hasImage) {
+        if (article.imagePath !== null) {
             titleLink.innerHTML += `<span class='inline-block'>&nbsp;📷</span>`;
         }
 

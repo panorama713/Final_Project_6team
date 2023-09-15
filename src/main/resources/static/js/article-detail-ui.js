@@ -4,9 +4,15 @@ function displayArticleDetails(data, articleId) {
     document.querySelector('#article-content').innerHTML = data.content.replace(/\n/g, '<br>');
     document.querySelector('#article-username').textContent = data.username;
     document.getElementById('bookmark-name').value = data.title;
-
     const displayDate = formatArticleDateTime(data.createdAt, data.lastModifiedAt);
     document.querySelector('#article-date').textContent = "작성 일시: " + displayDate;
+
+    const imgElement = document.getElementById("article-images");
+    imgElement.src = data.imagePath;
+
+    if (data.imagePath == null ) {
+        imgElement.style.display = "none";
+    }
 
     if (data.type) {
         // type 값 한글로 바꾸기
@@ -23,7 +29,7 @@ function displayArticleDetails(data, articleId) {
     } else {
         document.querySelector('.type').style.display = 'none';
     }
-    displayArticleImages(data.images || [], articleId);
+    // displayArticleImages(data.images || [], articleId);
 
     // 작성자의 일치 여부에 따른 글 설정 액션 버튼 표시
     const articleActionButton = document.querySelector('.btn.btn-secondary.dropdown-toggle.article-dropdown');
@@ -98,12 +104,14 @@ function formatArticleDateTime(createdAt, lastModifiedAt) {
     const createdAtDate = new Date(createdAt);
     const updatedAtDate = lastModifiedAt ? new Date(lastModifiedAt) : null;
 
-    const formattedDate = createdAtDate.toLocaleDateString('ko-KR', {
+    const koreanCreatedAtDate = new Date(createdAtDate.getTime() + (9 * 60 * 60 * 1000))
+
+    const formattedDate = koreanCreatedAtDate.toLocaleDateString('ko-KR', {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit'
     });
-    const formattedTime = createdAtDate.toLocaleTimeString('ko-KR', {hour: '2-digit', minute: '2-digit'});
+    const formattedTime = koreanCreatedAtDate.toLocaleTimeString('ko-KR', {hour: '2-digit', minute: '2-digit'});
 
     let displayString = `${formattedDate} ${formattedTime}`;
 

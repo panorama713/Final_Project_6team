@@ -1,10 +1,10 @@
 # HIDDEN PIECE
 
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/bc9cf7ff-1dd9-472f-bc95-da8d778afc1c" width=200>
+<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/bc9cf7ff-1dd9-472f-bc95-da8d778afc1c" width=300>
 
 ## HIDDEN PIECE Web Page v1.0
 
-> **`6️⃣팀 한사랑코딩회`** <br/> **멋쟁이사자처럼 백엔드 스쿨 5기** <br/> **개발 기간: 2023. 08. 09 ~ 2023. 09. 15**
+> **`6️⃣팀` `한사랑코딩회`** <br/> **멋쟁이사자처럼 백엔드 스쿨 5기** <br/> **개발 기간: 2023. 08. 09 ~ 2023. 09. 15**
 
 ## 배포 주소
 
@@ -80,6 +80,7 @@ $ cd Final_Project_6team
 ![NGINX](https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=white)
 ![Amazon EC2](https://img.shields.io/badge/Amazon%20EC2-FF9900?style=for-the-badge&logo=Amazon%20EC2&logoColor=white)
 ![Amazon RDS](https://img.shields.io/badge/Amazon%20RDS-527FFF?style=for-the-badge&logo=Amazon%20RDS&logoColor=white)
+![Amazon S3](https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white)
 
 ### Communication
 ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
@@ -131,7 +132,7 @@ $ cd Final_Project_6team
 
 ### 서비스 아키텍처
 
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/69d9c1ed-be8b-4941-8786-491763c71a20" width=600>
+<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/3eef2152-93ba-4519-a709-1e797d2d1170" width=600>
 
 ### ERD
 
@@ -162,9 +163,6 @@ $ cd Final_Project_6team
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config : 설정 및 구성 관련 모듈
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller : API 컨트롤러 및 요청 처리
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain : 사용자, 로드맵 등의 도메인 관련 기능
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂entity
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂repository
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception : 오류 처리를 위한 사용자 정의 예외
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂oauth : OAuth 인증 및 토큰 처리 모듈
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂redis : Redis 관련 설정 및 모듈

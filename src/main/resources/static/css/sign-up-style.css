@@ -1,0 +1,182 @@
+/* 폰트 로드 */
+@font-face {
+    font-family: "CustomFont";
+    src: url("/static/fonts/JalnanOTF.otf") format("opentype"),
+    url("/static/fonts/Jalnan.ttf") format("truetype");
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #4e4897;
+    --sub-color: #a7a5cd;
+    --white-color: #ffffff;
+}
+
+/* 기본 스타일 */
+body {
+    background-color: #f6f6f6;
+    font-family: 'CustomFont', sans-serif;
+}
+
+/* 공통 텍스트 스타일 */
+.text-center {
+    text-align: center;
+}
+
+.margin-auto {
+    margin: 0 auto;
+}
+
+.container {
+    margin: 50px auto;
+}
+
+/* 로고 스타일 */
+.main-logo {
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+/* 회원가입 폼 컨테이너 스타일 */
+.signup-container {
+    background-color: var(--white-color);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+}
+
+/* 폼 스타일 */
+#sign-up-form {
+    margin: 0 auto;
+    max-width: 600px;
+    padding-bottom: 60px;
+    position: relative;
+}
+
+.form-label, .form-control, .form-check-input, .form-select {
+    border-color: var(--main-color);
+    color: var(--main-color);
+    font-size: 20px;
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    min-width: 100px;
+}
+
+.form-control, .form-check-input, .form-select {
+    border: 2px solid var(--main-color);
+    border-radius: 0;
+    padding: 10px;
+}
+
+.form-control, .form-select {
+    margin-bottom: 20px;
+    width: 100%;
+    height: 55px;
+}
+
+.form-control:focus, .form-check-input:focus, .form-select:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 0.3rem rgba(78, 72, 151, 0.25);
+}
+
+.form-control:hover, .form-select:hover {
+    border-color: var(--sub-color);
+}
+
+#question {
+    color: #737a81;
+    font-size: 1rem;
+}
+
+#question option:disabled {
+    color: red;
+}
+
+.form-check-label {
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.form-check .form-check-input {
+    vertical-align: middle;
+    float: left;
+    margin-left: -1.3em;
+}
+
+.form-check-input:checked {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+/* 버튼 스타일 */
+.sign-up-btn {
+    bottom: 0;
+    font-size: 25px;
+    position: absolute;
+    right: 0;
+    width: 50%;
+}
+
+.btn-main-color, .btn-primary {
+    background-color: var(--white-color);
+    border: 3px solid var(--main-color);
+    border-radius: 15px;
+    color: var(--main-color);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-main-color:active, .btn-main-color:focus, .btn-main-color:hover,
+.btn-primary:active, .btn-primary:focus, .btn-primary:hover,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+    background-color: var(--sub-color);
+    border-color: var(--main-color);
+    color: var(--white-color);
+}
+
+.custom-control-input:checked ~ .custom-control-label::before,
+.custom-control-input:checked ~ .custom-control-label::after {
+    border-color: var(--main-color);
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: var(--main-color);
+}
+
+/* 약관 스타일 */
+.agreements {
+    height: 100px;
+}
+
+.agreement-text {
+    background-color: var(--main-color);
+    border-radius: 5px;
+    color: var(--white-color);
+    padding: 2px 5px;
+    display: inline-block;
+    text-decoration: underline !important;
+}
+
+.required-badge, .optional-badge {
+    border-radius: 5px;
+    color: var(--white-color);
+    padding: 2px 5px;
+}
+
+.required-badge {
+    background-color: red;
+}
+
+.optional-badge {
+    background-color: green;
+}
+
+.form-check-label a span {
+    text-decoration: none;
+}

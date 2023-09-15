@@ -1,0 +1,85 @@
+@font-face {
+    font-family: "CustomFont";
+    src: url("/static/fonts/JalnanOTF.otf") format("opentype"),
+    url("/static/fonts/Jalnan.ttf") format("truetype");
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #9490c7;
+    --sub-color: #a7a5cd;
+    --sub-color2: #6762A6;
+    --white-color: #ffffff;
+    --bs-emphasis-color: #000;
+    --bs-emphasis-color-rgb: 0, 0, 0;
+    --bs-tertiary-bg: #f8f9fa;
+}
+
+/* 기본 스타일 */
+body {
+    background-color: #f6f6f6;
+    font-family: 'CustomFont', sans-serif;
+}
+
+.custom-class {
+    width: 100%;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    max-width: 800px;
+    min-width: 650px;
+    margin: 0 auto;
+    height: 400px;
+}
+
+.profile-info {
+    text-align: center;
+    min-width: 160px;
+    margin-left: 10px;
+}
+
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.username {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+
+.follow-count {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+
+.profile-details {
+    text-align: left;
+    width: 350px;
+}
+
+.profile-follow-details {
+    margin-top: 10px;
+}
+
+
+.profile-info-item {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-body {
+    display: flex;
+    min-width: 650px;
+    justify-content: space-between;
+    align-items: center;
+}

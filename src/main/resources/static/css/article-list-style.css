@@ -1,0 +1,101 @@
+/* 글씨체 적용 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #4e4897;
+    --sub-color: #a7a5cd;
+    --white-color: #ffffff;
+}
+
+/* 폰트 설정 */
+* {
+    font-family: "yg-jalnan" !important;
+}
+
+/* styles.css */
+
+a, a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--main-color);
+    text-decoration: underline;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(241, 238, 255)
+}
+
+.col {
+    color: var(--main-color);
+}
+
+.line {
+    background: var(--main-color);
+    height: 4px;
+    border: 0;
+}
+
+.article-search-btn {
+    border: 2px solid var(--main-color);
+    background-color: var(--main-color);
+}
+
+.table th.title-col {
+    width: 40%;
+}
+
+/* pagenation 버튼 스타일 */
+.custom-button {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+    color: white;
+    margin-right: 5px;
+}
+
+.custom-button:last-child {
+    margin-right: 0;
+}
+
+/* 현재 page 스타일 */
+.custom-button.active {
+    background-color: var(--sub-color);
+    border-color: var(--sub-color);
+    color: var(--main-color);
+}
+
+#write-btn {
+    float: right;
+    border: 2px solid var(--main-color);
+    background-color: var(--main-color);
+    color: white;
+}
+
+#write-btn:hover, #article-search-button:hover {
+    text-decoration: none;
+    border: 2px solid var(--sub-color);
+    background-color: var(--sub-color);
+    color: var(--main-color);
+}
+
+.inline-block {
+    color: var(--sub-color);
+    display: inline-block;
+}
+
+.form-control:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 0.3rem rgba(78, 72, 151, 0.25);
+}
+
+.form-control:hover {
+    border-color: var(--sub-color);
+}

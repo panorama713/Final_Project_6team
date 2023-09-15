@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://getbootstrap.kr/docs/5.3/examples/carousel/carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/nav-style.css">
+    <link rel="stylesheet" href="/static/css/article-write-style.css">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+
+</head>
+
+<body>
+
+<header th:replace="navbar.html :: header"></header>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-left">게시글 작성</h2>
+        </div>
+        <div class="card-body">
+            <form id="article-form">
+                <div class="mb-3 d-flex align-items-start">
+                    <div class="me-2">
+                        <select name="category" id="category" class="form-select" required>
+                            <option value="">게시판 선택</option>
+                            <option value="FRONTEND">FRONT-END</option>
+                            <option value="BACKEND">BACK-END</option>
+                            <option value="MOBILE">MOBILE</option>
+                            <option value="GAME">GAME</option>
+                            <option value="DEVOPS">DEVOPS</option>
+                        </select>
+                    </div>
+                    <div class="me-2">
+                        <select name="type" id="type" class="form-select" required>
+                            <option value="">말머리 선택</option>
+                            <option value="NOTI">공지</option>
+                            <option value="QUESTION">질문</option>
+                            <option value="STUDY">스터디</option>
+                            <option value="TIP">지식</option>
+                            <option value="CHAT">잡담</option>
+                        </select>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-title" placeholder="제목" id="title" name="title" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-content" placeholder="내용을 입력하세요." id="content" name="content" rows="5"
+                              required></textarea>
+                    <input type="file" id="image" name="image" multiple>
+                </div>
+                <div class="d-flex justify-content-end">
+                </div>
+            </form>
+            <button id="article-write" class="btn btn-primary write-btn">작성</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+<script src="/static/js/article-write-data-process.js"></script>
+<script src="/static/js/reissue-interceptor.js"></script>
+<script type="module" src="/static/js/nav-event-handler.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.example.hiddenpiece.common;
+package com.example.hiddenpiece.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

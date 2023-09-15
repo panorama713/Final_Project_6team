@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hidden Piece</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="/static/css/my-page-sidebar-style.css" rel="stylesheet">
+    <link href="/static/css/my-profile-style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+</head>
+<body>
+<main class="d-flex flex-fill">
+    <div th:replace="my-page-sidebar :: div"></div>
+    <div id="content-container" class="d-flex flex-fill my-5 custom-class">
+        <div class="col-lg-8 mx-auto p-4 py-md-5">
+            <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+                <span class="fs-4">나의 프로필</span>
+            </header>
+
+            <div class="profile-container card">
+                <div class="card-body">
+                    <div class="profile-info">
+                        <img class="profile-image" src="프로필 이미지 URL" alt="프로필 이미지" id="p-img">
+                        <div class="profile-follow-details">
+                            <p class="follow-count">팔로워: <span id="follower-count"></span></p>
+                            <p class="follow-count">팔로잉: <span id="following-count"></span></p>
+                        </div>
+                    </div>
+                    <div class="profile-details">
+                        <p class="username">아이디: <span id="username"></span></p>
+                        <p class="profile-info-item">이름: <span id="real-name"></span></p>
+                        <p class="profile-info-item">이메일: <span id="email"></span></p>
+                        <p class="profile-info-item">작성한 게시글 수: <span id="written-articles"></span></p>
+                        <p class="profile-info-item">작성한 댓글 수: <span id="written-comments"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+<script src="/static/js/my-profile-event-handler.js"></script>
+<script src="/static/js/reissue-interceptor.js"></script>
+</body>
+</html>

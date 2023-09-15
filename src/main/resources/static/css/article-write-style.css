@@ -1,0 +1,82 @@
+/* 글씨체 적용 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 사용자 지정 속성 */
+:root {
+    --main-color: #4e4897;
+    --sub-color: #bab9e7;
+    --white-color: #ffffff;
+}
+
+/* 폰트 설정 */
+* {
+    font-weight: bold;
+    color: black;
+    font-family: 'yg-jalnan';
+}
+
+.form-label {
+    font-weight: bold;
+    color: var(--main-color);
+}
+
+.card {
+    border: 2px solid var(--main-color);
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 50px;
+}
+
+/* 작성 버튼 설정 */
+.write-btn {
+    border: 2px solid var(--main-color);
+    background-color: white;
+    border-radius: 5px;
+    color: var(--main-color);
+    transition: background-color 0.3s, border-color 0.3s;
+    font-family: 'yg-jalnan';
+    float: right;
+}
+
+.btn-primary:hover {
+    background-color: var(--sub-color);
+    border-color: var(--main-color);
+    color: white;
+}
+
+/* type 선택 설정 */
+.form-select {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid var(--main-color);
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 130px;
+}
+
+/* 내용 설정 */
+.form-content {
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid var(--main-color);
+    background-color: white;
+    width: 100%;
+    min-height: 15em;
+}
+
+/* 제목 설정 */
+.form-title {
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid var(--main-color);
+    background-color: white;
+    width: 77%;
+}

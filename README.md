@@ -144,11 +144,11 @@ $ cd Final_Project_6team
 
 [↗️Notion: Workspace](https://www.notion.so/sssssn/v1-0-91548bf5d2e04809bd8f89b758503388)
 
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/ca61c1b3-e961-4507-ab97-1b5be63fe002"> </br>
+![image](https://github.com/panorama713/Final_Project_6team/assets/85289162/8e9ae387-09c6-4a71-aa29-ea283985bfc8) </br>
 
 [↗️Swagger: API Documentation](https://hidden-piece.kro.kr/swagger-ui/index.html)
 
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/aaae0f67-bea2-40e3-befc-29449a2a8418">
+![image](https://github.com/panorama713/Final_Project_6team/assets/85289162/162c264e-ffe7-4a18-a94d-365ecff440b2)
 
 ### 디렉토리 구조
 

@@ -91,7 +91,7 @@ $ cd Final_Project_6team
 
 |메인 페이지|마이 페이지|
 |:--:|:--:|
-|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/d6c1b269-aed9-4aa5-9328-092c07cf021e" width=500 height=200>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/7e14c400-4f08-4085-a305-ed10d3bee8e3" width=500 height=200>|
+|<img width="524" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/08f2fc0a-e375-4a78-8e99-6d1e3762e145" width=500 height=200>|<img width="526" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b13a8aee-0371-4761-9dd4-804a484e4b3a" width=500 height=200>|
 |로드맵 페이지|로드맵 상세 페이지|
 |<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/c203b382-89ec-437d-9c3a-eb02481273c9" width=500 height=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/68c4f18d-995c-42fe-96a7-b2a9da67b22a" width=500 height=300>|
 |커뮤니티 페이지|커뮤니티 상세 페이지|

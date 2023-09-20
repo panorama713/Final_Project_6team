@@ -93,8 +93,7 @@ $ cd Final_Project_6team
 |:--:|:--:|
 |<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/08f2fc0a-e375-4a78-8e99-6d1e3762e145" width=500 height=300>|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b13a8aee-0371-4761-9dd4-804a484e4b3a" width=500 height=300>|
 |로드맵 페이지|로드맵 상세 페이지|
-|<img width="379" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/ad134b1b-24e6-4e5d-8f90-42fb25b3439b">
-|<img width="370" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b6bc6351-6cb6-4ce4-a24b-c666e05ae8c9">
+|<img width="379" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/ad134b1b-24e6-4e5d-8f90-42fb25b3439b">|<img width="370" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b6bc6351-6cb6-4ce4-a24b-c666e05ae8c9">
 |
 |커뮤니티 페이지|커뮤니티 상세 페이지|
 |<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/80596802-2015-4e37-9c45-03cb98ee708b" width=500 height=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/d70ef7d8-a168-4ae0-a470-8597c61a4a94" width=500 height=300>|

@@ -93,11 +93,11 @@ $ cd Final_Project_6team
 |:--:|:--:|
 |<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/08f2fc0a-e375-4a78-8e99-6d1e3762e145" width=500 height=300>|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b13a8aee-0371-4761-9dd4-804a484e4b3a" width=500 height=300>|
 |로드맵 페이지|로드맵 상세 페이지|
-|<img width="379" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/ad134b1b-24e6-4e5d-8f90-42fb25b3439b">|<img width="370" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b6bc6351-6cb6-4ce4-a24b-c666e05ae8c9">|
+|<img width="379" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/ad134b1b-24e6-4e5d-8f90-42fb25b3439b">|<img width="370" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b6bc6351-6cb6-4ce4-a24b-c666e05ae8c9">|
 |커뮤니티 페이지|커뮤니티 상세 페이지|
-|<img width="362" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/8b8b025a-6fb4-4ce2-9272-ee8e2d3b1c12">|<img width="358" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/421db79d-98bf-45d1-a7fb-967cc22ec1fb">|
+|<img width="362" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/8b8b025a-6fb4-4ce2-9272-ee8e2d3b1c12">|<img width="358" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/421db79d-98bf-45d1-a7fb-967cc22ec1fb">|
 |회원가입 페이지|로그인 페이지|
-|<img width="362" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/0feb8ad0-4662-440a-af38-eb6ae5df0dc6">|<img width="367" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/939f98cf-62c9-4652-ac12-1887f4ea75f5">|
+|<img width="362" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/0feb8ad0-4662-440a-af38-eb6ae5df0dc6">|<img width="367" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/939f98cf-62c9-4652-ac12-1887f4ea75f5">|
 
 ---
 ## 주요 기능

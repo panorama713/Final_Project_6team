@@ -96,9 +96,13 @@ $ cd Final_Project_6team
 |<img width="379" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/ad134b1b-24e6-4e5d-8f90-42fb25b3439b">|<img width="370" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b6bc6351-6cb6-4ce4-a24b-c666e05ae8c9">
 |
 |커뮤니티 페이지|커뮤니티 상세 페이지|
-|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/80596802-2015-4e37-9c45-03cb98ee708b" width=500 height=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/d70ef7d8-a168-4ae0-a470-8597c61a4a94" width=500 height=300>|
+|<img width="362" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/8b8b025a-6fb4-4ce2-9272-ee8e2d3b1c12">
+|<img width="358" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/421db79d-98bf-45d1-a7fb-967cc22ec1fb">
+|
 |회원가입 페이지|로그인 페이지|
-|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/8fdbacf4-68b2-428c-b195-11ab66097696" width=500 height=400>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/0495e1a4-40ee-4162-93e9-940f78b88cb8" width=500 height=400>|
+|<img width="362" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/0feb8ad0-4662-440a-af38-eb6ae5df0dc6">
+|<img width="367" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/939f98cf-62c9-4652-ac12-1887f4ea75f5">
+|
 
 ---
 ## 주요 기능
@@ -133,11 +137,13 @@ $ cd Final_Project_6team
 
 ### 서비스 아키텍처
 
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/3eef2152-93ba-4519-a709-1e797d2d1170" width=600>
+![service-architecture](https://github.com/panorama713/Final_Project_6team/assets/85289162/c4b59182-5555-43f4-9f7d-8395244eb3ae)
+
 
 ### ERD
 
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/e587e34e-ff4f-4c27-9d5a-2163eeb1a34d" width=600>
+![6Team_ERD](https://github.com/panorama713/Final_Project_6team/assets/85289162/fbf41e02-01d1-4246-92c4-d1f1fafd4378)
+
 
 ### 그 외
 

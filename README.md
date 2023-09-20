@@ -1,6 +1,6 @@
 # HIDDEN PIECE
 
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/bc9cf7ff-1dd9-472f-bc95-da8d778afc1c" width=300>
+<img width="243" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/f14b3103-f11a-48a1-85d7-05667f1c72e9" width=300>
 
 ## HIDDEN PIECE Web Page v1.0
 
@@ -8,7 +8,7 @@
 
 ## 배포 주소
 
-> **깃허브**: [↗️https://github.com/likelion-backend-5th/Final_Project_6team](https://github.com/likelion-backend-5th/Final_Project_6team) <br>
+> **깃허브**: [↗️https://github.com/likelion-backend-5th/Final_Project_6team](https://github.com/panorama713/Final_Project_6team) <br>
 > **서버**: [↗️https://www.hidden-piece.kro.kr/views/main](https://www.hidden-piece.kro.kr/views/main) <br>
 
 ## 개발팀 소개 🫂

@@ -15,9 +15,10 @@
 
 ## 개발팀 소개 🫂
 
+
 |대장|부끄러운 질문봇|건강관리사|치어리더|구글링 고수|
 |:--:|:--:|:-:|:-:|:-:|
-|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/95e8dae3-903a-4c01-abb6-3eb2e399622e" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/1f8d213c-598f-45e1-a49e-c6608c7ea405" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/b3c06e39-3f39-4015-b809-e7e1bb2d9a1d" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/a157c6b9-85a7-4897-8666-258bf44119ea" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/62f5059c-fbb1-4b89-a0a1-0b51b7aaa01b" width=300>|
+|![269176841-cc86e98a-86ae-4d7f-b16d-53c58c997d39](https://github.com/panorama713/Final_Project_6team/assets/85289162/69b3718b-4751-4e84-8ba2-4f6c84aa75ee)|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/1f8d213c-598f-45e1-a49e-c6608c7ea405" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/b3c06e39-3f39-4015-b809-e7e1bb2d9a1d" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/a157c6b9-85a7-4897-8666-258bf44119ea" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/62f5059c-fbb1-4b89-a0a1-0b51b7aaa01b" width=300>|
 |[↗️김영근](https://github.com/panorama713)|[↗️권선녀](https://github.com/sssssn)|[↗️장영조](https://github.com/Jyoungjo)|[↗️최경환](https://github.com/damsul)|[↗️서지원](https://github.com/mechuri)|
 |로드맵 페이지|회원가입, 커뮤니티 페이지|로그인, 메인, 마이 페이지, 인프라 구축|로드맵 페이지|커뮤니티, 마이 페이지, 유저프로필|
 
@@ -185,3 +186,6 @@ $ cd Final_Project_6team
  ┗ 📜README.md : 프로젝트 설명 문서
 
 ```
+
+
+<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/95e8dae3-903a-4c01-abb6-3eb2e399622e" width=300>

@@ -15,7 +15,6 @@
 
 ## 개발팀 소개 🫂
 
-
 |대장|부끄러운 질문봇|건강관리사|치어리더|구글링 고수|
 |:--:|:--:|:-:|:-:|:-:|
 |<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/95e8dae3-903a-4c01-abb6-3eb2e399622e" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/1f8d213c-598f-45e1-a49e-c6608c7ea405" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/b3c06e39-3f39-4015-b809-e7e1bb2d9a1d" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/a157c6b9-85a7-4897-8666-258bf44119ea" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/62f5059c-fbb1-4b89-a0a1-0b51b7aaa01b" width=300>|

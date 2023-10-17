@@ -2,7 +2,8 @@
 
 <img width="243" alt="image" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/f14b3103-f11a-48a1-85d7-05667f1c72e9" width=300>
 
-![image](https://github.com/panorama713/Final_Project_6team/assets/85289162/b0d9e854-6d93-418f-a055-b88c700c89ad)
+![269176631-d453dc29-341f-404b-a2ea-4aaaae619181](https://github.com/panorama713/Final_Project_6team/assets/85289162/61d48e3e-2419-4e5c-aeac-75b8f17612b4)
+
 
 
 ## HIDDEN PIECE Web Page v1.0

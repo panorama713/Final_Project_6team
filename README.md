@@ -147,11 +147,11 @@ $ cd Final_Project_6team
 
 [↗️Notion: Workspace](https://www.notion.so/sssssn/v1-0-91548bf5d2e04809bd8f89b758503388)
 
-![image](https://github.com/panorama713/Final_Project_6team/assets/85289162/8e9ae387-09c6-4a71-aa29-ea283985bfc8) </br>
+![269177820-0267cd90-0428-4a3b-9238-ec6c0c5a2d39](https://github.com/panorama713/Final_Project_6team/assets/85289162/8db9c237-3029-43f0-916e-657a25baa817) </br>
 
 [↗️Swagger: API Documentation](https://hidden-piece.kro.kr/swagger-ui/index.html)
 
-![image](https://github.com/panorama713/Final_Project_6team/assets/85289162/162c264e-ffe7-4a18-a94d-365ecff440b2)
+![269177914-e6c2efa4-2642-458e-9966-d4b1fb6727ab](https://github.com/panorama713/Final_Project_6team/assets/85289162/037513eb-1889-4654-83f5-74eda829bd6d)
 
 ### 디렉토리 구조
 
@@ -186,20 +186,3 @@ $ cd Final_Project_6team
  ┗ 📜README.md : 프로젝트 설명 문서
 
 ```
-
-
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/95e8dae3-903a-4c01-abb6-3eb2e399622e" width=300>
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/1f8d213c-598f-45e1-a49e-c6608c7ea405" width=300>
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/b3c06e39-3f39-4015-b809-e7e1bb2d9a1d" width=300>
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/a157c6b9-85a7-4897-8666-258bf44119ea" width=300>
-<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/62f5059c-fbb1-4b89-a0a1-0b51b7aaa01b" width=300>
-
-<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/08f2fc0a-e375-4a78-8e99-6d1e3762e145" width=500 height=300>|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b13a8aee-0371-4761-9dd4-804a484e4b3a" width=500 height=300>
-<img width="379" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/ad134b1b-24e6-4e5d-8f90-42fb25b3439b">
-<img width="370" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b6bc6351-6cb6-4ce4-a24b-c666e05ae8c9">
-<img width="362" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/8b8b025a-6fb4-4ce2-9272-ee8e2d3b1c12">
-<img width="358" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/421db79d-98bf-45d1-a7fb-967cc22ec1fb">
-<img width="362" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/0feb8ad0-4662-440a-af38-eb6ae5df0dc6">
-<img width="367" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/939f98cf-62c9-4652-ac12-1887f4ea75f5">
-![service-architecture](https://github.com/panorama713/Final_Project_6team/assets/85289162/c4b59182-5555-43f4-9f7d-8395244eb3ae)
-![6Team_ERD](https://github.com/panorama713/Final_Project_6team/assets/85289162/fbf41e02-01d1-4246-92c4-d1f1fafd4378)

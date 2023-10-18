@@ -18,7 +18,7 @@
 
 |대장|부끄러운 질문봇|건강관리사|치어리더|구글링 고수|
 |:--:|:--:|:-:|:-:|:-:|
-|![269176841-cc86e98a-86ae-4d7f-b16d-53c58c997d39](https://github.com/panorama713/Final_Project_6team/assets/85289162/69b3718b-4751-4e84-8ba2-4f6c84aa75ee)|![269176875-e1c3d50c-3051-411e-8251-edc0254cda3f](https://github.com/panorama713/Final_Project_6team/assets/85289162/c9754ee4-9c22-4633-9993-f9f08510e809)|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/b3c06e39-3f39-4015-b809-e7e1bb2d9a1d" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/a157c6b9-85a7-4897-8666-258bf44119ea" width=300>|<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/62f5059c-fbb1-4b89-a0a1-0b51b7aaa01b" width=300>|
+|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/69b3718b-4751-4e84-8ba2-4f6c84aa75ee" width="300">|<img src ="https://github.com/panorama713/Final_Project_6team/assets/85289162/c9754ee4-9c22-4633-9993-f9f08510e809" width="300">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/5a7ea53f-09cc-4ec1-8f44-b2415521e425" width="300">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/0a0f1ac8-b3a2-437c-b108-450723c4dd0d" width="300">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/8a6c0528-d53f-47af-bdba-2e60566e0fce" width="300">|
 |[↗️김영근](https://github.com/panorama713)|[↗️권선녀](https://github.com/sssssn)|[↗️장영조](https://github.com/Jyoungjo)|[↗️최경환](https://github.com/damsul)|[↗️서지원](https://github.com/mechuri)|
 |로드맵 페이지|회원가입, 커뮤니티 페이지|로그인, 메인, 마이 페이지, 인프라 구축|로드맵 페이지|커뮤니티, 마이 페이지, 유저프로필|
 
@@ -94,13 +94,13 @@ $ cd Final_Project_6team
 
 |메인 페이지|마이 페이지|
 |:--:|:--:|
-|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/08f2fc0a-e375-4a78-8e99-6d1e3762e145" width=500 height=300>|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b13a8aee-0371-4761-9dd4-804a484e4b3a" width=500 height=300>|
+|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/436ff51d-6370-4925-a365-f1ad07eda4ce" width="500" hight="300">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b0939d1d-53e9-42ff-ae1d-4d1d07e6365f" width="500" hight="300">|
 |로드맵 페이지|로드맵 상세 페이지|
-|<img width="379" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/ad134b1b-24e6-4e5d-8f90-42fb25b3439b">|<img width="370" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b6bc6351-6cb6-4ce4-a24b-c666e05ae8c9">|
+|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/73a7c631-764a-478b-8773-969842db83e8" width="379">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/6c132fde-3b13-4aea-afa2-0fc1667d2927" width="370">|
 |커뮤니티 페이지|커뮤니티 상세 페이지|
-|<img width="362" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/8b8b025a-6fb4-4ce2-9272-ee8e2d3b1c12">|<img width="358" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/421db79d-98bf-45d1-a7fb-967cc22ec1fb">|
+|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/905590a0-b577-4eee-8dae-de5f6ee43d3a" width="362">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/93fb713a-ad16-4ff6-b4d8-a2304c6bc0be" width="358">|
 |회원가입 페이지|로그인 페이지|
-|<img width="362" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/0feb8ad0-4662-440a-af38-eb6ae5df0dc6">|<img width="367" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/939f98cf-62c9-4652-ac12-1887f4ea75f5">|
+|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/1545ecd5-b6ba-44e2-a6fb-942a13acaee5" width="362">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/90feaa6b-f66f-44b3-a6b2-59fa68b16e6d" width="367">|
 
 ---
 ## 주요 기능
@@ -135,12 +135,12 @@ $ cd Final_Project_6team
 
 ### 서비스 아키텍처
 
-![service-architecture](https://github.com/panorama713/Final_Project_6team/assets/85289162/c4b59182-5555-43f4-9f7d-8395244eb3ae)
+![269177647-a9ebd225-71ef-4b27-8adc-27e7ef8cc034](https://github.com/panorama713/Final_Project_6team/assets/85289162/0bdff24a-38e4-420d-87db-930175ee63d6)
 
 
 ### ERD
 
-![6Team_ERD](https://github.com/panorama713/Final_Project_6team/assets/85289162/fbf41e02-01d1-4246-92c4-d1f1fafd4378)
+![269177718-e71b46d3-785b-4cd2-9765-ec607672ae28](https://github.com/panorama713/Final_Project_6team/assets/85289162/084b7eb1-83e0-4431-ad46-bab79b5c3e50)
 
 
 ### 그 외
@@ -190,3 +190,16 @@ $ cd Final_Project_6team
 
 <img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/95e8dae3-903a-4c01-abb6-3eb2e399622e" width=300>
 <img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/1f8d213c-598f-45e1-a49e-c6608c7ea405" width=300>
+<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/b3c06e39-3f39-4015-b809-e7e1bb2d9a1d" width=300>
+<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/a157c6b9-85a7-4897-8666-258bf44119ea" width=300>
+<img src="https://github.com/likelion-backend-5th/Final_Project_6team/assets/130052050/62f5059c-fbb1-4b89-a0a1-0b51b7aaa01b" width=300>
+
+<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/08f2fc0a-e375-4a78-8e99-6d1e3762e145" width=500 height=300>|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b13a8aee-0371-4761-9dd4-804a484e4b3a" width=500 height=300>
+<img width="379" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/ad134b1b-24e6-4e5d-8f90-42fb25b3439b">
+<img width="370" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/b6bc6351-6cb6-4ce4-a24b-c666e05ae8c9">
+<img width="362" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/8b8b025a-6fb4-4ce2-9272-ee8e2d3b1c12">
+<img width="358" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/421db79d-98bf-45d1-a7fb-967cc22ec1fb">
+<img width="362" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/0feb8ad0-4662-440a-af38-eb6ae5df0dc6">
+<img width="367" src="https://github.com/panorama713/Final_Project_6team/assets/85289162/939f98cf-62c9-4652-ac12-1887f4ea75f5">
+![service-architecture](https://github.com/panorama713/Final_Project_6team/assets/85289162/c4b59182-5555-43f4-9f7d-8395244eb3ae)
+![6Team_ERD](https://github.com/panorama713/Final_Project_6team/assets/85289162/fbf41e02-01d1-4246-92c4-d1f1fafd4378)

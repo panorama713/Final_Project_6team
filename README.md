@@ -18,7 +18,7 @@
 
 |대장|부끄러운 질문봇|건강관리사|치어리더|구글링 고수|
 |:--:|:--:|:-:|:-:|:-:|
-|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/69b3718b-4751-4e84-8ba2-4f6c84aa75ee" width="300">|<img src ="https://github.com/panorama713/Final_Project_6team/assets/85289162/c9754ee4-9c22-4633-9993-f9f08510e809" width="300">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/5a7ea53f-09cc-4ec1-8f44-b2415521e425" width="300">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/0a0f1ac8-b3a2-437c-b108-450723c4dd0d" width="300">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/8a6c0528-d53f-47af-bdba-2e60566e0fce" width="300">|
+|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/69b3718b-4751-4e84-8ba2-4f6c84aa75ee" width="300">|<img src ="https://github.com/panorama713/Final_Project_6team/assets/85289162/c9754ee4-9c22-4633-9993-f9f08510e809" width="300">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/5a7ea53f-09cc-4ec1-8f44-b2415521e425" width="300">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/8a6c0528-d53f-47af-bdba-2e60566e0fce" width="300">|<img src="https://github.com/panorama713/Final_Project_6team/assets/85289162/8a6c0528-d53f-47af-bdba-2e60566e0fce" width="300">|
 |[↗️김영근](https://github.com/panorama713)|[↗️권선녀](https://github.com/sssssn)|[↗️장영조](https://github.com/Jyoungjo)|[↗️최경환](https://github.com/damsul)|[↗️서지원](https://github.com/mechuri)|
 |로드맵 페이지|회원가입, 커뮤니티 페이지|로그인, 메인, 마이 페이지, 인프라 구축|로드맵 페이지|커뮤니티, 마이 페이지, 유저프로필|
 
